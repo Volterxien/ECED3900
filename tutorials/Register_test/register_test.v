@@ -20,9 +20,15 @@ module adder (SW, HEX0, HEX1, HEX2, HEX3, OT);
 	seven_seg_decoder decode1( .Reg1 (nib0), 
 										.HEX0 (HEX0), 
 										.Clock (Clock));
-	seven_seg_decoder decode2(nib1, HEX1, Clock);
-	seven_seg_decoder decode3(nib2, HEX2, Clock);
-	seven_seg_decoder decode4(nib3, HEX3, Clock);
+	seven_seg_decoder decode2( .Reg1 (nib1), 
+										.HEX0 (HEX1), 
+										.Clock (Clock));
+	seven_seg_decoder decode3( .Reg1 (nib2), 
+										.HEX0 (HEX2), 
+										.Clock (Clock));
+	seven_seg_decoder decode4( .Reg1 (nib3), 
+										.HEX0 (HEX3), 
+										.Clock (Clock));
 	always @(posedge Clock) begin
         Reg1 <= SW[15:0];
 	end
