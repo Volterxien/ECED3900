@@ -1,5 +1,5 @@
 EDA Netlist Writer report for loader
-Wed Feb  8 09:02:36 2023
+Sun Feb 12 10:57:59 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -37,7 +37,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Wed Feb  8 09:02:36 2023 ;
+; EDA Netlist Writer Status ; Successful - Sun Feb 12 10:57:59 2023 ;
 ; Revision Name             ; loader                                ;
 ; Top-level Entity Name     ; loader                                ;
 ; Family                    ; Cyclone IV E                          ;
@@ -66,13 +66,13 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------------------------------------------------------------+--------------------+
 
 
-+-----------------------------------------------------------------------------+
-; Simulation Generated Files                                                  ;
-+-----------------------------------------------------------------------------+
-; Generated Files                                                             ;
-+-----------------------------------------------------------------------------+
-; C:/Users/Mark McCoy/Documents/ECED3900/loader/simulation/modelsim/loader.vo ;
-+-----------------------------------------------------------------------------+
++------------------------------------------------------------------------+
+; Simulation Generated Files                                             ;
++------------------------------------------------------------------------+
+; Generated Files                                                        ;
++------------------------------------------------------------------------+
+; C:/Users/mccoy/Documents/ECED3900/loader/simulation/modelsim/loader.vo ;
++------------------------------------------------------------------------+
 
 
 +-----------------------------+
@@ -81,14 +81,14 @@ https://fpgasoftware.intel.com/eula.
 Info: *******************************************************************
 Info: Running Quartus Prime EDA Netlist Writer
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Wed Feb  8 09:02:35 2023
+    Info: Processing started: Sun Feb 12 10:57:59 2023
 Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off loader -c loader
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (204019): Generated file loader.vo in folder "C:/Users/Mark McCoy/Documents/ECED3900/loader/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file loader.vo in folder "C:/Users/mccoy/Documents/ECED3900/loader/simulation/modelsim/" for EDA simulation tool
 Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4648 megabytes
-    Info: Processing ended: Wed Feb  8 09:02:36 2023
-    Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:01
+    Info: Peak virtual memory: 4651 megabytes
+    Info: Processing ended: Sun Feb 12 10:57:59 2023
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
 
 

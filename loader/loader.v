@@ -7,19 +7,21 @@ module loader (SW, HEX0, HEX1, HEX2, HEX3);
 	
 	// Guide for memory initialization: https://projectf.io/posts/initialize-memory-in-verilog/
 	
-	reg [7:0] memory [0:16'h10000];
+	reg [7:0] memory [0:16'hffff];
 	initial begin
-		$writememh("memory.txt", memory, 0);
+		$readmemh("memory.txt", memory, 0);
+		$display("Data: %h", memory[7]);
 	end
 	
-   wire Clock, addr;
+	wire Clock;
+	wire [15:0] addr;
 	wire [3:0] nib0, nib1, nib2, nib3;
 	assign Clock = SW[16];
 	assign addr = SW[15:0];
 	assign nib0 = memory[addr][3:0];
 	assign nib1 = memory[addr][7:4];
-	assign nib2 = memory[addr][11:8];
-	assign nib3 = memory[addr][15:12];
+	assign nib2 = memory[addr+1][3:0];
+	assign nib3 = memory[addr+1][7:4];
    
    always @(posedge Clock) begin
 		case (nib0)

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for loader
-Wed Feb  8 09:02:10 2023
+Sun Feb 12 10:57:47 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -14,10 +14,11 @@ Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Registers Removed During Synthesis
-  9. General Register Statistics
- 10. Post-Synthesis Netlist Statistics for Top Partition
- 11. Elapsed Time Per Partition
- 12. Analysis & Synthesis Messages
+  9. Removed Registers Triggering Further Register Optimizations
+ 10. General Register Statistics
+ 11. Post-Synthesis Netlist Statistics for Top Partition
+ 12. Elapsed Time Per Partition
+ 13. Analysis & Synthesis Messages
 
 
 
@@ -44,7 +45,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Feb  8 09:02:10 2023          ;
+; Analysis & Synthesis Status        ; Successful - Sun Feb 12 10:57:47 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; loader                                         ;
 ; Top-level Entity Name              ; loader                                         ;
@@ -152,8 +153,8 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 4           ;
-; Maximum allowed            ; 2           ;
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 6           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
 ; Maximum used               ; 1           ;
@@ -163,14 +164,14 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                           ;
-+----------------------------------+-----------------+------------------------+----------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                             ; Library ;
-+----------------------------------+-----------------+------------------------+----------------------------------------------------------+---------+
-; loader.v                         ; yes             ; User Verilog HDL File  ; C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v   ;         ;
-; memory.txt                       ; yes             ; Auto-Found File        ; C:/Users/Mark McCoy/Documents/ECED3900/loader/memory.txt ;         ;
-+----------------------------------+-----------------+------------------------+----------------------------------------------------------+---------+
++---------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                      ;
++----------------------------------+-----------------+------------------------+-----------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                        ; Library ;
++----------------------------------+-----------------+------------------------+-----------------------------------------------------+---------+
+; loader.v                         ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/loader/loader.v   ;         ;
+; memory.txt                       ; yes             ; Auto-Found File        ; C:/Users/mccoy/Documents/ECED3900/loader/memory.txt ;         ;
++----------------------------------+-----------------+------------------------+-----------------------------------------------------+---------+
 
 
 +-----------------------------------------------------+
@@ -219,36 +220,52 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------+----------------------------------------+
 ; Register name                          ; Reason for Removal                     ;
 +----------------------------------------+----------------------------------------+
-; HEX0[6]~reg0                           ; Stuck at GND due to stuck port data_in ;
+; HEX0[6]~reg0                           ; Stuck at VCC due to stuck port data_in ;
 ; HEX0[5]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX0[4]~reg0                           ; Stuck at GND due to stuck port data_in ;
-; HEX0[3]~reg0                           ; Stuck at VCC due to stuck port data_in ;
-; HEX0[2]~reg0                           ; Stuck at VCC due to stuck port data_in ;
-; HEX0[1]~reg0                           ; Stuck at VCC due to stuck port data_in ;
-; HEX1[6]~reg0                           ; Stuck at GND due to stuck port data_in ;
+; HEX0[3]~reg0                           ; Stuck at GND due to stuck port data_in ;
+; HEX0[2]~reg0                           ; Stuck at GND due to stuck port data_in ;
+; HEX0[1]~reg0                           ; Stuck at GND due to stuck port data_in ;
+; HEX1[6]~reg0                           ; Stuck at VCC due to stuck port data_in ;
 ; HEX1[5]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX1[4]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX1[3]~reg0                           ; Stuck at GND due to stuck port data_in ;
-; HEX1[2]~reg0                           ; Stuck at VCC due to stuck port data_in ;
-; HEX1[1]~reg0                           ; Stuck at VCC due to stuck port data_in ;
-; HEX2[6]~reg0                           ; Stuck at GND due to stuck port data_in ;
+; HEX1[2]~reg0                           ; Stuck at GND due to stuck port data_in ;
+; HEX1[1]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX0[0]~reg0                           ; Stuck at GND due to stuck port data_in ;
-; HEX2[5]~reg0                           ; Stuck at VCC due to stuck port data_in ;
+; HEX2[6]~reg0                           ; Stuck at VCC due to stuck port data_in ;
+; HEX2[5]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX2[4]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX2[3]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX2[2]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX2[1]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX3[6]~reg0                           ; Stuck at VCC due to stuck port data_in ;
 ; HEX3[5]~reg0                           ; Stuck at GND due to stuck port data_in ;
-; HEX3[4]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX1[0]~reg0                           ; Stuck at GND due to stuck port data_in ;
+; HEX3[4]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX3[3]~reg0                           ; Stuck at GND due to stuck port data_in ;
-; HEX3[2]~reg0                           ; Stuck at VCC due to stuck port data_in ;
-; HEX3[1]~reg0                           ; Stuck at VCC due to stuck port data_in ;
+; HEX3[2]~reg0                           ; Stuck at GND due to stuck port data_in ;
+; HEX3[1]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; HEX3[0]~reg0                           ; Stuck at GND due to stuck port data_in ;
-; HEX2[0]~reg0                           ; Stuck at VCC due to stuck port data_in ;
+; HEX2[0]~reg0                           ; Stuck at GND due to stuck port data_in ;
 ; Total Number of Removed Registers = 28 ;                                        ;
 +----------------------------------------+----------------------------------------+
+
+
++------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                        ;
++---------------+---------------------------+----------------------------------------+
+; Register name ; Reason for Removal        ; Registers Removed due to This Register ;
++---------------+---------------------------+----------------------------------------+
+; HEX0[5]~reg0  ; Stuck at GND              ; HEX1[4]~reg0, HEX1[1]~reg0             ;
+;               ; due to stuck port data_in ;                                        ;
+; HEX0[1]~reg0  ; Stuck at GND              ; HEX1[6]~reg0, HEX0[0]~reg0             ;
+;               ; due to stuck port data_in ;                                        ;
+; HEX0[3]~reg0  ; Stuck at GND              ; HEX1[5]~reg0                           ;
+;               ; due to stuck port data_in ;                                        ;
+; HEX2[5]~reg0  ; Stuck at GND              ; HEX2[4]~reg0                           ;
+;               ; due to stuck port data_in ;                                        ;
++---------------+---------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -296,72 +313,99 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Wed Feb  8 09:01:57 2023
+    Info: Processing started: Sun Feb 12 10:57:40 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off loader -c loader
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
-Warning (10229): Verilog HDL Expression warning at loader.v(10): truncated literal to match 16 bits File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 10
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file loader.v
-    Info (12023): Found entity 1: loader File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 1
+    Info (12023): Found entity 1: loader File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 1
 Info (12127): Elaborating entity "loader" for the top level hierarchy
-Warning (10230): Verilog HDL assignment warning at memory.txt(1): truncated value with size 64 to match size of target (16) File: C:/Users/Mark McCoy/Documents/ECED3900/loader/memory.txt Line: 1
-Warning (10230): Verilog HDL assignment warning at loader.v(18): truncated value with size 16 to match size of target (1) File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 18
+Warning (10850): Verilog HDL warning at loader.v(12): number of words (8) in memory file does not match the number of elements in the address range [0:65535] File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 12
+Warning (10850): Verilog HDL warning at loader.v(13): number of words (8) in memory file does not match the number of elements in the address range [0:65535] File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 13
+Info (10648): Verilog HDL Display System Task info at loader.v(14): Data: ef File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 14
+Warning (10855): Verilog HDL warning at loader.v(11): initial value for variable memory should be constant File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 11
+Warning (10030): Net "memory" at loader.v(10) has no driver or initial value, using a default initial value '0' File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 10
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "HEX0[0]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 24
-    Warning (13410): Pin "HEX0[1]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 24
-    Warning (13410): Pin "HEX0[2]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 24
-    Warning (13410): Pin "HEX0[3]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 24
-    Warning (13410): Pin "HEX0[4]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 24
-    Warning (13410): Pin "HEX0[5]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 24
-    Warning (13410): Pin "HEX0[6]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 24
-    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 45
-    Warning (13410): Pin "HEX1[1]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 45
-    Warning (13410): Pin "HEX1[2]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 45
-    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 45
-    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 45
-    Warning (13410): Pin "HEX1[5]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 45
-    Warning (13410): Pin "HEX1[6]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 45
-    Warning (13410): Pin "HEX2[0]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 66
-    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 66
-    Warning (13410): Pin "HEX2[2]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 66
-    Warning (13410): Pin "HEX2[3]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 66
-    Warning (13410): Pin "HEX2[4]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 66
-    Warning (13410): Pin "HEX2[5]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 66
-    Warning (13410): Pin "HEX2[6]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 66
-    Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 87
-    Warning (13410): Pin "HEX3[1]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 87
-    Warning (13410): Pin "HEX3[2]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 87
-    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 87
-    Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 87
-    Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 87
-    Warning (13410): Pin "HEX3[6]" is stuck at VCC File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 87
+    Warning (13410): Pin "HEX0[0]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 27
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 27
+    Warning (13410): Pin "HEX0[2]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 27
+    Warning (13410): Pin "HEX0[3]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 27
+    Warning (13410): Pin "HEX0[4]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 27
+    Warning (13410): Pin "HEX0[5]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 27
+    Warning (13410): Pin "HEX0[6]" is stuck at VCC File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 27
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 48
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 48
+    Warning (13410): Pin "HEX1[2]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 48
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 48
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 48
+    Warning (13410): Pin "HEX1[5]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 48
+    Warning (13410): Pin "HEX1[6]" is stuck at VCC File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 48
+    Warning (13410): Pin "HEX2[0]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 69
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 69
+    Warning (13410): Pin "HEX2[2]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 69
+    Warning (13410): Pin "HEX2[3]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 69
+    Warning (13410): Pin "HEX2[4]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 69
+    Warning (13410): Pin "HEX2[5]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 69
+    Warning (13410): Pin "HEX2[6]" is stuck at VCC File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 69
+    Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 90
+    Warning (13410): Pin "HEX3[1]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 90
+    Warning (13410): Pin "HEX3[2]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 90
+    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 90
+    Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 90
+    Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 90
+    Warning (13410): Pin "HEX3[6]" is stuck at VCC File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 90
+Warning (20013): Ignored 24 assignments for entity "register_test" -- entity does not exist in design
+    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity register_test -section_id Top was ignored
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 17 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "SW[0]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[1]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[2]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[3]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[4]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[5]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[6]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[7]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[8]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[9]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[10]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[11]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[12]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[13]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[14]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[15]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
-    Warning (15610): No output dependent on input pin "SW[16]" File: C:/Users/Mark McCoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[0]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[1]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[2]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[3]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[4]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[5]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[6]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[7]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[8]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[9]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[10]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[11]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[12]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[13]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[14]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[15]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
+    Warning (15610): No output dependent on input pin "SW[16]" File: C:/Users/mccoy/Documents/ECED3900/loader/loader.v Line: 2
 Info (21057): Implemented 45 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 17 input pins
     Info (21059): Implemented 28 output pins
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 51 warnings
-    Info: Peak virtual memory: 4750 megabytes
-    Info: Processing ended: Wed Feb  8 09:02:10 2023
-    Info: Elapsed time: 00:00:13
-    Info: Total CPU time (on all processors): 00:00:27
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 77 warnings
+    Info: Peak virtual memory: 4922 megabytes
+    Info: Processing ended: Sun Feb 12 10:57:47 2023
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:14
 
 
