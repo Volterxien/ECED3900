@@ -1,5 +1,5 @@
 Analysis & Synthesis report for loader_demo
-Sun Feb 12 15:40:00 2023
+Sun Feb 12 21:38:34 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -43,13 +43,13 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Feb 12 15:40:00 2023          ;
+; Analysis & Synthesis Status        ; Successful - Sun Feb 12 21:38:34 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; loader_demo                                    ;
 ; Top-level Entity Name              ; loader_demo                                    ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 76                                             ;
-;     Total combinational functions  ; 76                                             ;
+; Total logic elements               ; 84                                             ;
+;     Total combinational functions  ; 84                                             ;
 ;     Dedicated logic registers      ; 28                                             ;
 ; Total registers                    ; 28                                             ;
 ; Total pins                         ; 45                                             ;
@@ -178,16 +178,16 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+--------------+
 ; Resource                                    ; Usage        ;
 +---------------------------------------------+--------------+
-; Estimated Total logic elements              ; 76           ;
+; Estimated Total logic elements              ; 84           ;
 ;                                             ;              ;
-; Total combinational functions               ; 76           ;
+; Total combinational functions               ; 84           ;
 ; Logic element usage by number of LUT inputs ;              ;
-;     -- 4 input functions                    ; 48           ;
-;     -- 3 input functions                    ; 12           ;
-;     -- <=2 input functions                  ; 16           ;
+;     -- 4 input functions                    ; 53           ;
+;     -- 3 input functions                    ; 7            ;
+;     -- <=2 input functions                  ; 24           ;
 ;                                             ;              ;
 ; Logic elements by mode                      ;              ;
-;     -- normal mode                          ; 61           ;
+;     -- normal mode                          ; 69           ;
 ;     -- arithmetic mode                      ; 15           ;
 ;                                             ;              ;
 ; Total registers                             ; 28           ;
@@ -200,8 +200,8 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;              ;
 ; Maximum fan-out node                        ; SW[16]~input ;
 ; Maximum fan-out                             ; 28           ;
-; Total fan-out                               ; 388          ;
-; Average fan-out                             ; 2.00         ;
+; Total fan-out                               ; 409          ;
+; Average fan-out                             ; 2.02         ;
 +---------------------------------------------+--------------+
 
 
@@ -210,7 +210,7 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------+-------------------+--------------+
 ; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                    ; Entity Name       ; Library Name ;
 +--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------+-------------------+--------------+
-; |loader_demo                   ; 76 (48)             ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 45   ; 0            ; |loader_demo                           ; loader_demo       ; work         ;
+; |loader_demo                   ; 84 (56)             ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 45   ; 0            ; |loader_demo                           ; loader_demo       ; work         ;
 ;    |seven_seg_decoder:decode1| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |loader_demo|seven_seg_decoder:decode1 ; seven_seg_decoder ; work         ;
 ;    |seven_seg_decoder:decode2| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |loader_demo|seven_seg_decoder:decode2 ; seven_seg_decoder ; work         ;
 ;    |seven_seg_decoder:decode3| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |loader_demo|seven_seg_decoder:decode3 ; seven_seg_decoder ; work         ;
@@ -242,16 +242,17 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; boundary_port         ; 45                          ;
 ; cycloneiii_ff         ; 28                          ;
 ;     plain             ; 28                          ;
-; cycloneiii_lcell_comb ; 76                          ;
+; cycloneiii_lcell_comb ; 84                          ;
 ;     arith             ; 15                          ;
 ;         2 data inputs ; 15                          ;
-;     normal            ; 61                          ;
+;     normal            ; 69                          ;
 ;         1 data inputs ; 1                           ;
-;         3 data inputs ; 12                          ;
-;         4 data inputs ; 48                          ;
+;         2 data inputs ; 8                           ;
+;         3 data inputs ; 7                           ;
+;         4 data inputs ; 53                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 7.50                        ;
-; Average LUT depth     ; 4.91                        ;
+; Max LUT depth         ; 5.50                        ;
+; Average LUT depth     ; 3.66                        ;
 +-----------------------+-----------------------------+
 
 
@@ -260,7 +261,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:16     ;
+; Top            ; 00:00:27     ;
 +----------------+--------------+
 
 
@@ -270,7 +271,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Sun Feb 12 15:39:36 2023
+    Info: Processing started: Sun Feb 12 21:37:59 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off loader_demo -c loader_demo
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -333,14 +334,14 @@ Warning (20013): Ignored 24 assignments for entity "register_test" -- entity doe
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity register_test -section_id Top was ignored
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 121 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 129 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 17 input pins
     Info (21059): Implemented 28 output pins
-    Info (21061): Implemented 76 logic cells
+    Info (21061): Implemented 84 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 51 warnings
     Info: Peak virtual memory: 4924 megabytes
-    Info: Processing ended: Sun Feb 12 15:40:00 2023
-    Info: Elapsed time: 00:00:24
-    Info: Total CPU time (on all processors): 00:00:31
+    Info: Processing ended: Sun Feb 12 21:38:34 2023
+    Info: Elapsed time: 00:00:35
+    Info: Total CPU time (on all processors): 00:00:43
 
 

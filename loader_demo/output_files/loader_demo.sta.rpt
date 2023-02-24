@@ -1,5 +1,5 @@
 Timing Analyzer report for loader_demo
-Sun Feb 12 15:40:12 2023
+Sun Feb 12 21:38:46 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -97,7 +97,7 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-6         ;   0.6%      ;
+;     Processors 2-6         ;   0.5%      ;
 +----------------------------+-------------+
 
 
@@ -235,7 +235,7 @@ No paths to report.
 +--------+--------+--------------------------------+
 ; Clock  ; Slack  ; End Point TNS                  ;
 +--------+--------+--------------------------------+
-; SW[16] ; -3.000 ; -33.716                        ;
+; SW[16] ; -3.000 ; -33.746                        ;
 +--------+--------+--------------------------------+
 
 
@@ -300,10 +300,13 @@ No synchronizer chains to report.
 +-------------------------+--------------+-----------------+-----------------+
 ; Pin                     ; I/O Standard ; 10-90 Rise Time ; 90-10 Fall Time ;
 +-------------------------+--------------+-----------------+-----------------+
-; SW[3]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
-; SW[2]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
-; SW[1]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; SW[0]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; SW[13]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; SW[14]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; SW[15]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; SW[1]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; SW[2]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; SW[3]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; SW[4]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; SW[5]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; SW[6]                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
@@ -313,9 +316,6 @@ No synchronizer chains to report.
 ; SW[10]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; SW[11]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; SW[12]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
-; SW[13]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
-; SW[15]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
-; SW[14]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; SW[16]                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; ~ALTERA_ASDO_DATA1~     ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
 ; ~ALTERA_FLASH_nCE_nCSO~ ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
@@ -604,7 +604,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Sun Feb 12 15:40:11 2023
+    Info: Processing started: Sun Feb 12 21:38:45 2023
 Info: Command: quartus_sta loader_demo -c loader_demo
 Info: qsta_default_script.tcl version: #1
 Warning (20013): Ignored 24 assignments for entity "loader" -- entity does not exist in design
@@ -706,12 +706,12 @@ Critical Warning (332148): Timing requirements not met
 Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.000             -33.716 SW[16] 
+    Info (332119):    -3.000             -33.746 SW[16] 
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 55 warnings
-    Info: Peak virtual memory: 4870 megabytes
-    Info: Processing ended: Sun Feb 12 15:40:12 2023
+    Info: Peak virtual memory: 4872 megabytes
+    Info: Processing ended: Sun Feb 12 21:38:46 2023
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 
