@@ -1,6 +1,6 @@
-// TODO add psw update
-// TODO add .b options
 // PSW V S N Z C
+// TODO change carry bit -> PSW_i[0] for full implementation
+// TODO add dadd.b bit bis bic after meeting
 module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o);
 	input [17:0] SW;
 	input OT;
@@ -28,12 +28,12 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 
     wire Clock;
 	wire [3:0] Reg1_sel, Reg2_sel;
-	wire [15:0] Reg1, Reg2;
-	wire [7:0] instr;
+	wire [15:0] Reg1, Reg2, sum1;
+	wire [4:0] instr;
 	wire [3:0] nib0, nib1, nib2, nib3, nib4, nib5, nib6, nib7;
 	assign Clock = OT;
-	assign instr = SW[17:10];
-	assign carry = SW[9];
+	assign instr = SW[17:13];
+	assign carry = SW[10];
 	assign Reg1_sel = SW[3:0];
 	assign Reg2_sel = SW[7:4];
 
@@ -58,6 +58,7 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 	wire [2:0] sdr_b;
 	wire [2:0] sdr_w;
 
+	//for psw updates
 	assign sdr_b[2] = Reg2[7];
 	assign sdr_b[1] = Reg1[7];
 	assign sdr_b[0] = Reg3[7]; 
@@ -66,8 +67,11 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 	assign sdr_w[1] = Reg1[15];
 	assign sdr_w[0] = Reg3[15]; 
 
+	// for dadd instruction
+	assign sum1 = (Reg1 + Reg2);
+
 	
-//    sixteen_bit_full_adder A1(Reg1, Reg2, Reg3, cin, cout, add, Clock);
+	// Output for interpretation
 	seven_seg_decoder decode1( 	.Reg1 (nib0), 
 								.HEX0 (HEX0), 
 								.Clock (Clock));
@@ -91,28 +95,21 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 									.HEX0(HEX5),
 									.Clock(Clock));
 				
-	seven_seg_decoder decodepsdrb(	.Reg1(nib6),
-									.HEX0(HEX6),
-									.Clock(Clock));
+	// seven_seg_decoder decodepsdrb(	.Reg1(nib6),
+	// 								.HEX0(HEX6),
+	// 								.Clock(Clock));
 
-	seven_seg_decoder decodesdr_w(	.Reg1(nib7),
-									.HEX0(HEX7),
-									.Clock(Clock));
-	/* Switch assignment for instructions:
-	add 	-> 17
-	addc 	-> 17 + 11
-	sub 	-> 16
-	subc	-> 16 + 11
-	cmp 	-> 16 + 12 (doesn't do anything different than sub atm)
-	xor 	-> 15
-	and		-> 14
-	sra		-> 13
-	rrc 	-> 13 + 11
-	set carry to 1 -> 10
-	*/
+	// seven_seg_decoder decodesdr_w(	.Reg1(nib7),
+	// 								.HEX0(HEX7),
+	// 								.Clock(Clock));
+
+
+	seven_seg_decoder thing(	.Reg1 (sum1[3:0]),
+								.HEX0 (HEX6),
+								.Clock (Clock));
+	
+	// use switches 17-13
 	always @(posedge Clock) begin
-		memory[0] <= Reg3[7:0];
-		memory[1] <= Reg3[15:8];
 			case (instr)
 			5'b00000: begin	// add
 				Reg3 <= Reg1 + Reg2;						
@@ -142,58 +139,93 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				update_psw_arithmetic(Reg3, Reg2, Reg1, instr[0]);
 			end
 			5'b00110: begin // subc
-				Reg3 <= Reg1 - Reg2 + carry;					
+				// subc == dst <- dst + ~src + carry
+				// since minus sign does 2s complement, subtract 1 if carry is clear
+				Reg3 <= Reg1 - Reg2 - ~carry;					
 				update_psw_arithmetic(Reg3, Reg2, Reg1, instr[0]);
 			end
 			5'b00111: begin // subc.b
-				Reg3[7:0] <= Reg1[7:0] - Reg2[7:0] + carry; 	
+				Reg3[7:0] <= Reg1[7:0] - Reg2[7:0] - ~carry; 	
 				Reg3[15:8] <= Reg1[15:8];		
 				update_psw_arithmetic(Reg3, Reg2, Reg1, instr[0]);
 			end
-			5'b01001: begin // dadd 
+			5'b01000: begin // dadd 
+				if(sum1[3:0] >= 4'ha) begin
+					Reg3[7:0] <= (sum1[3:0] - 10) & 4'hf;
+					if(sum1[15:8] + 1 >= 4'ha) begin
+						Reg3[15:8] <= (sum1[11:8] + 1 - 10) & 4'hf;
+						PSW_o[0] <= 1'b1 + 1;
+					end else begin
+						Reg3[15:8] <= (sum1[11:8]) & 4'hf;;
+					end
+				end else begin
+					Reg3[7:0] <= (sum1[3:0]) & 4'hf;
+					if (sum1[11:8] >= 4'ha) begin
+						Reg3[15:8] <= (sum1[11:8] - 10) & 4'hf;
+						PSW_o[0] <= 1'b1;
+					end else begin
+						Reg3[15:8] <= (sum1[11:8]) & 4'hf;
+					end
+				end
 			end
-			68: begin
-				Reg3 <= Reg1 - Reg2;							// cmp
+			5'b01001: begin //dadd.b
+			end
+			5'b01010: begin // cmp
+				Reg3 <= Reg1 - Reg2;							
 				update_psw_arithmetic(Reg3, Reg2, Reg1, instr[0]);
 			end
-			69: begin
-				Reg3[7:0] <= Reg1[7:0] - Reg2[7:0];				// cmp.b
+			5'b01011: begin //cmp.b
+				Reg3[7:0] <= Reg1[7:0] - Reg2[7:0];
 				Reg3[15:8] <= Reg1[15:8];		
 				update_psw_arithmetic(Reg3, Reg2, Reg1, instr[0]);
 			end
-			32: begin
-				Reg3 <= Reg1 ^ Reg2;							// xor
+			5'b01100: begin // xor
+				Reg3 <= Reg1 ^ Reg2;							
 				update_psw_logic(Reg3, instr[0]);
 			end
-			33: begin
-				Reg3[7:0] <= Reg1[7:0] ^ Reg2[7:0];				// xor.b
+			5'b01101: begin // xor.b
+				Reg3[7:0] <= Reg1[7:0] ^ Reg2[7:0];				
 				Reg3[15:8] <= Reg1[15:8];		
 				update_psw_logic(Reg3, instr[0]);
 			end
-			16: begin
-				Reg3 <= Reg1 & Reg2; 							// and
+			5'b01110: begin // and
+				Reg3 <= Reg1 & Reg2; 							
 				update_psw_logic(Reg3, instr[0]);
 			end
-			17: begin
-				Reg3[7:0] <= Reg1[7:0] & Reg2[7:0];	    		// and.b
+			5'b01111: begin // and.b
+				Reg3[7:0] <= Reg1[7:0] & Reg2[7:0];	    		
 				Reg3[15:8] <= Reg1[15:8];		
 				update_psw_logic(Reg3, instr[0]);
 			end
-			//TODO add sign extension
-			8: Reg3 <= Reg1 >> 1;							    // sra
-			9: begin
-				Reg3[7:0] <= Reg1[7:0] >> 1;	   				// sra.b
+			5'b10000: begin // bit
+
+			end
+			5'b10010: begin // bic
+			// PSW_o[1] <= Reg3 ? 1'b0 : 1'b1;
+			end
+			5'b10100: begin // bis
+			end
+			5'b10110: begin //sra
+				Reg3 <= Reg1 >> 1;					    
+				// if the prev MSB is set, new MSB is set
+				if(Reg3[14]) begin
+					Reg3[15] <= 1'b1;
+				end
+			end
+			// will need to change after discussion with Larry
+			5'b10111: begin // sra.b
+				Reg3[7:0] <= Reg1[7:0] >> 1;	   				
 				Reg3[15:8] <= Reg1[15:8];		
 			end
-			10: begin 											// rrc
+			5'b11000: begin // rrc
 				PSW_o [0] <= Reg1[0];
 				Reg3 <= Reg1 >> 1;
-				Reg3[15] <= Reg3[15] | carry;
+				Reg3[15] <= carry;
 			end
-			11: begin											// rrc.b
+			5'b11001: begin // rrc.b
 				PSW_o[0] <= Reg1[0];
 				Reg3[7:0] <= Reg1[7:0] >> 1;
-				Reg3[7] <= Reg3[7] | carry;
+				Reg3[7] <= carry;
 				Reg3[15:8] <= Reg1[15:8];		
 			end
 
