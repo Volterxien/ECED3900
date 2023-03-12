@@ -15,7 +15,6 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 	output wire [6:0] HEX6;
 	output wire [6:0] HEX7;
 	output reg [15:0] PSW_o;
-	
 	reg [15:0] Reg3;
 	
 	reg [7:0] memory [0:16'hffff];
@@ -154,9 +153,9 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 					Reg3[7:0] <= (sum1[3:0] - 10) & 4'hf;
 					if(sum1[15:8] + 1 >= 4'ha) begin
 						Reg3[15:8] <= (sum1[11:8] + 1 - 10) & 4'hf;
-						PSW_o[0] <= 1'b1 + 1;
+						PSW_o[0] <= 1'b1;
 					end else begin
-						Reg3[15:8] <= (sum1[11:8]) & 4'hf;;
+						Reg3[15:8] <= (sum1[11:8]) & 4'hf;
 					end
 				end else begin
 					Reg3[7:0] <= (sum1[3:0]) & 4'hf;
@@ -169,6 +168,12 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				end
 			end
 			5'b01001: begin //dadd.b
+				if(sum1[3:0] >= 4'ha) begin
+					Reg3[7:0] <= (sum1[3:0] - 10) & 4'hf;
+					PSW_o[0] <= 1'b1;
+				end else begin
+					Reg3[7:0] <= (sum1[3:0]) & 4'hf;
+				end
 			end
 			5'b01010: begin // cmp
 				Reg3 <= Reg1 - Reg2;							
@@ -197,32 +202,75 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				Reg3[15:8] <= Reg1[15:8];		
 				update_psw_logic(Reg3, instr[0]);
 			end
-			5'b10000: begin // bit
-
+			5'b10000: begin // or
+				Reg3 <= Reg1 | Reg2;
+				update_psw_logic(Reg3, instr[0]);
 			end
-			5'b10010: begin // bic
-			// PSW_o[1] <= Reg3 ? 1'b0 : 1'b1;
+			5'b10001: begin // or.b
+				Reg3[7:0] <= Reg1[7:0] | Reg2[7:0];
+				Reg3[15:8] <= Reg1[15:8];
+				update_psw_logic(Reg3, instr[0]);
 			end
-			5'b10100: begin // bis
-			end
-			5'b10110: begin //sra
-				Reg3 <= Reg1 >> 1;					    
-				// if the prev MSB is set, new MSB is set
-				if(Reg3[14]) begin
-					Reg3[15] <= 1'b1;
+			5'b10010: begin // bit
+				if(Reg2 > 15) begin
+					Reg3 <= Reg1 & 1 << 15;	
+				end else begin
+					Reg3 <= Reg1 & 1 << Reg2;
 				end
 			end
-			// will need to change after discussion with Larry
-			5'b10111: begin // sra.b
-				Reg3[7:0] <= Reg1[7:0] >> 1;	   				
-				Reg3[15:8] <= Reg1[15:8];		
+			5'b10011: begin // bit.b
+				if(Reg2 > 7) begin
+					Reg3 <= Reg1 & 1 << 7;
+				end else begin
+					Reg3 <= Reg1 & 1 << Reg2;
+				end
 			end
-			5'b11000: begin // rrc
+			5'b10100: begin // bic
+				if(Reg2 > 15) begin
+					Reg3 <= Reg1 & ~(1 << Reg2);	
+				end else begin
+					Reg3 <= Reg1 & ~(1 << Reg2);
+				end
+			end
+			5'b10101: begin // bic.b
+				if(Reg2 > 7) begin
+					Reg3 <= Reg1 & ~(1 << 7);
+				end else begin
+					Reg3 <= Reg1 & ~(1 << Reg2);
+				end
+			end
+			5'b10110: begin // bis
+				if(Reg2 > 15) begin
+					Reg3 <= Reg1 | (1 << Reg2);	
+				end else begin
+					Reg3 <= Reg1 | (1 << Reg2);
+				end
+			end
+			5'b10111: begin // bis.b
+				if(Reg2 > 7) begin
+					Reg3 <= Reg1 | (1 << 7);
+				end else begin
+					Reg3 <= Reg1 | (1 << Reg2);
+				end
+			end
+			5'b11000: begin //sra
+				Reg3 <= Reg1 >>> 1;					    
+				// if the prev MSB is set, new MSB is set
+				// if(Reg3[14]) begin
+				// 	Reg3[15] <= 1'b1;
+				// end
+			end
+			// will need to change after discussion with Larry
+			5'b11001: begin // sra.b
+				Reg3[7:0] <= Reg1[7:0] >>> 1;	   				
+				// Reg3[15:8] <= Reg1[15:8];		
+			end
+			5'b11010: begin // rrc
 				PSW_o [0] <= Reg1[0];
 				Reg3 <= Reg1 >> 1;
 				Reg3[15] <= carry;
 			end
-			5'b11001: begin // rrc.b
+			5'b11011: begin // rrc.b
 				PSW_o[0] <= Reg1[0];
 				Reg3[7:0] <= Reg1[7:0] >> 1;
 				Reg3[7] <= carry;
