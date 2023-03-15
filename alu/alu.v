@@ -217,6 +217,7 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				end else begin
 					Reg3 <= Reg1 & 1 << Reg2;
 				end
+				update_psw_logic(Reg3, instr[0]);
 			end
 			5'b10011: begin // bit.b
 				if(Reg2 > 7) begin
@@ -224,6 +225,7 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				end else begin
 					Reg3 <= Reg1 & 1 << Reg2;
 				end
+				update_psw_logic(Reg3, instr[0]);
 			end
 			5'b10100: begin // bic
 				if(Reg2 > 15) begin
@@ -231,6 +233,7 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				end else begin
 					Reg3 <= Reg1 & ~(1 << Reg2);
 				end
+				update_psw_logic(Reg3, instr[0]);
 			end
 			5'b10101: begin // bic.b
 				if(Reg2 > 7) begin
@@ -238,6 +241,7 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				end else begin
 					Reg3 <= Reg1 & ~(1 << Reg2);
 				end
+				update_psw_logic(Reg3, instr[0]);
 			end
 			5'b10110: begin // bis
 				if(Reg2 > 15) begin
@@ -245,6 +249,7 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				end else begin
 					Reg3 <= Reg1 | (1 << Reg2);
 				end
+				update_psw_logic(Reg3, instr[0]);
 			end
 			5'b10111: begin // bis.b
 				if(Reg2 > 7) begin
@@ -252,6 +257,7 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				end else begin
 					Reg3 <= Reg1 | (1 << Reg2);
 				end
+				update_psw_logic(Reg3, instr[0]);
 			end
 			5'b11000: begin //sra
 				Reg3 <= Reg1 >>> 1;					    
