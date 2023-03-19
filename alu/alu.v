@@ -213,23 +213,23 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 			end
 			5'b10010: begin // bit
 				if(Reg2 > 15) begin
-					Reg3 <= Reg1 & 1 << 15;	
+					Reg3 <= Reg1 & (1 << 15);	
 				end else begin
-					Reg3 <= Reg1 & 1 << Reg2;
+					Reg3 <= Reg1 & (1 << Reg2);
 				end
 				update_psw_logic(Reg3, instr[0]);
 			end
 			5'b10011: begin // bit.b
 				if(Reg2 > 7) begin
-					Reg3 <= Reg1 & 1 << 7;
+					Reg3 <= Reg1 & (1 << 7);
 				end else begin
-					Reg3 <= Reg1 & 1 << Reg2;
+					Reg3 <= Reg1 & (1 << Reg2);
 				end
 				update_psw_logic(Reg3, instr[0]);
 			end
 			5'b10100: begin // bic
 				if(Reg2 > 15) begin
-					Reg3 <= Reg1 & ~(1 << Reg2);	
+					Reg3 <= Reg1 & ~(1 << 15);	
 				end else begin
 					Reg3 <= Reg1 & ~(1 << Reg2);
 				end
@@ -245,7 +245,7 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 			end
 			5'b10110: begin // bis
 				if(Reg2 > 15) begin
-					Reg3 <= Reg1 | (1 << Reg2);	
+					Reg3 <= Reg1 | (1 << 15);	
 				end else begin
 					Reg3 <= Reg1 | (1 << Reg2);
 				end
@@ -260,16 +260,18 @@ module alu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, OT, PSW_i, PSW_o
 				update_psw_logic(Reg3, instr[0]);
 			end
 			5'b11000: begin //sra
-				Reg3 <= Reg1 >>> 1;					    
+				Reg3 <= Reg1 >> 1;					    
 				// if the prev MSB is set, new MSB is set
-				// if(Reg3[14]) begin
-				// 	Reg3[15] <= 1'b1;
-				// end
+				if(Reg1[14]) begin
+					Reg3[15] <= 1'b1;
+				end
 			end
-			// will need to change after discussion with Larry
 			5'b11001: begin // sra.b
-				Reg3[7:0] <= Reg1[7:0] >>> 1;	   				
-				// Reg3[15:8] <= Reg1[15:8];		
+				Reg3[7:0] <= Reg1[7:0] >> 1;	   				
+				if(Reg1[6]) begin
+					Reg3[7] <= 1'b1;
+				end
+				Reg3[15:8] <= Reg1[15:8];		
 			end
 			5'b11010: begin // rrc
 				PSW_o [0] <= Reg1[0];
