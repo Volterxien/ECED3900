@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sun Feb 12 21:38:34 2023
+Quartus Prime Version : 22.1std.0 Build 915 10/25/2022 SC Lite Edition
+Revision Name : loader_demo
+Top-level Entity Name : loader_demo
+Family : Cyclone IV E
+Total logic elements : 84
+    Total combinational functions : 84
+    Dedicated logic registers : 28
+Total registers : 28
+Total pins : 45
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
