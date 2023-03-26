@@ -93,9 +93,10 @@ module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST,
 								5:	OP = 6'd12;	// CMP
 								6:	OP = 6'd13;	// XOR
 								7:	OP = 6'd14;	// AND
-								8:	OP = 6'd15;	// BIT
-								9:	OP = 6'd16;	// BIC
-								10:	OP = 6'd17;	// BIS
+								8:	OP = 6'd15;	// OR
+								9:	OP = 6'd16;	// BIT
+								10:	OP = 6'd17;	// BIC
+								11: OP = 6'd18; // BIS
 							endcase
 							RC <= Instr[7];
 							WB <= Instr[6];
@@ -106,45 +107,45 @@ module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST,
 						3:	begin
 							case(bits7to9)
 								0:	begin
-									OP = 6'd18;	// MOV
+									OP = 6'd19;	// MOV
 									WB <= Instr[6];
 									SRCCON <= Instr[5:3];
 									end
 									
 								1:	begin
-									OP = 6'd19;	// SWAP
+									OP = 6'd20;	// SWAP
 									SRCCON <= Instr[5:3];
 									end
 									
 								2:	begin
-									OP = 6'd20;	// SRA
+									OP = 6'd21;	// SRA
 									WB <= Instr[6];
 									end
 									
 								3:	begin
-									OP = 6'd21;	// RRC
+									OP = 6'd22;	// RRC
 									WB <= Instr[6];
 									end
 								
 								4:	begin
 									if(Instr[3] == 1'd1)
-										OP = 6'd23;	// SXT
+										OP = 6'd24;	// SXT
 									else
-										OP = 6'd22; // SWPB
+										OP = 6'd23; // SWPB
 									end
 							endcase
 							DST <= Instr[2:0];
 							end
 							
-						4:	OP = 6'd32;	// BREAKPOINT
+						4:	OP = 6'd33;	// BREAKPOINT
 						
 						5: FLTo = 1'b1; // Only case for INVALID INSTR
 						
 						6,7: begin
 							if (bits10to12 == 3'd6)
-								OP = 6'd24;	// LD
+								OP = 6'd25;	// LD
 							else
-								OP = 6'd25;	// ST
+								OP = 6'd26;	// ST
 							PRPO <= Instr[9];
 							DEC <= Instr[8];
 							INC <= Instr[7];
@@ -157,19 +158,19 @@ module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST,
 					
 				3:	begin
 					case(bits10to12)
-						0,1:	OP = 6'd26;	// MOVL
-						2,3:	OP = 6'd27;	// MOVLZ
-						4,5:	OP = 6'd28;	// MOVLS
-						6,7:	OP = 6'd29;	// MOVH			
+						0,1:	OP = 6'd27;	// MOVL
+						2,3:	OP = 6'd28;	// MOVLZ
+						4,5:	OP = 6'd29;	// MOVLS
+						6,7:	OP = 6'd30;	// MOVH			
 					endcase
 					ImByte <= Instr[10:3];
 					DST <= Instr[2:0];
 					end
 				4,5,6,7: begin
 						if (bits13to15 >= 3'd6)
-							OP = 6'd31;	// STR
+							OP = 6'd32;	// STR
 						else
-							OP = 6'd30;	// LDR
+							OP = 6'd31;	// LDR
 						OFF <= Instr[13:7];
 						WB <= Instr[6];
 						SRCCON <= Instr[5:3];

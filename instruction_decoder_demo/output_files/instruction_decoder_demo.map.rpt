@@ -1,5 +1,5 @@
 Analysis & Synthesis report for instruction_decoder_demo
-Thu Feb 23 21:47:45 2023
+Sun Mar 26 14:55:06 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -48,13 +48,13 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Thu Feb 23 21:47:45 2023          ;
+; Analysis & Synthesis Status        ; Successful - Sun Mar 26 14:55:06 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; instruction_decoder_demo                       ;
 ; Top-level Entity Name              ; instr_decode_demo                              ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 678                                            ;
-;     Total combinational functions  ; 590                                            ;
+; Total logic elements               ; 702                                            ;
+;     Total combinational functions  ; 610                                            ;
 ;     Dedicated logic registers      ; 165                                            ;
 ; Total registers                    ; 165                                            ;
 ; Total pins                         ; 46                                             ;
@@ -185,16 +185,16 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+--------------+
 ; Resource                                    ; Usage        ;
 +---------------------------------------------+--------------+
-; Estimated Total logic elements              ; 678          ;
+; Estimated Total logic elements              ; 702          ;
 ;                                             ;              ;
-; Total combinational functions               ; 590          ;
+; Total combinational functions               ; 610          ;
 ; Logic element usage by number of LUT inputs ;              ;
-;     -- 4 input functions                    ; 464          ;
-;     -- 3 input functions                    ; 71           ;
-;     -- <=2 input functions                  ; 55           ;
+;     -- 4 input functions                    ; 474          ;
+;     -- 3 input functions                    ; 78           ;
+;     -- <=2 input functions                  ; 58           ;
 ;                                             ;              ;
 ; Logic elements by mode                      ;              ;
-;     -- normal mode                          ; 577          ;
+;     -- normal mode                          ; 597          ;
 ;     -- arithmetic mode                      ; 13           ;
 ;                                             ;              ;
 ; Total registers                             ; 165          ;
@@ -207,8 +207,8 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;              ;
 ; Maximum fan-out node                        ; SW[16]~input ;
 ; Maximum fan-out                             ; 150          ;
-; Total fan-out                               ; 2634         ;
-; Average fan-out                             ; 3.11         ;
+; Total fan-out                               ; 2710         ;
+; Average fan-out                             ; 3.13         ;
 +---------------------------------------------+--------------+
 
 
@@ -217,8 +217,8 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                          ; Entity Name         ; Library Name ;
 +--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------+---------------------+--------------+
-; |instr_decode_demo             ; 590 (461)           ; 165 (76)                  ; 0           ; 0            ; 0       ; 0         ; 46   ; 0            ; |instr_decode_demo                           ; instr_decode_demo   ; work         ;
-;    |instruction_decoder:ID|    ; 101 (101)           ; 61 (61)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|instruction_decoder:ID    ; instruction_decoder ; work         ;
+; |instr_decode_demo             ; 610 (486)           ; 165 (76)                  ; 0           ; 0            ; 0       ; 0         ; 46   ; 0            ; |instr_decode_demo                           ; instr_decode_demo   ; work         ;
+;    |instruction_decoder:ID|    ; 96 (96)             ; 61 (61)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|instruction_decoder:ID    ; instruction_decoder ; work         ;
 ;    |seven_seg_decoder:decode1| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|seven_seg_decoder:decode1 ; seven_seg_decoder   ; work         ;
 ;    |seven_seg_decoder:decode2| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|seven_seg_decoder:decode2 ; seven_seg_decoder   ; work         ;
 ;    |seven_seg_decoder:decode3| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|seven_seg_decoder:decode3 ; seven_seg_decoder   ; work         ;
@@ -337,10 +337,10 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Total registers                              ; 165   ;
 ; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 1     ;
+; Number of registers using Synchronous Load   ; 4     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 51    ;
+; Number of registers using Clock Enable       ; 54    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -350,25 +350,24 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                          ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
-; 6:1                ; 2 bits    ; 8 LEs         ; 2 LEs                ; 6 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[11]   ;
-; 6:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[7]    ;
-; 6:1                ; 6 bits    ; 24 LEs        ; 6 LEs                ; 18 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[2]    ;
-; 6:1                ; 3 bits    ; 12 LEs        ; 0 LEs                ; 12 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|DST[0]    ;
-; 10:1               ; 2 bits    ; 12 LEs        ; 0 LEs                ; 12 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|SRCCON[1] ;
-; 19:1               ; 2 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OP[6]     ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |instr_decode_demo|Mux8                             ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 2 LEs                ; 6 LEs                  ; No         ; |instr_decode_demo|Mux11                            ;
-; 10:1               ; 2 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; No         ; |instr_decode_demo|Mux11                            ;
-; 10:1               ; 4 bits    ; 24 LEs        ; 4 LEs                ; 20 LEs                 ; No         ; |instr_decode_demo|Mux9                             ;
-; 12:1               ; 3 bits    ; 24 LEs        ; 9 LEs                ; 15 LEs                 ; No         ; |instr_decode_demo|Mux9                             ;
-; 12:1               ; 2 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |instr_decode_demo|Mux9                             ;
-; 12:1               ; 2 bits    ; 16 LEs        ; 6 LEs                ; 10 LEs                 ; No         ; |instr_decode_demo|Mux9                             ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 52 LEs               ; 43638 LEs              ; No         ; |instr_decode_demo|Mux25                            ;
-; 32768:1            ; 4 bits    ; 87380 LEs     ; 100 LEs              ; 87280 LEs              ; No         ; |instr_decode_demo|Mux18                            ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 56 LEs               ; 43634 LEs              ; No         ; |instr_decode_demo|Mux28                            ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 62 LEs               ; 43628 LEs              ; No         ; |instr_decode_demo|Mux22                            ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 56 LEs               ; 43634 LEs              ; No         ; |instr_decode_demo|Mux30                            ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 56 LEs               ; 43634 LEs              ; No         ; |instr_decode_demo|Mux23                            ;
+; 6:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[9]    ;
+; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[0]    ;
+; 6:1                ; 3 bits    ; 12 LEs        ; 0 LEs                ; 12 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|DST[2]    ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[10]   ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[3]    ;
+; 12:1               ; 3 bits    ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|SRCCON[1] ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; No         ; |instr_decode_demo|Mux13                            ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |instr_decode_demo|Mux11                            ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; No         ; |instr_decode_demo|Mux11                            ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |instr_decode_demo|Mux9                             ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 2 LEs                ; 6 LEs                  ; No         ; |instr_decode_demo|Mux11                            ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; No         ; |instr_decode_demo|Mux11                            ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 72 LEs               ; 43618 LEs              ; No         ; |instr_decode_demo|Mux25                            ;
+; 32768:1            ; 4 bits    ; 87380 LEs     ; 172 LEs              ; 87208 LEs              ; No         ; |instr_decode_demo|Mux18                            ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 72 LEs               ; 43618 LEs              ; No         ; |instr_decode_demo|Mux27                            ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 98 LEs               ; 43592 LEs              ; No         ; |instr_decode_demo|Mux22                            ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 72 LEs               ; 43618 LEs              ; No         ; |instr_decode_demo|Mux30                            ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 74 LEs               ; 43616 LEs              ; No         ; |instr_decode_demo|Mux23                            ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
 
 
@@ -390,20 +389,20 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; boundary_port         ; 46                          ;
 ; cycloneiii_ff         ; 165                         ;
 ;     ENA               ; 50                          ;
-;     ENA SLD           ; 1                           ;
-;     plain             ; 114                         ;
-; cycloneiii_lcell_comb ; 590                         ;
+;     ENA SLD           ; 4                           ;
+;     plain             ; 111                         ;
+; cycloneiii_lcell_comb ; 610                         ;
 ;     arith             ; 13                          ;
 ;         2 data inputs ; 12                          ;
 ;         3 data inputs ; 1                           ;
-;     normal            ; 577                         ;
+;     normal            ; 597                         ;
 ;         1 data inputs ; 2                           ;
-;         2 data inputs ; 41                          ;
-;         3 data inputs ; 70                          ;
-;         4 data inputs ; 464                         ;
+;         2 data inputs ; 44                          ;
+;         3 data inputs ; 77                          ;
+;         4 data inputs ; 474                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 10.00                       ;
-; Average LUT depth     ; 6.87                        ;
+; Max LUT depth         ; 11.00                       ;
+; Average LUT depth     ; 7.24                        ;
 +-----------------------+-----------------------------+
 
 
@@ -422,7 +421,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Thu Feb 23 21:46:50 2023
+    Info: Processing started: Sun Mar 26 14:54:12 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off instruction_decoder_demo -c instruction_decoder_demo
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -516,15 +515,15 @@ Warning (20013): Ignored 24 assignments for entity "register_test" -- entity doe
 Info (144001): Generated suppressed messages file C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/output_files/instruction_decoder_demo.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 736 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 761 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 18 input pins
     Info (21059): Implemented 28 output pins
-    Info (21061): Implemented 690 logic cells
+    Info (21061): Implemented 715 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 78 warnings
-    Info: Peak virtual memory: 4987 megabytes
-    Info: Processing ended: Thu Feb 23 21:47:45 2023
-    Info: Elapsed time: 00:00:55
-    Info: Total CPU time (on all processors): 00:01:02
+    Info: Peak virtual memory: 4997 megabytes
+    Info: Processing ended: Sun Mar 26 14:55:06 2023
+    Info: Elapsed time: 00:00:54
+    Info: Total CPU time (on all processors): 00:00:54
 
 
 +------------------------------------------+
