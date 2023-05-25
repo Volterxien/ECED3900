@@ -1,0 +1,5 @@
+module viewMemory (address, update);
+	input [15:0] address;
+	
+	always @(posedge update) begin
+		
