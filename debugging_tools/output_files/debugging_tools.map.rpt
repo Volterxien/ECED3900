@@ -1,5 +1,5 @@
 Analysis & Synthesis report for debugging_tools
-Wed May 24 22:25:18 2023
+Sat May 27 20:53:42 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -10,8 +10,17 @@ Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Messages
-  6. Analysis & Synthesis Suppressed Messages
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. User-Specified and Inferred Latches
+  9. General Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Port Connectivity Checks: "view_data:data_viewer"
+ 12. Post-Synthesis Netlist Statistics for Top Partition
+ 13. Elapsed Time Per Partition
+ 14. Analysis & Synthesis Messages
+ 15. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -38,20 +47,20 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Failed - Wed May 24 22:25:18 2023              ;
+; Analysis & Synthesis Status        ; Successful - Sat May 27 20:53:42 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; debugging_tools                                ;
 ; Top-level Entity Name              ; debugging_tools                                ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; N/A until Partition Merge                      ;
-;     Total combinational functions  ; N/A until Partition Merge                      ;
-;     Dedicated logic registers      ; N/A until Partition Merge                      ;
-; Total registers                    ; N/A until Partition Merge                      ;
-; Total pins                         ; N/A until Partition Merge                      ;
-; Total virtual pins                 ; N/A until Partition Merge                      ;
-; Total memory bits                  ; N/A until Partition Merge                      ;
-; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                      ;
-; Total PLLs                         ; N/A until Partition Merge                      ;
+; Total logic elements               ; 262                                            ;
+;     Total combinational functions  ; 262                                            ;
+;     Dedicated logic registers      ; 28                                             ;
+; Total registers                    ; 28                                             ;
+; Total pins                         ; 75                                             ;
+; Total virtual pins                 ; 0                                              ;
+; Total memory bits                  ; 0                                              ;
+; Embedded Multiplier 9-bit elements ; 0                                              ;
+; Total PLLs                         ; 0                                              ;
 +------------------------------------+------------------------------------------------+
 
 
@@ -150,11 +159,190 @@ https://fpgasoftware.intel.com/eula.
 ; Maximum allowed            ; 6           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 6           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processors 2-6         ;   0.0%      ;
 +----------------------------+-------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                        ;
++----------------------------------+-----------------+------------------------+-----------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                          ; Library ;
++----------------------------------+-----------------+------------------------+-----------------------------------------------------------------------+---------+
+; debugging_tools.v                ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v   ;         ;
+; seven_seg_decoder.v              ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/seven_seg_decoder.v ;         ;
+; view_data.v                      ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v         ;         ;
+; memory.txt                       ; yes             ; Auto-Found File        ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/memory.txt          ;         ;
++----------------------------------+-----------------+------------------------+-----------------------------------------------------------------------+---------+
+
+
++-----------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary               ;
++---------------------------------------------+-------------+
+; Resource                                    ; Usage       ;
++---------------------------------------------+-------------+
+; Estimated Total logic elements              ; 262         ;
+;                                             ;             ;
+; Total combinational functions               ; 262         ;
+; Logic element usage by number of LUT inputs ;             ;
+;     -- 4 input functions                    ; 185         ;
+;     -- 3 input functions                    ; 67          ;
+;     -- <=2 input functions                  ; 10          ;
+;                                             ;             ;
+; Logic elements by mode                      ;             ;
+;     -- normal mode                          ; 262         ;
+;     -- arithmetic mode                      ; 0           ;
+;                                             ;             ;
+; Total registers                             ; 28          ;
+;     -- Dedicated logic registers            ; 28          ;
+;     -- I/O registers                        ; 0           ;
+;                                             ;             ;
+; I/O pins                                    ; 75          ;
+;                                             ;             ;
+; Embedded Multiplier 9-bit elements          ; 0           ;
+;                                             ;             ;
+; Maximum fan-out node                        ; SW[2]~input ;
+; Maximum fan-out                             ; 75          ;
+; Total fan-out                               ; 1144        ;
+; Average fan-out                             ; 2.60        ;
++---------------------------------------------+-------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                ;
++-----------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------+-------------------+--------------+
+; Compilation Hierarchy Node        ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                              ; Entity Name       ; Library Name ;
++-----------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------+-------------------+--------------+
+; |debugging_tools                  ; 262 (123)           ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 75   ; 0            ; |debugging_tools                                                 ; debugging_tools   ; work         ;
+;    |view_data:data_viewer|        ; 139 (111)           ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer                           ; view_data         ; work         ;
+;       |seven_seg_decoder:decode1| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode1 ; seven_seg_decoder ; work         ;
+;       |seven_seg_decoder:decode2| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode2 ; seven_seg_decoder ; work         ;
+;       |seven_seg_decoder:decode3| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode3 ; seven_seg_decoder ; work         ;
+;       |seven_seg_decoder:decode4| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode4 ; seven_seg_decoder ; work         ;
++-----------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------+-------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++---------------------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                           ;
++-----------------------------------------------------+--------------------------------+------------------------+
+; Latch Name                                          ; Latch Enable Signal            ; Free of Timing Hazards ;
++-----------------------------------------------------+--------------------------------+------------------------+
+; view_data:data_viewer|LEDG[0]                       ; GND                            ; yes                    ;
+; view_data:data_viewer|LEDG[1]                       ; GND                            ; yes                    ;
+; view_data:data_viewer|LEDG[2]                       ; view_data:data_viewer|LEDG[5]  ; yes                    ;
+; view_data:data_viewer|LEDG[3]                       ; view_data:data_viewer|LEDG[5]  ; yes                    ;
+; view_data:data_viewer|LEDG[4]                       ; view_data:data_viewer|LEDG[5]  ; yes                    ;
+; view_data:data_viewer|LEDG[5]                       ; view_data:data_viewer|LEDG[5]  ; yes                    ;
+; view_data:data_viewer|LEDR[0]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[1]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[2]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[3]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[4]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[5]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[6]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[7]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[8]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[9]                       ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[10]                      ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[11]                      ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[12]                      ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[13]                      ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[14]                      ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|LEDR[15]                      ; view_data:data_viewer|LEDR[15] ; yes                    ;
+; view_data:data_viewer|data[0]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[1]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[2]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[3]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[4]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[5]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[6]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[7]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[8]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[9]                       ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[10]                      ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[11]                      ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[12]                      ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[13]                      ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[14]                      ; view_data:data_viewer|data[0]  ; yes                    ;
+; view_data:data_viewer|data[15]                      ; view_data:data_viewer|data[0]  ; yes                    ;
+; Number of user-specified and inferred latches = 38  ;                                ;                        ;
++-----------------------------------------------------+--------------------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 28    ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------+
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |debugging_tools|view_data:data_viewer|data[2] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------+
+
+
++---------------------------------------------------+
+; Port Connectivity Checks: "view_data:data_viewer" ;
++----------------+-------+----------+---------------+
+; Port           ; Type  ; Severity ; Details       ;
++----------------+-------+----------+---------------+
+; psw_data[9..6] ; Input ; Info     ; Stuck at VCC  ;
+; psw_data[5..4] ; Input ; Info     ; Stuck at GND  ;
+; psw_data[2..0] ; Input ; Info     ; Stuck at GND  ;
+; psw_data[15]   ; Input ; Info     ; Stuck at VCC  ;
+; psw_data[14]   ; Input ; Info     ; Stuck at GND  ;
+; psw_data[13]   ; Input ; Info     ; Stuck at VCC  ;
+; psw_data[12]   ; Input ; Info     ; Stuck at GND  ;
+; psw_data[11]   ; Input ; Info     ; Stuck at VCC  ;
+; psw_data[10]   ; Input ; Info     ; Stuck at GND  ;
+; psw_data[3]    ; Input ; Info     ; Stuck at VCC  ;
++----------------+-------+----------+---------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 75                          ;
+; cycloneiii_ff         ; 28                          ;
+;     plain             ; 28                          ;
+; cycloneiii_lcell_comb ; 263                         ;
+;     normal            ; 263                         ;
+;         0 data inputs ; 1                           ;
+;         2 data inputs ; 10                          ;
+;         3 data inputs ; 67                          ;
+;         4 data inputs ; 185                         ;
+;                       ;                             ;
+; Max LUT depth         ; 6.00                        ;
+; Average LUT depth     ; 3.74                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:32     ;
++----------------+--------------+
 
 
 +-------------------------------+
@@ -163,7 +351,7 @@ https://fpgasoftware.intel.com/eula.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Wed May 24 22:25:12 2023
+    Info: Processing started: Sat May 27 20:53:03 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off debugging_tools -c debugging_tools
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -171,27 +359,252 @@ Info (12021): Found 1 design units, including 1 entities, in source file debuggi
     Info (12023): Found entity 1: debugging_tools File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file seven_seg_decoder.v
     Info (12023): Found entity 1: seven_seg_decoder File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/seven_seg_decoder.v Line: 1
-Warning (10229): Verilog HDL Expression warning at view_memory.v(46): truncated literal to match 3 bits File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_memory.v Line: 46
-Info (12021): Found 1 design units, including 1 entities, in source file view_memory.v
-    Info (12023): Found entity 1: view_data File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_memory.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file view_data.v
+    Info (12023): Found entity 1: view_data File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 1
 Info (12127): Elaborating entity "debugging_tools" for the top level hierarchy
-Warning (10858): Verilog HDL warning at debugging_tools.v(15): object reg_file used but never assigned File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 15
-Warning (10858): Verilog HDL warning at debugging_tools.v(16): object psw used but never assigned File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 16
-Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(23): object "Clock" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 23
-Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(28): object "PC" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 28
-Error (10663): Verilog HDL Port Connection error at debugging_tools.v(42): output or inout port "HEX0" must be connected to a structural net expression File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 42
-Error (10663): Verilog HDL Port Connection error at debugging_tools.v(42): output or inout port "HEX1" must be connected to a structural net expression File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 42
-Error (10663): Verilog HDL Port Connection error at debugging_tools.v(42): output or inout port "HEX2" must be connected to a structural net expression File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 42
-Error (10663): Verilog HDL Port Connection error at debugging_tools.v(42): output or inout port "HEX3" must be connected to a structural net expression File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 42
-Error (10663): Verilog HDL Port Connection error at debugging_tools.v(42): output or inout port "LEDG" must be connected to a structural net expression File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 42
-Error (10663): Verilog HDL Port Connection error at debugging_tools.v(42): output or inout port "LEDR" must be connected to a structural net expression File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 42
-Error (12153): Can't elaborate top-level user hierarchy
+Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(19): object "execution_type" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 19
+Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(31): object "breakpnt" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 31
+Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(35): object "PC" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 35
+Warning (10235): Verilog HDL Always Construct warning at debugging_tools.v(80): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 80
+Warning (10240): Verilog HDL Always Construct warning at debugging_tools.v(76): inferring latch(es) for variable "bkpnt", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 76
+Warning (10030): Net "reg_file.data_a" at debugging_tools.v(17) has no driver or initial value, using a default initial value '0' File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 17
+Warning (10030): Net "reg_file.waddr_a" at debugging_tools.v(17) has no driver or initial value, using a default initial value '0' File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 17
+Warning (10030): Net "reg_file.we_a" at debugging_tools.v(17) has no driver or initial value, using a default initial value '0' File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 17
+Info (12128): Elaborating entity "view_data" for hierarchy "view_data:data_viewer" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 51
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(39): variable "LEDG" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 39
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(41): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 41
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(42): variable "mem_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 42
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(44): variable "LEDG" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(46): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 46
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(47): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 47
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(48): variable "psw_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 48
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(50): variable "reg_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 50
+Warning (10240): Verilog HDL Always Construct warning at view_data.v(29): inferring latch(es) for variable "LEDG", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Warning (10240): Verilog HDL Always Construct warning at view_data.v(29): inferring latch(es) for variable "LEDR", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Warning (10240): Verilog HDL Always Construct warning at view_data.v(29): inferring latch(es) for variable "data", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[0]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[1]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[2]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[3]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[4]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[5]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[6]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[7]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[8]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[9]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[10]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[11]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[12]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[13]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[14]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "data[15]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+Info (10041): Inferred latch for "LEDR[0]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[1]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[2]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[3]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[4]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[5]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[6]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[7]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[8]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[9]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[10]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[11]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[12]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[13]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[14]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDR[15]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDG[0]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDG[1]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDG[2]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDG[3]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDG[4]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDG[5]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "view_data:data_viewer|seven_seg_decoder:decode1" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 24
+Info (276014): Found 1 instances of uninferred RAM logic
+    Info (276004): RAM logic "reg_file" is uninferred due to inappropriate RAM size File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 17
+Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/debugging_tools.ram0_debugging_tools_81197e81.hdl.mif" contains "don't care" values -- overwriting them with 0s
+Warning (13012): Latch view_data:data_viewer|LEDR[0] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[1] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[2] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[3] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[4] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[5] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[6] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[7] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[8] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[9] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[10] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[11] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[12] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[13] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[14] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[15] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|data[0] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[1] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[2] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[3] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[4] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[5] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[6] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[7] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[8] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[9] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[10] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[11] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[12] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[13] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[14] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[15] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LEDR16_17[0]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 6
+Info (286030): Timing-Driven Synthesis is running
+Warning (20013): Ignored 24 assignments for entity "instr_decode_demo" -- entity does not exist in design
+    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity instr_decode_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity instr_decode_demo -section_id Top was ignored
+Warning (20013): Ignored 24 assignments for entity "loader" -- entity does not exist in design
+    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity loader -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity loader -section_id Top was ignored
+Warning (20013): Ignored 24 assignments for entity "loader_demo" -- entity does not exist in design
+    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity loader_demo -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity loader_demo -section_id Top was ignored
+Warning (20013): Ignored 24 assignments for entity "register_test" -- entity does not exist in design
+    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity register_test -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity register_test -section_id Top was ignored
 Info (144001): Generated suppressed messages file C:/Users/mccoy/Documents/ECED3900/debugging_tools/output_files/debugging_tools.map.smsg
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 7 errors, 6 warnings
-    Error: Peak virtual memory: 4933 megabytes
-    Error: Processing ended: Wed May 24 22:25:18 2023
-    Error: Elapsed time: 00:00:06
-    Error: Total CPU time (on all processors): 00:00:09
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "KEY[0]" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Info (21057): Implemented 337 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 22 input pins
+    Info (21059): Implemented 53 output pins
+    Info (21061): Implemented 262 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 189 warnings
+    Info: Peak virtual memory: 4842 megabytes
+    Info: Processing ended: Sat May 27 20:53:42 2023
+    Info: Elapsed time: 00:00:39
+    Info: Total CPU time (on all processors): 00:00:40
 
 
 +------------------------------------------+

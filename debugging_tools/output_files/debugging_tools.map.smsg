@@ -1,1 +1,1 @@
-Warning (10268): Verilog HDL information at view_memory.v(37): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_memory.v Line: 37
+Warning (10268): Verilog HDL information at view_data.v(29): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29

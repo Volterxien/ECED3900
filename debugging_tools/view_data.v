@@ -8,10 +8,10 @@ module view_data (mem_data, reg_data, psw_data, addr, update, mem_mode, HEX0, HE
 	
 	output reg [5:0] LEDG;
 	output reg [15:0] LEDR;
-	output reg [6:0] HEX0;
-	output reg [6:0] HEX1;
-	output reg [6:0] HEX2;
-	output reg [6:0] HEX3;
+	output wire [6:0] HEX0;
+	output wire [6:0] HEX1;
+	output wire [6:0] HEX2;
+	output wire [6:0] HEX3;
 	
 	reg [15:0] data;
 	
@@ -26,27 +26,30 @@ module view_data (mem_data, reg_data, psw_data, addr, update, mem_mode, HEX0, HE
 	seven_seg_decoder decode3( .Reg1 (nib2), .HEX0 (HEX2), .Clock (update));
 	seven_seg_decoder decode4( .Reg1 (nib3), .HEX0 (HEX3), .Clock (update));
 	
-	always @(posedge mem_mode[0])
-		LEDG = 6'b000001;
-	
-	always @(posedge mem_mode[1]) begin
-		LEDG = 2'b10;
-		LEDR = 16'h0000;
+	always @(mem_mode, update) begin
+		if (mem_mode == 2'b10)
+			LEDG = 6'b000001;
+		else if (mem_mode == 2'b01) 
+			begin
+			LEDG = 2'b10;
+			LEDR = 16'h0000;
+			end
+		else if (update == 1'b0)
+			begin
+			if (LEDG[0] == 1'b1) 
+				begin
+				LEDR = addr[15:0];
+				data <= mem_data[15:0];
+				end
+			else if (LEDG[1] == 1'b1) 
+				begin
+				LEDG[5:2] = addr[3:0];
+				if (addr[3:0] == 4'd8)
+					data <= psw_data[15:0];
+				else
+					data <= reg_data[15:0];
+				end
+			end
 	end
 	
-	always @(posedge update) begin
-		if (LEDG[0] == 1'b1) 
-			begin
-			LEDR = addr[15:0];
-			data <= mem_data[15:0];
-			end
-		else if (LEDG[1] == 1'b1) 
-			begin
-			LEDG[5:2] = addr[3:0];
-			if (addr[3:0] == 3'd8)
-				data <= psw_data[15:0];
-			else
-				data <= reg_data[15:0];
-			end
-	end
 endmodule
