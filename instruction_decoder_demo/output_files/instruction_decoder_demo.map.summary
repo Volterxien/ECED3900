@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Mon Apr 10 09:09:43 2023
+Analysis & Synthesis Status : Successful - Tue Jun  6 22:32:21 2023
 Quartus Prime Version : 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 Revision Name : instruction_decoder_demo
 Top-level Entity Name : instr_decode_demo
 Family : Cyclone IV E
-Total logic elements : 747
-    Total combinational functions : 655
+Total logic elements : 755
+    Total combinational functions : 662
     Dedicated logic registers : 165
 Total registers : 165
 Total pins : 46

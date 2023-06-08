@@ -116,15 +116,35 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[12]",
+					"name" : "SW[1]",
 					"strict" : false
 				},
 				{
-					"name" : "SW[14]",
+					"name" : "SW[5]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[3]",
 					"strict" : false
 				},
 				{
 					"name" : "SW[15]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[6]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[11]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[7]",
+					"strict" : false
+				},
+				{
+					"name" : "SW[8]",
 					"strict" : false
 				},
 				{
@@ -136,35 +156,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[11]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[6]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[8]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[1]",
-					"strict" : false
-				},
-				{
 					"name" : "SW[13]",
 					"strict" : false
 				},
 				{
-					"name" : "SW[7]",
+					"name" : "SW[12]",
 					"strict" : false
 				},
 				{
-					"name" : "SW[3]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[5]",
+					"name" : "SW[14]",
 					"strict" : false
 				},
 				{
