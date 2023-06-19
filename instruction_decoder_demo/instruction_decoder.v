@@ -28,14 +28,14 @@ module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST,
 	wire [2:0] bits10to12;
 	wire [3:0] bits8to11;
 	wire [2:0] bits7to9;
-	wire [3:0] bits5to6;
+	wire [2:0] bits4to6;
 	wire [3:0] bits3to5;
 	
 	assign bits13to15 = Instr[15:13];
 	assign bits10to12 = Instr[12:10];
 	assign bits8to11 = Instr[11:8];
 	assign bits7to9 = Instr[9:7];
-	assign bits5to6 = Instr[6:5];
+	assign bits4to6 = Instr[6:4];
 	assign bits3to5 = Instr[5:3];
 	
 	always @(posedge Clock) begin
@@ -81,20 +81,31 @@ module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST,
 									DST <= Instr[2:0];
 									end
 								
-								2:	begin		// SRA, RRC, SWPB, SXT
+								2:	begin		// SRA, RRC, COMP, SWPB, SXT
 									OP <= 6'd23 + bits3to5;
-									WB <= Instr[6]; // Can update, but will not be used for SWPB or SXT
+									WB <= Instr[6]; // Can update, but will not be used for SWPB, COMP, or SXT
 									DST <= Instr[2:0];
 									end
 									
-								3:	begin		// SETPRI, SVC, SETCC, CLRCC
-									OP = 6'd28 + bits5to6;
-									if(bits5to6 == 2'd0)
-										PR <= Instr[2:0];
-									else if (bits5to6 == 2'd1)
-										SA <= Instr[3:0];
-									else
-										PSWb <= Instr[4:0];
+								3:	begin		
+										case(bits4to6)
+										0:	begin	// SETPRI
+											OP = 6'd28;
+											PR <= Instr[2:0];
+											end
+										1:	begin	// SVC
+											OP = 6'd29;
+											SA <= Instr[3:0];
+											end
+										2,3: begin	// SETCC
+											OP = 6'd30;
+											PSWb <= Instr[4:0];
+											end
+										4,5: begin	// CLRCC
+											OP = 6'd31;
+											PSWb <= Instr[4:0];
+											end
+										endcase
 									end
 							endcase
 							end

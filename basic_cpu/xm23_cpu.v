@@ -24,14 +24,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	/* The following 3 lines are where memory is loaded */
 	initial begin
 		psw = 16'h60e0;
-		reg_file[0] = 16'h0000;
-		reg_file[1] = 16'h0000;
-		reg_file[2] = 16'h0000;
-		reg_file[3] = 16'h0000;
-		reg_file[4] = 16'h0000;
-		reg_file[5] = 16'h0000;
-		reg_file[6] = 16'h0800;
-		reg_file[7] = 16'h0000;
 		$readmemh("memory.txt", memory, 0);
 	end
 	
