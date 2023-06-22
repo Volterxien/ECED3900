@@ -30,12 +30,16 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	wire Clock;
 	wire [2:0] data_bus_ctrl, addr_bus_ctrl; // [1b for R/W, 2b for src/dst (0=MDR/MAR, 1=Reg File, 2=IR)]
 	wire [15:0] addr, breakpnt;
-	wire [3:0] reg_num;
+	wire [3:0] reg_num, sxt_bit_num;
 	wire [1:0] mem_mode;
 	wire [15:0] mem_data, reg_data, psw_data;
 	wire [15:0] mar_mem_bus, mdr_mem_bus;
+	wire [15:0] sxt_in, sxt_out;
+	wire [15:0] bm_in, bm_out;
+	wire [2:0] bm_op;
 	wire [15:0] s_bus, d_bus, alu_out;
 	wire [2:0] CR_bus;
+	wire sxt_E, bm_E;
 	
 	wire [15:0] Instr;
 	wire [6:0] OP;
@@ -50,7 +54,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	wire [2:0] SRCCON;
 	wire WB;
 	wire RC;
-	wire [7:0] ImByte;
+	wire [7:0] ImByte, bm_byte;
 	wire PRPO;
 	wire DEC;
 	wire INC;
@@ -71,6 +75,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	assign mar_mem_bus = mar[15:0];
 
 	view_data data_viewer(mem_data, reg_data, psw_data, addr, KEY[3], mem_mode, HEX0, HEX1, HEX2, HEX3, LEDG, LEDR);
+	sign_extender sxt_ext(sxt_in, sxt_out, sxt_bit_num, sxt_E);
+	byte_manip byte_manipulator(bm_op, bm_in, bm_out, bm_byte, bm_E);
 	instruction_decoder ID(Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, FLTo, Clock);
 	// control_unit
 	alu arithmetic_logic_unit(s_bus, d_bus, alu_out,
