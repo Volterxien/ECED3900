@@ -16,7 +16,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	reg [7:0] memory [0:16'hffff];
 	reg [15:0] reg_file [0:7];
 	reg [15:0] psw, instr_reg, mar, mdr;
-	reg [15:0] data_bus, addr_bus;
+	reg [15:0] data_bus, addr_bus, source_bus, dest_bus;
 	reg [2:0] ctrl_reg;
 	reg execution_type;
 	reg [15:0] bkpnt;
@@ -29,17 +29,19 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	
 	wire Clock;
 	wire [2:0] data_bus_ctrl, addr_bus_ctrl; // [1b for R/W, 2b for src/dst (0=MDR/MAR, 1=Reg File, 2=IR)]
+	wire s_bus_ctrl;	// 0 = use Reg File, 1 = use calculated offset
 	wire [15:0] addr, breakpnt;
-	wire [3:0] reg_num, sxt_bit_num;
+	wire [3:0] reg_num1, reg_num2, sxt_bit_num;
 	wire [1:0] mem_mode;
 	wire [15:0] mem_data, reg_data, psw_data;
 	wire [15:0] mar_mem_bus, mdr_mem_bus;
 	wire [15:0] sxt_in, sxt_out;
 	wire [15:0] bm_in, bm_out;
 	wire [2:0] bm_op;
+	wire [5:0] alu_op;
 	wire [15:0] s_bus, d_bus, alu_out;
 	wire [2:0] CR_bus;
-	wire sxt_E, bm_E;
+	wire sxt_E, bm_E, alu_E;
 	
 	wire [15:0] Instr;
 	wire [6:0] OP;
@@ -60,6 +62,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	wire INC;
 	wire FLTo;
 	
+	wire psw_update;
+	
 	assign addr = SW[15:0];
 	assign breakpnt = bkpnt[15:0];
 	
@@ -73,13 +77,15 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	
 	assign mar_mem_bus = mar[15:0];
+	assign d_bus = reg_file[reg_num1[3:0]][15:0];
+	assign s_bus = source_bus[15:0];
 
 	view_data data_viewer(mem_data, reg_data, psw_data, addr, KEY[3], mem_mode, HEX0, HEX1, HEX2, HEX3, LEDG, LEDR);
 	sign_extender sxt_ext(sxt_in, sxt_out, sxt_bit_num, sxt_E);
 	byte_manip byte_manipulator(bm_op, bm_in, bm_out, bm_byte, bm_E);
 	instruction_decoder ID(Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, FLTo, Clock);
 	// control_unit
-	alu arithmetic_logic_unit(s_bus, d_bus, alu_out,
+	alu arithmetic_logic_unit(s_bus, d_bus, alu_out, alu_op, PSW_in, PSW_out, alu_E, psw_update);
 	
 	// Indicator of whether CPU is currently executing instructions based on PSW SLP bit
 	always @(psw[3]) begin
@@ -152,9 +158,9 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 		end
 		else if (data_bus_ctrl[1:0] == 2'b01) begin // Register File
 			if (data_bus_ctrl[2] == 1'b0)	// Read from Register File
-				data_bus <= reg_file[reg_num][15:0];
+				data_bus <= reg_file[reg_num1][15:0];
 			else							// Write to Register File
-				reg_file[reg_num] <= data_bus[15:0];
+				reg_file[reg_num1] <= data_bus[15:0];
 		end
 		else if (data_bus_ctrl[1:0] == 2'b10) begin // Instruction Register
 			if (data_bus_ctrl[2] == 1'b1)	// Write to Instruction Register
@@ -172,12 +178,18 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 		end
 		else if (addr_bus_ctrl[1:0] == 2'b01) begin // Register File
 			if (addr_bus_ctrl[2] == 1'b0)	// Read from Register File
-				addr_bus <= reg_file[reg_num][15:0];
+				addr_bus <= reg_file[reg_num1][15:0];
 		end
 		else if (data_bus_ctrl[1:0] == 2'b11) begin // ALU Output
 			if (addr_bus_ctrl[2] == 1'b0)	// Read from ALU output
 				addr_bus <= alu_output[15:0];
 		end
 		
+		// S-Bus Updating
+		if (s_bus_ctrl == 1'b0)					// From Register File
+			source_bus <= reg_file[reg_num2][15:0];
+		else if (s_bus_ctrl == 1'b1)			// From sign extender output
+			source_bus <= sxt_out[15:0]
+			
 	end
 endmodule
