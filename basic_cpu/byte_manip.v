@@ -30,7 +30,7 @@ module byte_manip(op, dst_in, dst_out, byte, E);
 				dst_out <= dst_val[15:0];
 				end
 			4:	begin	// SWPB
-				temp <= dst_val[15:8];
+				temp = dst_val[15:8];
 				dst_val[15:8] <= byte[7:0];
 				dst_val[7:0] <= temp[7:0];
 				dst_out <= dst_val[15:0];

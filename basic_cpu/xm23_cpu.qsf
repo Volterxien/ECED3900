@@ -60,7 +60,8 @@ set_global_assignment -name VERILOG_FILE view_data.v
 set_global_assignment -name VERILOG_FILE seven_seg_decoder.v
 set_global_assignment -name VERILOG_FILE alu.v
 set_global_assignment -name VERILOG_FILE instruction_decoder.v
-set_global_assignment -name VERILOG_FILE ControlUnit.v
 set_global_assignment -name VERILOG_FILE regfile.v
 set_global_assignment -name VERILOG_FILE sign_extender.v
 set_global_assignment -name VERILOG_FILE byte_manip.v
+set_global_assignment -name VERILOG_FILE cex_code.v
+set_global_assignment -name VERILOG_FILE control_unit.v

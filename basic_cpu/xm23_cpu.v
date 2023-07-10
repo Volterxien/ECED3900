@@ -14,7 +14,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
 	
 	reg [7:0] memory [0:16'hffff];
-	reg [15:0] reg_file [0:7];
+	reg [16:0] reg_file [0:7];
 	reg [15:0] psw, instr_reg, mar, mdr;
 	reg [15:0] data_bus, addr_bus, source_bus, dest_bus;
 	reg [2:0] ctrl_reg;
@@ -23,15 +23,15 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	
 	/* The following 3 lines are where memory is loaded */
 	initial begin
-		psw = 16'h60e0;
 		$readmemh("memory.txt", memory, 0);
 	end
 	
 	wire Clock;
-	wire [2:0] data_bus_ctrl, addr_bus_ctrl; // [1b for R/W, 2b for src/dst (0=MDR/MAR, 1=Reg File, 2=IR)]
+	wire [4:0] data_bus_ctrl, addr_bus_ctrl; // [1b for W/B, 2b for src, 2b for dst (Codes: 0=MDR/MAR, 1=Reg File, 2=IR, 3=ALU)]
+	wire [6:0] reg_bus_ctrl; // Bus for internal register file movements (Allow for MOV instruction) (1b for W/B, 3b for src, 3b for dst)
 	wire s_bus_ctrl;	// 0 = use Reg File, 1 = use calculated offset
 	wire [15:0] addr, breakpnt;
-	wire [3:0] reg_num1, reg_num2, sxt_bit_num;
+	wire [4:0] dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bit_num;	// Rnum1 is dest register, Rnum2 is src register
 	wire [1:0] mem_mode;
 	wire [15:0] mem_data, reg_data, psw_data;
 	wire [15:0] mar_mem_bus, mdr_mem_bus;
@@ -41,7 +41,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	wire [5:0] alu_op;
 	wire [15:0] s_bus, d_bus, alu_out;
 	wire [2:0] CR_bus;
-	wire sxt_E, bm_E, alu_E;
+	wire sxt_bit_num;
+	wire sxt_E, bm_E, alu_E, mov_E;
 	
 	wire [15:0] Instr;
 	wire [6:0] OP;
@@ -77,14 +78,14 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	
 	assign mar_mem_bus = mar[15:0];
-	assign d_bus = reg_file[reg_num1[3:0]][15:0];
+	assign d_bus = reg_file[alu_rnum_dst[3:0]][15:0];
 	assign s_bus = source_bus[15:0];
 
 	view_data data_viewer(mem_data, reg_data, psw_data, addr, KEY[3], mem_mode, HEX0, HEX1, HEX2, HEX3, LEDG, LEDR);
 	sign_extender sxt_ext(sxt_in, sxt_out, sxt_bit_num, sxt_E);
 	byte_manip byte_manipulator(bm_op, bm_in, bm_out, bm_byte, bm_E);
 	instruction_decoder ID(Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, FLTo, Clock);
-	// control_unit
+	control_unit ctrl_unit(Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC,);
 	alu arithmetic_logic_unit(s_bus, d_bus, alu_out, alu_op, PSW_in, PSW_out, alu_E, psw_update);
 	
 	// Indicator of whether CPU is currently executing instructions based on PSW SLP bit
@@ -121,7 +122,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	always @(posedge Clock) begin
 		ctrl_reg <= CR_bus[2:0];
 		instr_reg <= data_bus[15:0];
-		mar <= addr_bus[15:0];
 	end
 	
 	// Memory Accessing
@@ -150,46 +150,47 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY);
 	// Bus Assignment
 	always @(posedge Clock) begin
 		// Data Bus Updating
-		if (data_bus_ctrl[1:0] == 2'b00) begin // MDR
-			if (data_bus_ctrl[2] == 1'b0)	// Read from MDR
-				data_bus <= mdr[15:0];
-			else							// Write to MDR
-				mdr <= data_bus[15:0];
+		if (data_bus_ctrl[1:0] == 2'b00) begin 		// MDR
+			if (data_bus_ctrl[3:2] == 2'b01)		// Read from Register File into MDR
+				mdr <= reg_file[dbus_rnum_src[4:0]][15:0];
+			else if (data_bus_ctrl[3:2] == 2'b11)	// Read from ALU Output into MDR
+				mdr <= alu_output[15:0];
 		end
 		else if (data_bus_ctrl[1:0] == 2'b01) begin // Register File
-			if (data_bus_ctrl[2] == 1'b0)	// Read from Register File
-				data_bus <= reg_file[reg_num1][15:0];
-			else							// Write to Register File
-				reg_file[reg_num1] <= data_bus[15:0];
+			if (data_bus_ctrl[3:2] == 2'b00)			// Read from MDR into Register File
+				reg_file[dbus_rnum_dst[4:0]] <= mdr[15:0];
+			else if (data_bus_ctrl[3:2] == 2'b11) begin	// Read from ALU Output into Register File
+				if (data_bus_ctrl[4] == 1'b1)			// Byte
+					reg_file[dbus_rnum_dst[4:0]][7:0] <= alu_output[7:0];
+				else									// Word
+					reg_file[dbus_rnum_dst[4:0]] <= alu_output[15:0];
+			end
+			else if (data_bus_ctrl[3:2] == 2'b01) begin // Read from Register File into Register File
+				if (data_bus_ctrl[4] == 1'b1)
+					reg_file[dbus_rnum_dst[4:0]][7:0] <= reg_file[dbus_rnum_src[4:0]][7:0];
+				else									// Word
+					reg_file[dbus_rnum_dst[4:0]] <= reg_file[dbus_rnum_src[4:0]][15:0];
+			end
 		end
 		else if (data_bus_ctrl[1:0] == 2'b10) begin // Instruction Register
-			if (data_bus_ctrl[2] == 1'b1)	// Write to Instruction Register
-				instr_reg <= data_bus[15:0];
-		end
-		else if (data_bus_ctrl[1:0] == 2'b11) begin // ALU Output
-			if (data_bus_ctrl[2] == 1'b0)	// Read from ALU output
-				data_bus <= alu_output[15:0];
+			if (data_bus_ctrl[3:2] == 2'b01)		// Read from Register File into Instruction Register
+				instr_reg <= reg_file[dbus_rnum_src[4:0]][15:0];
+			else if (data_bus_ctrl[3:2] == 2'b00)	// Read from MDR into Instruction Register
+				instr_reg <= mdr[15:0];
 		end
 		
 		// Address Bus Updating
-		if (addr_bus_ctrl[1:0] == 2'b00) begin // MAR
-			if (addr_bus_ctrl[2] == 1'b1)	// Write to MAR
-				mar <= addr_bus[15:0];
-		end
-		else if (addr_bus_ctrl[1:0] == 2'b01) begin // Register File
-			if (addr_bus_ctrl[2] == 1'b0)	// Read from Register File
-				addr_bus <= reg_file[reg_num1][15:0];
-		end
-		else if (data_bus_ctrl[1:0] == 2'b11) begin // ALU Output
-			if (addr_bus_ctrl[2] == 1'b0)	// Read from ALU output
-				addr_bus <= alu_output[15:0];
+		if (addr_bus_ctrl[1:0] == 2'b00) begin 		// MAR
+			if (addr_bus_ctrl[3:2] == 2'b01)		// Read from Register File into MAR
+				mar <= reg_file[dbus_rnum_src[4:0]][15:0];
+			else if (data_bus_ctrl[3:2] == 2'b11) 	// Read from ALU Output into MAR
+				mar <= alu_output[15:0];
 		end
 		
 		// S-Bus Updating
 		if (s_bus_ctrl == 1'b0)					// From Register File
-			source_bus <= reg_file[reg_num2][15:0];
+			source_bus <= reg_file[alu_rnum_src[4:0]][15:0];
 		else if (s_bus_ctrl == 1'b1)			// From sign extender output
-			source_bus <= sxt_out[15:0]
-			
+			source_bus <= sxt_out[15:0]			
 	end
 endmodule

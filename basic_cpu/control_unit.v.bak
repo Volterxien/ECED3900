@@ -1,0 +1,160 @@
+module control_unit(Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, psw_in, psw_out);
+	
+	// Instruction Decoder Parameters
+	input [6:0] OP;
+	input [12:0] OFF;
+	input [3:0] C;
+	input [2:0] T;
+	input [2:0] F;
+	input [2:0] PR;
+	input [3:0] SA;
+	input [4:0] PSWb;
+	input [2:0] DST;
+	input [2:0] SRCCON;
+	input WB;
+	input RC;
+	input [7:0] ImByte;
+	input PRPO;
+	input DEC;
+	input INC;
+	input [15:0] psw_in;
+	input clock;
+	
+	output [15:0] enables; 						// [ALU_E, ID_E, SXT_E, BM_E, MOV_E
+	output [2:0] ctrl_reg_bus; 					// [ENA, R/W, W/B]
+	output [3:0] data_bus_ctrl, addr_bus_ctrl; 	// [2b for src, 2b for dst (Codes: 0=MDR/MAR, 1=Reg File, 2=IR, 3=ALU)]
+	output [5:0] reg_bus_ctrl; 					// Bus for internal register file movements (Allow for MOV instruction) (3b for src, 3b for dst)
+	output s_bus_ctrl;							// 0 = use Reg File, 1 = use calculated offset
+	output [15:0] offset;						// Offset for memory instructions
+	output sxt_bit_num;							// The bit to extend for sign extensions
+	output [15:0] psw_out;
+	output psw_update;							// 1 = update PSW in ALU, 0 = do not update PSW in ALU
+	output [5:0] alu_op;						// ALU operation
+	
+	assign psw_out = psw[15:0];					// Assign the output wires for the PSW
+	
+	reg [15:0] psw;
+	//unique outputs (some outputs use input bus)
+	cpucyle = 1;
+	
+	initial begin
+		psw = 16'h60e0;						// Initialize PSW to default values
+	end
+	
+	always @(psw_in) begin
+		psw <= psw_in[15:0];
+	end
+
+	always @(posedge clock) begin
+		case(cpucyle)
+			1: /* Fetch */
+			begin
+				reg_num1 <= 4'd7;			// Select the PC
+				addr_bus_ctrl <= 4'b0100;	// Write PC to MAR
+				ctrl_reg_bus <= 3'b100;		// Read memory from MAR address to MDR
+				data_bus_ctrl <= 4'b1000;	// Write MDR to Instruction Register
+			end
+			2: /* Finish Fetching from Memory (Add 2 to PC) */
+			begin
+				psw_update <= 1'b1;			// Set ALU to not update the PSW for fetching
+				reg_num1 <= 4'd7;			// Select the PC
+				reg_num2 <= 4'd10;			// Select the constant 2 to add to the PC after the fetch
+				alu_function <= 5'b00000;	// Add 2 to PC
+				enables[15] <= 1'b1;		// Enable the ALU
+			3: /* Decode */
+			begin
+				psw_update <= 1'b0;			// Set ALU to update the PSW after fetching
+				enables[15] <= 1'b0;		// Disable the ALU
+				enables[14] <= 1'b1;		// Enable the instruction decoder
+			end
+			4: /* Execute */
+			begin
+				enables[15] <= 1'b0;		// Disable the instruction decoder
+				case(instr)
+					1: //BL
+					begin
+						reg_bus_ctrl <= 6'b111101;	// Move the PC to the LR
+						offset <= (OFF << 1);		// Decode the offset
+						sxt_bit_num <= 4'd13;		// Provide sign bit to sign extender
+						enables[13] <= 1'b1;		// Enable the sign extender
+						psw_update <= 1'b1;			// Set ALU to not update the PSW for updating of instruction
+						reg_num1 <= 4'd7;			// Select the PC to write to
+						data_bus_ctrl <= 4'b1101;	// Write ALU output to PC
+					end
+					2: // BEQ/BZ
+					begin
+						if (psw[1] == 1'b1) begin
+							offset <= (OFF << 1);		// Decode the offset
+							sxt_bit_num <= 4'd10;		// Provide sign bit to sign extender
+							enables[13] <= 1'b1;		// Enable the sign extender
+							psw_update <= 1'b1;			// Set ALU to not update the PSW for updating of instruction
+							reg_num1 <= 4'd7;			// Select the PC to write to
+							data_bus_ctrl <= 4'b1101;	// Write ALU output to PC
+						end
+					end 
+					3: // BNE/BNZ
+					begin
+						if (psw[1] == 1'b0) begin
+							offset <= (OFF << 1);		// Decode the offset
+							sxt_bit_num <= 4'd10;		// Provide sign bit to sign extender
+							enables[13] <= 1'b1;		// Enable the sign extender
+							psw_update <= 1'b1;			// Set ALU to not update the PSW for updating of instruction
+							reg_num1 <= 4'd7;			// Select the PC to write to
+							data_bus_ctrl <= 4'b1101;	// Write ALU output to PC
+						end
+					end
+					4: // BC/BHS
+					begin
+						if (psw[1] == 1'b0) begin
+							offset <= (OFF << 1);		// Decode the offset
+							sxt_bit_num <= 4'd10;		// Provide sign bit to sign extender
+							enables[13] <= 1'b1;		// Enable the sign extender
+							psw_update <= 1'b1;			// Set ALU to not update the PSW for updating of instruction
+							reg_num1 <= 4'd7;			// Select the PC to write to
+							data_bus_ctrl <= 4'b1101;	// Write ALU output to PC
+						end
+					end
+					5: exe(offset)
+					6: exe(offset)
+					7: exe(offset)
+					8: exe(offset)
+					9: //BRA
+						begin
+							sext(.offset(offset), .len(length), .res(result))
+							rw = 0'b0
+							reg [7:0]currentPC
+							regFile FETCHPC(.regnum(PC), .rw(rw), .dataout(currentPC))
+							adder(.PC(currentPC), .res(result))
+						end
+					10: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					11: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					12: alu(.dst(dst), .src(src), .carry(carry), .wb(wb) , .funccode(code))
+					13: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					14: alu(.dst(dst), .src(src), .carry(carry), .wb(wb), .funccode(code))
+					15: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					17: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					18: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					19: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					20: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					21: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					22: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					23: alu(.dst(dst), .src(src), .rc(rc), .wb(wb), .funccode(code))
+					24: shift(dst)
+					25: shift(dst)
+					26: shift(dst)
+					27: signext(dst)
+					28: mem(dst, src, wb, rw)
+					29: mem(dst, src, wb, rw)
+					31: regfile(dst, imm)
+					32: regfile(dst, imm)
+					33: regfile(dst, imm)
+					34: mem(dst, src, wb, rw)
+					35: mem(dst, src, wb, rw)
+				endcase 
+			end
+		endcase	
+		cpucycle = 1
+	end
+		
+
+endmodule
