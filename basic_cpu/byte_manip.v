@@ -6,7 +6,7 @@ module byte_val_manip(op, dst_in, dst_out, byte_val, E);
 	
 	output reg [15:0] dst_out;
 	
-	reg [15:0] dest_val;
+	reg [15:0] dst_val;
 	reg [15:0] high_clr = 16'h00ff;
 	reg [15:0] high_set = 16'hff00;
 	reg [7:0] temp;

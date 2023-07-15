@@ -1,5 +1,5 @@
 Analysis & Synthesis report for xm23_cpu
-Fri Jul 14 22:20:20 2023
+Sat Jul 15 13:10:17 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -38,7 +38,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Failed - Fri Jul 14 22:20:20 2023              ;
+; Analysis & Synthesis Status        ; Failed - Sat Jul 15 13:10:17 2023              ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; xm23_cpu                                       ;
 ; Top-level Entity Name              ; xm23_cpu                                       ;
@@ -163,7 +163,7 @@ https://fpgasoftware.intel.com/eula.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Fri Jul 14 22:20:15 2023
+    Info: Processing started: Sat Jul 15 13:09:23 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off xm23_cpu -c xm23_cpu
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -177,44 +177,69 @@ Info (12021): Found 1 design units, including 1 entities, in source file alu.v
     Info (12023): Found entity 1: alu File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 4
 Info (12021): Found 1 design units, including 1 entities, in source file instruction_decoder.v
     Info (12023): Found entity 1: instruction_decoder File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/instruction_decoder.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file regfile.v
-    Info (12023): Found entity 1: regfile File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/regfile.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file sign_extender.v
     Info (12023): Found entity 1: sign_extender File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/sign_extender.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file byte_manip.v
     Info (12023): Found entity 1: byte_val_manip File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/byte_manip.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file cex_code.v
     Info (12023): Found entity 1: cex_code File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/cex_code.v Line: 1
-Warning (10229): Verilog HDL Expression warning at control_unit.v(359): truncated literal to match 1 bits File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 359
+Warning (10229): Verilog HDL Expression warning at control_unit.v(362): truncated literal to match 1 bits File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 362
 Info (12021): Found 1 design units, including 1 entities, in source file control_unit.v
     Info (12023): Found entity 1: control_unit File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 1
-Warning (10236): Verilog HDL Implicit Net warning at xm23_cpu.v(87): created implicit net for "clock" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 87
+Warning (10236): Verilog HDL Implicit Net warning at xm23_cpu.v(92): created implicit net for "bm_byte" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 92
 Warning (10236): Verilog HDL Implicit Net warning at xm23_cpu.v(109): created implicit net for "FLTi" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 109
-Error (10137): Verilog HDL Procedural Assignment error at sign_extender.v(12): object "out" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/sign_extender.v Line: 12
-Error (10219): Verilog HDL Continuous Assignment error at control_unit.v(41): object "psw_out" on left-hand side of assignment must have a net type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 41
-Error (10161): Verilog HDL error at control_unit.v(52): object "cpucyle" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 52
-Error (10161): Verilog HDL error at control_unit.v(68): object "cpucyle" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 68
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(128): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 128
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(140): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 140
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(147): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 147
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(165): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 165
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(174): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 174
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(184): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 184
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(197): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 197
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(202): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 202
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(211): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 211
-Error (10161): Verilog HDL error at control_unit.v(223): object "data_bus_btrl" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 223
-Error (10161): Verilog HDL error at control_unit.v(230): object "addr_rnum_src" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 230
-Error (10161): Verilog HDL error at control_unit.v(246): object "data_bus_btrl" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 246
-Error (10161): Verilog HDL error at control_unit.v(253): object "addr_rnum_src" is not declared. Verify the object name is correct. If the name is correct, declare the object. File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 253
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(266): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 266
-Error (10137): Verilog HDL Procedural Assignment error at control_unit.v(315): object "cpucycle" on left-hand side of assignment must have a variable data type File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 315
+Warning (10236): Verilog HDL Implicit Net warning at xm23_cpu.v(114): created implicit net for "psw_bus_ctrl" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 114
+Info (12127): Elaborating entity "xm23_cpu" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at xm23_cpu.v(92): object "bm_byte" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 92
+Warning (10036): Verilog HDL or VHDL warning at xm23_cpu.v(19): object "instr_reg" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 19
+Warning (10855): Verilog HDL warning at xm23_cpu.v(26): initial value for variable reg_file should be constant File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 26
+Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(85): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 85
+Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(90): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 90
+Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(91): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 91
+Warning (10230): Verilog HDL assignment warning at xm23_cpu.v(92): truncated value with size 8 to match size of target (1) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 92
+Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(93): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 93
+Warning (10235): Verilog HDL Always Construct warning at xm23_cpu.v(142): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 142
+Warning (10240): Verilog HDL Always Construct warning at xm23_cpu.v(139): inferring latch(es) for variable "bkpnt", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 139
+Info (10041): Inferred latch for "bkpnt[0]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[1]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[2]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[3]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[4]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[5]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[6]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[7]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[8]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[9]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[10]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[11]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[12]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[13]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[14]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Info (10041): Inferred latch for "bkpnt[15]" at xm23_cpu.v(145) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 145
+Error (10028): Can't resolve multiple constant drivers for net "mdr[15]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10029): Constant driver at xm23_cpu.v(158) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 158
+Error (10028): Can't resolve multiple constant drivers for net "mdr[14]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[13]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[12]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[11]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[10]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[9]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[8]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[7]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[6]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[5]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[4]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[3]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[2]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[1]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (10028): Can't resolve multiple constant drivers for net "mdr[0]" at xm23_cpu.v(181) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 181
+Error (12153): Can't elaborate top-level user hierarchy
 Info (144001): Generated suppressed messages file C:/Users/mccoy/Documents/ECED3900/basic_cpu/output_files/xm23_cpu.map.smsg
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 19 errors, 4 warnings
-    Error: Peak virtual memory: 4722 megabytes
-    Error: Processing ended: Fri Jul 14 22:20:21 2023
-    Error: Elapsed time: 00:00:06
-    Error: Total CPU time (on all processors): 00:00:08
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 18 errors, 15 warnings
+    Error: Peak virtual memory: 10807 megabytes
+    Error: Processing ended: Sat Jul 15 13:10:17 2023
+    Error: Elapsed time: 00:00:54
+    Error: Total CPU time (on all processors): 00:00:56
 
 
 +------------------------------------------+
