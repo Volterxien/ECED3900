@@ -2,9 +2,9 @@ module cex_code(psw_in, code, result);
 	input [15:0] psw_in;
 	input [3:0] code;
 	
-	output result;
+	output reg result;
 	
-	always @(code, psw) begin
+	always @(code, psw_in) begin
 		case (code)
 			0: 	// EQ/EZ
 			begin
