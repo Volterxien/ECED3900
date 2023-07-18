@@ -1,4 +1,4 @@
-module byte_val_manip(op, dst_in, dst_out, byte_val, E);
+module byte_manip(op, dst_in, dst_out, byte_val, E);
 	input [2:0] op;
 	input [15:0] dst_in;
 	input [7:0] byte_val;

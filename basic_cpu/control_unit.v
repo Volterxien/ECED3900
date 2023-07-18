@@ -31,7 +31,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	output reg [1:0] psw_bus_ctrl;					// [2b for src (Codes: 0=ALU, 1=MDR, 2=No Update location)]
 	output reg s_bus_ctrl;							// 0 = use Reg File, 1 = use calculated offset
 	output reg sxt_bus_ctrl;						// 0 = use Reg File, 1 = use offset from control unit
-	output reg sxt_bit_num;							// The bit to extend for sign extensions
+	output reg [4:0] sxt_bit_num;					// The bit to extend for sign extensions
 	output reg [4:0] sxt_rnum, bm_rnum;
 	output wire [15:0] psw_out;
 	output reg psw_update;							// 1 = update PSW in ALU, 0 = do not update PSW in ALU
@@ -52,14 +52,11 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 		psw = 16'h60e0;						// Initialize PSW to default values
 		cpucycle = 1;
 	end
-	
-	always @(psw_in) begin
-		psw <= psw_in[15:0];
-	end
-	
+
 	cex_code cex_code_ctrl(psw_out, code, code_result);
 
 	always @(posedge clock) begin
+		psw <= psw_in[15:0];
 		enables <= 16'h0000;			// Clear all enables
 		ctrl_reg_bus <= 3'b000;			// Disable memory accessing
 		data_bus_ctrl <= 7'b1111111;	// Make an invalid option
@@ -112,8 +109,8 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						1,2,3,4,5,6,7,8: // BEQ to BRA
 						begin
 							case(OP)
-								1,2,3,4,5: 	code <= OP[6:0] - 6'd1;
-								6,7,8: 	code <= OP[6:0] + 6'd4;
+								1,2,3,4,5: 	code <= OP[6:0] - 7'd1;
+								6,7,8: 	code <= OP[6:0] + 7'd4;
 							endcase
 							
 							if (code_result == 1'b1) begin

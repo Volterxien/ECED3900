@@ -14,7 +14,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	// Guide for memory initialization: https://projectf.io/posts/initialize-memory-in-verilog/
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
 	
-	reg [7:0] memory [0:16'hffff];
+	reg [7:0] memory [0:8'hff];
 	reg [15:0] reg_file [0:16];
 	reg [15:0] instr_reg, mar, mdr, psw_in;
 	reg [15:0] data_bus, addr_bus;
@@ -40,6 +40,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	wire s_bus_ctrl, sxt_bus_ctrl;							// 0 = use Reg File, 1 = use calculated offset
 	wire [15:0] addr, breakpnt;
 	wire [4:0] dbus_rnum_dst, dbus_rnum_src, addr_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bit_num, bm_rnum, sxt_rnum;
+	wire [1:0] psw_bus_ctrl;
 	wire [1:0] mem_mode;
 	wire [15:0] mem_data, reg_data, psw_data;
 	wire [15:0] mar_mem_bus, mdr_mem_bus;
@@ -50,6 +51,10 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	wire [15:0] s_bus, d_bus, alu_out;
 	wire [2:0] CR_bus;
 	wire sxt_E, bm_E, alu_E, id_E;
+	
+	
+	wire [15:0] mem_ub_addr, mem_lb_addr;
+	wire [7:0] mem_ub, mem_lb;
 	
 	wire [15:0] Instr;
 	wire [6:0] OP;
@@ -87,6 +92,11 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	assign Clock = (execution_type == 1'b0) ? KEY[0] : CLOCK_50;
 	
 	assign mar_mem_bus = mar[15:0];
+	assign mem_ub_addr = mar[15:0] + 1;
+	assign mem_lb_addr = mar[15:0];
+	
+	
+	
 	assign d_bus = reg_file[alu_rnum_dst[3:0]][15:0];
 	assign bm_in = reg_file[bm_rnum[3:0]][15:0];
 	assign sxt_in = (sxt_bus_ctrl == 1'b0) ? reg_file[sxt_rnum[3:0]][15:0] : (OFF[12:0]<<2);
@@ -98,6 +108,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	assign sxt_E = enables[13];
 	assign bm_E = enables[12];
 	
+	
+	memory ram(Clock, mdr[7:0], mdr[15:8], mem_lb_addr, mem_ub_addr, ctrl_reg[2], ctrl_reg[1], mem_lb, mem_ub);
 
 	view_data data_viewer(mem_data, reg_data, psw_data, addr, KEY[3], mem_mode, HEX0, HEX1, HEX2, HEX3, LEDG, LEDR);
 	
@@ -152,32 +164,32 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		else if (psw_bus_ctrl == 2'b01)
 			psw_in <= mdr[15:0];
 	end
-	
-	// Memory Accessing
-	always @(posedge ctrl_reg[0]) begin		// Enable is toggled
-		if (ctrl_reg[1] == 1'd0) begin		// Reading
-			if (ctrl_reg[2] == 1'd0) begin	// Read Word
-				mdr[15:8] <= memory[mar_mem_bus[15:0]+1];
-				mdr[7:0] <= memory[mar_mem_bus[15:0]];
-			end
-			else begin						// Read Byte
-				mdr[15:8] <= 8'd0;
-				mdr[7:0] <= memory[mar_mem_bus[15:0]];
-			end
-		end
-		else if (ctrl_reg[1] == 1'd1) begin	// Writing
-			if (ctrl_reg[2] == 1'd0) begin	// Write Word
-				memory[mar_mem_bus[15:0]+1] <= mdr[15:8];
-				memory[mar_mem_bus[15:0]] <= mdr[7:0];
-			end
-			else begin						// Write Byte
-				memory[mar_mem_bus[15:0]] <= mdr[7:0];
-			end
-		end
-	end
-	
+
 	// Bus Assignment (MUX)
-	always @(negedge Clock) begin	
+	always @(negedge Clock) begin
+		mdr[7:0] <= mem_lb[7:0];
+		mdr[15:8] <= mem_ub[7:0];
+		// Memory Accessing
+		/*if (ctrl_reg[0] == 1'b1) begin			// Control Register is enabled
+			if (ctrl_reg[1] == 1'd0) begin		// Reading
+				if (ctrl_reg[2] == 1'd0) begin	// Read Word
+					mdr[15:8] <= memory[mar_mem_bus[15:0]+1];
+					mdr[7:0] <= memory[mar_mem_bus[15:0]];
+				end
+				else begin						// Read Byte
+					mdr[15:8] <= 8'd0;
+					mdr[7:0] <= memory[mar_mem_bus[15:0]];
+				end
+			end
+			else if (ctrl_reg[1] == 1'd1) begin	// Writing
+				if (ctrl_reg[2] == 1'd0) begin	// Write Word
+					memory[mar_mem_bus[15:0]+1] <= mdr[15:8];
+					memory[mar_mem_bus[15:0]] <= mdr[7:0];
+				end
+				else						// Write Byte
+					memory[mar_mem_bus[15:0]] <= mdr[7:0];
+			end
+		end*/
 		// Data Bus Updating
 		if (data_bus_ctrl[2:0] == 3'b000) begin 			// MDR
 			if (data_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MDR

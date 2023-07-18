@@ -1,0 +1,29 @@
+module memory (Clock, lb_in, ub_in, lb_addr, ub_addr, we_lb, we_ub, lb_out, ub_out);
+
+	input Clock;
+	inout [7:0] lb_in, ub_in;
+	input [15:0] lb_addr, ub_addr;
+	
+	output
+
+	reg [7:0] memory [0:8'hff];
+	
+	initial begin
+		$readmemh("memory.txt", memory, 0);
+	end
+	
+	// Memory Upper Byte
+	always @(posedge Clock) begin
+		if (ctrl_reg[1] == 1'd1)
+			memory[mem_ub_addr[15:0]] <= mdr[15:8];
+		mdr[15:8] <= memory[mem_ub_addr[15:0]];
+	end
+	
+	// Memory Lower Byte
+	always @(posedge Clock) begin
+		if (we_lb == 1'd1)
+			memory[lb_addr[15:0]] <= lb_in[7:0];
+		mdr[7:0] <= memory[mem_lb_addr[15:0]];
+	end
+	
+endmodule

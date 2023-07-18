@@ -7,18 +7,18 @@ module loader_demo (SW, HEX0, HEX1, HEX2, HEX3);
 	
 	// Guide for memory initialization: https://projectf.io/posts/initialize-memory-in-verilog/
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
-	
+	// How to use while integer from: https://nandland.com/while-loop/
 	
 	reg [7:0] memory [0:16'hffff];
 	
-	/* The following 3 lines are where memory is loaded */
+	/* The following lines are where memory is loaded */
 	initial begin
 		$readmemh("memory.txt", memory, 0);
 	end
 	
 	wire Clock;
 	wire [15:0] addr;
-	wire [3:0] nib0, nib1, nib2, nib3;
+	reg [3:0] nib0, nib1, nib2, nib3;
 	assign Clock = SW[16];
 	assign addr = SW[15:0];
 	assign nib2 = memory[addr[15:0]][3:0];
@@ -30,4 +30,5 @@ module loader_demo (SW, HEX0, HEX1, HEX2, HEX3);
 	seven_seg_decoder decode2( .Reg1 (nib1), .HEX0 (HEX1), .Clock (Clock));
 	seven_seg_decoder decode3( .Reg1 (nib2), .HEX0 (HEX2), .Clock (Clock));
 	seven_seg_decoder decode4( .Reg1 (nib3), .HEX0 (HEX3), .Clock (Clock));
+	
 endmodule

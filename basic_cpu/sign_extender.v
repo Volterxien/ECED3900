@@ -11,6 +11,6 @@ module sign_extender(in, out, msb_num, E);
 			extension <= extension[15:0] << msb_num[3:0];
 			out <= in[15:0] | extension[15:0];
 		end
-		extension = 16'hffff;
+		extension <= 16'hffff;
 	end
 endmodule

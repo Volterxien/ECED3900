@@ -13,7 +13,6 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 	reg [15:0] Reg3;
 	
 	wire [15:0] Reg1, Reg2, sum1;
-	wire [4:0] instr;
 	wire carry;
 
 	assign Reg1 [15:0] = op1[15:0];
