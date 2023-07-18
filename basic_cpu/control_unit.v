@@ -58,7 +58,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	always @(posedge clock) begin
 		psw <= psw_in[15:0];
 		enables <= 16'h0000;			// Clear all enables
-		ctrl_reg_bus <= 3'b000;			// Disable memory accessing
+		ctrl_reg_bus <= 3'b000;			// Set to read only
 		data_bus_ctrl <= 7'b1111111;	// Make an invalid option
 		addr_bus_ctrl <= 7'b1111111;	// Make an invalid option
 		psw_bus_ctrl <= 2'b00;			// Make an invalid option
@@ -70,7 +70,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 				begin
 					dbus_rnum_src <= 5'd7;			// Select the PC
 					addr_bus_ctrl <= 7'b0001000;	// Write PC to MAR
-					ctrl_reg_bus <= 3'b001;			// Read memory from MAR address to MDR
+					ctrl_reg_bus <= 3'b000;			// Read memory from MAR address to MDR
 					data_bus_ctrl <= 7'b0000010;	// Write MDR to Instruction Register
 				end
 				2: /* Finish Fetching from Memory (Add 2 to PC) */
@@ -230,7 +230,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								addr_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the src reg for the addr bus
 								addr_bus_ctrl <= 7'b0001000;			// Write the register file reg to the MAR
 								data_bus_ctrl <= 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
-								ctrl_reg_bus <= 3'b001 + (WB<<2);		// Read memory from MAR address to MDR
+								ctrl_reg_bus <= 3'b000 + (WB<<2);		// Read memory from MAR address to MDR
 							end
 						end
 						33:	// ST (Multi-step)
@@ -253,7 +253,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								addr_rnum_src <= 5'd0 + DST[2:0];		// Select the dst reg for the addr bus
 								addr_bus_ctrl <= 7'b0001000;			// Write the register file reg to the MAR
 								data_bus_ctrl <= 7'b0001000 + (WB<<6);	// Write the data from the dst register to the MDR
-								ctrl_reg_bus <= 3'b011 + (WB<<2);		// Read memory to MAR address from MDR
+								ctrl_reg_bus <= 3'b001 + (WB<<1);		// Write memory to MAR address from MDR
 							end
 						end
 						34,35,36,37:	// MOVL to MOVH
@@ -276,7 +276,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
 							data_bus_ctrl <= 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
-							ctrl_reg_bus <= 3'b001 + (WB<<2);		// Read memory from MAR address to MDR
+							ctrl_reg_bus <= 3'b000 + (WB<<2);		// Read memory from MAR address to MDR
 							enables[13] <= 1'b1;					// Enable the sign extender
 							enables[15] <= 1'b1;					// Enable the ALU
 						end
@@ -291,7 +291,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the dst reg for the data bus
 							data_bus_ctrl <= 7'b0001000 + (WB<<6);	// Write the data from the src register to the MDR
 							addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
-							ctrl_reg_bus <= 3'b011 + (WB<<2);		// Write data from MDR to memory at MAR address
+							ctrl_reg_bus <= 3'b001 + (WB<<1);		// Write data from MDR to memory at MAR address
 							enables[13] <= 1'b1;					// Enable the sign extender
 							enables[15] <= 1'b1;					// Enable the ALU
 						end
@@ -327,7 +327,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							begin
 								dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 								data_bus_ctrl <= 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
-								ctrl_reg_bus <= 3'b001 + (WB<<2);		// Read memory from MAR address to MDR
+								ctrl_reg_bus <= 3'b000 + (WB<<2);		// Read memory from MAR address to MDR
 							end
 							else				// Post-Inc/Dec
 							begin
@@ -347,7 +347,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							begin
 								dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the dst reg for the data bus
 								data_bus_ctrl <= 7'b0000001 + (WB<<6);	// Write the data from the dst to the dst register
-								ctrl_reg_bus <= 3'b011 + (WB<<2);		// Write memory to MAR address from MDR
+								ctrl_reg_bus <= 3'b001 + (WB<<1);		// Write memory to MAR address from MDR
 							end
 							else				// Post-Inc/Dec
 							begin
@@ -383,6 +383,8 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 			endcase	
 			cpucycle <= cpucycle + 1;	// Increment CPU cycle
 			end
+		else
+			psw[3] <= 1'b0;					// Execution not in progress (SLP bit clear)
 		
 	end
 		

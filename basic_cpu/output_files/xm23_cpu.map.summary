@@ -1,12 +1,12 @@
-Analysis & Synthesis Status : Successful - Mon Jul 17 22:40:20 2023
+Analysis & Synthesis Status : Successful - Tue Jul 18 19:37:02 2023
 Quartus Prime Version : 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 Revision Name : xm23_cpu
 Top-level Entity Name : xm23_cpu
 Family : Cyclone IV E
-Total logic elements : 2,533
-    Total combinational functions : 2,203
-    Dedicated logic registers : 535
-Total registers : 535
+Total logic elements : 2,437
+    Total combinational functions : 2,109
+    Dedicated logic registers : 537
+Total registers : 537
 Total pins : 76
 Total virtual pins : 0
 Total memory bits : 524,288

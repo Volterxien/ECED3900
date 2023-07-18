@@ -82,18 +82,15 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	
 	assign mem_mode[1:0] = KEY[2:1];
 	
-	assign mem_data[15:12] = memory[addr[15:0]+1][7:4];
-	assign mem_data[11:8] = memory[addr[15:0]+1][3:0];
-	assign mem_data[7:4] = memory[addr[15:0]][7:4];
-	assign mem_data[3:0] = memory[addr[15:0]][3:0];
+	assign mem_data = mdr[15:0];
 	assign psw_data = psw_out[15:0];
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	
 	assign Clock = (execution_type == 1'b0) ? KEY[0] : CLOCK_50;
 	
 	assign mar_mem_bus = mar[15:0];
-	assign mem_ub_addr = mar[15:0] + 1;
-	assign mem_lb_addr = mar[15:0];
+	assign mem_ub_addr = (psw_data[3] == 1'b0) ? (mar[15:0] + 1) : (addr + 1);
+	assign mem_lb_addr = (psw_data[3] == 1'b0) ? mar[15:0] : addr;
 	
 	
 	
@@ -109,7 +106,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	assign bm_E = enables[12];
 	
 	
-	memory ram(Clock, mdr[7:0], mdr[15:8], mem_lb_addr, mem_ub_addr, ctrl_reg[2], ctrl_reg[1], mem_lb, mem_ub);
+	memory ram(Clock, mdr[7:0], mdr[15:8], mem_lb_addr, mem_ub_addr, ctrl_reg[0], ctrl_reg[1], mem_lb, mem_ub);
 
 	view_data data_viewer(mem_data, reg_data, psw_data, addr, KEY[3], mem_mode, HEX0, HEX1, HEX2, HEX3, LEDG, LEDR);
 	
@@ -169,27 +166,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	always @(negedge Clock) begin
 		mdr[7:0] <= mem_lb[7:0];
 		mdr[15:8] <= mem_ub[7:0];
-		// Memory Accessing
-		/*if (ctrl_reg[0] == 1'b1) begin			// Control Register is enabled
-			if (ctrl_reg[1] == 1'd0) begin		// Reading
-				if (ctrl_reg[2] == 1'd0) begin	// Read Word
-					mdr[15:8] <= memory[mar_mem_bus[15:0]+1];
-					mdr[7:0] <= memory[mar_mem_bus[15:0]];
-				end
-				else begin						// Read Byte
-					mdr[15:8] <= 8'd0;
-					mdr[7:0] <= memory[mar_mem_bus[15:0]];
-				end
-			end
-			else if (ctrl_reg[1] == 1'd1) begin	// Writing
-				if (ctrl_reg[2] == 1'd0) begin	// Write Word
-					memory[mar_mem_bus[15:0]+1] <= mdr[15:8];
-					memory[mar_mem_bus[15:0]] <= mdr[7:0];
-				end
-				else						// Write Byte
-					memory[mar_mem_bus[15:0]] <= mdr[7:0];
-			end
-		end*/
+		
 		// Data Bus Updating
 		if (data_bus_ctrl[2:0] == 3'b000) begin 			// MDR
 			if (data_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MDR
@@ -199,10 +176,13 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		end
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
 			if (data_bus_ctrl[5:3] == 3'b000)				// Read from MDR into Register File
-				reg_file[dbus_rnum_dst[4:0]] <= mdr[15:0];
+				if (ctrl_reg == 3'b100)						// Byte
+					reg_file[dbus_rnum_dst[4:0]] <= mdr[7:0];
+				else										// Word
+					reg_file[dbus_rnum_dst[4:0]] <= mdr[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into Register File
 				if (data_bus_ctrl[4] == 1'b1)				// Byte
-					reg_file[dbus_rnum_dst[4:0]][7:0] <= alu_out[7:0];
+					reg_file[dbus_rnum_dst[4:0]] <= alu_out[7:0];
 				else										// Word
 					reg_file[dbus_rnum_dst[4:0]] <= alu_out[15:0];
 			end
