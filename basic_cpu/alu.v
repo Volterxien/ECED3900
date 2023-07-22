@@ -36,7 +36,8 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 	assign carry = PSW_i[0];
 	
 	always @(posedge E) begin
-			case (instr)
+		PSW_o <= PSW_i;
+		case (instr)
 			5'b00000: begin	// add
 				result <= Reg1 + Reg2;						
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);

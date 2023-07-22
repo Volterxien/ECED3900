@@ -1,5 +1,5 @@
 Analysis & Synthesis report for xm23_cpu
-Wed Jul 19 21:53:33 2023
+Sat Jul 22 13:04:07 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -21,7 +21,7 @@ Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
  13. Inverted Register Statistics
  14. Registers Packed Into Inferred Megafunctions
  15. Multiplexer Restructuring Statistics (Restructuring Performed)
- 16. Source assignments for memory:ram|altsyncram:memory_rtl_0|altsyncram_8d52:auto_generated
+ 16. Source assignments for memory:ram|altsyncram:memory_rtl_0|altsyncram_2s72:auto_generated
  17. Parameter Settings for Inferred Entity Instance: memory:ram|altsyncram:memory_rtl_0
  18. altsyncram Parameter Settings by Entity Instance
  19. Port Connectivity Checks: "control_unit:ctrl_unit"
@@ -56,15 +56,15 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Jul 19 21:53:32 2023          ;
+; Analysis & Synthesis Status        ; Successful - Sat Jul 22 13:04:07 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; xm23_cpu                                       ;
 ; Top-level Entity Name              ; xm23_cpu                                       ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 2,426                                          ;
-;     Total combinational functions  ; 2,098                                          ;
-;     Dedicated logic registers      ; 537                                            ;
-; Total registers                    ; 537                                            ;
+; Total logic elements               ; 2,416                                          ;
+;     Total combinational functions  ; 2,103                                          ;
+;     Dedicated logic registers      ; 524                                            ;
+; Total registers                    ; 524                                            ;
 ; Total pins                         ; 76                                             ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 524,288                                        ;
@@ -172,43 +172,44 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.1%      ;
-;     Processor 3            ;   0.1%      ;
-;     Processor 4            ;   0.1%      ;
-;     Processor 5            ;   0.1%      ;
-;     Processor 6            ;   0.1%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processor 3            ;   0.0%      ;
+;     Processor 4            ;   0.0%      ;
+;     Processor 5            ;   0.0%      ;
+;     Processor 6            ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                            ;
-+----------------------------------+-----------------+----------------------------------+---------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                        ; File Name with Absolute Path                                                    ; Library ;
-+----------------------------------+-----------------+----------------------------------+---------------------------------------------------------------------------------+---------+
-; xm23_cpu.v                       ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v                          ;         ;
-; view_data.v                      ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v                         ;         ;
-; seven_seg_decoder.v              ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/seven_seg_decoder.v                 ;         ;
-; alu.v                            ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v                               ;         ;
-; instruction_decoder.v            ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/instruction_decoder.v               ;         ;
-; sign_extender.v                  ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/sign_extender.v                     ;         ;
-; byte_manip.v                     ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/byte_manip.v                        ;         ;
-; cex_code.v                       ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/cex_code.v                          ;         ;
-; control_unit.v                   ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v                      ;         ;
-; memory.v                         ; yes             ; User Verilog HDL File            ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/memory.v                            ;         ;
-; memory.mif                       ; yes             ; User Memory Initialization File  ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/memory.mif                          ;         ;
-; altsyncram.tdf                   ; yes             ; Megafunction                     ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
-; stratix_ram_block.inc            ; yes             ; Megafunction                     ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
-; lpm_mux.inc                      ; yes             ; Megafunction                     ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
-; lpm_decode.inc                   ; yes             ; Megafunction                     ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/lpm_decode.inc        ;         ;
-; aglobal221.inc                   ; yes             ; Megafunction                     ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/aglobal221.inc        ;         ;
-; a_rdenreg.inc                    ; yes             ; Megafunction                     ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/a_rdenreg.inc         ;         ;
-; altrom.inc                       ; yes             ; Megafunction                     ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altrom.inc            ;         ;
-; altram.inc                       ; yes             ; Megafunction                     ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altram.inc            ;         ;
-; altdpram.inc                     ; yes             ; Megafunction                     ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altdpram.inc          ;         ;
-; db/altsyncram_8d52.tdf           ; yes             ; Auto-Generated Megafunction      ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/altsyncram_8d52.tdf              ;         ;
-; db/decode_rsa.tdf                ; yes             ; Auto-Generated Megafunction      ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/decode_rsa.tdf                   ;         ;
-; db/mux_bnb.tdf                   ; yes             ; Auto-Generated Megafunction      ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/mux_bnb.tdf                      ;         ;
-+----------------------------------+-----------------+----------------------------------+---------------------------------------------------------------------------------+---------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                              ;
++------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path         ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                         ; Library ;
++------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------+---------+
+; xm23_cpu.v                               ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v                               ;         ;
+; view_data.v                              ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v                              ;         ;
+; seven_seg_decoder.v                      ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/seven_seg_decoder.v                      ;         ;
+; alu.v                                    ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v                                    ;         ;
+; instruction_decoder.v                    ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/instruction_decoder.v                    ;         ;
+; sign_extender.v                          ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/sign_extender.v                          ;         ;
+; byte_manip.v                             ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/byte_manip.v                             ;         ;
+; cex_code.v                               ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/cex_code.v                               ;         ;
+; control_unit.v                           ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v                           ;         ;
+; memory.v                                 ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/memory.v                                 ;         ;
+; memory.txt                               ; yes             ; Auto-Found File                                       ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/memory.txt                               ;         ;
+; altsyncram.tdf                           ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altsyncram.tdf             ;         ;
+; stratix_ram_block.inc                    ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/stratix_ram_block.inc      ;         ;
+; lpm_mux.inc                              ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/lpm_mux.inc                ;         ;
+; lpm_decode.inc                           ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/lpm_decode.inc             ;         ;
+; aglobal221.inc                           ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/aglobal221.inc             ;         ;
+; a_rdenreg.inc                            ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/a_rdenreg.inc              ;         ;
+; altrom.inc                               ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altrom.inc                 ;         ;
+; altram.inc                               ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altram.inc                 ;         ;
+; altdpram.inc                             ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altdpram.inc               ;         ;
+; db/altsyncram_2s72.tdf                   ; yes             ; Auto-Generated Megafunction                           ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/altsyncram_2s72.tdf                   ;         ;
+; db/xm23_cpu.ram0_memory_e411fb78.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/xm23_cpu.ram0_memory_e411fb78.hdl.mif ;         ;
+; db/decode_rsa.tdf                        ; yes             ; Auto-Generated Megafunction                           ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/decode_rsa.tdf                        ;         ;
+; db/mux_bnb.tdf                           ; yes             ; Auto-Generated Megafunction                           ; C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/mux_bnb.tdf                           ;         ;
++------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------+---------+
 
 
 +------------------------------------------------------+
@@ -216,20 +217,20 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+--------+
 ; Resource                                    ; Usage  ;
 +---------------------------------------------+--------+
-; Estimated Total logic elements              ; 2,426  ;
+; Estimated Total logic elements              ; 2,416  ;
 ;                                             ;        ;
-; Total combinational functions               ; 2098   ;
+; Total combinational functions               ; 2103   ;
 ; Logic element usage by number of LUT inputs ;        ;
-;     -- 4 input functions                    ; 1515   ;
-;     -- 3 input functions                    ; 414    ;
-;     -- <=2 input functions                  ; 169    ;
+;     -- 4 input functions                    ; 1501   ;
+;     -- 3 input functions                    ; 423    ;
+;     -- <=2 input functions                  ; 179    ;
 ;                                             ;        ;
 ; Logic elements by mode                      ;        ;
-;     -- normal mode                          ; 1980   ;
+;     -- normal mode                          ; 1985   ;
 ;     -- arithmetic mode                      ; 118    ;
 ;                                             ;        ;
-; Total registers                             ; 537    ;
-;     -- Dedicated logic registers            ; 537    ;
+; Total registers                             ; 524    ;
+;     -- Dedicated logic registers            ; 524    ;
 ;     -- I/O registers                        ; 0      ;
 ;                                             ;        ;
 ; I/O pins                                    ; 76     ;
@@ -238,8 +239,8 @@ https://fpgasoftware.intel.com/eula.
 ; Embedded Multiplier 9-bit elements          ; 0      ;
 ;                                             ;        ;
 ; Maximum fan-out node                        ; Clock  ;
-; Maximum fan-out                             ; 465    ;
-; Total fan-out                               ; 11386  ;
+; Maximum fan-out                             ; 468    ;
+; Total fan-out                               ; 11351  ;
 ; Average fan-out                             ; 3.99   ;
 +---------------------------------------------+--------+
 
@@ -249,20 +250,20 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                            ; Entity Name         ; Library Name ;
 +-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |xm23_cpu                                 ; 2098 (738)          ; 537 (327)                 ; 524288      ; 0            ; 0       ; 0         ; 76   ; 0            ; |xm23_cpu                                                                                      ; xm23_cpu            ; work         ;
-;    |alu:arithmetic_logic_unit|            ; 446 (446)           ; 36 (36)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|alu:arithmetic_logic_unit                                                            ; alu                 ; work         ;
+; |xm23_cpu                                 ; 2103 (691)          ; 524 (328)                 ; 524288      ; 0            ; 0       ; 0         ; 76   ; 0            ; |xm23_cpu                                                                                      ; xm23_cpu            ; work         ;
+;    |alu:arithmetic_logic_unit|            ; 457 (457)           ; 20 (20)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|alu:arithmetic_logic_unit                                                            ; alu                 ; work         ;
 ;    |byte_manip:byte_manipulator|          ; 20 (20)             ; 32 (32)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|byte_manip:byte_manipulator                                                          ; byte_manip          ; work         ;
-;    |control_unit:ctrl_unit|               ; 433 (424)           ; 68 (68)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|control_unit:ctrl_unit                                                               ; control_unit        ; work         ;
+;    |control_unit:ctrl_unit|               ; 469 (460)           ; 70 (70)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|control_unit:ctrl_unit                                                               ; control_unit        ; work         ;
 ;       |cex_code:cex_code_ctrl|            ; 9 (9)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|control_unit:ctrl_unit|cex_code:cex_code_ctrl                                        ; cex_code            ; work         ;
-;    |instruction_decoder:ID|               ; 71 (71)             ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|instruction_decoder:ID                                                               ; instruction_decoder ; work         ;
+;    |instruction_decoder:ID|               ; 74 (74)             ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|instruction_decoder:ID                                                               ; instruction_decoder ; work         ;
 ;    |memory:ram|                           ; 112 (0)             ; 6 (0)                     ; 524288      ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram                                                                           ; memory              ; work         ;
 ;       |altsyncram:memory_rtl_0|           ; 112 (0)             ; 6 (0)                     ; 524288      ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0                                                   ; altsyncram          ; work         ;
-;          |altsyncram_8d52:auto_generated| ; 112 (0)             ; 6 (6)                     ; 524288      ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_8d52:auto_generated                    ; altsyncram_8d52     ; work         ;
-;             |decode_rsa:decode2|          ; 8 (8)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_8d52:auto_generated|decode_rsa:decode2 ; decode_rsa          ; work         ;
-;             |decode_rsa:decode3|          ; 8 (8)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_8d52:auto_generated|decode_rsa:decode3 ; decode_rsa          ; work         ;
-;             |mux_bnb:mux4|                ; 48 (48)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_8d52:auto_generated|mux_bnb:mux4       ; mux_bnb             ; work         ;
-;             |mux_bnb:mux5|                ; 48 (48)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_8d52:auto_generated|mux_bnb:mux5       ; mux_bnb             ; work         ;
-;    |view_data:data_viewer|                ; 278 (250)           ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer                                                                ; view_data           ; work         ;
+;          |altsyncram_2s72:auto_generated| ; 112 (0)             ; 6 (6)                     ; 524288      ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_2s72:auto_generated                    ; altsyncram_2s72     ; work         ;
+;             |decode_rsa:decode2|          ; 8 (8)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_2s72:auto_generated|decode_rsa:decode2 ; decode_rsa          ; work         ;
+;             |decode_rsa:decode3|          ; 8 (8)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_2s72:auto_generated|decode_rsa:decode3 ; decode_rsa          ; work         ;
+;             |mux_bnb:mux4|                ; 48 (48)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_2s72:auto_generated|mux_bnb:mux4       ; mux_bnb             ; work         ;
+;             |mux_bnb:mux5|                ; 48 (48)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_2s72:auto_generated|mux_bnb:mux5       ; mux_bnb             ; work         ;
+;    |view_data:data_viewer|                ; 280 (252)           ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer                                                                ; view_data           ; work         ;
 ;       |seven_seg_decoder:decode1|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer|seven_seg_decoder:decode1                                      ; seven_seg_decoder   ; work         ;
 ;       |seven_seg_decoder:decode2|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer|seven_seg_decoder:decode2                                      ; seven_seg_decoder   ; work         ;
 ;       |seven_seg_decoder:decode3|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer|seven_seg_decoder:decode3                                      ; seven_seg_decoder   ; work         ;
@@ -271,13 +272,13 @@ https://fpgasoftware.intel.com/eula.
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                       ;
-+------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+------------+
-; Name                                                                         ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size   ; MIF        ;
-+------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+------------+
-; memory:ram|altsyncram:memory_rtl_0|altsyncram_8d52:auto_generated|ALTSYNCRAM ; AUTO ; True Dual Port ; 65536        ; 8            ; 65536        ; 8            ; 524288 ; memory.mif ;
-+------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                     ;
++------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+------------------------------------------+
+; Name                                                                         ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size   ; MIF                                      ;
++------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+------------------------------------------+
+; memory:ram|altsyncram:memory_rtl_0|altsyncram_2s72:auto_generated|ALTSYNCRAM ; AUTO ; True Dual Port ; 65536        ; 8            ; 65536        ; 8            ; 524288 ; db/xm23_cpu.ram0_memory_e411fb78.hdl.mif ;
++------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+------------------------------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------+
@@ -350,7 +351,6 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +---------------------------------------------+-----------------------------------------------------+
 ; Register name                               ; Reason for Removal                                  ;
 +---------------------------------------------+-----------------------------------------------------+
-; control_unit:ctrl_unit|psw_bus_ctrl[0,1]    ; Stuck at GND due to stuck port data_in              ;
 ; control_unit:ctrl_unit|addr_bus_ctrl[3]     ; Stuck at VCC due to stuck port data_in              ;
 ; sign_extender:sxt_ext|extension[0..15]      ; Stuck at VCC due to stuck port data_in              ;
 ; sign_extender:sxt_ext|out[0..15]            ; Stuck at VCC due to stuck port data_in              ;
@@ -359,66 +359,71 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; control_unit:ctrl_unit|sxt_bus_ctrl         ; Lost fanout                                         ;
 ; control_unit:ctrl_unit|sxt_bit_num[0..3]    ; Lost fanout                                         ;
 ; instruction_decoder:ID|OFF[0..12]           ; Lost fanout                                         ;
-; psw_in[5..15]                               ; Stuck at GND due to stuck port data_in              ;
-; control_unit:ctrl_unit|psw[8..12,15]        ; Stuck at GND due to stuck port data_in              ;
-; control_unit:ctrl_unit|psw[14]              ; Merged with control_unit:ctrl_unit|psw[13]          ;
-; control_unit:ctrl_unit|psw[13]              ; Merged with control_unit:ctrl_unit|psw[7]           ;
-; control_unit:ctrl_unit|psw[7]               ; Merged with control_unit:ctrl_unit|psw[6]           ;
-; control_unit:ctrl_unit|psw[6]               ; Merged with control_unit:ctrl_unit|psw[5]           ;
+; control_unit:ctrl_unit|alu_rnum_dst[4]      ; Merged with control_unit:ctrl_unit|alu_rnum_dst[3]  ;
+; control_unit:ctrl_unit|psw_bus_ctrl[1]      ; Merged with control_unit:ctrl_unit|psw_bus_ctrl[0]  ;
 ; control_unit:ctrl_unit|addr_rnum_src[4]     ; Merged with control_unit:ctrl_unit|addr_rnum_src[3] ;
 ; control_unit:ctrl_unit|addr_bus_ctrl[1,2,5] ; Merged with control_unit:ctrl_unit|addr_bus_ctrl[0] ;
+; psw_in[8..12,15]                            ; Stuck at GND due to stuck port data_in              ;
+; control_unit:ctrl_unit|psw[8..12,15]        ; Stuck at GND due to stuck port data_in              ;
+; psw_in[6,7,13,14]                           ; Merged with psw_in[5]                               ;
+; control_unit:ctrl_unit|psw[6,7,13,14]       ; Merged with control_unit:ctrl_unit|psw[5]           ;
+; control_unit:ctrl_unit|alu_rnum_dst[3]      ; Lost fanout                                         ;
 ; control_unit:ctrl_unit|addr_rnum_src[3]     ; Lost fanout                                         ;
 ; instruction_decoder:ID|OP[6]                ; Stuck at GND due to stuck port data_in              ;
-; control_unit:ctrl_unit|cex_state[7]         ; Stuck at VCC due to stuck port data_in              ;
-; Total Number of Removed Registers = 86      ;                                                     ;
+; Total Number of Removed Registers = 85      ;                                                     ;
 +---------------------------------------------+-----------------------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                                                     ;
-+----------------------------------------+---------------------------+--------------------------------------------------------------------------------------------+
-; Register name                          ; Reason for Removal        ; Registers Removed due to This Register                                                     ;
-+----------------------------------------+---------------------------+--------------------------------------------------------------------------------------------+
-; control_unit:ctrl_unit|psw_bus_ctrl[0] ; Stuck at GND              ; psw_in[5], psw_in[6], psw_in[7], psw_in[8], psw_in[9], psw_in[10], psw_in[11], psw_in[12], ;
-;                                        ; due to stuck port data_in ; psw_in[13], psw_in[14], psw_in[15], control_unit:ctrl_unit|psw[8],                         ;
-;                                        ;                           ; control_unit:ctrl_unit|psw[9], control_unit:ctrl_unit|psw[10],                             ;
-;                                        ;                           ; control_unit:ctrl_unit|psw[11], control_unit:ctrl_unit|psw[12],                            ;
-;                                        ;                           ; control_unit:ctrl_unit|psw[15]                                                             ;
-; sign_extender:sxt_ext|extension[0]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[0], control_unit:ctrl_unit|enables[13],                          ;
-;                                        ; due to stuck port data_in ; control_unit:ctrl_unit|sxt_bus_ctrl                                                        ;
-; sign_extender:sxt_ext|extension[2]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[2], instruction_decoder:ID|OFF[0]                                ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[3]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[3], instruction_decoder:ID|OFF[1]                                ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[4]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[4], instruction_decoder:ID|OFF[2]                                ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[5]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[5], instruction_decoder:ID|OFF[3]                                ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[6]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[6], instruction_decoder:ID|OFF[4]                                ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[7]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[7], instruction_decoder:ID|OFF[5]                                ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[8]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[8], instruction_decoder:ID|OFF[6]                                ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[9]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[9], instruction_decoder:ID|OFF[7]                                ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[10]    ; Stuck at VCC              ; sign_extender:sxt_ext|out[10], instruction_decoder:ID|OFF[8]                               ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[11]    ; Stuck at VCC              ; sign_extender:sxt_ext|out[11], instruction_decoder:ID|OFF[9]                               ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[12]    ; Stuck at VCC              ; sign_extender:sxt_ext|out[12], instruction_decoder:ID|OFF[10]                              ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[13]    ; Stuck at VCC              ; sign_extender:sxt_ext|out[13], instruction_decoder:ID|OFF[11]                              ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[14]    ; Stuck at VCC              ; sign_extender:sxt_ext|out[14], instruction_decoder:ID|OFF[12]                              ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[1]     ; Stuck at VCC              ; sign_extender:sxt_ext|out[1]                                                               ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; sign_extender:sxt_ext|extension[15]    ; Stuck at VCC              ; sign_extender:sxt_ext|out[15]                                                              ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-; instruction_decoder:ID|OP[6]           ; Stuck at GND              ; control_unit:ctrl_unit|cex_state[7]                                                        ;
-;                                        ; due to stuck port data_in ;                                                                                            ;
-+----------------------------------------+---------------------------+--------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                         ;
++-------------------------------------+---------------------------+-------------------------------------------------------------------+
+; Register name                       ; Reason for Removal        ; Registers Removed due to This Register                            ;
++-------------------------------------+---------------------------+-------------------------------------------------------------------+
+; sign_extender:sxt_ext|extension[0]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[0], control_unit:ctrl_unit|enables[13], ;
+;                                     ; due to stuck port data_in ; control_unit:ctrl_unit|sxt_bus_ctrl                               ;
+; sign_extender:sxt_ext|extension[2]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[2], instruction_decoder:ID|OFF[0]       ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[3]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[3], instruction_decoder:ID|OFF[1]       ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[4]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[4], instruction_decoder:ID|OFF[2]       ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[5]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[5], instruction_decoder:ID|OFF[3]       ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[6]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[6], instruction_decoder:ID|OFF[4]       ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[7]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[7], instruction_decoder:ID|OFF[5]       ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[8]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[8], instruction_decoder:ID|OFF[6]       ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[9]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[9], instruction_decoder:ID|OFF[7]       ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[10] ; Stuck at VCC              ; sign_extender:sxt_ext|out[10], instruction_decoder:ID|OFF[8]      ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[11] ; Stuck at VCC              ; sign_extender:sxt_ext|out[11], instruction_decoder:ID|OFF[9]      ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[12] ; Stuck at VCC              ; sign_extender:sxt_ext|out[12], instruction_decoder:ID|OFF[10]     ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[13] ; Stuck at VCC              ; sign_extender:sxt_ext|out[13], instruction_decoder:ID|OFF[11]     ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[14] ; Stuck at VCC              ; sign_extender:sxt_ext|out[14], instruction_decoder:ID|OFF[12]     ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[1]  ; Stuck at VCC              ; sign_extender:sxt_ext|out[1]                                      ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; sign_extender:sxt_ext|extension[15] ; Stuck at VCC              ; sign_extender:sxt_ext|out[15]                                     ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; psw_in[8]                           ; Stuck at GND              ; control_unit:ctrl_unit|psw[8]                                     ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; psw_in[9]                           ; Stuck at GND              ; control_unit:ctrl_unit|psw[9]                                     ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; psw_in[10]                          ; Stuck at GND              ; control_unit:ctrl_unit|psw[10]                                    ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; psw_in[11]                          ; Stuck at GND              ; control_unit:ctrl_unit|psw[11]                                    ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; psw_in[12]                          ; Stuck at GND              ; control_unit:ctrl_unit|psw[12]                                    ;
+;                                     ; due to stuck port data_in ;                                                                   ;
+; psw_in[15]                          ; Stuck at GND              ; control_unit:ctrl_unit|psw[15]                                    ;
+;                                     ; due to stuck port data_in ;                                                                   ;
++-------------------------------------+---------------------------+-------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -426,12 +431,12 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 537   ;
-; Number of registers using Synchronous Clear  ; 10    ;
-; Number of registers using Synchronous Load   ; 71    ;
+; Total registers                              ; 524   ;
+; Number of registers using Synchronous Clear  ; 7     ;
+; Number of registers using Synchronous Load   ; 67    ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 427   ;
+; Number of registers using Clock Enable       ; 432   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -441,9 +446,10 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
-; control_unit:ctrl_unit|cpucycle[0]     ; 69      ;
+; control_unit:ctrl_unit|cpucycle[0]     ; 52      ;
 ; control_unit:ctrl_unit|psw[5]          ; 5       ;
-; Total number of inverted registers = 2 ;         ;
+; psw_in[5]                              ; 1       ;
+; Total number of inverted registers = 3 ;         ;
 +----------------------------------------+---------+
 
 
@@ -462,63 +468,64 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                        ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------+
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xm23_cpu|instr_reg[6]                            ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |xm23_cpu|mdr[11]                                 ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |xm23_cpu|byte_manip:byte_manipulator|dst_out[7]  ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xm23_cpu|byte_manip:byte_manipulator|dst_val[2]  ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|enables[12]      ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xm23_cpu|instr_reg[10]                           ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |xm23_cpu|mdr[15]                                 ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |xm23_cpu|byte_manip:byte_manipulator|dst_out[0]  ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xm23_cpu|byte_manip:byte_manipulator|dst_val[3]  ;
 ; 17:1               ; 3 bits    ; 33 LEs        ; 12 LEs               ; 21 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|data_bus_ctrl[0] ;
 ; 7:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xm23_cpu|byte_manip:byte_manipulator|dst_out[12] ;
-; 10:1               ; 16 bits   ; 96 LEs        ; 96 LEs               ; 0 LEs                  ; Yes        ; |xm23_cpu|mar[9]                                  ;
-; 18:1               ; 3 bits    ; 36 LEs        ; 3 LEs                ; 33 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|cex_state[3]     ;
+; 10:1               ; 16 bits   ; 96 LEs        ; 96 LEs               ; 0 LEs                  ; Yes        ; |xm23_cpu|mar[15]                                 ;
+; 18:1               ; 3 bits    ; 36 LEs        ; 3 LEs                ; 33 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|cex_state[5]     ;
 ; 18:1               ; 3 bits    ; 36 LEs        ; 3 LEs                ; 33 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|cex_state[0]     ;
-; 128:1              ; 2 bits    ; 170 LEs       ; 6 LEs                ; 164 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|bm_op[0]         ;
-; 16:1               ; 3 bits    ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |xm23_cpu|instruction_decoder:ID|DST[0]           ;
-; 16:1               ; 3 bits    ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |xm23_cpu|instruction_decoder:ID|SRCCON[0]        ;
-; 129:1              ; 4 bits    ; 344 LEs       ; 8 LEs                ; 336 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|psw[1]           ;
+; 128:1              ; 2 bits    ; 170 LEs       ; 6 LEs                ; 164 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|bm_op[1]         ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |xm23_cpu|instruction_decoder:ID|DST[2]           ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |xm23_cpu|instruction_decoder:ID|SRCCON[2]        ;
+; 129:1              ; 4 bits    ; 344 LEs       ; 8 LEs                ; 336 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|psw[2]           ;
 ; 46:1               ; 2 bits    ; 60 LEs        ; 2 LEs                ; 58 LEs                 ; Yes        ; |xm23_cpu|alu:arithmetic_logic_unit|PSW_o[1]      ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[16][13]                        ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[16][8]                         ;
 ; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[15][11]                        ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[14][11]                        ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[13][11]                        ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[12][11]                        ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[11][10]                        ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[10][9]                         ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[9][9]                          ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[8][15]                         ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[7][9]                          ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[6][9]                          ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[5][13]                         ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[4][14]                         ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[3][14]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[14][9]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[13][9]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[12][9]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[11][8]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[10][8]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[9][15]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[8][10]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[7][11]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[6][10]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[5][8]                          ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[4][15]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[3][11]                         ;
 ; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[2][10]                         ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[1][14]                         ;
-; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[0][11]                         ;
-; 68:1               ; 2 bits    ; 90 LEs        ; 22 LEs               ; 68 LEs                 ; Yes        ; |xm23_cpu|alu:arithmetic_logic_unit|Reg3[4]       ;
-; 68:1               ; 3 bits    ; 135 LEs       ; 36 LEs               ; 99 LEs                 ; Yes        ; |xm23_cpu|alu:arithmetic_logic_unit|Reg3[1]       ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[1][11]                         ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |xm23_cpu|reg_file[0][8]                          ;
+; 68:1               ; 2 bits    ; 90 LEs        ; 22 LEs               ; 68 LEs                 ; Yes        ; |xm23_cpu|alu:arithmetic_logic_unit|result[6]     ;
+; 68:1               ; 3 bits    ; 135 LEs       ; 36 LEs               ; 99 LEs                 ; Yes        ; |xm23_cpu|alu:arithmetic_logic_unit|result[1]     ;
 ; 145:1              ; 3 bits    ; 288 LEs       ; 6 LEs                ; 282 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|addr_rnum_src[1] ;
-; 41:1               ; 2 bits    ; 54 LEs        ; 4 LEs                ; 50 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_rnum_src[0]  ;
-; 36:1               ; 3 bits    ; 72 LEs        ; 24 LEs               ; 48 LEs                 ; Yes        ; |xm23_cpu|alu:arithmetic_logic_unit|Reg3[13]      ;
-; 38:1               ; 3 bits    ; 75 LEs        ; 30 LEs               ; 45 LEs                 ; Yes        ; |xm23_cpu|alu:arithmetic_logic_unit|Reg3[9]       ;
-; 24:1               ; 2 bits    ; 32 LEs        ; 4 LEs                ; 28 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|code[2]          ;
-; 46:1               ; 3 bits    ; 90 LEs        ; 6 LEs                ; 84 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|dbus_rnum_src[1] ;
-; 47:1               ; 4 bits    ; 124 LEs       ; 8 LEs                ; 116 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_op[4]        ;
-; 62:1               ; 3 bits    ; 123 LEs       ; 6 LEs                ; 117 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_rnum_dst[2]  ;
+; 41:1               ; 2 bits    ; 54 LEs        ; 4 LEs                ; 50 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_rnum_src[1]  ;
+; 36:1               ; 3 bits    ; 72 LEs        ; 24 LEs               ; 48 LEs                 ; Yes        ; |xm23_cpu|alu:arithmetic_logic_unit|result[12]    ;
+; 38:1               ; 3 bits    ; 75 LEs        ; 30 LEs               ; 45 LEs                 ; Yes        ; |xm23_cpu|alu:arithmetic_logic_unit|result[11]    ;
+; 24:1               ; 2 bits    ; 32 LEs        ; 4 LEs                ; 28 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|code[1]          ;
+; 46:1               ; 3 bits    ; 90 LEs        ; 6 LEs                ; 84 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|dbus_rnum_src[0] ;
+; 47:1               ; 4 bits    ; 124 LEs       ; 8 LEs                ; 116 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_op[3]        ;
+; 62:1               ; 3 bits    ; 123 LEs       ; 6 LEs                ; 117 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_rnum_dst[0]  ;
 ; 60:1               ; 2 bits    ; 80 LEs        ; 8 LEs                ; 72 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|dbus_rnum_dst[0] ;
 ; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; No         ; |xm23_cpu|reg_file                                ;
 ; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |xm23_cpu|reg_file                                ;
 ; 4:1                ; 17 bits   ; 34 LEs        ; 17 LEs               ; 17 LEs                 ; No         ; |xm23_cpu|reg_file                                ;
 ; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |xm23_cpu|alu:arithmetic_logic_unit|ShiftLeft0    ;
 ; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |xm23_cpu|alu:arithmetic_logic_unit|ShiftLeft0    ;
-; 16:1               ; 16 bits   ; 160 LEs       ; 160 LEs              ; 0 LEs                  ; No         ; |xm23_cpu|Mux29                                   ;
-; 17:1               ; 16 bits   ; 176 LEs       ; 176 LEs              ; 0 LEs                  ; No         ; |xm23_cpu|Mux84                                   ;
-; 18:1               ; 6 bits    ; 72 LEs        ; 72 LEs               ; 0 LEs                  ; No         ; |xm23_cpu|view_data:data_viewer|data[12]          ;
-; 18:1               ; 10 bits   ; 120 LEs       ; 120 LEs              ; 0 LEs                  ; No         ; |xm23_cpu|view_data:data_viewer|data[7]           ;
-; 18:1               ; 16 bits   ; 192 LEs       ; 192 LEs              ; 0 LEs                  ; No         ; |xm23_cpu|s_bus[8]                                ;
+; 8:1                ; 16 bits   ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; No         ; |xm23_cpu|Mux22                                   ;
+; 17:1               ; 16 bits   ; 176 LEs       ; 176 LEs              ; 0 LEs                  ; No         ; |xm23_cpu|Mux89                                   ;
+; 18:1               ; 6 bits    ; 72 LEs        ; 72 LEs               ; 0 LEs                  ; No         ; |xm23_cpu|view_data:data_viewer|data[11]          ;
+; 18:1               ; 10 bits   ; 120 LEs       ; 120 LEs              ; 0 LEs                  ; No         ; |xm23_cpu|view_data:data_viewer|data[4]           ;
+; 18:1               ; 16 bits   ; 192 LEs       ; 192 LEs              ; 0 LEs                  ; No         ; |xm23_cpu|s_bus[6]                                ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------+
 
 
 +------------------------------------------------------------------------------------------+
-; Source assignments for memory:ram|altsyncram:memory_rtl_0|altsyncram_8d52:auto_generated ;
+; Source assignments for memory:ram|altsyncram:memory_rtl_0|altsyncram_2s72:auto_generated ;
 +---------------------------------+--------------------+------+----------------------------+
 ; Assignment                      ; Value              ; From ; To                         ;
 +---------------------------------+--------------------+------+----------------------------+
@@ -526,64 +533,64 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +---------------------------------+--------------------+------+----------------------------+
 
 
-+-------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: memory:ram|altsyncram:memory_rtl_0 ;
-+------------------------------------+-----------------+------------------------------+
-; Parameter Name                     ; Value           ; Type                         ;
-+------------------------------------+-----------------+------------------------------+
-; BYTE_SIZE_BLOCK                    ; 8               ; Untyped                      ;
-; AUTO_CARRY_CHAINS                  ; ON              ; AUTO_CARRY                   ;
-; IGNORE_CARRY_BUFFERS               ; OFF             ; IGNORE_CARRY                 ;
-; AUTO_CASCADE_CHAINS                ; ON              ; AUTO_CASCADE                 ;
-; IGNORE_CASCADE_BUFFERS             ; OFF             ; IGNORE_CASCADE               ;
-; WIDTH_BYTEENA                      ; 1               ; Untyped                      ;
-; OPERATION_MODE                     ; BIDIR_DUAL_PORT ; Untyped                      ;
-; WIDTH_A                            ; 8               ; Untyped                      ;
-; WIDTHAD_A                          ; 16              ; Untyped                      ;
-; NUMWORDS_A                         ; 65536           ; Untyped                      ;
-; OUTDATA_REG_A                      ; UNREGISTERED    ; Untyped                      ;
-; ADDRESS_ACLR_A                     ; NONE            ; Untyped                      ;
-; OUTDATA_ACLR_A                     ; NONE            ; Untyped                      ;
-; WRCONTROL_ACLR_A                   ; NONE            ; Untyped                      ;
-; INDATA_ACLR_A                      ; NONE            ; Untyped                      ;
-; BYTEENA_ACLR_A                     ; NONE            ; Untyped                      ;
-; WIDTH_B                            ; 8               ; Untyped                      ;
-; WIDTHAD_B                          ; 16              ; Untyped                      ;
-; NUMWORDS_B                         ; 65536           ; Untyped                      ;
-; INDATA_REG_B                       ; CLOCK0          ; Untyped                      ;
-; WRCONTROL_WRADDRESS_REG_B          ; CLOCK0          ; Untyped                      ;
-; RDCONTROL_REG_B                    ; CLOCK1          ; Untyped                      ;
-; ADDRESS_REG_B                      ; CLOCK0          ; Untyped                      ;
-; OUTDATA_REG_B                      ; UNREGISTERED    ; Untyped                      ;
-; BYTEENA_REG_B                      ; CLOCK1          ; Untyped                      ;
-; INDATA_ACLR_B                      ; NONE            ; Untyped                      ;
-; WRCONTROL_ACLR_B                   ; NONE            ; Untyped                      ;
-; ADDRESS_ACLR_B                     ; NONE            ; Untyped                      ;
-; OUTDATA_ACLR_B                     ; NONE            ; Untyped                      ;
-; RDCONTROL_ACLR_B                   ; NONE            ; Untyped                      ;
-; BYTEENA_ACLR_B                     ; NONE            ; Untyped                      ;
-; WIDTH_BYTEENA_A                    ; 1               ; Untyped                      ;
-; WIDTH_BYTEENA_B                    ; 1               ; Untyped                      ;
-; RAM_BLOCK_TYPE                     ; AUTO            ; Untyped                      ;
-; BYTE_SIZE                          ; 8               ; Untyped                      ;
-; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA        ; Untyped                      ;
-; READ_DURING_WRITE_MODE_PORT_A      ; OLD_DATA        ; Untyped                      ;
-; READ_DURING_WRITE_MODE_PORT_B      ; OLD_DATA        ; Untyped                      ;
-; INIT_FILE                          ; memory.mif      ; Untyped                      ;
-; INIT_FILE_LAYOUT                   ; PORT_A          ; Untyped                      ;
-; MAXIMUM_DEPTH                      ; 0               ; Untyped                      ;
-; CLOCK_ENABLE_INPUT_A               ; NORMAL          ; Untyped                      ;
-; CLOCK_ENABLE_INPUT_B               ; NORMAL          ; Untyped                      ;
-; CLOCK_ENABLE_OUTPUT_A              ; NORMAL          ; Untyped                      ;
-; CLOCK_ENABLE_OUTPUT_B              ; NORMAL          ; Untyped                      ;
-; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN ; Untyped                      ;
-; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN ; Untyped                      ;
-; ENABLE_ECC                         ; FALSE           ; Untyped                      ;
-; ECC_PIPELINE_STAGE_ENABLED         ; FALSE           ; Untyped                      ;
-; WIDTH_ECCSTATUS                    ; 3               ; Untyped                      ;
-; DEVICE_FAMILY                      ; Cyclone IV E    ; Untyped                      ;
-; CBXI_PARAMETER                     ; altsyncram_8d52 ; Untyped                      ;
-+------------------------------------+-----------------+------------------------------+
++------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: memory:ram|altsyncram:memory_rtl_0            ;
++------------------------------------+------------------------------------------+----------------+
+; Parameter Name                     ; Value                                    ; Type           ;
++------------------------------------+------------------------------------------+----------------+
+; BYTE_SIZE_BLOCK                    ; 8                                        ; Untyped        ;
+; AUTO_CARRY_CHAINS                  ; ON                                       ; AUTO_CARRY     ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                      ; IGNORE_CARRY   ;
+; AUTO_CASCADE_CHAINS                ; ON                                       ; AUTO_CASCADE   ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                      ; IGNORE_CASCADE ;
+; WIDTH_BYTEENA                      ; 1                                        ; Untyped        ;
+; OPERATION_MODE                     ; BIDIR_DUAL_PORT                          ; Untyped        ;
+; WIDTH_A                            ; 8                                        ; Untyped        ;
+; WIDTHAD_A                          ; 16                                       ; Untyped        ;
+; NUMWORDS_A                         ; 65536                                    ; Untyped        ;
+; OUTDATA_REG_A                      ; UNREGISTERED                             ; Untyped        ;
+; ADDRESS_ACLR_A                     ; NONE                                     ; Untyped        ;
+; OUTDATA_ACLR_A                     ; NONE                                     ; Untyped        ;
+; WRCONTROL_ACLR_A                   ; NONE                                     ; Untyped        ;
+; INDATA_ACLR_A                      ; NONE                                     ; Untyped        ;
+; BYTEENA_ACLR_A                     ; NONE                                     ; Untyped        ;
+; WIDTH_B                            ; 8                                        ; Untyped        ;
+; WIDTHAD_B                          ; 16                                       ; Untyped        ;
+; NUMWORDS_B                         ; 65536                                    ; Untyped        ;
+; INDATA_REG_B                       ; CLOCK0                                   ; Untyped        ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK0                                   ; Untyped        ;
+; RDCONTROL_REG_B                    ; CLOCK1                                   ; Untyped        ;
+; ADDRESS_REG_B                      ; CLOCK0                                   ; Untyped        ;
+; OUTDATA_REG_B                      ; UNREGISTERED                             ; Untyped        ;
+; BYTEENA_REG_B                      ; CLOCK1                                   ; Untyped        ;
+; INDATA_ACLR_B                      ; NONE                                     ; Untyped        ;
+; WRCONTROL_ACLR_B                   ; NONE                                     ; Untyped        ;
+; ADDRESS_ACLR_B                     ; NONE                                     ; Untyped        ;
+; OUTDATA_ACLR_B                     ; NONE                                     ; Untyped        ;
+; RDCONTROL_ACLR_B                   ; NONE                                     ; Untyped        ;
+; BYTEENA_ACLR_B                     ; NONE                                     ; Untyped        ;
+; WIDTH_BYTEENA_A                    ; 1                                        ; Untyped        ;
+; WIDTH_BYTEENA_B                    ; 1                                        ; Untyped        ;
+; RAM_BLOCK_TYPE                     ; AUTO                                     ; Untyped        ;
+; BYTE_SIZE                          ; 8                                        ; Untyped        ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                 ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_A      ; OLD_DATA                                 ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_B      ; OLD_DATA                                 ; Untyped        ;
+; INIT_FILE                          ; db/xm23_cpu.ram0_memory_e411fb78.hdl.mif ; Untyped        ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                   ; Untyped        ;
+; MAXIMUM_DEPTH                      ; 0                                        ; Untyped        ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                                   ; Untyped        ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                   ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL                                   ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                   ; Untyped        ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                          ; Untyped        ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                          ; Untyped        ;
+; ENABLE_ECC                         ; FALSE                                    ; Untyped        ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                    ; Untyped        ;
+; WIDTH_ECCSTATUS                    ; 3                                        ; Untyped        ;
+; DEVICE_FAMILY                      ; Cyclone IV E                             ; Untyped        ;
+; CBXI_PARAMETER                     ; altsyncram_2s72                          ; Untyped        ;
++------------------------------------+------------------------------------------+----------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -613,11 +620,9 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Port             ; Type   ; Severity ; Details                                                                                                                        ;
 +------------------+--------+----------+--------------------------------------------------------------------------------------------------------------------------------+
 ; enables[11..0]   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                            ;
-; data_bus_ctrl[6] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                            ;
 ; addr_bus_ctrl[6] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                            ;
 ; sxt_bit_num      ; Output ; Warning  ; Output or bidir port (5 bits) is wider than the port expression (4 bits) it drives; bit(s) "sxt_bit_num[4..4]" have no fanouts ;
 ; sxt_rnum[4]      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                            ;
-; alu_rnum_dst[4]  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                            ;
 ; bm_rnum[4]       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                            ;
 +------------------+--------+----------+--------------------------------------------------------------------------------------------------------------------------------+
 
@@ -637,26 +642,26 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 76                          ;
-; cycloneiii_ff         ; 537                         ;
-;     ENA               ; 366                         ;
-;     ENA SCLR          ; 10                          ;
-;     ENA SLD           ; 51                          ;
+; cycloneiii_ff         ; 524                         ;
+;     ENA               ; 378                         ;
+;     ENA SCLR          ; 7                           ;
+;     ENA SLD           ; 47                          ;
 ;     SLD               ; 20                          ;
-;     plain             ; 90                          ;
-; cycloneiii_lcell_comb ; 2099                        ;
+;     plain             ; 72                          ;
+; cycloneiii_lcell_comb ; 2104                        ;
 ;     arith             ; 118                         ;
 ;         2 data inputs ; 69                          ;
 ;         3 data inputs ; 49                          ;
-;     normal            ; 1981                        ;
+;     normal            ; 1986                        ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 9                           ;
-;         2 data inputs ; 91                          ;
-;         3 data inputs ; 365                         ;
-;         4 data inputs ; 1515                        ;
+;         2 data inputs ; 101                         ;
+;         3 data inputs ; 374                         ;
+;         4 data inputs ; 1501                        ;
 ; cycloneiii_ram_block  ; 64                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 16.30                       ;
-; Average LUT depth     ; 7.46                        ;
+; Average LUT depth     ; 7.26                        ;
 +-----------------------+-----------------------------+
 
 
@@ -665,7 +670,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:08     ;
+; Top            ; 00:00:07     ;
 +----------------+--------------+
 
 
@@ -675,7 +680,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Wed Jul 19 21:53:07 2023
+    Info: Processing started: Sat Jul 22 13:03:40 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off xm23_cpu -c xm23_cpu
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -699,35 +704,34 @@ Info (12021): Found 1 design units, including 1 entities, in source file control
     Info (12023): Found entity 1: control_unit File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file memory.v
     Info (12023): Found entity 1: memory File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/memory.v Line: 1
-Warning (10236): Verilog HDL Implicit Net warning at xm23_cpu.v(125): created implicit net for "FLTi" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 125
+Warning (10236): Verilog HDL Implicit Net warning at xm23_cpu.v(126): created implicit net for "FLTi" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 126
 Info (12127): Elaborating entity "xm23_cpu" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at xm23_cpu.v(54): object "mar_mem_bus" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 54
+Warning (10036): Verilog HDL or VHDL warning at xm23_cpu.v(55): object "mar_mem_bus" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 55
 Warning (10855): Verilog HDL warning at xm23_cpu.v(25): initial value for variable reg_file should be constant File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 25
-Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(95): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 95
-Warning (10230): Verilog HDL assignment warning at xm23_cpu.v(100): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 100
-Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(105): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 105
-Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(106): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 106
+Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(96): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 96
+Warning (10230): Verilog HDL assignment warning at xm23_cpu.v(101): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 101
 Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(107): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 107
-Warning (10235): Verilog HDL Always Construct warning at xm23_cpu.v(158): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 158
-Warning (10240): Verilog HDL Always Construct warning at xm23_cpu.v(155): inferring latch(es) for variable "bkpnt", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[0]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[1]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[2]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[3]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[4]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[5]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[6]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[7]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[8]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[9]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[10]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[11]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[12]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[13]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[14]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (10041): Inferred latch for "bkpnt[15]" at xm23_cpu.v(155) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 155
-Info (12128): Elaborating entity "memory" for hierarchy "memory:ram" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 117
-Info (12128): Elaborating entity "view_data" for hierarchy "view_data:data_viewer" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 119
+Warning (10027): Verilog HDL or VHDL warning at the xm23_cpu.v(108): index expression is not wide enough to address all of the elements in the array File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 108
+Warning (10235): Verilog HDL Always Construct warning at xm23_cpu.v(159): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 159
+Warning (10240): Verilog HDL Always Construct warning at xm23_cpu.v(156): inferring latch(es) for variable "bkpnt", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[0]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[1]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[2]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[3]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[4]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[5]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[6]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[7]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[8]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[9]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[10]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[11]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[12]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[13]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[14]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (10041): Inferred latch for "bkpnt[15]" at xm23_cpu.v(156) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 156
+Info (12128): Elaborating entity "memory" for hierarchy "memory:ram" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 118
+Info (12128): Elaborating entity "view_data" for hierarchy "view_data:data_viewer" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 120
 Warning (10235): Verilog HDL Always Construct warning at view_data.v(41): variable "LEDG" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 41
 Warning (10235): Verilog HDL Always Construct warning at view_data.v(43): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 43
 Warning (10235): Verilog HDL Always Construct warning at view_data.v(44): variable "mem_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 44
@@ -778,51 +782,51 @@ Info (10041): Inferred latch for "LEDG[3]" at view_data.v(34) File: C:/Users/mcc
 Info (10041): Inferred latch for "LEDG[4]" at view_data.v(34) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 34
 Info (10041): Inferred latch for "LEDG[5]" at view_data.v(34) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 34
 Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "view_data:data_viewer|seven_seg_decoder:decode1" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 24
-Info (12128): Elaborating entity "sign_extender" for hierarchy "sign_extender:sxt_ext" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 121
-Info (12128): Elaborating entity "byte_manip" for hierarchy "byte_manip:byte_manipulator" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 123
-Info (12128): Elaborating entity "instruction_decoder" for hierarchy "instruction_decoder:ID" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 125
-Info (12128): Elaborating entity "control_unit" for hierarchy "control_unit:ctrl_unit" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 130
-Warning (10230): Verilog HDL assignment warning at control_unit.v(114): truncated value with size 7 to match size of target (4) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 114
-Warning (10230): Verilog HDL assignment warning at control_unit.v(115): truncated value with size 7 to match size of target (4) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 115
-Warning (10230): Verilog HDL assignment warning at control_unit.v(139): truncated value with size 7 to match size of target (6) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 139
-Warning (10230): Verilog HDL assignment warning at control_unit.v(164): truncated value with size 7 to match size of target (6) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 164
-Warning (10230): Verilog HDL assignment warning at control_unit.v(263): truncated value with size 7 to match size of target (3) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 263
-Warning (10230): Verilog HDL assignment warning at control_unit.v(386): truncated value with size 32 to match size of target (4) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 386
-Info (12128): Elaborating entity "cex_code" for hierarchy "control_unit:ctrl_unit|cex_code:cex_code_ctrl" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 57
+Info (12128): Elaborating entity "sign_extender" for hierarchy "sign_extender:sxt_ext" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 122
+Info (12128): Elaborating entity "byte_manip" for hierarchy "byte_manip:byte_manipulator" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 124
+Info (12128): Elaborating entity "instruction_decoder" for hierarchy "instruction_decoder:ID" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 126
+Info (12128): Elaborating entity "control_unit" for hierarchy "control_unit:ctrl_unit" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 131
+Warning (10230): Verilog HDL assignment warning at control_unit.v(122): truncated value with size 7 to match size of target (4) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 122
+Warning (10230): Verilog HDL assignment warning at control_unit.v(123): truncated value with size 7 to match size of target (4) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 123
+Warning (10230): Verilog HDL assignment warning at control_unit.v(148): truncated value with size 7 to match size of target (6) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 148
+Warning (10230): Verilog HDL assignment warning at control_unit.v(173): truncated value with size 7 to match size of target (6) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 173
+Warning (10230): Verilog HDL assignment warning at control_unit.v(272): truncated value with size 7 to match size of target (3) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 272
+Warning (10230): Verilog HDL assignment warning at control_unit.v(395): truncated value with size 32 to match size of target (4) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 395
+Info (12128): Elaborating entity "cex_code" for hierarchy "control_unit:ctrl_unit|cex_code:cex_code_ctrl" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 59
 Warning (10270): Verilog HDL Case Statement warning at cex_code.v(8): incomplete case statement has no default case item File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/cex_code.v Line: 8
 Warning (10240): Verilog HDL Always Construct warning at cex_code.v(7): inferring latch(es) for variable "result", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/cex_code.v Line: 7
 Info (10041): Inferred latch for "result" at cex_code.v(7) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/cex_code.v Line: 7
-Info (12128): Elaborating entity "alu" for hierarchy "alu:arithmetic_logic_unit" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 132
-Warning (10230): Verilog HDL assignment warning at alu.v(81): truncated value with size 32 to match size of target (8) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 81
-Warning (10230): Verilog HDL assignment warning at alu.v(83): truncated value with size 32 to match size of target (8) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 83
-Warning (10230): Verilog HDL assignment warning at alu.v(92): truncated value with size 32 to match size of target (8) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 92
-Warning (10230): Verilog HDL assignment warning at alu.v(101): truncated value with size 32 to match size of target (8) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 101
-Warning (10230): Verilog HDL assignment warning at alu.v(145): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 145
-Warning (10230): Verilog HDL assignment warning at alu.v(147): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 147
-Warning (10230): Verilog HDL assignment warning at alu.v(152): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 152
-Warning (10230): Verilog HDL assignment warning at alu.v(154): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 154
-Warning (10230): Verilog HDL assignment warning at alu.v(159): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 159
-Warning (10230): Verilog HDL assignment warning at alu.v(161): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 161
-Warning (10230): Verilog HDL assignment warning at alu.v(166): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 166
-Warning (10230): Verilog HDL assignment warning at alu.v(168): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 168
-Warning (10230): Verilog HDL assignment warning at alu.v(173): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 173
-Warning (10230): Verilog HDL assignment warning at alu.v(175): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 175
-Warning (10230): Verilog HDL assignment warning at alu.v(180): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 180
-Warning (10230): Verilog HDL assignment warning at alu.v(182): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 182
+Info (12128): Elaborating entity "alu" for hierarchy "alu:arithmetic_logic_unit" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 133
+Warning (10230): Verilog HDL assignment warning at alu.v(80): truncated value with size 32 to match size of target (8) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 80
+Warning (10230): Verilog HDL assignment warning at alu.v(82): truncated value with size 32 to match size of target (8) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 82
+Warning (10230): Verilog HDL assignment warning at alu.v(91): truncated value with size 32 to match size of target (8) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 91
+Warning (10230): Verilog HDL assignment warning at alu.v(100): truncated value with size 32 to match size of target (8) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 100
+Warning (10230): Verilog HDL assignment warning at alu.v(144): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 144
+Warning (10230): Verilog HDL assignment warning at alu.v(146): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 146
+Warning (10230): Verilog HDL assignment warning at alu.v(151): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 151
+Warning (10230): Verilog HDL assignment warning at alu.v(153): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 153
+Warning (10230): Verilog HDL assignment warning at alu.v(158): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 158
+Warning (10230): Verilog HDL assignment warning at alu.v(160): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 160
+Warning (10230): Verilog HDL assignment warning at alu.v(165): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 165
+Warning (10230): Verilog HDL assignment warning at alu.v(167): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 167
+Warning (10230): Verilog HDL assignment warning at alu.v(172): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 172
+Warning (10230): Verilog HDL assignment warning at alu.v(174): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 174
+Warning (10230): Verilog HDL assignment warning at alu.v(179): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 179
+Warning (10230): Verilog HDL assignment warning at alu.v(181): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 181
 Warning (10034): Output port "PSW_o[15..5]" at alu.v(11) has no driver File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 11
 Warning (10034): Output port "PSW_o[3]" at alu.v(11) has no driver File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 11
 Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 125
+    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 126
 Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 125
+    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 126
 Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 125
+    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 126
 Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 125
+    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 126
 Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 125
+    Warning (12110): Net "FLTi" is missing source, defaulting to GND File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 126
 Warning (19016): Clock multiplexers are found and protected
-    Warning (19017): Found clock multiplexer Clock File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 45
+    Warning (19017): Found clock multiplexer Clock File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 46
 Info (19000): Inferred 1 megafunctions from design logic
     Info (276029): Inferred altsyncram megafunction from the following design logic: "memory:ram|memory_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to BIDIR_DUAL_PORT
@@ -844,7 +848,7 @@ Info (19000): Inferred 1 megafunctions from design logic
         Info (286033): Parameter OUTDATA_ACLR_B set to NONE
         Info (286033): Parameter READ_DURING_WRITE_MODE_PORT_A set to OLD_DATA
         Info (286033): Parameter READ_DURING_WRITE_MODE_PORT_B set to OLD_DATA
-        Info (286033): Parameter INIT_FILE set to memory.mif
+        Info (286033): Parameter INIT_FILE set to db/xm23_cpu.ram0_memory_e411fb78.hdl.mif
         Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
 Info (12130): Elaborated megafunction instantiation "memory:ram|altsyncram:memory_rtl_0"
 Info (12133): Instantiated megafunction "memory:ram|altsyncram:memory_rtl_0" with the following parameter:
@@ -867,10 +871,10 @@ Info (12133): Instantiated megafunction "memory:ram|altsyncram:memory_rtl_0" wit
     Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
     Info (12134): Parameter "READ_DURING_WRITE_MODE_PORT_A" = "OLD_DATA"
     Info (12134): Parameter "READ_DURING_WRITE_MODE_PORT_B" = "OLD_DATA"
-    Info (12134): Parameter "INIT_FILE" = "memory.mif"
+    Info (12134): Parameter "INIT_FILE" = "db/xm23_cpu.ram0_memory_e411fb78.hdl.mif"
     Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_8d52.tdf
-    Info (12023): Found entity 1: altsyncram_8d52 File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/altsyncram_8d52.tdf Line: 32
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_2s72.tdf
+    Info (12023): Found entity 1: altsyncram_2s72 File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/altsyncram_2s72.tdf Line: 32
 Info (12021): Found 1 design units, including 1 entities, in source file db/decode_rsa.tdf
     Info (12023): Found entity 1: decode_rsa File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/decode_rsa.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/mux_bnb.tdf
@@ -941,22 +945,22 @@ Warning (13012): Latch view_data:data_viewer|data[14] has unsafe behavior File: 
 Warning (13012): Latch view_data:data_viewer|data[15] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 31
     Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 34
 Warning (13012): Latch control_unit:ctrl_unit|cex_code:cex_code_ctrl|result has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/cex_code.v Line: 5
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|code[2] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 59
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|code[2] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 61
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 24 registers lost all their fanouts during netlist optimizations.
+Info (17049): 25 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file C:/Users/mccoy/Documents/ECED3900/basic_cpu/output_files/xm23_cpu.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 2604 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 2595 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 23 input pins
     Info (21059): Implemented 53 output pins
-    Info (21061): Implemented 2464 logic cells
+    Info (21061): Implemented 2455 logic cells
     Info (21064): Implemented 64 RAM segments
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 127 warnings
-    Info: Peak virtual memory: 4842 megabytes
-    Info: Processing ended: Wed Jul 19 21:53:33 2023
-    Info: Elapsed time: 00:00:26
-    Info: Total CPU time (on all processors): 00:00:16
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 126 warnings
+    Info: Peak virtual memory: 4878 megabytes
+    Info: Processing ended: Sat Jul 22 13:04:07 2023
+    Info: Elapsed time: 00:00:27
+    Info: Total CPU time (on all processors): 00:00:27
 
 
 +------------------------------------------+
