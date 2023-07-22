@@ -1,0 +1,70 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: FirstTest.txt
+Time of assembly: Wed 19 Jul 2023 20:05:54 
+  1	0000	4088		add.w #1,R0
+  2	0002	4089		add.w #1,R1
+  3	0004	408A		add.w #1,R2
+  4	0006	408B		add.w #1,R3
+  5	0008	408C		add.w #1,R4
+  6	000A	4090		add.w #2,R0
+  7	000C	4099		add.w #4,R1
+  8	000E	40A2		add.w #8,R2
+  9	0010	40AB		add.w #10,R3
+ 10	0012	40B4		add.w #20,R4
+ 11	0014	0003		bl	Main
+ 12	0016	408D		add.w #1,R5
+ 13	0018	408E		add.w #1,R6
+ 14	001A	408F		add.w #1,R7
+ 15	    	     	Main
+ 16	001C	67AD		movl #F5,R5
+ 17	001E	6E96		movlz #D2,R6
+ 18	0020	7267		movls #4C,R7
+ 19	0022	7800		movh #02,R0
+ 20	0024	4656		xor.b R2,R6
+ 21	0026	472B		and.w R5,R3
+ 22	0028	4854		or.b R2,R4
+ 23	002A	498D		bit.w #1,R5
+ 24	002C	4BD9		bis.b #4,R1
+ 25	002E	4A96		bic.w #2,R6
+ 26	0030	4D19		swpb R1
+ 27	0032	4D23		sxt R3
+ 28	0034	4D41		sra.b R1
+ 29	0036	4D0C		rrc.w R4
+ 30	0038	4006		add.w R0,R6
+ 31	003A	4165		addc.b R4,R5
+ 32	003C	421F		sub.w R3,R7
+ 33	003E	4351		subc.b R2,R1
+ 34	0040	3C03		bra	Next
+ 35	0042	4088		add.w #1,R0
+ 36	0044	4089		add.w #1,R1
+ 37	0046	408A		add.w #1,R2
+ 38	    	     	Next
+ 39	0048	6050		movl #0A,R0
+ 40	004A	6059		movl #0B,R1
+ 41	004C	6062		movl #0C,R2
+ 42	004E	606B		movl #0D,R3
+ 43	0050	4C66		mov.b R4,R6
+ 44	0052	4CB9		swap R7,R1
+ 45	0054	5805		ld.w R0,R5
+ 46	0056	5C79		st.b R7,R1
+ 47	0058	8112		ldr.w R2,#2,R2
+ 48	005A	C0FB		str.b R7,R3,#1
+ 49	    	     		
+ 50	    	     		
+Successful completion of assembly - 2P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+Next                               	REL	0048	72	PRI
+Main                               	REL	001C	28	PRI
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: C:\Users\mccoy\Documents\ECED3900\SRec_to_Mem\Debug\FirstTest.xme
+

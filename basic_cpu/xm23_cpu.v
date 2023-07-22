@@ -13,8 +13,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	
 	// Guide for memory initialization: https://projectf.io/posts/initialize-memory-in-verilog/
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
-	
-	reg [7:0] memory [0:8'hff];
+
 	reg [15:0] reg_file [0:16];
 	reg [15:0] instr_reg, mar, mdr, psw_in;
 	reg [15:0] data_bus, addr_bus;
@@ -24,7 +23,14 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	
 	/* The following 3 lines are where memory is loaded */
 	initial begin
-		$readmemh("memory.txt", memory, 0);
+		reg_file[0] = 16'd0;
+		reg_file[1] = 16'd0;
+		reg_file[2] = 16'd0;
+		reg_file[3] = 16'd0;
+		reg_file[4] = 16'd0;
+		reg_file[5] = 16'd0;
+		reg_file[6] = 16'd0;
+		reg_file[7] = 16'd0;
 		reg_file[8] = 16'd0;
 		reg_file[9] = 16'd1;
 		reg_file[10] = 16'd2;
@@ -33,13 +39,16 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		reg_file[13] = 16'd16;
 		reg_file[14] = 16'd32;
 		reg_file[15] = 16'hffff;
+		bkpnt = 16'h000a;
+		psw_in = 16'h60e0;
 	end
 	
 	wire Clock;
 	wire [6:0] data_bus_ctrl, addr_bus_ctrl; 	// [1b for W/B, 3b for src, 3b for dst (Codes: 0=MDR/MAR, 1=Reg File, 2=IR, 3=ALU, 4=SXT_out, 5=BMB_out, 6=PSW)]
 	wire s_bus_ctrl, sxt_bus_ctrl;							// 0 = use Reg File, 1 = use calculated offset
 	wire [15:0] addr, breakpnt;
-	wire [4:0] dbus_rnum_dst, dbus_rnum_src, addr_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bit_num, bm_rnum, sxt_rnum;
+	wire [4:0] dbus_rnum_dst, dbus_rnum_src, addr_rnum_src, alu_rnum_dst, alu_rnum_src, bm_rnum, sxt_rnum;
+	wire [3:0] sxt_bit_num;
 	wire [1:0] psw_bus_ctrl;
 	wire [1:0] mem_mode;
 	wire [15:0] mem_data, reg_data, psw_data;
@@ -94,7 +103,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	
 	
 	
-	assign d_bus = reg_file[alu_rnum_dst[3:0]][15:0];
+	assign d_bus = reg_file[alu_rnum_dst[4:0]][15:0];
 	assign bm_in = reg_file[bm_rnum[3:0]][15:0];
 	assign sxt_in = (sxt_bus_ctrl == 1'b0) ? reg_file[sxt_rnum[3:0]][15:0] : (OFF[12:0]<<2);
 	assign s_bus = (s_bus_ctrl == 1'b0) ? reg_file[alu_rnum_src[4:0]][15:0] : sxt_out[15:0];
@@ -154,7 +163,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	end
 	
 	// Update registers
-	always @(posedge Clock) begin
+	always @(negedge Clock) begin
 		ctrl_reg <= CR_bus[2:0];
 		if (psw_bus_ctrl == 2'b00)
 			psw_in <= alu_psw_out[15:0];
@@ -181,13 +190,13 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 				else										// Word
 					reg_file[dbus_rnum_dst[4:0]] <= mdr[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into Register File
-				if (data_bus_ctrl[4] == 1'b1)				// Byte
+				if (data_bus_ctrl[6] == 1'b1)				// Byte
 					reg_file[dbus_rnum_dst[4:0]] <= alu_out[7:0];
 				else										// Word
 					reg_file[dbus_rnum_dst[4:0]] <= alu_out[15:0];
 			end
 			else if (data_bus_ctrl[5:3] == 3'b001) begin 	// Read from Register File into Register File
-				if (data_bus_ctrl[4] == 1'b1)
+				if (data_bus_ctrl[6] == 1'b1)
 					reg_file[dbus_rnum_dst[4:0]][7:0] <= reg_file[dbus_rnum_src[4:0]][7:0];
 				else										// Word
 					reg_file[dbus_rnum_dst[4:0]] <= reg_file[dbus_rnum_src[4:0]][15:0];
