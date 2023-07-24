@@ -39,7 +39,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		reg_file[13] = 16'd16;
 		reg_file[14] = 16'd32;
 		reg_file[15] = 16'hffff;
-		bkpnt = 16'h000a;
+		bkpnt = 16'h001c;
 		psw_in = 16'h60e0;
 	end
 	
@@ -105,7 +105,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	
 	assign d_bus = reg_file[alu_rnum_dst[4:0]][15:0];
 	assign bm_in = reg_file[bm_rnum[3:0]][15:0];
-	assign sxt_in = (sxt_bus_ctrl == 1'b0) ? reg_file[sxt_rnum[3:0]][15:0] : (OFF[12:0]<<2);
+	assign sxt_in = (sxt_bus_ctrl == 1'b0) ? reg_file[sxt_rnum[3:0]][15:0] : (OFF[12:0]<<1);
 	assign s_bus = (s_bus_ctrl == 1'b0) ? reg_file[alu_rnum_src[4:0]][15:0] : sxt_out[15:0];
 	
 	// Assign enables
@@ -196,7 +196,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 					reg_file[dbus_rnum_dst[4:0]] <= alu_out[15:0];
 			end
 			else if (data_bus_ctrl[5:3] == 3'b001) begin 	// Read from Register File into Register File
-				if (data_bus_ctrl[6] == 1'b1)
+				if (data_bus_ctrl[6] == 1'b1)				// Byte
 					reg_file[dbus_rnum_dst[4:0]][7:0] <= reg_file[dbus_rnum_src[4:0]][7:0];
 				else										// Word
 					reg_file[dbus_rnum_dst[4:0]] <= reg_file[dbus_rnum_src[4:0]][15:0];

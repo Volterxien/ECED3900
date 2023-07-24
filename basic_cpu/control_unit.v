@@ -65,6 +65,16 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 			cpucycle <= 1;				// Reset the cycle
 		else
 			cpucycle <= cpucycle_new + 1;	// Increment CPU cycle
+			
+		if (cpucycle == 4'd4)	begin
+			case(cpucycle)
+				0:	sxt_bit_num <= 4'd13;			// Provide sign bit to sign extender
+				1,2,3,4,5,6,7,8:
+					sxt_bit_num <= 4'd10;			// Provide sign bit to sign extender	
+			endcase
+			sxt_bus_ctrl <= 1'b1;			// Use the offset from the instruction decoder
+			enables[13] <= 1'b1;			// Enable the sign extender
+		end
 	end
 
 	always @(posedge clock) begin
@@ -87,9 +97,6 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 					alu_rnum_src <= 5'd10;			// Select the constant 2 to add to the PC after the fetch
 					s_bus_ctrl <= 1'd0;				// Use the register file
 					alu_op <= 5'b00000;				// Add 2 to PC
-					
-					
-					
 					addr_rnum_src <= 5'd7;			// Select the PC to write to the MAR
 					addr_bus_ctrl <= 7'b0001000;	// Write PC to MAR
 					ctrl_reg_bus <= 3'b000;			// Read memory from MAR address to MDR
@@ -126,6 +133,10 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							dbus_rnum_dst <= 5'd5;			// Select the LR as the dst reg for the data bus
 							dbus_rnum_src <= 5'd7;			// Select the PC as the src reg for the data bus
 							data_bus_ctrl <= 7'b0001001;	// Write the PC to the LR
+							psw_update <= 1'b1;				// Set ALU to not update the PSW
+							s_bus_ctrl <= 1'b1;				// Use the sign extender output in the ALU
+							alu_op <= 5'd0;					// Use the add instruction on the ALU
+							alu_rnum_dst <= 5'd7;			// Select the PC as the dst register for the ALU
 						end
 						1,2,3,4,5,6,7,8: // BEQ to BRA
 						begin
@@ -135,8 +146,6 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							endcase
 							
 							if (code_result == 1'b1) begin
-								sxt_bit_num <= 4'd10;			// Provide sign bit to sign extender
-								sxt_bus_ctrl <= 1'b1;			// Use the offset from the control unit
 								psw_update <= 1'b0;				// Set ALU to not update the PSW
 								s_bus_ctrl <= 1'b1;				// Use the sign extender output in the ALU
 								alu_op <= 5'd0;					// Use the add instruction on the ALU
@@ -144,7 +153,6 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								dbus_rnum_dst <= 5'd7;			// Select the PC to add the offset to and to write back
 								data_bus_ctrl <= 7'b0011001;	// Write ALU output to register file
 								enables[15] <= 1'b1;			// Enable the ALU
-								enables[13] <= 1'b1;			// Enable the sign extender
 							end
 							cpucycle_rst <= 1;					// Reset the cycle
 						end
@@ -207,7 +215,11 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						27:	// SETPRI
 						begin
-							// Leaving blank for now
+							if (PR[2:0] < psw[7:5])					// If new priority less than current priority
+								psw[7:5] <= PR[2:0];				// Set current priority to new priority
+							else
+								// Fault
+								enables[0] <= 1'b1;	// Filler
 						end
 						28:	// SVC
 						begin
@@ -324,16 +336,9 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 					case(OP[6:0])
 						0: 	// BL (Second Step)
 						begin
-							sxt_bit_num <= 4'd13;			// Provide sign bit to sign extender
-							sxt_bus_ctrl <= 1'b1;			// Use the offset from the instruction decoder
-							psw_update <= 1'b1;				// Set ALU to not update the PSW
-							s_bus_ctrl <= 1'b1;				// Use the sign extender output in the ALU
-							alu_op <= 5'd0;					// Use the add instruction on the ALU
-							alu_rnum_dst <= 5'd7;			// Select the PC as the dst register for the ALU
 							dbus_rnum_dst <= 5'd7;			// Select the PC to add the offset to and to write back
 							data_bus_ctrl <= 7'b0011001;	// Write ALU output to PC
 							enables[15] <= 1'b1;			// Enable the ALU
-							enables[13] <= 1'b1;			// Enable the sign extender
 							cpucycle_rst <= 1;				// Reset the cycle
 						end
 						22: // SWAP (Second Step)

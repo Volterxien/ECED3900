@@ -7,10 +7,9 @@ module sign_extender(in, out, msb_num, E);
 	reg [15:0] extension = 16'hffff;
 	
 	always @(posedge E) begin
-		if (in[msb_num] == 1'b1) begin
-			extension <= extension[15:0] << msb_num[3:0];
-			out <= in[15:0] | extension[15:0];
-		end
-		extension <= 16'hffff;
+		if (in[msb_num] == 1'b1)
+			out <= in[15:0] | (extension[15:0] << msb_num[3:0]);
+		else
+			out <= in[15:0];
 	end
 endmodule

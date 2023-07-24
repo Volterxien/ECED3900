@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 	
 	for (int i = 0; i < 0x10000; i++)
 	{
-		fprintf(outfile, "\t%d : %2.2X;\n", i, memory[i]);
+		fprintf(outfile, "%2.2X\n", memory[i]);
 	}
 	fclose(outfile);
 
