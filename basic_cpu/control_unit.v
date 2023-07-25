@@ -46,7 +46,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	reg [3:0] code;
 	reg cpucycle_rst;						// Reset the CPU cycle (1 = reset, 0 = do not reset)
 	
-	wire code_result;
+	reg code_result;
 	wire [3:0] cpucycle_new;
 	
 	initial begin
@@ -58,23 +58,13 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	assign psw_out = psw[15:0];					// Assign the output wires for the PSW
 	assign cpucycle_new = cpucycle;
 	
-	cex_code cex_code_ctrl(psw_out, code, code_result);
+	//cex_code cex_code_ctrl(psw_out, code, code_result);
 	
 	always @(negedge clock) begin
 		if (cpucycle_rst == 1'b1)
 			cpucycle <= 1;				// Reset the cycle
 		else
 			cpucycle <= cpucycle_new + 1;	// Increment CPU cycle
-			
-		if (cpucycle == 4'd4)	begin
-			case(cpucycle)
-				0:	sxt_bit_num <= 4'd13;			// Provide sign bit to sign extender
-				1,2,3,4,5,6,7,8:
-					sxt_bit_num <= 4'd10;			// Provide sign bit to sign extender	
-			endcase
-			sxt_bus_ctrl <= 1'b1;			// Use the offset from the instruction decoder
-			enables[13] <= 1'b1;			// Enable the sign extender
-		end
 	end
 
 	always @(posedge clock) begin
@@ -116,6 +106,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 					if ((cex_state[7] == 1'b0) || ((cex_state[7] == 1'b1) && cex_state[6] && (cex_state[5:3] > 1'b0)) 
 						|| ((cex_state[7] == 1'b1) && !cex_state[6] && (cex_state[2:0] > 1'b0) && (cex_state[5:3] <= 1'b0))) begin
 						enables[14] <= 1'b1;		// Enable the instruction decoder
+						
 						if (cex_state[5:3] > 1'b0)
 							cex_state[5:3] <= cex_state[5:3] - 1'b1;
 						else if (cex_state[2:0] > 1'b0)
@@ -133,21 +124,27 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							dbus_rnum_dst <= 5'd5;			// Select the LR as the dst reg for the data bus
 							dbus_rnum_src <= 5'd7;			// Select the PC as the src reg for the data bus
 							data_bus_ctrl <= 7'b0001001;	// Write the PC to the LR
+							sxt_bit_num = 4'd13;			// Provide sign bit to sign extender
+							sxt_bus_ctrl = 1'b1;			// Use the offset from the instruction decoder
 							psw_update <= 1'b1;				// Set ALU to not update the PSW
 							s_bus_ctrl <= 1'b1;				// Use the sign extender output in the ALU
+							enables[13] = 1'b1;				// Enable the sign extender
 							alu_op <= 5'd0;					// Use the add instruction on the ALU
 							alu_rnum_dst <= 5'd7;			// Select the PC as the dst register for the ALU
 						end
 						1,2,3,4,5,6,7,8: // BEQ to BRA
 						begin
 							case(OP)
-								1,2,3,4,5: 	code <= OP[6:0] - 7'd1;
-								6,7,8: 	code <= OP[6:0] + 7'd4;
+								1,2,3,4,5: 	code = OP[6:0] - 7'd1;
+								6,7,8: 		code = OP[6:0] + 7'd4;
 							endcase
-							
+							cex_code(psw, code);
 							if (code_result == 1'b1) begin
 								psw_update <= 1'b0;				// Set ALU to not update the PSW
 								s_bus_ctrl <= 1'b1;				// Use the sign extender output in the ALU
+								sxt_bit_num = 4'd10;			// Provide sign bit to sign extender
+								enables[13] = 1'b1;				// Enable the sign extender
+								sxt_bus_ctrl = 1'b1;			// Use the offset from the instruction decoder
 								alu_op <= 5'd0;					// Use the add instruction on the ALU
 								alu_rnum_dst <= 5'd7;			// Select the PC as the dst register for the ALU
 								dbus_rnum_dst <= 5'd7;			// Select the PC to add the offset to and to write back
@@ -205,9 +202,6 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						26:	// SXT
 						begin
-							sxt_rnum <= 5'd0 + DST[2:0];			// Select the input register to the sign extender
-							sxt_bit_num <= 4'd7;					// Provide sign bit to sign extender
-							sxt_bus_ctrl <= 1'b0;					// Use the register file as input to the sign extender
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							data_bus_ctrl <= 7'b0100001;			// Write the sign extender output to the dst register
 							enables[13] <= 1'b1;					// Enable the sign extender
@@ -237,12 +231,13 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						31:	// CEX
 						begin
-							code <= C[3:0];
+							code = C[3:0];
+							cex_code(psw, code);
 							cex_state[7] <= 1'b1;					// Set the CEX state to active
 							cex_state[6] <= code_result;			// Assign the result of the code
 							cex_state[5:3] <= T[2:0];
 							cex_state[2:0] <= F[2:0];
-							cpucycle_rst <= 1;	// Reset the cycle
+							cpucycle_rst <= 1;						// Reset the cycle
 						end
 						32:	// LD (Multi-step)
 						begin
@@ -305,8 +300,6 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							s_bus_ctrl <= 1'b1;						// Use the sign extender output on the S-bus for the ALU
 							psw_update <= 1'b0;						// Set ALU to not update the PSW
 							alu_op <= 5'd0;							// Use the add instruction on the ALU
-							sxt_bit_num <= 4'd6;					// Provide sign bit to sign extender
-							sxt_bus_ctrl <= 1'b1;					// Use the offset from the instruction decoder
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
 							data_bus_ctrl <= 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
@@ -320,8 +313,6 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							s_bus_ctrl <= 1'b1;						// Use the sign extender output on the S-bus for the ALU
 							psw_update <= 1'b0;						// Set ALU to not update the PSW
 							alu_op <= 5'd0;							// Use the add instruction on the ALU
-							sxt_bit_num <= 4'd6;					// Provide sign bit to sign extender
-							sxt_bus_ctrl <= 1'b1;					// Use the offset from the instruction decoder
 							dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the dst reg for the data bus
 							data_bus_ctrl <= 7'b0001000 + (WB<<6);	// Write the data from the src register to the MDR
 							addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
@@ -414,4 +405,114 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	end
 		
 
+	task cex_code;
+		input [15:0] psw_in;
+		input [3:0] code;
+		
+		// Formatting of tasks from https://nandland.com/task/
+		begin
+			case (code)
+				0: 	// EQ/EZ
+				begin
+					if (psw_in[1] == 1'b1)
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				1:	// NE/NEZ
+				begin
+					if (psw_in[1] == 1'b0)
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				2:	// CS/HS
+				begin
+					if (psw_in[0] == 1'b1)
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				3:	// CC/LO
+				begin
+					if (psw_in[0] == 1'b0)
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				4:	// MI
+				begin
+					if (psw_in[2] == 1'b1)
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				5:	// PL
+				begin
+					if (psw_in[2] == 1'b0)
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				6:	// VS
+				begin
+					if (psw_in[4] == 1'b1)
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				7:	// VC
+				begin
+					if (psw_in[4] == 1'b0)
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				8:	// HI
+				begin
+					if ((psw_in[0] == 1'b1) && (psw_in[1] == 1'b0))
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				9:	// LS
+				begin
+					if ((psw_in[0] == 1'b0) || (psw_in[1] == 1'b1))
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				10:	// GE
+				begin
+					if (psw_in[2] == psw_in[4])
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				11:	// LT
+				begin
+					if (psw_in[2] != psw_in[4])
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				12:	// GT
+				begin
+					if ((psw_in[1] == 1'b0) && (psw_in[2] == psw_in[4]))
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				13:	// LE
+				begin
+					if ((psw_in[1] == 1'b1) || (psw_in[2] != psw_in[4]))
+						code_result = 1'b1;
+					else
+						code_result = 1'b0;
+				end
+				14:	// AL
+					code_result = 1'b1;
+			endcase
+		end
+	endtask
 endmodule

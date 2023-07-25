@@ -20,6 +20,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	reg [2:0] ctrl_reg;
 	reg execution_type;
 	reg [15:0] bkpnt;
+	reg [15:0] extension = 16'hffff;
 	
 	/* The following 3 lines are where memory is loaded */
 	initial begin
