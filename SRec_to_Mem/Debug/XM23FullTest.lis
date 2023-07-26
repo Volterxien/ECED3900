@@ -45,7 +45,7 @@ Time of assembly: Sun 23 Jul 2023 21:15:31
  42	0040	3001		bn 	Step9
  43	0042	40C8		add.b	#1,R0	; Skipped
  44	    	     	Step9
- 45	0044	409C		add.w	$4,R4	; R4 = R4 + 4 = 3
+ 45	0044	409C		add.w	$4,R4	; R4 = R4 + 4 = 0ff + 3 = 0103
  46	0046	3001		bn	Step10
  47	0048	40C8		add.b	#1,R0	; R0 = R0 + 1 = 4
  48	    	     	Step10

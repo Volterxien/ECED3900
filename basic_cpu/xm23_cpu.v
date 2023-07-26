@@ -40,7 +40,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		reg_file[13] = 16'd16;
 		reg_file[14] = 16'd32;
 		reg_file[15] = 16'hffff;
-		bkpnt = 16'h001c;
+		bkpnt = 16'h00f6;
 		psw_in = 16'h60e0;
 	end
 	
@@ -131,7 +131,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
 							breakpnt, reg_file[7][15:0], addr_rnum_src, psw_bus_ctrl);
 	
-	alu arithmetic_logic_unit(s_bus, d_bus, alu_out, alu_op, psw_out, alu_psw_out, alu_E, psw_update);
+	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, alu_E, psw_update);
 	
 	// Indicator of whether CPU is currently executing instructions based on PSW SLP bit
 	always @(psw_data[3]) begin

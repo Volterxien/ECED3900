@@ -58,8 +58,6 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	assign psw_out = psw[15:0];					// Assign the output wires for the PSW
 	assign cpucycle_new = cpucycle;
 	
-	//cex_code cex_code_ctrl(psw_out, code, code_result);
-	
 	always @(negedge clock) begin
 		if (cpucycle_rst == 1'b1)
 			cpucycle <= 1;				// Reset the cycle
@@ -193,8 +191,8 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						25:	// SWPB
 						begin
-							bm_op <= 3'd4;							// Set the Byte Manipulation block operation to SWPB
-							bm_rnum <= 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
+							bm_op = 3'd4;							// Set the Byte Manipulation block operation to SWPB
+							bm_rnum = 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							data_bus_ctrl <= 7'b0101001;			// Write the Byte Manipulation block output to the dst register
 							enables[12] <= 1'b1;					// Enable the Byte Manipulation block
@@ -287,8 +285,8 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						34,35,36,37:	// MOVL to MOVH
 						begin
-							bm_op <= OP[6:0] - 6'd34;				// Set the Byte Manipulation block operation
-							bm_rnum <= 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
+							bm_op = OP[6:0] - 6'd34;				// Set the Byte Manipulation block operation
+							bm_rnum = 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							data_bus_ctrl <= 7'b0101001;			// Write the Byte Manipulation block output to the dst register
 							enables[12] <= 1'b1;					// Enable the Byte Manipulation block
