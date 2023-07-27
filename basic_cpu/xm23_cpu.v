@@ -170,6 +170,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 			psw_in <= alu_psw_out[15:0];
 		else if (psw_bus_ctrl == 2'b01)
 			psw_in <= mdr[15:0];
+		else if (psw_bus_ctrl == 2'b11)
+			psw_in <= psw_data[15:0];
 	end
 
 	// Bus Assignment (MUX)

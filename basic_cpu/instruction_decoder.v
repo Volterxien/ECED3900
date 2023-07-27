@@ -88,10 +88,13 @@ module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST,
 									
 							3:	begin		// SETPRI, SVC, SETCC, CLRCC
 								OP = 6'd28 + bits5to6;
-								if(bits5to6 == 2'd0)
-									PR <= Instr[2:0];
-								else if (bits5to6 == 2'd1)
-									SA <= Instr[3:0];
+								if (bits5to6 == 2'd0) begin
+									if (Instr[4] == 1'b0)
+										PR <= Instr[2:0];
+									else
+										OP = OP[6:0] + 1'b1;
+										SA <= Instr[3:0];
+								end
 								else
 									PSWb <= Instr[4:0];
 								end

@@ -14,75 +14,90 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 	reg [15:0] Reg1_temp;
 	
 	wire [15:0] Reg1, Reg2, sum1;
-	wire carry;
+	reg carry;
 
 	assign Reg1 = op1[15:0];
 	assign Reg2 = op2[15:0];
 
 	//MSB of src, dst, res in order
-	wire [2:0] sdr_b;
-	wire [2:0] sdr_w;
-
-	//for psw updates
-	assign sdr_b[2] = Reg2[7];
-	assign sdr_b[1] = Reg1_temp[7];
-	assign sdr_b[0] = result[7];
-
-	assign sdr_w[2] = Reg2[15];
-	assign sdr_w[1] = Reg1_temp[15];
-	assign sdr_w[0] = result[15]; 
+	reg [2:0] sdr_b;
+	reg [2:0] sdr_w;
 
 	// for dadd instruction
 	assign sum1 = (Reg1 + Reg2);
 	
-	assign carry = PSW_i[0];
-	
 	always @(posedge E) begin
+		carry = PSW_i[0];
 		Reg1_temp = Reg1;
+		
+		// For PSW updates
+		sdr_b[2] = Reg2[7];
+		sdr_b[1] = Reg1_temp[7];
+		
+		sdr_w[2] = Reg2[15];
+		sdr_w[1] = Reg1_temp[15];
+		
+		sdr_b[0] = result[7];
+		sdr_w[0] = result[15];
 		PSW_o = PSW_i;
 		case (instr)
 			5'b00000: begin	// add
-				result = Reg1 + Reg2;						
+				result = Reg1 + Reg2;
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b00001: begin // add.b
 				result[7:0] = Reg1[7:0] + Reg2[7:0]; 			
 				result[15:8] = Reg1[15:8];
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b00010: begin // addc
 				result = Reg1 + Reg2 + carry;
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt); 	
 			end
 			5'b00011: begin	// addc.b
 				result = Reg1[7:0] + Reg2[7:0] + carry;
-				result[15:8] = Reg1[15:8];						
+				result[15:8] = Reg1[15:8];
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b00100: begin	// sub	
-				result = Reg1 - Reg2; 							
+				result = Reg1 - Reg2;
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];				
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b00101: begin // sub.b
 				result[7:0] = Reg1[7:0] - Reg2[7:0]; 			
-				result[15:8] = Reg1[15:8];		
+				result[15:8] = Reg1[15:8];
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b00110: begin // subc
 				// subc == dst <- dst + ~src + carry
-				// since minus sign does 2s complement, subtract 1 if carry is clear
-				result = Reg1 - Reg2 - ~carry;					
+				result = Reg1 + ~Reg2 + carry;
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b00111: begin // subc.b
-				result[7:0] = Reg1[7:0] - Reg2[7:0] - ~carry; 	
-				result[15:8] = Reg1[15:8];		
+				result[7:0] = Reg1[7:0] + ~Reg2[7:0] + carry; 	
+				result[15:8] = Reg1[15:8];
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];		
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b01000: begin // dadd 
 				if(sum1[3:0] >= 4'ha) begin
 					result[7:0] = (sum1[3:0] - 10) & 4'hf;
-					if(sum1[15:8] + 1 >= 4'ha) begin
+					if((sum1[15:8] + 1) >= 4'ha) begin
 						result[15:8] = (sum1[11:8] + 1 - 10) & 4'hf;
 						PSW_o[0] = 1'b1;
 					end 
@@ -100,6 +115,7 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 				end
 			end
 			5'b01001: begin //dadd.b
+				result[15:8] = Reg1[15:8];
 				if(sum1[3:0] >= 4'ha) begin
 					result[7:0] = (sum1[3:0] - 10) & 4'hf;
 					PSW_o[0] = 1'b1;
@@ -108,39 +124,55 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 					result[7:0] = (sum1[3:0]) & 4'hf;
 			end
 			5'b01010: begin // cmp
-				result = Reg1 - Reg2;							
+				result = Reg1 - Reg2;	
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];					
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b01011: begin //cmp.b
 				result[7:0] = Reg1[7:0] - Reg2[7:0];
-				result[15:8] = Reg1[15:8];		
+				result[15:8] = Reg1[15:8];
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];			
 				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b01100: begin // xor
-				result = Reg1 ^ Reg2;							
+				result = Reg1 ^ Reg2;
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];					
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b01101: begin // xor.b
 				result[7:0] = Reg1[7:0] ^ Reg2[7:0];				
-				result[15:8] = Reg1[15:8];		
+				result[15:8] = Reg1[15:8];
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];		
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b01110: begin // and
-				result = Reg1 & Reg2; 							
+				result = Reg1 & Reg2; 	
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b01111: begin // and.b
 				result[7:0] = Reg1[7:0] & Reg2[7:0];	    		
-				result[15:8] = Reg1[15:8];		
+				result[15:8] = Reg1[15:8];
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10000: begin // or
 				result = Reg1 | Reg2;
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10001: begin // or.b
 				result[7:0] = Reg1[7:0] | Reg2[7:0];
 				result[15:8] = Reg1[15:8];
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10010: begin // bit
@@ -148,6 +180,8 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 					result = Reg1 & (1 << 15);	
 				else
 					result = Reg1 & (1 << Reg2);
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10011: begin // bit.b
@@ -155,6 +189,8 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 					result = Reg1 & (1 << 7);
 				else
 					result = Reg1 & (1 << Reg2);
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10100: begin // bic
@@ -162,6 +198,8 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 					result = Reg1 & ~(1 << 15);	
 				else
 					result = Reg1 & ~(1 << Reg2);
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10101: begin // bic.b
@@ -169,6 +207,8 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 					result = Reg1 & ~(1 << 7);
 				else
 					result = Reg1 & ~(1 << Reg2);
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10110: begin // bis
@@ -176,6 +216,8 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 					result = Reg1 | (1 << 15);	
 				else
 					result = Reg1 | (1 << Reg2);
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10111: begin // bis.b
@@ -183,6 +225,8 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 					result = Reg1 | (1 << 7);
 				else
 					result = Reg1 | (1 << Reg2);
+				sdr_b[0] = result[7];
+				sdr_w[0] = result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b11000: begin //sra
@@ -198,7 +242,7 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 				result[15:8] = Reg1[15:8];		
 			end
 			5'b11010: begin // rrc
-				PSW_o [0] <= Reg1[0];
+				PSW_o [0] = Reg1[0];
 				result = Reg1 >> 1;
 				result[15] <= carry;
 			end

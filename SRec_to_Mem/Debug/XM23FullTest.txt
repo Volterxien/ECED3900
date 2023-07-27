@@ -42,7 +42,7 @@ Step8
 	bn 	Step9
 	add.b	#1,R0	; Skipped
 Step9
-	add.w	$4,R4	; R4 = R4 + 4 = 3
+	add.w	$4,R4	; R4 = R4 + 4 = 0ff + 3 = 0103
 	bn	Step10
 	add.b	#1,R0	; R0 = R0 + 1 = 4
 Step10
@@ -67,18 +67,19 @@ Step13
 	add.b	#1,R0	; R0 = R0 + 1 = 6
 Step14	
 	bra 	Step15
-	add.b	#1,R0	; R0 = R0 + 1 = 6
+	add.b	#1,R0	; Skipped
 Step15
 	setcc C
 	addc.b 	$1,R0	; R0 = R0 + 1 + C = 8
 	addc.w	R1,R0	; R0 = R0 + R1 + C = 9
 	setcc 	C
-	subc.b 	R0,R2	; R2 = R2 + ~R0 + C = 57
-	subc.w	R0,R2	; R2 = R2 + ~R0 + C = 49
-	dadd.b 	R2,R4	; R4 = R4 + R2 + C = 52
-	dadd.w	R0,R4	; R4 = R4 + R0 + C = 61
+	subc.b 	R0,R2	; R2 = R2 + ~R0 + C = 0039
+	subc.w	R0,R2	; R2 = R2 + ~R0 + C = 002F
+	add.w	$4,R2	; R2 = R2 + 4 = 0033
+	dadd.b 	R2,R4	; R4 = R4 + R2 + C = 0072
+	dadd.w	R0,R4	; R4 = R4 + R0 + C = 0172
 	cmp.w	R2,R2	; R2 - R2 = 0
-	cmp.b	R4,R0	; R0 - R4 = -52
+	cmp.b	R4,R0	; R0 - R4 = -105
 	movl	#AA,R3	; R3 = AA
 	movl	#55,R0	; R0 = 55
 	movh	#AA00,R2

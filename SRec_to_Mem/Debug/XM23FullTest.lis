@@ -1,6 +1,6 @@
 X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
 Input file name: XM23FullTest.txt
-Time of assembly: Sun 23 Jul 2023 21:15:31 
+Time of assembly: Wed 26 Jul 2023 22:22:35 
   1	0000	4089		add.w 	$1,R1	; R1 = 1
   2	0002	40D2		add.b	#2,R2	; R2 = 2
   3	0004	0001		bl 	Main
@@ -70,77 +70,78 @@ Time of assembly: Sun 23 Jul 2023 21:15:31
  67	0068	40C8		add.b	#1,R0	; R0 = R0 + 1 = 6
  68	    	     	Step14	
  69	006A	3C01		bra 	Step15
- 70	006C	40C8		add.b	#1,R0	; R0 = R0 + 1 = 6
+ 70	006C	40C8		add.b	#1,R0	; Skipped
  71	    	     	Step15
  72	006E	4DA1		setcc C
  73	0070	41C8		addc.b 	$1,R0	; R0 = R0 + 1 + C = 8
  74	0072	4108		addc.w	R1,R0	; R0 = R0 + R1 + C = 9
  75	0074	4DA1		setcc 	C
- 76	0076	4342		subc.b 	R0,R2	; R2 = R2 + ~R0 + C = 57
- 77	0078	4302		subc.w	R0,R2	; R2 = R2 + ~R0 + C = 49
- 78	007A	4454		dadd.b 	R2,R4	; R4 = R4 + R2 + C = 52
- 79	007C	4404		dadd.w	R0,R4	; R4 = R4 + R0 + C = 61
- 80	007E	4512		cmp.w	R2,R2	; R2 - R2 = 0
- 81	0080	4560		cmp.b	R4,R0	; R0 - R4 = -52
- 82	0082	6553		movl	#AA,R3	; R3 = AA
- 83	0084	62A8		movl	#55,R0	; R0 = 55
- 84	0086	7D52		movh	#AA00,R2
- 85	0088	6552		movl	#AA,R2	; R2 = AAAA
- 86	008A	4642		xor.b 	R0,R2	; R2 = R2 ^ R0 = AAFF
- 87	008C	46BA		xor.w	$-1,R2	; R2 = R2 ^ FFFF = 5500
- 88	008E	6549		movl	#A9,R1	; R1 = A9
- 89	0090	4759		and.b	R3,R1	; R1 = R1 & R3 = A8
- 90	0092	7E60		movh	#CC00,R0
- 91	0094	4702		and.w	R0,R2	; R2 = R2 & R0 = 4400
- 92	0096	4841		or.b	R0,R1	; R1 = R1 | R0 = FD
- 93	0098	488A		or.w	$1,R2	; R2 = R2 | 1 = 4401
- 94	009A	49CA		bit.b	$1,R2
- 95	009C	49A2		bit.w	#8,R2
- 96	009E	7800		movh	#0000,R0
- 97	00A0	6050		movl	$10,R0	; R0 = 10
- 98	00A2	4AC2		bic.b 	$0,R2	; R2 = 4400
- 99	00A4	4A02		bic.w	R0,R2	; R2 = 4000
-100	00A6	4BCA		bis.b	$1,R2	; R2 = 4002
-101	00A8	4B02		bis.w	R0,R2	; R2 = 4402
-102	00AA	4C48		mov.b	R1,R0	; R0 = R1 = FD
-103	00AC	4C13		mov.w	R2,R3	; R3 = R2 = 4402
-104	00AE	4C91		swap 	R2,R1	; R2 = 00FD R1 = 4402
-105	00B0	7FF4		movh	#FE00,R4
-106	00B2	63F4		movl	#7E,R4	; R4 = FE7E
-107	00B4	4D44		sra.b 	R4	; R4 = FE3F
-108	00B6	4D04		sra.w	R4	; R4 = FF1F
-109	00B8	60F4		movl	#1E,R4	; R4 = FF1E	
-110	00BA	4D4C		rrc.b 	R4	; R4 = FF8F
-111	00BC	4D0C		rrc.w	R4	; R4 = 7FC7
-112	00BE	4D1C		swpb 	R4	; R4 = C77F
-113	00C0	6431		movl	#86,R1	; R1 = 4486
-114	00C2	4D21		sxt 	R1	; R1 = FF86
-115	00C4	4DB7		setcc	VNZC
-116	00C6	4DD7		clrcc 	VNZC
-117	00C8	4DA2		setcc	Z
-118	00CA	7800		movh	#0000,R0
-119	00CC	6000		movl	#0,R0	; R0 = 0
-120	00CE	500A		cex 	eq,$1,$2
-121	00D0	40C8		add.b	$1,R0	; R0 = R0 + 1 = 1
-122	00D2	40C9		add.b	$1,R1	; Skipped
-123	00D4	40CA		add.b	$1,R2	; Skipped
-124	00D6	778B		movls	#F1,R3	; R3 = FFF1
-125	00D8	6D5B		movlz	#AB,R3	; R3 = 00AB
-126	00DA	7883		movh	#1000,R3
-127	00DC	6003		movl	#0,R3	; R3 = 1000
-128	00DE	7882		movh	#1000,R2
-129	00E0	6012		movl	#2,R2	; R2 = 1002
-130	00E2	5C43		st.b	R0,R3	; mem[1000] = 1
-131	00E4	5EC3		st.b	R0,+R3	; mem[1001] = 1 R3 = 1001
-132	00E6	5D0A		st.w	R1,R2-	; mem[1002:1003] = FF86 R2 = 1000
-133	00E8	5851		ld.b 	R2,R1	; R1 = FF01
-134	00EA	5ADC		ld.b	+R3,R4	; R4 = C786 R3 = 1002
-135	00EC	5919		ld.w	R3-,R1	; R1 = FF86 R3 = 1000
-136	00EE	C24B		str.b 	R1,R3,$4	; mem[1004] = 86
-137	00F0	C40B		str.w	R1,R3,$8	; mem[1008:1009] = FF86
-138	00F2	8250		ldr.b 	R2,$4,R0	; R0 = 86
-139	00F4	8411		ldr.w	R2,$8,R1	; R1 = FF86
-140	    	     	
+ 76	0076	4342		subc.b 	R0,R2	; R2 = R2 + ~R0 + C = 0039
+ 77	0078	4302		subc.w	R0,R2	; R2 = R2 + ~R0 + C = 002F
+ 78	007A	409A		add.w	$4,R2	; R2 = R2 + 4 = 0033
+ 79	007C	4454		dadd.b 	R2,R4	; R4 = R4 + R2 + C = 0133
+ 80	007E	4404		dadd.w	R0,R4	; R4 = R4 + R0 + C = 0172
+ 81	0080	4512		cmp.w	R2,R2	; R2 - R2 = 0
+ 82	0082	4560		cmp.b	R4,R0	; R0 - R4 = -105
+ 83	0084	6553		movl	#AA,R3	; R3 = AA
+ 84	0086	62A8		movl	#55,R0	; R0 = 55
+ 85	0088	7D52		movh	#AA00,R2
+ 86	008A	6552		movl	#AA,R2	; R2 = AAAA
+ 87	008C	4642		xor.b 	R0,R2	; R2 = R2 ^ R0 = AAFF
+ 88	008E	46BA		xor.w	$-1,R2	; R2 = R2 ^ FFFF = 5500
+ 89	0090	6549		movl	#A9,R1	; R1 = A9
+ 90	0092	4759		and.b	R3,R1	; R1 = R1 & R3 = A8
+ 91	0094	7E60		movh	#CC00,R0
+ 92	0096	4702		and.w	R0,R2	; R2 = R2 & R0 = 4400
+ 93	0098	4841		or.b	R0,R1	; R1 = R1 | R0 = FD
+ 94	009A	488A		or.w	$1,R2	; R2 = R2 | 1 = 4401
+ 95	009C	49CA		bit.b	$1,R2
+ 96	009E	49A2		bit.w	#8,R2
+ 97	00A0	7800		movh	#0000,R0
+ 98	00A2	6050		movl	$10,R0	; R0 = 10
+ 99	00A4	4AC2		bic.b 	$0,R2	; R2 = 4400
+100	00A6	4A02		bic.w	R0,R2	; R2 = 4000
+101	00A8	4BCA		bis.b	$1,R2	; R2 = 4002
+102	00AA	4B02		bis.w	R0,R2	; R2 = 4402
+103	00AC	4C48		mov.b	R1,R0	; R0 = R1 = FD
+104	00AE	4C13		mov.w	R2,R3	; R3 = R2 = 4402
+105	00B0	4C91		swap 	R2,R1	; R2 = 00FD R1 = 4402
+106	00B2	7FF4		movh	#FE00,R4
+107	00B4	63F4		movl	#7E,R4	; R4 = FE7E
+108	00B6	4D44		sra.b 	R4	; R4 = FE3F
+109	00B8	4D04		sra.w	R4	; R4 = FF1F
+110	00BA	60F4		movl	#1E,R4	; R4 = FF1E	
+111	00BC	4D4C		rrc.b 	R4	; R4 = FF8F
+112	00BE	4D0C		rrc.w	R4	; R4 = 7FC7
+113	00C0	4D1C		swpb 	R4	; R4 = C77F
+114	00C2	6431		movl	#86,R1	; R1 = 4486
+115	00C4	4D21		sxt 	R1	; R1 = FF86
+116	00C6	4DB7		setcc	VNZC
+117	00C8	4DD7		clrcc 	VNZC
+118	00CA	4DA2		setcc	Z
+119	00CC	7800		movh	#0000,R0
+120	00CE	6000		movl	#0,R0	; R0 = 0
+121	00D0	500A		cex 	eq,$1,$2
+122	00D2	40C8		add.b	$1,R0	; R0 = R0 + 1 = 1
+123	00D4	40C9		add.b	$1,R1	; Skipped
+124	00D6	40CA		add.b	$1,R2	; Skipped
+125	00D8	778B		movls	#F1,R3	; R3 = FFF1
+126	00DA	6D5B		movlz	#AB,R3	; R3 = 00AB
+127	00DC	7883		movh	#1000,R3
+128	00DE	6003		movl	#0,R3	; R3 = 1000
+129	00E0	7882		movh	#1000,R2
+130	00E2	6012		movl	#2,R2	; R2 = 1002
+131	00E4	5C43		st.b	R0,R3	; mem[1000] = 1
+132	00E6	5EC3		st.b	R0,+R3	; mem[1001] = 1 R3 = 1001
+133	00E8	5D0A		st.w	R1,R2-	; mem[1002:1003] = FF86 R2 = 1000
+134	00EA	5851		ld.b 	R2,R1	; R1 = FF01
+135	00EC	5ADC		ld.b	+R3,R4	; R4 = C786 R3 = 1002
+136	00EE	5919		ld.w	R3-,R1	; R1 = FF86 R3 = 1000
+137	00F0	C24B		str.b 	R1,R3,$4	; mem[1004] = 86
+138	00F2	C40B		str.w	R1,R3,$8	; mem[1008:1009] = FF86
+139	00F4	8250		ldr.b 	R2,$4,R0	; R0 = 86
+140	00F6	8411		ldr.w	R2,$8,R1	; R1 = FF86
+141	    	     	
 
 Successful completion of assembly - 2P
 
