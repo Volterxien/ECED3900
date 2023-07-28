@@ -11,11 +11,11 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 	output reg [15:0] PSW_o;
 	output reg [15:0] result;
 	
-	reg [15:0] Reg1_temp;
+	reg [15:0] Reg1_temp, sum1, temp_result;
 	
-	wire [15:0] Reg1, Reg2, sum1;
+	wire [15:0] Reg1, Reg2;//, sum1;
 	reg carry;
-
+	
 	assign Reg1 = op1[15:0];
 	assign Reg2 = op2[15:0];
 
@@ -24,7 +24,7 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 	reg [2:0] sdr_w;
 
 	// for dadd instruction
-	assign sum1 = (Reg1 + Reg2);
+	//assign sum1 = (Reg1 + Reg2);
 	
 	always @(posedge E) begin
 		carry = PSW_i[0];
@@ -40,6 +40,9 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 		sdr_b[0] = result[7];
 		sdr_w[0] = result[15];
 		PSW_o = PSW_i;
+		
+		// for dadd instruction
+		sum1 = (Reg1 + Reg2 + carry);
 		case (instr)
 			5'b00000: begin	// add
 				result = Reg1 + Reg2;
@@ -97,12 +100,12 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 			5'b01000: begin // dadd 
 				if(sum1[3:0] >= 4'ha) begin
 					result[7:0] = (sum1[3:0] - 10) & 4'hf;
-					if((sum1[15:8] + 1) >= 4'ha) begin
+					if((sum1[11:8] + 1) >= 4'ha) begin
 						result[15:8] = (sum1[11:8] + 1 - 10) & 4'hf;
 						PSW_o[0] = 1'b1;
 					end 
 					else
-						result[15:8] = (sum1[11:8]) & 4'hf;
+						result[15:8] = (sum1[11:8] + 1) & 4'hf;
 				end 
 				else begin
 					result[7:0] = (sum1[3:0]) & 4'hf;
@@ -124,17 +127,19 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 					result[7:0] = (sum1[3:0]) & 4'hf;
 			end
 			5'b01010: begin // cmp
-				result = Reg1 - Reg2;	
-				sdr_b[0] = result[7];
-				sdr_w[0] = result[15];					
-				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
+				result = Reg1;
+				temp_result = Reg1 - Reg2;	
+				sdr_b[0] = temp_result[7];
+				sdr_w[0] = temp_result[15];					
+				update_psw_arithmetic(temp_result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b01011: begin //cmp.b
-				result[7:0] = Reg1[7:0] - Reg2[7:0];
-				result[15:8] = Reg1[15:8];
-				sdr_b[0] = result[7];
-				sdr_w[0] = result[15];			
-				update_psw_arithmetic(result, Reg2, Reg1, instr[0], instr_opt);
+				result = Reg1;
+				temp_result[7:0] = Reg1[7:0] - Reg2[7:0];
+				temp_result[15:8] = Reg1[15:8];
+				sdr_b[0] = temp_result[7];
+				sdr_w[0] = temp_result[15];			
+				update_psw_arithmetic(temp_result, Reg2, Reg1, instr[0], instr_opt);
 			end
 			5'b01100: begin // xor
 				result = Reg1 ^ Reg2;

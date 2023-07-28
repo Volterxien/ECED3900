@@ -189,12 +189,12 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
 			if (data_bus_ctrl[5:3] == 3'b000)				// Read from MDR into Register File
 				if (ctrl_reg == 3'b100)						// Byte
-					reg_file[dbus_rnum_dst[4:0]] <= mdr[7:0];
+					reg_file[dbus_rnum_dst[4:0]][7:0] <= mdr[7:0];
 				else										// Word
 					reg_file[dbus_rnum_dst[4:0]] <= mdr[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into Register File
 				if (data_bus_ctrl[6] == 1'b1)				// Byte
-					reg_file[dbus_rnum_dst[4:0]] <= alu_out[7:0];
+					reg_file[dbus_rnum_dst[4:0]][7:0] <= alu_out[7:0];
 				else										// Word
 					reg_file[dbus_rnum_dst[4:0]] <= alu_out[15:0];
 			end

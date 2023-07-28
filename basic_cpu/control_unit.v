@@ -189,7 +189,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							enables[15] <= 1'b1;							// Enable the ALU
 							cpucycle_rst <= 1;								// Reset the cycle
 						end
-						25:	// SWPB
+						26:	// SWPB
 						begin
 							bm_op = 3'd4;							// Set the Byte Manipulation block operation to SWPB
 							bm_rnum = 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
@@ -198,14 +198,14 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							enables[12] <= 1'b1;					// Enable the Byte Manipulation block
 							cpucycle_rst <= 1;						// Reset the cycle
 						end
-						26:	// SXT
+						27:	// SXT
 						begin
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							data_bus_ctrl <= 7'b0100001;			// Write the sign extender output to the dst register
 							enables[13] <= 1'b1;					// Enable the sign extender
 							cpucycle_rst <= 1;						// Reset the cycle
 						end
-						27:	// SETPRI
+						28:	// SETPRI
 						begin
 							if (PR[2:0] < psw[7:5])					// If new priority less than current priority
 								psw[7:5] <= PR[2:0];				// Set current priority to new priority
@@ -213,21 +213,21 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								// Fault
 								enables[0] <= 1'b1;	// Filler
 						end
-						28:	// SVC
+						29:	// SVC
 						begin
 							// Leaving blank for now
 						end
-						29:	// SETCC
+						30:	// SETCC
 						begin
 							psw[4:0] <= psw[4:0] | PSWb[4:0];
 							cpucycle_rst <= 1;	// Reset the cycle
 						end
-						30:	// CLRCC
+						31:	// CLRCC
 						begin
 							psw[4:0] <= psw[4:0] & ~(PSWb[4:0]);
 							cpucycle_rst <= 1;	// Reset the cycle
 						end
-						31:	// CEX
+						32:	// CEX
 						begin
 							code = C[3:0];
 							cex_code(psw, code);
@@ -237,7 +237,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							cex_state[2:0] <= F[2:0];
 							cpucycle_rst <= 1;						// Reset the cycle
 						end
-						32:	// LD (Multi-step)
+						33:	// LD (Multi-step)
 						begin
 							if (PRPO == 1'b1) 	// Pre-Inc/Dec
 							begin
@@ -260,7 +260,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								ctrl_reg_bus <= 3'b000 + (WB<<2);		// Read memory from MAR address to MDR
 							end
 						end
-						33:	// ST (Multi-step)
+						34:	// ST (Multi-step)
 						begin
 							if (PRPO == 1'b1) 	// Pre-Inc/Dec
 							begin
@@ -283,16 +283,16 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								ctrl_reg_bus <= 3'b001 + (WB<<1);		// Write memory to MAR address from MDR
 							end
 						end
-						34,35,36,37:	// MOVL to MOVH
+						35,36,37,38:	// MOVL to MOVH
 						begin
-							bm_op = OP[6:0] - 6'd34;				// Set the Byte Manipulation block operation
+							bm_op = OP[6:0] - 6'd35;				// Set the Byte Manipulation block operation
 							bm_rnum = 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							data_bus_ctrl <= 7'b0101001;			// Write the Byte Manipulation block output to the dst register
 							enables[12] <= 1'b1;					// Enable the Byte Manipulation block
 							cpucycle_rst <= 1;	// Reset the cycle
 						end
-						38:	// LDR (Multi-step)
+						39:	// LDR (Multi-step)
 						begin
 							alu_rnum_dst <= 5'd0 + SRCCON[2:0];		// Select the destination register for the ALU
 							s_bus_ctrl <= 1'b1;						// Use the sign extender output on the S-bus for the ALU
@@ -305,7 +305,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							enables[13] <= 1'b1;					// Enable the sign extender
 							enables[15] <= 1'b1;					// Enable the ALU
 						end
-						39:	// STR (Multi-step)
+						40:	// STR (Multi-step)
 						begin
 							alu_rnum_dst <= 5'd0 + DST[2:0];		// Select the destination register for the ALU
 							s_bus_ctrl <= 1'b1;						// Use the sign extender output on the S-bus for the ALU

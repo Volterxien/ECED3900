@@ -76,10 +76,10 @@ Step15
 	subc.b 	R0,R2	; R2 = R2 + ~R0 + C = 0039
 	subc.w	R0,R2	; R2 = R2 + ~R0 + C = 002F
 	add.w	$4,R2	; R2 = R2 + 4 = 0033
-	dadd.b 	R2,R4	; R4 = R4 + R2 + C = 0072
-	dadd.w	R0,R4	; R4 = R4 + R0 + C = 0172
-	cmp.w	R2,R2	; R2 - R2 = 0
-	cmp.b	R4,R0	; R0 - R4 = -105
+	dadd.b 	R2,R4	; R4 = R4 + R2 + C = 0106
+	dadd.w	R0,R4	; R4 = R4 + R0 + C = 0205
+	cmp.b	R2,R2	; R2 - R2 = 0
+	cmp.w	R4,R0	; R0 - R4 = -508
 	movl	#AA,R3	; R3 = AA
 	movl	#55,R0	; R0 = 55
 	movh	#AA00,R2
