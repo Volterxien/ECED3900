@@ -3,64 +3,56 @@ Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|enables[15]'
-Slack : -14.719
-TNS   : -272.617
-
-Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|enables[13]'
-Slack : -11.207
-TNS   : -173.021
-
-Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|code[0]'
-Slack : -8.853
-TNS   : -8.853
+Slack : -13.722
+TNS   : -259.398
 
 Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
-Slack : -8.842
-TNS   : -4416.063
-
-Type  : Slow 1200mV 85C Model Setup 'KEY[3]'
-Slack : -7.850
-TNS   : -203.416
+Slack : -7.898
+TNS   : -4246.860
 
 Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|enables[14]'
-Slack : -7.759
-TNS   : -334.821
+Slack : -4.939
+TNS   : -222.838
+
+Type  : Slow 1200mV 85C Model Setup 'KEY[3]'
+Slack : -4.861
+TNS   : -160.702
 
 Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|enables[12]'
-Slack : -5.436
-TNS   : -160.232
+Slack : -4.706
+TNS   : -70.814
+
+Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|enables[13]'
+Slack : -2.213
+TNS   : -16.416
 
 Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
-Slack : -0.120
-TNS   : -0.244
-
-Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|code[0]'
-Slack : 0.014
+Slack : 0.302
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|enables[14]'
-Slack : 0.385
+Slack : 0.388
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|enables[12]'
-Slack : 0.451
-TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|enables[15]'
-Slack : 1.035
+Slack : 0.464
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|enables[13]'
-Slack : 1.476
+Slack : 0.517
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'KEY[3]'
-Slack : 1.871
+Slack : 0.690
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|enables[15]'
+Slack : 0.802
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -1569.102
+TNS   : -1575.527
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'KEY[3]'
 Slack : -3.000
@@ -72,83 +64,71 @@ TNS   : -3.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[14]'
 Slack : -1.285
-TNS   : -68.105
-
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[12]'
-Slack : -1.285
-TNS   : -41.120
+TNS   : -71.960
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[15]'
 Slack : -1.285
-TNS   : -26.985
+TNS   : -32.125
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[13]'
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[12]'
 Slack : -1.285
 TNS   : -20.560
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|code[0]'
-Slack : 0.375
-TNS   : 0.000
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[13]'
+Slack : -1.285
+TNS   : -19.275
 
 Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[15]'
-Slack : -13.413
-TNS   : -248.280
-
-Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[13]'
-Slack : -10.204
-TNS   : -157.254
+Slack : -12.514
+TNS   : -236.390
 
 Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -8.351
-TNS   : -4040.781
-
-Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|code[0]'
-Slack : -8.093
-TNS   : -8.093
+Slack : -7.129
+TNS   : -3870.643
 
 Type  : Slow 1200mV 0C Model Setup 'KEY[3]'
-Slack : -7.246
-TNS   : -181.536
+Slack : -4.481
+TNS   : -142.667
 
 Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[14]'
-Slack : -6.999
-TNS   : -300.248
+Slack : -4.407
+TNS   : -199.864
 
 Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[12]'
-Slack : -4.976
-TNS   : -146.357
+Slack : -4.272
+TNS   : -63.926
+
+Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[13]'
+Slack : -1.969
+TNS   : -13.912
 
 Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
-Slack : -0.189
-TNS   : -0.692
-
-Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|code[0]'
-Slack : -0.002
-TNS   : -0.002
+Slack : 0.225
+TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[14]'
-Slack : 0.338
+Slack : 0.340
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[12]'
-Slack : 0.416
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[15]'
-Slack : 0.946
+Slack : 0.436
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[13]'
-Slack : 1.325
+Slack : 0.479
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'KEY[3]'
-Slack : 1.822
+Slack : 0.669
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[15]'
+Slack : 0.739
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -1552.206
+TNS   : -1558.631
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'KEY[3]'
 Slack : -3.000
@@ -160,87 +140,75 @@ TNS   : -3.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[14]'
 Slack : -1.285
-TNS   : -68.105
-
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[12]'
-Slack : -1.285
-TNS   : -41.120
+TNS   : -71.960
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[15]'
 Slack : -1.285
-TNS   : -26.985
+TNS   : -32.125
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[13]'
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[12]'
 Slack : -1.285
 TNS   : -20.560
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|code[0]'
-Slack : 0.404
-TNS   : 0.000
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[13]'
+Slack : -1.285
+TNS   : -19.275
 
 Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[15]'
-Slack : -7.679
-TNS   : -140.408
-
-Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[13]'
-Slack : -6.127
-TNS   : -94.416
+Slack : -6.523
+TNS   : -122.233
 
 Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -4.416
-TNS   : -2211.065
+Slack : -3.690
+TNS   : -1927.852
 
 Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[14]'
-Slack : -4.180
-TNS   : -184.839
-
-Type  : Fast 1200mV 0C Model Setup 'KEY[3]'
-Slack : -4.060
-TNS   : -95.430
-
-Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|code[0]'
-Slack : -3.945
-TNS   : -3.945
+Slack : -2.617
+TNS   : -120.805
 
 Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[12]'
-Slack : -2.121
-TNS   : -61.587
+Slack : -2.559
+TNS   : -37.452
 
-Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|code[0]'
-Slack : -0.006
-TNS   : -0.006
+Type  : Fast 1200mV 0C Model Setup 'KEY[3]'
+Slack : -2.372
+TNS   : -72.063
 
-Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 0.044
+Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|enables[13]'
+Slack : -0.533
+TNS   : -2.681
+
+Type  : Fast 1200mV 0C Model Hold 'KEY[3]'
+Slack : 0.061
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[14]'
-Slack : 0.172
+Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.126
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[12]'
-Slack : 0.198
-TNS   : 0.000
-
-Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[15]'
-Slack : 0.468
-TNS   : 0.000
-
-Type  : Fast 1200mV 0C Model Hold 'KEY[3]'
-Slack : 0.551
+Slack : 0.146
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[13]'
-Slack : 0.698
+Slack : 0.170
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[14]'
+Slack : 0.175
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|enables[15]'
+Slack : 0.357
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -1155.733
+TNS   : -948.919
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'KEY[3]'
 Slack : -3.000
-TNS   : -33.345
+TNS   : -33.436
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'SW[17]'
 Slack : -3.000
@@ -248,22 +216,18 @@ TNS   : -3.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[14]'
 Slack : -1.000
-TNS   : -53.000
-
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[12]'
-Slack : -1.000
-TNS   : -32.000
+TNS   : -56.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[15]'
 Slack : -1.000
-TNS   : -21.000
+TNS   : -25.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[13]'
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[12]'
 Slack : -1.000
 TNS   : -16.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|code[0]'
-Slack : 0.416
-TNS   : 0.000
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|enables[13]'
+Slack : -1.000
+TNS   : -15.000
 
 ------------------------------------------------------------

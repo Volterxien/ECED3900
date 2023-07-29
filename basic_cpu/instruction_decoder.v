@@ -96,6 +96,7 @@ module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST,
 										SA <= Instr[3:0];
 								end
 								else
+									OP = OP[6:0] + 1'b1;
 									PSWb <= Instr[4:0];
 								end
 						endcase

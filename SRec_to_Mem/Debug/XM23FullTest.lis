@@ -1,6 +1,6 @@
 X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
 Input file name: XM23FullTest.txt
-Time of assembly: Thu 27 Jul 2023 22:52:12 
+Time of assembly: Fri 28 Jul 2023 19:22:40 
   1	0000	4089		add.w 	$1,R1	; R1 = 1
   2	0002	40D2		add.b	#2,R2	; R2 = 2
   3	0004	0001		bl 	Main
@@ -95,7 +95,7 @@ Time of assembly: Thu 27 Jul 2023 22:52:12
  92	0096	4702		and.w	R0,R2	; R2 = R2 & R0 = 4400
  93	0098	4841		or.b	R0,R1	; R1 = R1 | R0 = FD
  94	009A	488A		or.w	$1,R2	; R2 = R2 | 1 = 4401
- 95	009C	49CA		bit.b	$1,R2
+ 95	009C	49C2		bit.b	$0,R2
  96	009E	49A2		bit.w	#8,R2
  97	00A0	7800		movh	#0000,R0
  98	00A2	6050		movl	$10,R0	; R0 = 10

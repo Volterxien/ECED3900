@@ -1,5 +1,5 @@
 Flow report for xm23_cpu
-Thu Jul 27 22:39:46 2023
+Fri Jul 28 22:50:42 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -41,17 +41,17 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +------------------------------------+------------------------------------------------+
-; Flow Status                        ; Successful - Thu Jul 27 22:39:46 2023          ;
+; Flow Status                        ; Successful - Fri Jul 28 22:50:42 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; xm23_cpu                                       ;
 ; Top-level Entity Name              ; xm23_cpu                                       ;
 ; Family                             ; Cyclone IV E                                   ;
 ; Device                             ; EP4CE115F29C7                                  ;
 ; Timing Models                      ; Final                                          ;
-; Total logic elements               ; 2,736                                          ;
-;     Total combinational functions  ; 2,428                                          ;
-;     Dedicated logic registers      ; 560                                            ;
-; Total registers                    ; 560                                            ;
+; Total logic elements               ; 2,757                                          ;
+;     Total combinational functions  ; 2,454                                          ;
+;     Dedicated logic registers      ; 564                                            ;
+; Total registers                    ; 564                                            ;
 ; Total pins                         ; 76                                             ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 524,288                                        ;
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 07/27/2023 22:39:24 ;
+; Start date & time ; 07/28/2023 22:50:30 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; xm23_cpu            ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------+----------------------------------------+---------------+-------------+-----------------------------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id                        ;
 +-------------------------------------+----------------------------------------+---------------+-------------+-----------------------------------+
-; COMPILER_SIGNATURE_ID               ; 4681950980424.169050836404288          ; --            ; --          ; --                                ;
+; COMPILER_SIGNATURE_ID               ; 4681950980424.169059543004840          ; --            ; --          ; --                                ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                    ; --            ; --          ; eda_board_design_timing           ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                    ; --            ; --          ; eda_board_design_boundary_scan    ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                    ; --            ; --          ; eda_board_design_signal_integrity ;
@@ -102,8 +102,8 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:23     ; 1.0                     ; 4834 MB             ; 00:00:13                           ;
-; Total                ; 00:00:23     ; --                      ; --                  ; 00:00:13                           ;
+; Analysis & Synthesis ; 00:00:12     ; 1.0                     ; 4830 MB             ; 00:00:14                           ;
+; Total                ; 00:00:12     ; --                      ; --                  ; 00:00:14                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

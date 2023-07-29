@@ -92,7 +92,7 @@ Step15
 	and.w	R0,R2	; R2 = R2 & R0 = 4400
 	or.b	R0,R1	; R1 = R1 | R0 = FD
 	or.w	$1,R2	; R2 = R2 | 1 = 4401
-	bit.b	$1,R2
+	bit.b	$0,R2
 	bit.w	#8,R2
 	movh	#0000,R0
 	movl	$10,R0	; R0 = 10

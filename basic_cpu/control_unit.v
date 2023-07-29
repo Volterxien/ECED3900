@@ -179,6 +179,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						23,24:	// SRA, RRC
 						begin
+							psw_bus_ctrl <= 2'b00;							// Update the PSW from the ALU output
 							alu_rnum_dst <= 5'd0 + DST[2:0];				// Select the destination register for the ALU
 							alu_rnum_src <= 5'd0 + SRCCON[2:0] + (RC<<3);	// Select the source register for the ALU
 							dbus_rnum_dst <= 5'd0 + DST[2:0];				// Select the destination register for the data bus
@@ -200,6 +201,9 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						27:	// SXT
 						begin
+							sxt_bit_num = 4'd7;					// Provide sign bit to sign extender
+							sxt_rnum = 4'd0 + DST[2:0];			// Assign the register input
+							sxt_bus_ctrl = 1'b0;					// Use the offset from the instruction decode
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							data_bus_ctrl <= 7'b0100001;			// Write the sign extender output to the dst register
 							enables[13] <= 1'b1;					// Enable the sign extender
@@ -332,10 +336,9 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						22: // SWAP (Second Step)
 						begin
-							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
-							dbus_rnum_src <= 5'b10000;				// Select the temp reg as the src reg for the data bus
-							data_bus_ctrl <= 7'b0001001;			// Write the temp register to the dst register
-							cpucycle_rst <= 1;	// Reset the cycle
+							dbus_rnum_dst <= 5'd0 + SRCCON[2:0];	// Select the src reg for the data bus
+							dbus_rnum_src <= 5'b0 + DST[2:0];		// Select the dst reg as the src for the data bus
+							data_bus_ctrl <= 7'b0001001;			// Write the dst register to the src register
 						end
 						32:	// LD (Second Step)
 						begin
@@ -388,6 +391,13 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 				7:
 				begin
 					case(OP[6:0])
+					22:	// SWAP (Third Step)
+					begin
+						dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
+						dbus_rnum_src <= 5'b10000;				// Select the temp reg as the src reg for the data bus
+						data_bus_ctrl <= 7'b0001001;			// Write the temp register to the dst register
+						cpucycle_rst <= 1;	// Reset the cycle
+					end
 					32: // LD (Third Step)
 						// Wait for memory read to compelete
 						cpucycle_rst <= 1;	// Reset the cycle

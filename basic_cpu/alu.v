@@ -181,22 +181,24 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10010: begin // bit
+				result = Reg1;
 				if(Reg2 > 15)
-					result = Reg1 & (1 << 15);	
+					temp_result = Reg1 & (1 << 15);	
 				else
-					result = Reg1 & (1 << Reg2);
-				sdr_b[0] = result[7];
-				sdr_w[0] = result[15];
-				update_psw_logic(result, instr[0], instr_opt);
+					temp_result = Reg1 & (1 << Reg2);
+				sdr_b[0] = temp_result[7];
+				sdr_w[0] = temp_result[15];
+				update_psw_logic(temp_result, instr[0], instr_opt);
 			end
 			5'b10011: begin // bit.b
+				result = Reg1;
 				if(Reg2 > 7)
-					result = Reg1 & (1 << 7);
+					temp_result = Reg1 & (1 << 7);
 				else
-					result = Reg1 & (1 << Reg2);
-				sdr_b[0] = result[7];
-				sdr_w[0] = result[15];
-				update_psw_logic(result, instr[0], instr_opt);
+					temp_result = Reg1 & (1 << Reg2);
+				sdr_b[0] = temp_result[7];
+				sdr_w[0] = temp_result[15];
+				update_psw_logic(temp_result, instr[0], instr_opt);
 			end
 			5'b10100: begin // bic
 				if(Reg2 > 15)
@@ -221,8 +223,8 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 					result = Reg1 | (1 << 15);	
 				else
 					result = Reg1 | (1 << Reg2);
-				sdr_b[0] = result[7];
-				sdr_w[0] = result[15];
+				sdr_b[0] = temp_result[7];
+				sdr_w[0] = temp_result[15];
 				update_psw_logic(result, instr[0], instr_opt);
 			end
 			5'b10111: begin // bis.b
@@ -237,19 +239,21 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 			5'b11000: begin //sra
 				result = Reg1 >> 1;					    
 				// if the prev MSB is set, new MSB is set
-				if(Reg1[14])
-					result[15] <= 1'b1;
+				if(Reg1[15])
+					result[15] = 1'b1;
+				PSW_o[0] = Reg1[0];
 			end
 			5'b11001: begin // sra.b
 				result[7:0] = Reg1[7:0] >> 1;	   				
-				if(Reg1[6])
+				if(Reg1[7])
 					result[7] = 1'b1;
-				result[15:8] = Reg1[15:8];		
+				result[15:8] = Reg1[15:8];	
+				PSW_o[0] = Reg1[0];
 			end
 			5'b11010: begin // rrc
 				PSW_o [0] = Reg1[0];
 				result = Reg1 >> 1;
-				result[15] <= carry;
+				result[15] = carry;
 			end
 			5'b11011: begin // rrc.b
 				PSW_o[0] = Reg1[0];
