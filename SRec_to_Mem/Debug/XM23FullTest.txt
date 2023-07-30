@@ -122,6 +122,10 @@ Step15
 	add.b	$1,R0	; R0 = R0 + 1 = 1
 	add.b	$1,R1	; Skipped
 	add.b	$1,R2	; Skipped
+	cex 	eq,$1,$2
+	add.b	$1,R0	; Skipped
+	add.b	$1,R1	; R1 = R1 + 1 = FF87
+	add.b	$1,R2	; R2 = R2 + 1 = 4403
 	movls	#F1,R3	; R3 = FFF1
 	movlz	#AB,R3	; R3 = 00AB
 	movh	#1000,R3

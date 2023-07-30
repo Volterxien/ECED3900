@@ -40,7 +40,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		reg_file[13] = 16'd16;
 		reg_file[14] = 16'd32;
 		reg_file[15] = 16'hffff;
-		bkpnt = 16'h00f6;
+		bkpnt = 16'h00f8;
 		psw_in = 16'h60e0;
 	end
 	
@@ -165,7 +165,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	
 	// Update registers
 	always @(negedge Clock) begin
-		ctrl_reg <= CR_bus[2:0];
+		ctrl_reg = CR_bus[2:0];
 		if (psw_bus_ctrl == 2'b00)
 			psw_in <= alu_psw_out[15:0];
 		else if (psw_bus_ctrl == 2'b01)
@@ -176,54 +176,54 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 
 	// Bus Assignment (MUX)
 	always @(negedge Clock) begin
-		mdr[7:0] <= mem_lb[7:0];
-		mdr[15:8] <= mem_ub[7:0];
+		mdr[7:0] = mem_lb[7:0];
+		mdr[15:8] = mem_ub[7:0];
 		
 		// Data Bus Updating
 		if (data_bus_ctrl[2:0] == 3'b000) begin 			// MDR
 			if (data_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MDR
 				mdr <= reg_file[dbus_rnum_src[4:0]][15:0];
 			else if (data_bus_ctrl[5:3] == 3'b011)			// Read from ALU Output into MDR
-				mdr <= alu_out[15:0];
+				mdr = alu_out[15:0];
 		end
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
 			if (data_bus_ctrl[5:3] == 3'b000)				// Read from MDR into Register File
 				if (ctrl_reg == 3'b100)						// Byte
-					reg_file[dbus_rnum_dst[4:0]][7:0] <= mdr[7:0];
+					reg_file[dbus_rnum_dst[4:0]][7:0] = mdr[7:0];
 				else										// Word
-					reg_file[dbus_rnum_dst[4:0]] <= mdr[15:0];
+					reg_file[dbus_rnum_dst[4:0]] = mdr[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into Register File
 				if (data_bus_ctrl[6] == 1'b1)				// Byte
-					reg_file[dbus_rnum_dst[4:0]][7:0] <= alu_out[7:0];
+					reg_file[dbus_rnum_dst[4:0]][7:0] = alu_out[7:0];
 				else										// Word
-					reg_file[dbus_rnum_dst[4:0]] <= alu_out[15:0];
+					reg_file[dbus_rnum_dst[4:0]] = alu_out[15:0];
 			end
 			else if (data_bus_ctrl[5:3] == 3'b001) begin 	// Read from Register File into Register File
 				if (data_bus_ctrl[6] == 1'b1)				// Byte
-					reg_file[dbus_rnum_dst[4:0]][7:0] <= reg_file[dbus_rnum_src[4:0]][7:0];
+					reg_file[dbus_rnum_dst[4:0]][7:0] = reg_file[dbus_rnum_src[4:0]][7:0];
 				else										// Word
-					reg_file[dbus_rnum_dst[4:0]] <= reg_file[dbus_rnum_src[4:0]][15:0];
+					reg_file[dbus_rnum_dst[4:0]] = reg_file[dbus_rnum_src[4:0]][15:0];
 			end
 			else if (data_bus_ctrl[5:3] == 3'b100) begin 	// Read from Sign Extender Output into Register File
-				reg_file[dbus_rnum_dst[4:0]] <= sxt_out[15:0];
+				reg_file[dbus_rnum_dst[4:0]] = sxt_out[15:0];
 			end
 			else if (data_bus_ctrl[5:3] == 3'b101) begin 	// Read from Byte Manipulator Output into Register File
-				reg_file[dbus_rnum_dst[4:0]] <= bm_out[15:0];
+				reg_file[dbus_rnum_dst[4:0]] = bm_out[15:0];
 			end
 		end
 		else if (data_bus_ctrl[2:0] == 3'b010) begin 		// Instruction Register
 			if (data_bus_ctrl[5:3] == 3'b001)				// Read from Register File into Instruction Register
-				instr_reg <= reg_file[dbus_rnum_src[4:0]][15:0];
+				instr_reg = reg_file[dbus_rnum_src[4:0]][15:0];
 			else if (data_bus_ctrl[5:3] == 3'b000)			// Read from MDR into Instruction Register
-				instr_reg <= mdr[15:0];
+				instr_reg = mdr[15:0];
 		end
 		
 		// Address Bus Updating
 		if (addr_bus_ctrl[2:0] == 3'b000) begin 			// MAR
 			if (addr_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MAR
-				mar <= reg_file[addr_rnum_src[4:0]][15:0];
+				mar = reg_file[addr_rnum_src[4:0]][15:0];
 			else if (data_bus_ctrl[5:3] == 3'b011) 			// Read from ALU Output into MAR
-				mar <= alu_out[15:0];
+				mar = alu_out[15:0];
 		end	
 	end
 endmodule
