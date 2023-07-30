@@ -141,5 +141,5 @@ Step15
 	str.b 	R1,R3,$4	; mem[1004] = 86
 	str.w	R1,R3,$8	; mem[1008:1009] = FF86
 	ldr.b 	R2,$4,R0	; R0 = 86
-	ldr.w	R2,$8,R1	; R1 = FF86
+	ldr.w	R2,$8,R3	; R1 = FF86
 

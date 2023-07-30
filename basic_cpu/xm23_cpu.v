@@ -40,7 +40,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		reg_file[13] = 16'd16;
 		reg_file[14] = 16'd32;
 		reg_file[15] = 16'hffff;
-		bkpnt = 16'h00f8;
+		bkpnt = 16'h0100;
 		psw_in = 16'h60e0;
 	end
 	
@@ -61,7 +61,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	wire [15:0] s_bus, d_bus, alu_out;
 	wire [2:0] CR_bus;
 	wire sxt_E, bm_E, alu_E, id_E;
-	
+	wire sxt_shift;
 	
 	wire [15:0] mem_ub_addr, mem_lb_addr;
 	wire [7:0] mem_ub, mem_lb;
@@ -106,7 +106,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	
 	assign d_bus = reg_file[alu_rnum_dst[4:0]][15:0];
 	assign bm_in = reg_file[bm_rnum[3:0]][15:0];
-	assign sxt_in = (sxt_bus_ctrl == 1'b0) ? reg_file[sxt_rnum[3:0]][15:0] : (OFF[12:0]<<1);
+	assign sxt_in = (sxt_bus_ctrl == 1'b0) ? reg_file[sxt_rnum[3:0]][15:0] : OFF[12:0];
 	assign s_bus = (s_bus_ctrl == 1'b0) ? reg_file[alu_rnum_src[4:0]][15:0] : sxt_out[15:0];
 	
 	// Assign enables
@@ -120,14 +120,14 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 
 	view_data data_viewer(mem_data, reg_data, psw_data, addr, KEY[3], mem_mode, HEX0, HEX1, HEX2, HEX3, LEDG, LEDR);
 	
-	sign_extender sxt_ext(sxt_in, sxt_out, sxt_bit_num, sxt_E);
+	sign_extender sxt_ext(sxt_in, sxt_out, sxt_bit_num, sxt_shift, sxt_E);
 	
 	byte_manip byte_manipulator(bm_op, bm_in, bm_out, ImByte, bm_E);
 	
 	instruction_decoder ID(instr_reg, id_E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, FLTo, Clock);
 	
 	control_unit ctrl_unit(Clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
-							enables, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, alu_op, 
+							enables, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
 							breakpnt, reg_file[7][15:0], addr_rnum_src, psw_bus_ctrl);
 	
@@ -222,7 +222,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		if (addr_bus_ctrl[2:0] == 3'b000) begin 			// MAR
 			if (addr_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MAR
 				mar = reg_file[addr_rnum_src[4:0]][15:0];
-			else if (data_bus_ctrl[5:3] == 3'b011) 			// Read from ALU Output into MAR
+			else if (addr_bus_ctrl[5:3] == 3'b011) 			// Read from ALU Output into MAR
 				mar = alu_out[15:0];
 		end	
 	end

@@ -1,5 +1,5 @@
 module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
-					enables, ctrl_reg_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, alu_op, 
+					enables, ctrl_reg_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 					psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
 					brkpnt, PC, addr_rnum_src, psw_bus_ctrl);
 	
@@ -31,6 +31,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	output reg [1:0] psw_bus_ctrl;					// [2b for src (Codes: 0=ALU, 1=MDR, 2=No Update location)]
 	output reg s_bus_ctrl;							// 0 = use Reg File, 1 = use calculated offset
 	output reg sxt_bus_ctrl;						// 0 = use Reg File, 1 = use offset from control unit
+	output reg sxt_shift;							// 0 = no shift, 1 = shift OFF by 1
 	output reg [4:0] sxt_bit_num;					// The bit to extend for sign extensions
 	output reg [4:0] sxt_rnum, bm_rnum;
 	output wire [15:0] psw_out;
@@ -140,6 +141,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							data_bus_ctrl <= 7'b0001001;	// Write the PC to the LR
 							sxt_bit_num = 4'd13;			// Provide sign bit to sign extender
 							sxt_bus_ctrl = 1'b1;			// Use the offset from the instruction decoder
+							sxt_shift = 1'b1;				// Shift the offset by 1
 							psw_update <= 1'b1;				// Set ALU to not update the PSW
 							s_bus_ctrl <= 1'b1;				// Use the sign extender output in the ALU
 							enables[13] = 1'b1;				// Enable the sign extender
@@ -157,8 +159,9 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								psw_update <= 1'b0;				// Set ALU to not update the PSW
 								s_bus_ctrl <= 1'b1;				// Use the sign extender output in the ALU
 								sxt_bit_num = 4'd10;			// Provide sign bit to sign extender
-								enables[13] = 1'b1;				// Enable the sign extender
+								sxt_shift = 1'b1;				// Shift the offset by 1
 								sxt_bus_ctrl = 1'b1;			// Use the offset from the instruction decoder
+								enables[13] = 1'b1;				// Enable the sign extender
 								alu_op <= 5'd0;					// Use the add instruction on the ALU
 								alu_rnum_dst <= 5'd7;			// Select the PC as the dst register for the ALU
 								dbus_rnum_dst <= 5'd7;			// Select the PC to add the offset to and to write back
@@ -217,10 +220,11 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						27:	// SXT
 						begin
-							sxt_bit_num = 4'd7;					// Provide sign bit to sign extender
-							sxt_rnum = 4'd0 + DST[2:0];			// Assign the register input
-							sxt_bus_ctrl = 1'b0;					// Use the offset from the instruction decode
+							sxt_bit_num = 4'd7;						// Provide sign bit to sign extender
+							sxt_rnum = 4'd0 + DST[2:0];				// Assign the register input
+							sxt_bus_ctrl = 1'b0;					// Use the reg file as input
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
+							sxt_shift = 1'b0;						// No shifting
 							data_bus_ctrl <= 7'b0100001;			// Write the sign extender output to the dst register
 							enables[13] <= 1'b1;					// Enable the sign extender
 							cpucycle_rst <= 1;						// Reset the cycle
@@ -313,28 +317,31 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						end
 						39:	// LDR (Multi-step)
 						begin
+							sxt_bit_num = 4'd6;						// Provide sign bit to sign extender
+							sxt_bus_ctrl = 1'b1;					// Use the offset from the instruction decode
+							sxt_shift = 1'b0;						// No shifting
+							enables[13] = 1'b1;						// Enable the sign extender
 							alu_rnum_dst <= 5'd0 + SRCCON[2:0];		// Select the destination register for the ALU
 							s_bus_ctrl <= 1'b1;						// Use the sign extender output on the S-bus for the ALU
 							psw_update <= 1'b0;						// Set ALU to not update the PSW
 							alu_op <= 5'd0;							// Use the add instruction on the ALU
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
-							data_bus_ctrl <= 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
 							ctrl_reg_bus <= 3'b000 + (WB<<2);		// Read memory from MAR address to MDR
-							enables[13] <= 1'b1;					// Enable the sign extender
 							enables[15] <= 1'b1;					// Enable the ALU
 						end
 						40:	// STR (Multi-step)
 						begin
+							sxt_bit_num = 4'd6;						// Provide sign bit to sign extender
+							sxt_bus_ctrl = 1'b1;					// Use the offset from the instruction decode
+							sxt_shift = 1'b0;						// No shifting
+							enables[13] = 1'b1;						// Enable the sign extender
 							alu_rnum_dst <= 5'd0 + DST[2:0];		// Select the destination register for the ALU
 							s_bus_ctrl <= 1'b1;						// Use the sign extender output on the S-bus for the ALU
 							psw_update <= 1'b0;						// Set ALU to not update the PSW
 							alu_op <= 5'd0;							// Use the add instruction on the ALU
-							dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the dst reg for the data bus
-							data_bus_ctrl <= 7'b0001000 + (WB<<6);	// Write the data from the src register to the MDR
+							dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the src reg for the data bus
 							addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
-							ctrl_reg_bus <= 3'b011 & ~(WB<<1);		// Write data from MDR to memory at MAR address
-							enables[13] <= 1'b1;					// Enable the sign extender
 							enables[15] <= 1'b1;					// Enable the ALU
 						end
 					endcase
@@ -381,13 +388,15 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								enables[15] <= 1'b1;					// Enable the ALU
 							end
 						end
-						38:	// LDR (Second Step)
+						39:	// LDR (Second Step)
 							// Wait for memory read to complete
-							cpucycle_rst <= 1;	// Reset the cycle
-						39:	// STR (Second Step)
-							// Wait for memory write to complete
-							cpucycle_rst <= 1;	// Reset the cycle
-						endcase
+							data_bus_ctrl <= 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
+						40:	// STR (Second Step)
+						begin
+							data_bus_ctrl <= 7'b0001000 + (WB<<6);	// Write the data from the src register to the MDR
+							ctrl_reg_bus <= 3'b011 & ~(WB<<1);		// Write data from MDR to memory at MAR address
+						end
+					endcase
 				end
 				7:
 				begin
@@ -414,6 +423,12 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						cpucycle_rst <= 1;	// Reset the cycle
 					end
 					34:	// ST (Third Step)
+						// Wait for memory write to complete
+						cpucycle_rst <= 1;	// Reset the cycle
+					39:	// LDR (Third Step)
+						// Wait for memory write to complete
+						cpucycle_rst <= 1;	// Reset the cycle
+					40:	// STR (Third Step)
 						// Wait for memory write to complete
 						cpucycle_rst <= 1;	// Reset the cycle
 					endcase

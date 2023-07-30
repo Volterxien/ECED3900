@@ -1,6 +1,6 @@
 X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
 Input file name: XM23FullTest.txt
-Time of assembly: Sat 29 Jul 2023 12:22:34 
+Time of assembly: Sun 30 Jul 2023 15:26:39 
   1	0000	4089		add.w 	$1,R1	; R1 = 1
   2	0002	40D2		add.b	#2,R2	; R2 = 2
   3	0004	0001		bl 	Main
@@ -128,7 +128,7 @@ Time of assembly: Sat 29 Jul 2023 12:22:34
 125	00D8	500A		cex 	eq,$1,$2
 126	00DA	40C8		add.b	$1,R0	; Skipped
 127	00DC	40C9		add.b	$1,R1	; R1 = R1 + 1 = FF87
-128	00DE	40CA		add.b	$1,R2	; R2 = R2 + 1 = FE
+128	00DE	40CA		add.b	$1,R2	; R2 = R2 + 1 = 4403
 129	00E0	778B		movls	#F1,R3	; R3 = FFF1
 130	00E2	6D5B		movlz	#AB,R3	; R3 = 00AB
 131	00E4	7883		movh	#1000,R3
@@ -137,14 +137,14 @@ Time of assembly: Sat 29 Jul 2023 12:22:34
 134	00EA	6012		movl	#2,R2	; R2 = 1002
 135	00EC	5C43		st.b	R0,R3	; mem[1000] = 1
 136	00EE	5EC3		st.b	R0,+R3	; mem[1001] = 1 R3 = 1001
-137	00F0	5D0A		st.w	R1,R2-	; mem[1002:1003] = FF87 R2 = 1000
+137	00F0	5D0A		st.w	R1,R2-	; mem[1002:1003] = FF86 R2 = 1000
 138	00F2	5851		ld.b 	R2,R1	; R1 = FF01
-139	00F4	5ADC		ld.b	+R3,R4	; R4 = C787 R3 = 1002
-140	00F6	5919		ld.w	R3-,R1	; R1 = FF87 R3 = 1000
+139	00F4	5ADC		ld.b	+R3,R4	; R4 = C786 R3 = 1002
+140	00F6	5919		ld.w	R3-,R1	; R1 = FF86 R3 = 1000
 141	00F8	C24B		str.b 	R1,R3,$4	; mem[1004] = 86
 142	00FA	C40B		str.w	R1,R3,$8	; mem[1008:1009] = FF86
 143	00FC	8250		ldr.b 	R2,$4,R0	; R0 = 86
-144	00FE	8411		ldr.w	R2,$8,R1	; R1 = FF86
+144	00FE	8413		ldr.w	R2,$8,R3	; R1 = FF86
 145	    	     	
 
 Successful completion of assembly - 2P
