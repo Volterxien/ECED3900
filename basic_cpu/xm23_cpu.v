@@ -1,4 +1,4 @@
-module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50);
+module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50);
 	input [17:0] SW;
 	input [3:0] KEY;
 	input CLOCK_50;
@@ -10,6 +10,10 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	output wire [6:0] HEX1;
 	output wire [6:0] HEX2;
 	output wire [6:0] HEX3;
+	output wire [6:0] HEX4;
+	output wire [6:0] HEX5;
+	output wire [6:0] HEX6;
+	output wire [6:0] HEX7;
 	
 	// Guide for memory initialization: https://projectf.io/posts/initialize-memory-in-verilog/
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
@@ -18,11 +22,10 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	reg [15:0] instr_reg, mar, mdr, psw_in;
 	reg [15:0] data_bus, addr_bus;
 	reg [2:0] ctrl_reg;
-	reg execution_type;
+	reg execution_type = 1'b0;
 	reg [15:0] bkpnt;
 	reg [15:0] extension = 16'hffff;
 	
-	/* The following 3 lines are where memory is loaded */
 	initial begin
 		reg_file[0] = 16'd0;
 		reg_file[1] = 16'd0;
@@ -40,8 +43,12 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 		reg_file[13] = 16'd16;
 		reg_file[14] = 16'd32;
 		reg_file[15] = 16'hffff;
-		bkpnt = 16'h0100;
+		reg_file[16] = 16'h0000;
+		ctrl_reg = 3'b000;
+		bkpnt = 16'h0004;
 		psw_in = 16'h60e0;
+		mar = 16'h0000;
+		mdr = 16'h0000;
 	end
 	
 	wire Clock;
@@ -60,6 +67,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	wire [5:0] alu_op;
 	wire [15:0] s_bus, d_bus, alu_out;
 	wire [2:0] CR_bus;
+	wire [3:0] cu_out1, cu_out2, cu_out3;
 	wire sxt_E, bm_E, alu_E, id_E;
 	wire sxt_shift;
 	
@@ -87,6 +95,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	
 	wire psw_update;
 	
+	wire [3:0] nib4, nib5, nib6, nib7;
+	
 	assign addr = SW[15:0];
 	assign breakpnt = bkpnt[15:0];
 	
@@ -96,8 +106,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	assign psw_data = psw_out[15:0];
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	
-	assign Clock = (execution_type == 1'b0) ? KEY[0] : CLOCK_50;
-	
+	//assign Clock = (execution_type == 1'b0) ? KEY[0] : CLOCK_50;
+	assign Clock = KEY[0];
 	assign mar_mem_bus = mar[15:0];
 	assign mem_ub_addr = (psw_data[3] == 1'b0) ? (mar[15:0] + 1) : (addr + 1);
 	assign mem_lb_addr = (psw_data[3] == 1'b0) ? mar[15:0] : addr;
@@ -115,6 +125,16 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	assign sxt_E = enables[13];
 	assign bm_E = enables[12];
 	
+	assign nib4 = d_bus[3:0];
+	assign nib5 = alu_out[3:0];
+	assign nib6 = s_bus[3:0];
+	assign nib7 = cu_out1;
+	
+	seven_seg_decoder decode5( .Reg1 (nib4), .HEX0 (HEX4), .Clock (Clock));
+	seven_seg_decoder decode6( .Reg1 (nib5), .HEX0 (HEX5), .Clock (Clock));
+	seven_seg_decoder decode7( .Reg1 (nib6), .HEX0 (HEX6), .Clock (Clock));
+	seven_seg_decoder decode8( .Reg1 (nib7), .HEX0 (HEX7), .Clock (~Clock));
+	
 	
 	memory ram(Clock, mdr[7:0], mdr[15:8], mem_lb_addr, mem_ub_addr, ctrl_reg[0], ctrl_reg[1], mem_lb, mem_ub);
 
@@ -129,7 +149,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, 
 	control_unit ctrl_unit(Clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
 							enables, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
-							breakpnt, reg_file[7][15:0], addr_rnum_src, psw_bus_ctrl);
+							breakpnt, reg_file[7][15:0], addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3);
 	
 	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, alu_E, psw_update);
 	

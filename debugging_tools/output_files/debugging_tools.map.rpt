@@ -1,5 +1,5 @@
 Analysis & Synthesis report for debugging_tools
-Sat May 27 20:53:42 2023
+Wed Aug  2 19:17:38 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -13,14 +13,21 @@ Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. User-Specified and Inferred Latches
-  9. General Register Statistics
- 10. Multiplexer Restructuring Statistics (Restructuring Performed)
- 11. Port Connectivity Checks: "view_data:data_viewer"
- 12. Post-Synthesis Netlist Statistics for Top Partition
- 13. Elapsed Time Per Partition
- 14. Analysis & Synthesis Messages
- 15. Analysis & Synthesis Suppressed Messages
+  8. Analysis & Synthesis RAM Summary
+  9. User-Specified and Inferred Latches
+ 10. Registers Removed During Synthesis
+ 11. General Register Statistics
+ 12. Registers Packed Into Inferred Megafunctions
+ 13. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 14. Source assignments for memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated
+ 15. Parameter Settings for Inferred Entity Instance: memory:ram|altsyncram:memory_rtl_0
+ 16. altsyncram Parameter Settings by Entity Instance
+ 17. Port Connectivity Checks: "memory:ram"
+ 18. Port Connectivity Checks: "view_data:data_viewer"
+ 19. Post-Synthesis Netlist Statistics for Top Partition
+ 20. Elapsed Time Per Partition
+ 21. Analysis & Synthesis Messages
+ 22. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -47,18 +54,18 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat May 27 20:53:42 2023          ;
+; Analysis & Synthesis Status        ; Successful - Wed Aug  2 19:17:38 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; debugging_tools                                ;
 ; Top-level Entity Name              ; debugging_tools                                ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 262                                            ;
-;     Total combinational functions  ; 262                                            ;
-;     Dedicated logic registers      ; 28                                             ;
-; Total registers                    ; 28                                             ;
-; Total pins                         ; 75                                             ;
+; Total logic elements               ; 139                                            ;
+;     Total combinational functions  ; 123                                            ;
+;     Dedicated logic registers      ; 44                                             ;
+; Total registers                    ; 44                                             ;
+; Total pins                         ; 76                                             ;
 ; Total virtual pins                 ; 0                                              ;
-; Total memory bits                  ; 0                                              ;
+; Total memory bits                  ; 16                                             ;
 ; Embedded Multiplier 9-bit elements ; 0                                              ;
 ; Total PLLs                         ; 0                                              ;
 +------------------------------------+------------------------------------------------+
@@ -167,63 +174,90 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                        ;
-+----------------------------------+-----------------+------------------------+-----------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                          ; Library ;
-+----------------------------------+-----------------+------------------------+-----------------------------------------------------------------------+---------+
-; debugging_tools.v                ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v   ;         ;
-; seven_seg_decoder.v              ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/seven_seg_decoder.v ;         ;
-; view_data.v                      ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v         ;         ;
-; memory.txt                       ; yes             ; Auto-Found File        ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/memory.txt          ;         ;
-+----------------------------------+-----------------+------------------------+-----------------------------------------------------------------------+---------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                  ;
++-------------------------------------------------+-----------------+-------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                                      ; Library ;
++-------------------------------------------------+-----------------+-------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------+
+; debugging_tools.v                               ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v                               ;         ;
+; seven_seg_decoder.v                             ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/seven_seg_decoder.v                             ;         ;
+; view_data.v                                     ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v                                     ;         ;
+; memory.v                                        ; yes             ; User Verilog HDL File                                 ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/memory.v                                        ;         ;
+; memory.txt                                      ; yes             ; Auto-Found File                                       ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/memory.txt                                      ;         ;
+; altsyncram.tdf                                  ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altsyncram.tdf                          ;         ;
+; stratix_ram_block.inc                           ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/stratix_ram_block.inc                   ;         ;
+; lpm_mux.inc                                     ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/lpm_mux.inc                             ;         ;
+; lpm_decode.inc                                  ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/lpm_decode.inc                          ;         ;
+; aglobal221.inc                                  ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/aglobal221.inc                          ;         ;
+; a_rdenreg.inc                                   ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/a_rdenreg.inc                           ;         ;
+; altrom.inc                                      ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altrom.inc                              ;         ;
+; altram.inc                                      ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altram.inc                              ;         ;
+; altdpram.inc                                    ; yes             ; Megafunction                                          ; c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altdpram.inc                            ;         ;
+; db/altsyncram_dm82.tdf                          ; yes             ; Auto-Generated Megafunction                           ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf                          ;         ;
+; db/debugging_tools.ram0_memory_e411fb78.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/debugging_tools.ram0_memory_e411fb78.hdl.mif ;         ;
+; db/decode_rsa.tdf                               ; yes             ; Auto-Generated Megafunction                           ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/decode_rsa.tdf                               ;         ;
+; db/mux_bnb.tdf                                  ; yes             ; Auto-Generated Megafunction                           ; C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/mux_bnb.tdf                                  ;         ;
++-------------------------------------------------+-----------------+-------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------+
 
 
-+-----------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary               ;
-+---------------------------------------------+-------------+
-; Resource                                    ; Usage       ;
-+---------------------------------------------+-------------+
-; Estimated Total logic elements              ; 262         ;
-;                                             ;             ;
-; Total combinational functions               ; 262         ;
-; Logic element usage by number of LUT inputs ;             ;
-;     -- 4 input functions                    ; 185         ;
-;     -- 3 input functions                    ; 67          ;
-;     -- <=2 input functions                  ; 10          ;
-;                                             ;             ;
-; Logic elements by mode                      ;             ;
-;     -- normal mode                          ; 262         ;
-;     -- arithmetic mode                      ; 0           ;
-;                                             ;             ;
-; Total registers                             ; 28          ;
-;     -- Dedicated logic registers            ; 28          ;
-;     -- I/O registers                        ; 0           ;
-;                                             ;             ;
-; I/O pins                                    ; 75          ;
-;                                             ;             ;
-; Embedded Multiplier 9-bit elements          ; 0           ;
-;                                             ;             ;
-; Maximum fan-out node                        ; SW[2]~input ;
-; Maximum fan-out                             ; 75          ;
-; Total fan-out                               ; 1144        ;
-; Average fan-out                             ; 2.60        ;
-+---------------------------------------------+-------------+
++------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                ;
++---------------------------------------------+--------------+
+; Resource                                    ; Usage        ;
++---------------------------------------------+--------------+
+; Estimated Total logic elements              ; 139          ;
+;                                             ;              ;
+; Total combinational functions               ; 123          ;
+; Logic element usage by number of LUT inputs ;              ;
+;     -- 4 input functions                    ; 54           ;
+;     -- 3 input functions                    ; 65           ;
+;     -- <=2 input functions                  ; 4            ;
+;                                             ;              ;
+; Logic elements by mode                      ;              ;
+;     -- normal mode                          ; 123          ;
+;     -- arithmetic mode                      ; 0            ;
+;                                             ;              ;
+; Total registers                             ; 44           ;
+;     -- Dedicated logic registers            ; 44           ;
+;     -- I/O registers                        ; 0            ;
+;                                             ;              ;
+; I/O pins                                    ; 76           ;
+; Total memory bits                           ; 16           ;
+;                                             ;              ;
+; Embedded Multiplier 9-bit elements          ; 0            ;
+;                                             ;              ;
+; Maximum fan-out node                        ; KEY[3]~input ;
+; Maximum fan-out                             ; 51           ;
+; Total fan-out                               ; 665          ;
+; Average fan-out                             ; 2.03         ;
++---------------------------------------------+--------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                ;
-+-----------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------+-------------------+--------------+
-; Compilation Hierarchy Node        ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                              ; Entity Name       ; Library Name ;
-+-----------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------+-------------------+--------------+
-; |debugging_tools                  ; 262 (123)           ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 75   ; 0            ; |debugging_tools                                                 ; debugging_tools   ; work         ;
-;    |view_data:data_viewer|        ; 139 (111)           ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer                           ; view_data         ; work         ;
-;       |seven_seg_decoder:decode1| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode1 ; seven_seg_decoder ; work         ;
-;       |seven_seg_decoder:decode2| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode2 ; seven_seg_decoder ; work         ;
-;       |seven_seg_decoder:decode3| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode3 ; seven_seg_decoder ; work         ;
-;       |seven_seg_decoder:decode4| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode4 ; seven_seg_decoder ; work         ;
-+-----------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------+-------------------+--------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                          ;
++-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------+-------------------+--------------+
+; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                ; Entity Name       ; Library Name ;
++-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------+-------------------+--------------+
+; |debugging_tools                          ; 123 (8)             ; 44 (16)                   ; 16          ; 0            ; 0       ; 0         ; 76   ; 0            ; |debugging_tools                                                                   ; debugging_tools   ; work         ;
+;    |memory:ram|                           ; 0 (0)               ; 0 (0)                     ; 16          ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|memory:ram                                                        ; memory            ; work         ;
+;       |altsyncram:memory_rtl_0|           ; 0 (0)               ; 0 (0)                     ; 16          ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|memory:ram|altsyncram:memory_rtl_0                                ; altsyncram        ; work         ;
+;          |altsyncram_dm82:auto_generated| ; 0 (0)               ; 0 (0)                     ; 16          ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated ; altsyncram_dm82   ; work         ;
+;    |view_data:data_viewer|                ; 115 (87)            ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer                                             ; view_data         ; work         ;
+;       |seven_seg_decoder:decode1|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode1                   ; seven_seg_decoder ; work         ;
+;       |seven_seg_decoder:decode2|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode2                   ; seven_seg_decoder ; work         ;
+;       |seven_seg_decoder:decode3|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode3                   ; seven_seg_decoder ; work         ;
+;       |seven_seg_decoder:decode4|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |debugging_tools|view_data:data_viewer|seven_seg_decoder:decode4                   ; seven_seg_decoder ; work         ;
++-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------+-------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                            ;
++------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+-------------------------------------------------+
+; Name                                                                         ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size   ; MIF                                             ;
++------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+-------------------------------------------------+
+; memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ALTSYNCRAM ; AUTO ; True Dual Port ; 65536        ; 8            ; 65536        ; 8            ; 524288 ; db/debugging_tools.ram0_memory_e411fb78.hdl.mif ;
++------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+-------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------+
@@ -269,9 +303,22 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; view_data:data_viewer|data[13]                      ; view_data:data_viewer|data[0]  ; yes                    ;
 ; view_data:data_viewer|data[14]                      ; view_data:data_viewer|data[0]  ; yes                    ;
 ; view_data:data_viewer|data[15]                      ; view_data:data_viewer|data[0]  ; yes                    ;
-; Number of user-specified and inferred latches = 38  ;                                ;                        ;
+; view_data:data_viewer|view_mode[1]                  ; GND                            ; yes                    ;
+; view_data:data_viewer|view_mode[0]                  ; GND                            ; yes                    ;
+; Number of user-specified and inferred latches = 40  ;                                ;                        ;
 +-----------------------------------------------------+--------------------------------+------------------------+
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++--------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                             ;
++---------------------------------------------------------------------------------------+----------------------------------------+
+; Register name                                                                         ; Reason for Removal                     ;
++---------------------------------------------------------------------------------------+----------------------------------------+
+; memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|address_reg_a[0..2] ; Stuck at GND due to stuck port data_in ;
+; memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|address_reg_b[0..2] ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 6                                                 ;                                        ;
++---------------------------------------------------------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -279,7 +326,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 28    ;
+; Total registers                              ; 44    ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
@@ -289,31 +336,138 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                               ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                     ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------+
-; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |debugging_tools|view_data:data_viewer|data[2] ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------+
++----------------------------------------------------------+
+; Registers Packed Into Inferred Megafunctions             ;
++-------------------------+-------------------------+------+
+; Register Name           ; Megafunction            ; Type ;
++-------------------------+-------------------------+------+
+; memory:ram|ub_out[0..7] ; memory:ram|memory_rtl_0 ; RAM  ;
+; memory:ram|lb_out[0..7] ; memory:ram|memory_rtl_0 ; RAM  ;
++-------------------------+-------------------------+------+
 
 
-+---------------------------------------------------+
-; Port Connectivity Checks: "view_data:data_viewer" ;
-+----------------+-------+----------+---------------+
-; Port           ; Type  ; Severity ; Details       ;
-+----------------+-------+----------+---------------+
-; psw_data[9..6] ; Input ; Info     ; Stuck at VCC  ;
-; psw_data[5..4] ; Input ; Info     ; Stuck at GND  ;
-; psw_data[2..0] ; Input ; Info     ; Stuck at GND  ;
-; psw_data[15]   ; Input ; Info     ; Stuck at VCC  ;
-; psw_data[14]   ; Input ; Info     ; Stuck at GND  ;
-; psw_data[13]   ; Input ; Info     ; Stuck at VCC  ;
-; psw_data[12]   ; Input ; Info     ; Stuck at GND  ;
-; psw_data[11]   ; Input ; Info     ; Stuck at VCC  ;
-; psw_data[10]   ; Input ; Info     ; Stuck at GND  ;
-; psw_data[3]    ; Input ; Info     ; Stuck at VCC  ;
-+----------------+-------+----------+---------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                      ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------+
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |debugging_tools|view_data:data_viewer|LEDR[5]  ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |debugging_tools|view_data:data_viewer|data[10] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |debugging_tools|view_data:data_viewer|LEDG[5]  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------+
+; Source assignments for memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated ;
++---------------------------------+--------------------+------+----------------------------+
+; Assignment                      ; Value              ; From ; To                         ;
++---------------------------------+--------------------+------+----------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                          ;
++---------------------------------+--------------------+------+----------------------------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: memory:ram|altsyncram:memory_rtl_0                   ;
++------------------------------------+-------------------------------------------------+----------------+
+; Parameter Name                     ; Value                                           ; Type           ;
++------------------------------------+-------------------------------------------------+----------------+
+; BYTE_SIZE_BLOCK                    ; 8                                               ; Untyped        ;
+; AUTO_CARRY_CHAINS                  ; ON                                              ; AUTO_CARRY     ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                             ; IGNORE_CARRY   ;
+; AUTO_CASCADE_CHAINS                ; ON                                              ; AUTO_CASCADE   ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                             ; IGNORE_CASCADE ;
+; WIDTH_BYTEENA                      ; 1                                               ; Untyped        ;
+; OPERATION_MODE                     ; BIDIR_DUAL_PORT                                 ; Untyped        ;
+; WIDTH_A                            ; 8                                               ; Untyped        ;
+; WIDTHAD_A                          ; 16                                              ; Untyped        ;
+; NUMWORDS_A                         ; 65536                                           ; Untyped        ;
+; OUTDATA_REG_A                      ; UNREGISTERED                                    ; Untyped        ;
+; ADDRESS_ACLR_A                     ; NONE                                            ; Untyped        ;
+; OUTDATA_ACLR_A                     ; NONE                                            ; Untyped        ;
+; WRCONTROL_ACLR_A                   ; NONE                                            ; Untyped        ;
+; INDATA_ACLR_A                      ; NONE                                            ; Untyped        ;
+; BYTEENA_ACLR_A                     ; NONE                                            ; Untyped        ;
+; WIDTH_B                            ; 8                                               ; Untyped        ;
+; WIDTHAD_B                          ; 16                                              ; Untyped        ;
+; NUMWORDS_B                         ; 65536                                           ; Untyped        ;
+; INDATA_REG_B                       ; CLOCK0                                          ; Untyped        ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK0                                          ; Untyped        ;
+; RDCONTROL_REG_B                    ; CLOCK1                                          ; Untyped        ;
+; ADDRESS_REG_B                      ; CLOCK0                                          ; Untyped        ;
+; OUTDATA_REG_B                      ; UNREGISTERED                                    ; Untyped        ;
+; BYTEENA_REG_B                      ; CLOCK1                                          ; Untyped        ;
+; INDATA_ACLR_B                      ; NONE                                            ; Untyped        ;
+; WRCONTROL_ACLR_B                   ; NONE                                            ; Untyped        ;
+; ADDRESS_ACLR_B                     ; NONE                                            ; Untyped        ;
+; OUTDATA_ACLR_B                     ; NONE                                            ; Untyped        ;
+; RDCONTROL_ACLR_B                   ; NONE                                            ; Untyped        ;
+; BYTEENA_ACLR_B                     ; NONE                                            ; Untyped        ;
+; WIDTH_BYTEENA_A                    ; 1                                               ; Untyped        ;
+; WIDTH_BYTEENA_B                    ; 1                                               ; Untyped        ;
+; RAM_BLOCK_TYPE                     ; AUTO                                            ; Untyped        ;
+; BYTE_SIZE                          ; 8                                               ; Untyped        ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                        ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_A      ; OLD_DATA                                        ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_B      ; OLD_DATA                                        ; Untyped        ;
+; INIT_FILE                          ; db/debugging_tools.ram0_memory_e411fb78.hdl.mif ; Untyped        ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                          ; Untyped        ;
+; MAXIMUM_DEPTH                      ; 0                                               ; Untyped        ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                                          ; Untyped        ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                          ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL                                          ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                          ; Untyped        ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                 ; Untyped        ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                 ; Untyped        ;
+; ENABLE_ECC                         ; FALSE                                           ; Untyped        ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                           ; Untyped        ;
+; WIDTH_ECCSTATUS                    ; 3                                               ; Untyped        ;
+; DEVICE_FAMILY                      ; Cyclone IV E                                    ; Untyped        ;
+; CBXI_PARAMETER                     ; altsyncram_dm82                                 ; Untyped        ;
++------------------------------------+-------------------------------------------------+----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                               ;
++-------------------------------------------+------------------------------------+
+; Name                                      ; Value                              ;
++-------------------------------------------+------------------------------------+
+; Number of entity instances                ; 1                                  ;
+; Entity Instance                           ; memory:ram|altsyncram:memory_rtl_0 ;
+;     -- OPERATION_MODE                     ; BIDIR_DUAL_PORT                    ;
+;     -- WIDTH_A                            ; 8                                  ;
+;     -- NUMWORDS_A                         ; 65536                              ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                       ;
+;     -- WIDTH_B                            ; 8                                  ;
+;     -- NUMWORDS_B                         ; 65536                              ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                             ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                       ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                               ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                           ;
++-------------------------------------------+------------------------------------+
+
+
++-----------------------------------------+
+; Port Connectivity Checks: "memory:ram"  ;
++-------+-------+----------+--------------+
+; Port  ; Type  ; Severity ; Details      ;
++-------+-------+----------+--------------+
+; we_lb ; Input ; Info     ; Stuck at VCC ;
+; we_ub ; Input ; Info     ; Stuck at VCC ;
++-------+-------+----------+--------------+
+
+
++----------------------------------------------------+
+; Port Connectivity Checks: "view_data:data_viewer"  ;
++------------------+-------+----------+--------------+
+; Port             ; Type  ; Severity ; Details      ;
++------------------+-------+----------+--------------+
+; psw_data[14..13] ; Input ; Info     ; Stuck at VCC ;
+; psw_data[7..4]   ; Input ; Info     ; Stuck at VCC ;
+; psw_data[12..8]  ; Input ; Info     ; Stuck at GND ;
+; psw_data[3..0]   ; Input ; Info     ; Stuck at GND ;
+; psw_data[15]     ; Input ; Info     ; Stuck at GND ;
++------------------+-------+----------+--------------+
 
 
 +-----------------------------------------------------+
@@ -321,18 +475,19 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 75                          ;
-; cycloneiii_ff         ; 28                          ;
-;     plain             ; 28                          ;
-; cycloneiii_lcell_comb ; 263                         ;
-;     normal            ; 263                         ;
-;         0 data inputs ; 1                           ;
-;         2 data inputs ; 10                          ;
-;         3 data inputs ; 67                          ;
-;         4 data inputs ; 185                         ;
+; boundary_port         ; 76                          ;
+; cycloneiii_ff         ; 44                          ;
+;     plain             ; 44                          ;
+; cycloneiii_lcell_comb ; 124                         ;
+;     normal            ; 124                         ;
+;         0 data inputs ; 2                           ;
+;         2 data inputs ; 3                           ;
+;         3 data inputs ; 65                          ;
+;         4 data inputs ; 54                          ;
+; cycloneiii_ram_block  ; 8                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 6.00                        ;
-; Average LUT depth     ; 3.74                        ;
+; Max LUT depth         ; 3.00                        ;
+; Average LUT depth     ; 1.57                        ;
 +-----------------------+-----------------------------+
 
 
@@ -341,7 +496,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:32     ;
+; Top            ; 00:00:00     ;
 +----------------+--------------+
 
 
@@ -351,7 +506,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Sat May 27 20:53:03 2023
+    Info: Processing started: Wed Aug  2 19:17:32 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off debugging_tools -c debugging_tools
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -361,136 +516,263 @@ Info (12021): Found 1 design units, including 1 entities, in source file seven_s
     Info (12023): Found entity 1: seven_seg_decoder File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/seven_seg_decoder.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file view_data.v
     Info (12023): Found entity 1: view_data File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file memory.v
+    Info (12023): Found entity 1: memory File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/memory.v Line: 1
 Info (12127): Elaborating entity "debugging_tools" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(19): object "execution_type" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 19
-Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(31): object "breakpnt" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 31
-Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(35): object "PC" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 35
-Warning (10235): Verilog HDL Always Construct warning at debugging_tools.v(80): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 80
-Warning (10240): Verilog HDL Always Construct warning at debugging_tools.v(76): inferring latch(es) for variable "bkpnt", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 76
+Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(21): object "ctrl_reg" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 21
+Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(22): object "execution_type" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 22
+Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(52): object "PC" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 52
+Warning (10036): Verilog HDL or VHDL warning at debugging_tools.v(55): object "breakpoint" assigned a value but never read File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 55
+Warning (10230): Verilog HDL assignment warning at debugging_tools.v(63): truncated value with size 32 to match size of target (16) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 63
+Warning (10235): Verilog HDL Always Construct warning at debugging_tools.v(100): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 100
+Warning (10240): Verilog HDL Always Construct warning at debugging_tools.v(96): inferring latch(es) for variable "brkpnt", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 96
 Warning (10030): Net "reg_file.data_a" at debugging_tools.v(17) has no driver or initial value, using a default initial value '0' File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 17
 Warning (10030): Net "reg_file.waddr_a" at debugging_tools.v(17) has no driver or initial value, using a default initial value '0' File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 17
 Warning (10030): Net "reg_file.we_a" at debugging_tools.v(17) has no driver or initial value, using a default initial value '0' File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 17
-Info (12128): Elaborating entity "view_data" for hierarchy "view_data:data_viewer" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 51
-Warning (10235): Verilog HDL Always Construct warning at view_data.v(39): variable "LEDG" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 39
-Warning (10235): Verilog HDL Always Construct warning at view_data.v(41): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 41
-Warning (10235): Verilog HDL Always Construct warning at view_data.v(42): variable "mem_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 42
-Warning (10235): Verilog HDL Always Construct warning at view_data.v(44): variable "LEDG" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
-Warning (10235): Verilog HDL Always Construct warning at view_data.v(46): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 46
-Warning (10235): Verilog HDL Always Construct warning at view_data.v(47): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 47
-Warning (10235): Verilog HDL Always Construct warning at view_data.v(48): variable "psw_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 48
-Warning (10235): Verilog HDL Always Construct warning at view_data.v(50): variable "reg_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 50
-Warning (10240): Verilog HDL Always Construct warning at view_data.v(29): inferring latch(es) for variable "LEDG", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Warning (10240): Verilog HDL Always Construct warning at view_data.v(29): inferring latch(es) for variable "LEDR", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Warning (10240): Verilog HDL Always Construct warning at view_data.v(29): inferring latch(es) for variable "data", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[0]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[1]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[2]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[3]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[4]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[5]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[6]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[7]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[8]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[9]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[10]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[11]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[12]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[13]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[14]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "data[15]" at view_data.v(29) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-Info (10041): Inferred latch for "LEDR[0]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[1]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[2]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[3]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[4]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[5]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[6]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[7]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[8]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[9]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[10]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[11]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[12]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[13]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[14]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDR[15]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDG[0]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDG[1]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDG[2]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDG[3]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDG[4]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (10041): Inferred latch for "LEDG[5]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "view_data:data_viewer|seven_seg_decoder:decode1" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 24
+Info (12128): Elaborating entity "view_data" for hierarchy "view_data:data_viewer" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 70
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(46): variable "view_mode" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 46
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(48): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 48
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(49): variable "mem_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 49
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(51): variable "view_mode" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 51
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(53): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 53
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(54): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 54
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(55): variable "psw_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 55
+Warning (10235): Verilog HDL Always Construct warning at view_data.v(57): variable "reg_data" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 57
+Warning (10240): Verilog HDL Always Construct warning at view_data.v(32): inferring latch(es) for variable "LEDG", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (10240): Verilog HDL Always Construct warning at view_data.v(32): inferring latch(es) for variable "view_mode", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (10240): Verilog HDL Always Construct warning at view_data.v(32): inferring latch(es) for variable "LEDR", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (10240): Verilog HDL Always Construct warning at view_data.v(32): inferring latch(es) for variable "data", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[0]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[1]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[2]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[3]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[4]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[5]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[6]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[7]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[8]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[9]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[10]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[11]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[12]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[13]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[14]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "data[15]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "view_mode[0]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "view_mode[1]" at view_data.v(32) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Info (10041): Inferred latch for "LEDG[2]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDG[3]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDG[4]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDG[5]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[0]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[1]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[2]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[3]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[4]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[5]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[6]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[7]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[8]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[9]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[10]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[11]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[12]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[13]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[14]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDR[15]" at view_data.v(44) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+Info (10041): Inferred latch for "LEDG[0]" at view_data.v(38) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 38
+Info (10041): Inferred latch for "LEDG[1]" at view_data.v(38) File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 38
+Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "view_data:data_viewer|seven_seg_decoder:decode1" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 25
+Info (12128): Elaborating entity "memory" for hierarchy "memory:ram" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 71
 Info (276014): Found 1 instances of uninferred RAM logic
     Info (276004): RAM logic "reg_file" is uninferred due to inappropriate RAM size File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 17
-Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/debugging_tools.ram0_debugging_tools_81197e81.hdl.mif" contains "don't care" values -- overwriting them with 0s
-Warning (13012): Latch view_data:data_viewer|LEDR[0] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[1] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[2] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[3] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[4] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[5] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[6] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[7] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[8] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[9] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[10] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[11] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[12] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[13] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[14] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|LEDR[15] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[1] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Warning (13012): Latch view_data:data_viewer|data[0] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[1] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[2] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[3] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[4] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[5] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[6] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[7] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[8] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[9] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[10] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[11] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[12] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[13] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[14] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
-Warning (13012): Latch view_data:data_viewer|data[15] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 29
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|LEDG[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Critical Warning (127005): Memory depth (32) in the design file differs from memory depth (17) in the Memory Initialization File "C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/debugging_tools.ram0_debugging_tools_81197e81.hdl.mif" -- setting initial value for remaining addresses to 0
+Info (19000): Inferred 1 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "memory:ram|memory_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to BIDIR_DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 8
+        Info (286033): Parameter WIDTH_B set to 8
+        Info (286033): Parameter WIDTHAD_A set to 16
+        Info (286033): Parameter WIDTHAD_B set to 16
+        Info (286033): Parameter NUMWORDS_A set to 65536
+        Info (286033): Parameter NUMWORDS_B set to 65536
+        Info (286033): Parameter OUTDATA_REG_A set to UNREGISTERED
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_REG_B set to CLOCK0
+        Info (286033): Parameter WRCONTROL_WRADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_PORT_A set to OLD_DATA
+        Info (286033): Parameter READ_DURING_WRITE_MODE_PORT_B set to OLD_DATA
+        Info (286033): Parameter INIT_FILE set to db/debugging_tools.ram0_memory_e411fb78.hdl.mif
+        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+Info (12130): Elaborated megafunction instantiation "memory:ram|altsyncram:memory_rtl_0"
+Info (12133): Instantiated megafunction "memory:ram|altsyncram:memory_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "BIDIR_DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "8"
+    Info (12134): Parameter "WIDTH_B" = "8"
+    Info (12134): Parameter "WIDTHAD_A" = "16"
+    Info (12134): Parameter "WIDTHAD_B" = "16"
+    Info (12134): Parameter "NUMWORDS_A" = "65536"
+    Info (12134): Parameter "NUMWORDS_B" = "65536"
+    Info (12134): Parameter "OUTDATA_REG_A" = "UNREGISTERED"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "INDATA_REG_B" = "CLOCK0"
+    Info (12134): Parameter "WRCONTROL_WRADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_PORT_A" = "OLD_DATA"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_PORT_B" = "OLD_DATA"
+    Info (12134): Parameter "INIT_FILE" = "db/debugging_tools.ram0_memory_e411fb78.hdl.mif"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_dm82.tdf
+    Info (12023): Found entity 1: altsyncram_dm82 File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 32
+Info (12021): Found 1 design units, including 1 entities, in source file db/decode_rsa.tdf
+    Info (12023): Found entity 1: decode_rsa File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/decode_rsa.tdf Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file db/mux_bnb.tdf
+    Info (12023): Found entity 1: mux_bnb File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/mux_bnb.tdf Line: 23
+Warning (14284): Synthesized away the following node(s):
+    Warning (14285): Synthesized away the following RAM node(s):
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a8" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 323
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a9" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 357
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a10" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 391
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a11" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 425
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a12" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 459
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a13" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 493
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a14" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 527
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a15" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 561
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a16" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 595
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a17" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 629
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a18" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 663
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a19" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 697
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a20" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 731
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a21" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 765
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a22" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 799
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a23" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 833
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a24" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 867
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a25" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 901
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a26" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 935
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a27" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 969
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a28" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1003
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a29" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1037
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a30" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1071
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a31" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1105
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a32" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1139
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a33" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1173
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a34" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1207
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a35" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1241
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a36" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1275
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a37" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1309
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a38" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1343
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a39" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1377
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a40" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1411
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a41" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1445
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a42" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1479
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a43" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1513
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a44" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1547
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a45" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1581
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a46" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1615
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a47" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1649
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a48" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1683
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a49" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1717
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a50" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1751
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a51" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1785
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a52" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1819
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a53" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1853
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a54" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1887
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a55" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1921
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a56" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1955
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a57" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 1989
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a58" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 2023
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a59" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 2057
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a60" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 2091
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a61" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 2125
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a62" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 2159
+        Warning (14320): Synthesized away node "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ram_block1a63" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 2193
+Warning (13012): Latch view_data:data_viewer|LEDG[2] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDG[3] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDG[4] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDG[5] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[0] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[1] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[2] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[3] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[4] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[5] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[6] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[7] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[8] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[9] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[10] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[11] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[12] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[13] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[14] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|LEDR[15] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 44
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KEY[3] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
+Warning (13012): Latch view_data:data_viewer|data[0] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[1] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[2] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[3] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[4] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[5] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[6] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[7] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[8] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[9] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[10] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[11] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[12] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[13] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[14] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+Warning (13012): Latch view_data:data_viewer|data[15] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal view_data:data_viewer|view_mode[0] File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/view_data.v Line: 32
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LEDR16_17[0]" is stuck at GND File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 6
+    Warning (13410): Pin "LEDR16_17[0]" is stuck at VCC File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 7
 Info (286030): Timing-Driven Synthesis is running
+Info (17036): Removed 12 MSB VCC or GND address nodes from RAM block "memory:ram|altsyncram:memory_rtl_0|altsyncram_dm82:auto_generated|ALTSYNCRAM" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/db/altsyncram_dm82.tdf Line: 51
 Warning (20013): Ignored 24 assignments for entity "instr_decode_demo" -- entity does not exist in design
     Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity instr_decode_demo -section_id Top was ignored
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity instr_decode_demo -section_id Top was ignored
@@ -595,16 +877,17 @@ Info (144001): Generated suppressed messages file C:/Users/mccoy/Documents/ECED3
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "KEY[0]" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 3
-Info (21057): Implemented 337 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 22 input pins
+    Warning (15610): No output dependent on input pin "CLOCK_50" File: C:/Users/mccoy/Documents/ECED3900/debugging_tools/debugging_tools.v Line: 4
+Info (21057): Implemented 223 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 23 input pins
     Info (21059): Implemented 53 output pins
-    Info (21061): Implemented 262 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 189 warnings
-    Info: Peak virtual memory: 4842 megabytes
-    Info: Processing ended: Sat May 27 20:53:42 2023
-    Info: Elapsed time: 00:00:39
-    Info: Total CPU time (on all processors): 00:00:40
+    Info (21061): Implemented 139 logic cells
+    Info (21064): Implemented 8 RAM segments
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 258 warnings
+    Info: Peak virtual memory: 4811 megabytes
+    Info: Processing ended: Wed Aug  2 19:17:38 2023
+    Info: Elapsed time: 00:00:06
+    Info: Total CPU time (on all processors): 00:00:09
 
 
 +------------------------------------------+

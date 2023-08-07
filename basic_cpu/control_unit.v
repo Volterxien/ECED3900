@@ -1,7 +1,7 @@
 module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
 					enables, ctrl_reg_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 					psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
-					brkpnt, PC, addr_rnum_src, psw_bus_ctrl);
+					brkpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3);
 	
 	// Instruction Decoder Parameters
 	input [15:0] PC;
@@ -39,6 +39,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	output reg [5:0] alu_op;						// ALU operation
 	output reg [2:0] bm_op;
 	output reg [4:0] dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, addr_rnum_src;	// Temp register is 5'b10000
+	output wire [3:0] cu_out1, cu_out2, cu_out3;
 	
 	reg [15:0] psw;
 	reg [3:0] cpucycle;
@@ -56,10 +57,16 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 		cpucycle = 4'b0001;					// Initialize CPU cycle
 		cex_state = 8'b00000000;			// Initialize CEX state
 		brkpnt_set = 1'b0;					// Initialize Breakpoint set state
+		s_bus_ctrl = 1'b0;					// Initialize S-bus control to use Reg File
+		alu_rnum_src = 4'd10;				// Initialize ALU operand to be 2
+		dbus_rnum_dst = 5'd7;				// Initialize dst for ALU result
 	end
 
 	assign psw_out = psw[15:0];					// Assign the output wires for the PSW
 	assign cpucycle_new = cpucycle;
+	assign cu_out1 = cpucycle;
+	assign cu_out2 = brkpnt[3:0];
+	assign cu_out3 = data_bus_ctrl[3:0];
 	
 	always @(negedge clock) begin
 		if (cpucycle_rst == 1'b1)
@@ -74,7 +81,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 		psw = psw_in[15:0];
 		enables <= 16'h0000;			// Clear all enables
 		ctrl_reg_bus <= 3'b000;			// Set to read only
-		data_bus_ctrl <= 7'b1111111;	// Make an invalid option
+		data_bus_ctrl = 7'b1111111;	// Make an invalid option
 		addr_bus_ctrl <= 7'b1111111;	// Make an invalid option
 		psw_bus_ctrl <= 2'b11;			// Make an invalid option
 		psw_update <= 1'b0;				// Set to default of not updating
@@ -97,6 +104,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						alu_op <= 5'b00000;				// Add 2 to PC
 						addr_rnum_src <= 5'd7;			// Select the PC to write to the MAR
 						addr_bus_ctrl <= 7'b0001000;	// Write PC to MAR
+						//data_bus_ctrl = 7'b0011001;	// Write ALU output to PC
 						ctrl_reg_bus <= 3'b000;			// Read memory from MAR address to MDR
 					end
 					else begin
@@ -108,11 +116,11 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 				2: /* Finish Fetching from Memory (Add 2 to PC) */
 				begin
 					enables[15] <= 1'b1;			// Enable the ALU
-					data_bus_ctrl <= 7'b0011001;	// Write ALU output to PC
+					data_bus_ctrl = 7'b0011001;	// Write ALU output to PC
 				end
 				3: /* Finish Fetching from Memory (Add 2 to PC) */
 				begin
-					data_bus_ctrl <= 7'b0000010;	// Write MDR to Instruction Register
+					data_bus_ctrl = 7'b0000010;	// Write MDR to Instruction Register
 				end
 				4: /* Decode */
 				begin
@@ -138,7 +146,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						begin
 							dbus_rnum_dst <= 5'd5;			// Select the LR as the dst reg for the data bus
 							dbus_rnum_src <= 5'd7;			// Select the PC as the src reg for the data bus
-							data_bus_ctrl <= 7'b0001001;	// Write the PC to the LR
+							data_bus_ctrl = 7'b0001001;		// Write the PC to the LR
 							sxt_bit_num = 4'd13;			// Provide sign bit to sign extender
 							sxt_bus_ctrl = 1'b1;			// Use the offset from the instruction decoder
 							sxt_shift = 1'b1;				// Shift the offset by 1
@@ -165,7 +173,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								alu_op <= 5'd0;					// Use the add instruction on the ALU
 								alu_rnum_dst <= 5'd7;			// Select the PC as the dst register for the ALU
 								dbus_rnum_dst <= 5'd7;			// Select the PC to add the offset to and to write back
-								data_bus_ctrl <= 7'b0011001;	// Write ALU output to register file
+								data_bus_ctrl = 7'b0011001;	// Write ALU output to register file
 								enables[15] <= 1'b1;			// Enable the ALU
 							end
 							cpucycle_rst <= 1;					// Reset the cycle
@@ -179,22 +187,19 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							psw_update <= 1'b1;								// Set ALU to update the PSW
 							s_bus_ctrl <= 1'b0;								// Use the register file on the S-bus for the ALU
 							alu_op <= ((OP[6:0] - 6'd9)<<1) + WB;			// Set ALU operation
-							data_bus_ctrl <= 7'b0011001 + (WB<<6);			// Write ALU output to register file
-							enables[15] <= 1'b1;							// Enable the ALU
-							cpucycle_rst <= 1;								// Reset the cycle
 						end
 						21:	// MOV
 						begin
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the destination register for the data bus
 							dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the source register for the data bus
-							data_bus_ctrl <= 7'b0001001 + (WB<<6);	// Write the src register to the dst register
+							data_bus_ctrl = 7'b0001001 + (WB<<6);	// Write the src register to the dst register
 							cpucycle_rst <= 1;	// Reset the cycle
 						end
 						22:	// SWAP (Multi-step)
 						begin
 							dbus_rnum_dst <= 5'b10000;				// Select the temp reg as the dst reg for the data bus
 							dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the source register for the data bus
-							data_bus_ctrl <= 7'b0001001;			// Write the src register to the temp register
+							data_bus_ctrl = 7'b0001001;			// Write the src register to the temp register
 						end
 						23,24:	// SRA, RRC
 						begin
@@ -205,7 +210,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							psw_update <= 1'b1;								// Set ALU to update the PSW
 							s_bus_ctrl <= 1'b0;								// Use the register file on the S-bus for the ALU
 							alu_op <= ((OP[6:0] - 6'd11)<<1) + WB;			// Set ALU operation
-							data_bus_ctrl <= 7'b0011001 + (WB<<6);			// Write ALU output to register file
+							data_bus_ctrl = 7'b0011001 + (WB<<6);			// Write ALU output to register file
 							enables[15] <= 1'b1;							// Enable the ALU
 							cpucycle_rst <= 1;								// Reset the cycle
 						end
@@ -214,7 +219,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							bm_op = 3'd4;							// Set the Byte Manipulation block operation to SWPB
 							bm_rnum = 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
-							data_bus_ctrl <= 7'b0101001;			// Write the Byte Manipulation block output to the dst register
+							data_bus_ctrl = 7'b0101001;			// Write the Byte Manipulation block output to the dst register
 							enables[12] <= 1'b1;					// Enable the Byte Manipulation block
 							cpucycle_rst <= 1;						// Reset the cycle
 						end
@@ -225,7 +230,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							sxt_bus_ctrl = 1'b0;					// Use the reg file as input
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							sxt_shift = 1'b0;						// No shifting
-							data_bus_ctrl <= 7'b0100001;			// Write the sign extender output to the dst register
+							data_bus_ctrl = 7'b0100001;			// Write the sign extender output to the dst register
 							enables[13] <= 1'b1;					// Enable the sign extender
 							cpucycle_rst <= 1;						// Reset the cycle
 						end
@@ -271,7 +276,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								alu_op <= 5'd0 + (DEC<<2) + INC;		// Determine whether the operation is addition or subtraction
 								psw_update <= 1'b0;						// Set ALU to not update the PSW
 								addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
-								data_bus_ctrl <= 7'b0011001;			// Write the ALU output to the register file
+								data_bus_ctrl = 7'b0011001;			// Write the ALU output to the register file
 								dbus_rnum_dst <= 5'd0 + SRCCON[2:0];	// Select the dst reg for the data bus
 								enables[15] <= 1'b1;					// Enable the ALU
 							end
@@ -293,7 +298,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								alu_op <= 5'd0 + (DEC<<2) + INC;		// Determine whether the operation is addition or subtraction
 								psw_update <= 1'b0;						// Set ALU to not update the PSW
 								addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
-								data_bus_ctrl <= 7'b0011001;			// Write the ALU output to the register file
+								data_bus_ctrl = 7'b0011001;			// Write the ALU output to the register file
 								dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 								enables[15] <= 1'b1;					// Enable the ALU
 							end
@@ -302,7 +307,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the src reg for the data bus
 								addr_rnum_src <= 5'd0 + DST[2:0];		// Select the dst reg for the addr bus
 								addr_bus_ctrl <= 7'b0001000;			// Write the register file reg to the MAR
-								data_bus_ctrl <= 7'b0001000 + (WB<<6);	// Write the data from the dst register to the MDR
+								data_bus_ctrl = 7'b0001000 + (WB<<6);	// Write the data from the dst register to the MDR
 								ctrl_reg_bus <= 3'b011 & ~(WB<<1);		// Write memory to MAR address from MDR
 							end
 						end
@@ -311,7 +316,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							bm_op = OP[6:0] - 6'd35;				// Set the Byte Manipulation block operation
 							bm_rnum = 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
-							data_bus_ctrl <= 7'b0101001;			// Write the Byte Manipulation block output to the dst register
+							data_bus_ctrl = 7'b0101001;			// Write the Byte Manipulation block output to the dst register
 							enables[12] <= 1'b1;					// Enable the Byte Manipulation block
 							cpucycle_rst <= 1;	// Reset the cycle
 						end
@@ -352,20 +357,26 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						0: 	// BL (Second Step)
 						begin
 							dbus_rnum_dst <= 5'd7;			// Select the PC to add the offset to and to write back
-							data_bus_ctrl <= 7'b0011001;	// Write ALU output to PC
+							data_bus_ctrl = 7'b0011001;	// Write ALU output to PC
 							enables[15] <= 1'b1;			// Enable the ALU
 							cpucycle_rst <= 1;				// Reset the cycle
+						end
+						9,10,11,12,13,14,15,16,17,18,19,20: // ADD to BIS
+						begin
+							data_bus_ctrl = 7'b0011001 + (WB<<6);			// Write ALU output to register file
+							enables[15] <= 1'b1;							// Enable the ALU
+							cpucycle_rst <= 1;								// Reset the cycle
 						end
 						22: // SWAP (Second Step)
 						begin
 							dbus_rnum_dst <= 5'd0 + SRCCON[2:0];	// Select the src reg for the data bus
 							dbus_rnum_src <= 5'b0 + DST[2:0];		// Select the dst reg as the src for the data bus
-							data_bus_ctrl <= 7'b0001001;			// Write the dst register to the src register
+							data_bus_ctrl = 7'b0001001;			// Write the dst register to the src register
 						end
 						33:	// LD (Second Step)
 						begin
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
-							data_bus_ctrl <= 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
+							data_bus_ctrl = 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
 							ctrl_reg_bus <= 3'b000 + (WB<<2);		// Read memory from MAR address to MDR
 						end
 						34: // ST (Second Step)
@@ -373,7 +384,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							if (PRPO == 1'b1) 	// Pre-Inc/Dec
 							begin
 								dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the dst reg for the data bus
-								data_bus_ctrl <= 7'b0001000;			// Write the data from the dst to the dst register
+								data_bus_ctrl = 7'b0001000;			// Write the data from the dst to the dst register
 								ctrl_reg_bus <= 3'b011 & ~(WB<<1);		// Write memory to MAR address from MDR
 							end
 							else if ((INC == 1'b1) || (DEC == 1'b1))	// Post-Inc/Dec
@@ -383,17 +394,17 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 								s_bus_ctrl <= 1'b0;						// Use the register file on the S-bus for the ALU
 								alu_op <= 5'd0 + (DEC<<2) + INC;		// Determine whether the operation is addition or subtraction
 								psw_update <= 1'b1;						// Set ALU to not update the PSW
-								data_bus_ctrl <= 7'b0011001;			// Write the ALU output to the register file
+								data_bus_ctrl = 7'b0011001;			// Write the ALU output to the register file
 								dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 								enables[15] <= 1'b1;					// Enable the ALU
 							end
 						end
 						39:	// LDR (Second Step)
 							// Wait for memory read to complete
-							data_bus_ctrl <= 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
+							data_bus_ctrl = 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
 						40:	// STR (Second Step)
 						begin
-							data_bus_ctrl <= 7'b0001000 + (WB<<6);	// Write the data from the src register to the MDR
+							data_bus_ctrl = 7'b0001000 + (WB<<6);	// Write the data from the src register to the MDR
 							ctrl_reg_bus <= 3'b011 & ~(WB<<1);		// Write data from MDR to memory at MAR address
 						end
 					endcase
@@ -405,7 +416,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 					begin
 						dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 						dbus_rnum_src <= 5'b10000;				// Select the temp reg as the src reg for the data bus
-						data_bus_ctrl <= 7'b0001001;			// Write the temp register to the dst register
+						data_bus_ctrl = 7'b0001001;			// Write the temp register to the dst register
 						cpucycle_rst <= 1;	// Reset the cycle
 					end
 					33: // LD (Third Step)
@@ -416,7 +427,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							s_bus_ctrl <= 1'b0;						// Use the register file on the S-bus for the ALU
 							alu_op <= 5'd0 + (DEC<<2) + INC;		// Determine whether the operation is addition or subtraction
 							psw_update <= 1'b1;						// Set ALU to not update the PSW
-							data_bus_ctrl <= 7'b0011001;			// Write the ALU output to the register file
+							data_bus_ctrl = 7'b0011001;			// Write the ALU output to the register file
 							dbus_rnum_dst <= 5'd0 + SRCCON[2:0];	// Select the dst reg for the data bus
 							enables[15] <= 1'b1;					// Enable the ALU
 						end
