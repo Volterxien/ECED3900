@@ -54,7 +54,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	wire Clock;
 	wire [6:0] data_bus_ctrl, addr_bus_ctrl; 	// [1b for W/B, 3b for src, 3b for dst (Codes: 0=MDR/MAR, 1=Reg File, 2=IR, 3=ALU, 4=SXT_out, 5=BMB_out, 6=PSW)]
 	wire s_bus_ctrl, sxt_bus_ctrl;							// 0 = use Reg File, 1 = use calculated offset
-	wire [15:0] addr, breakpnt;
+	wire [15:0] addr, breakpnt, PC;
 	wire [4:0] dbus_rnum_dst, dbus_rnum_src, addr_rnum_src, alu_rnum_dst, alu_rnum_src, bm_rnum, sxt_rnum;
 	wire [3:0] sxt_bit_num;
 	wire [1:0] psw_bus_ctrl;
@@ -99,6 +99,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	
 	assign addr = SW[15:0];
 	assign breakpnt = bkpnt[15:0];
+	assign PC = reg_file[7][15:0];
 	
 	assign mem_mode[1:0] = KEY[2:1];
 	
@@ -126,7 +127,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	assign bm_E = enables[12];
 	
 	assign nib4 = d_bus[3:0];
-	assign nib5 = alu_out[3:0];
+	assign nib5 = sxt_out[3:0];
 	assign nib6 = s_bus[3:0];
 	assign nib7 = cu_out1;
 	
@@ -149,7 +150,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	control_unit ctrl_unit(Clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
 							enables, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
-							breakpnt, reg_file[7][15:0], addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3);
+							breakpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3);
 	
 	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, alu_E, psw_update);
 	

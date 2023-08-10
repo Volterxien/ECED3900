@@ -26,7 +26,7 @@ module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
 	// for dadd instruction
 	//assign sum1 = (Reg1 + Reg2);
 	
-	always @(posedge E) begin
+	always @(op1, op2, instr, PSW_i, instr_opt) begin
 		carry = PSW_i[0];
 		Reg1_temp = Reg1;
 		

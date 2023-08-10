@@ -187,6 +187,9 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							psw_update <= 1'b1;								// Set ALU to update the PSW
 							s_bus_ctrl <= 1'b0;								// Use the register file on the S-bus for the ALU
 							alu_op <= ((OP[6:0] - 6'd9)<<1) + WB;			// Set ALU operation
+							data_bus_ctrl = 7'b0011001 + (WB<<6);			// Write ALU output to register file
+							enables[15] <= 1'b1;							// Enable the ALU
+							cpucycle_rst <= 1;								// Reset the cycle
 						end
 						21:	// MOV
 						begin
@@ -361,12 +364,12 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							enables[15] <= 1'b1;			// Enable the ALU
 							cpucycle_rst <= 1;				// Reset the cycle
 						end
-						9,10,11,12,13,14,15,16,17,18,19,20: // ADD to BIS
+						/*9,10,11,12,13,14,15,16,17,18,19,20: // ADD to BIS
 						begin
 							data_bus_ctrl = 7'b0011001 + (WB<<6);			// Write ALU output to register file
 							enables[15] <= 1'b1;							// Enable the ALU
 							cpucycle_rst <= 1;								// Reset the cycle
-						end
+						end*/
 						22: // SWAP (Second Step)
 						begin
 							dbus_rnum_dst <= 5'd0 + SRCCON[2:0];	// Select the src reg for the data bus
