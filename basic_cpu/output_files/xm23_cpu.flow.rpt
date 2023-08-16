@@ -1,5 +1,5 @@
 Flow report for xm23_cpu
-Wed Aug  9 18:34:12 2023
+Tue Aug 15 20:10:44 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -41,18 +41,18 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +------------------------------------+------------------------------------------------+
-; Flow Status                        ; Successful - Wed Aug  9 18:34:12 2023          ;
+; Flow Status                        ; Successful - Tue Aug 15 20:10:44 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; xm23_cpu                                       ;
 ; Top-level Entity Name              ; xm23_cpu                                       ;
 ; Family                             ; Cyclone IV E                                   ;
 ; Device                             ; EP4CE115F29C7                                  ;
 ; Timing Models                      ; Final                                          ;
-; Total logic elements               ; 2,840 / 114,480 ( 2 % )                        ;
-;     Total combinational functions  ; 2,751 / 114,480 ( 2 % )                        ;
-;     Dedicated logic registers      ; 550 / 114,480 ( < 1 % )                        ;
-; Total registers                    ; 550                                            ;
-; Total pins                         ; 104 / 529 ( 20 % )                             ;
+; Total logic elements               ; 2,828 / 114,480 ( 2 % )                        ;
+;     Total combinational functions  ; 2,727 / 114,480 ( 2 % )                        ;
+;     Dedicated logic registers      ; 560 / 114,480 ( < 1 % )                        ;
+; Total registers                    ; 560                                            ;
+; Total pins                         ; 105 / 529 ( 20 % )                             ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 524,288 / 3,981,312 ( 13 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                                ;
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 08/09/2023 18:31:51 ;
+; Start date & time ; 08/15/2023 20:07:50 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; xm23_cpu            ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------+----------------------------------------+---------------+-------------------+-----------------------------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name       ; Section Id                        ;
 +-------------------------------------+----------------------------------------+---------------+-------------------+-----------------------------------+
-; COMPILER_SIGNATURE_ID               ; 4681950980424.169161671117676          ; --            ; --                ; --                                ;
+; COMPILER_SIGNATURE_ID               ; 4681950980424.169214087014104          ; --            ; --                ; --                                ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                    ; --            ; --                ; eda_board_design_timing           ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                    ; --            ; --                ; eda_board_design_boundary_scan    ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                    ; --            ; --                ; eda_board_design_signal_integrity ;
@@ -120,12 +120,12 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:16     ; 1.0                     ; 4873 MB             ; 00:00:18                           ;
-; Fitter               ; 00:01:54     ; 1.0                     ; 5901 MB             ; 00:01:43                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4733 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:04     ; 2.3                     ; 4932 MB             ; 00:00:03                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4673 MB             ; 00:00:01                           ;
-; Total                ; 00:02:17     ; --                      ; --                  ; 00:02:07                           ;
+; Analysis & Synthesis ; 00:00:14     ; 1.0                     ; 4829 MB             ; 00:00:17                           ;
+; Fitter               ; 00:02:28     ; 1.0                     ; 5901 MB             ; 00:02:14                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4730 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:05     ; 2.3                     ; 4931 MB             ; 00:00:03                           ;
+; EDA Netlist Writer   ; 00:00:00     ; 1.0                     ; 4673 MB             ; 00:00:01                           ;
+; Total                ; 00:02:50     ; --                      ; --                  ; 00:02:37                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

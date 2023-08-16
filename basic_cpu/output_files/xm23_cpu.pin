@@ -144,7 +144,7 @@ HEX5[2]                      : AB18      : output : 2.5 V             :         
 HEX4[0]                      : AB19      : output : 2.5 V             :         : 4         : Y              
 HEX3[2]                      : AB20      : output : 2.5 V             :         : 4         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB21      :        :                   :         : 4         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AB22      :        :                   :         : 4         :                
+GPIO                         : AB22      : input  : 2.5 V             :         : 4         : Y              
 SW[12]                       : AB23      : input  : 2.5 V             :         : 5         : Y              
 SW[11]                       : AB24      : input  : 2.5 V             :         : 5         : Y              
 SW[9]                        : AB25      : input  : 2.5 V             :         : 5         : Y              

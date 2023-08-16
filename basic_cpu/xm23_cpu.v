@@ -1,7 +1,8 @@
-module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50);
+module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO);
 	input [17:0] SW;
 	input [3:0] KEY;
 	input CLOCK_50;
+	input GPIO;
 	output wire [5:0] LEDG;
 	output wire [15:0] LEDR;
 	output reg [1:0] LEDR16_17;
@@ -108,7 +109,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	
 	//assign Clock = (execution_type == 1'b0) ? KEY[0] : CLOCK_50;
-	assign Clock = KEY[0];
+	assign Clock = GPIO;
 	assign mar_mem_bus = mar[15:0];
 	assign mem_ub_addr = (psw_data[3] == 1'b0) ? (mar[15:0] + 1) : (addr + 1);
 	assign mem_lb_addr = (psw_data[3] == 1'b0) ? mar[15:0] : addr;
@@ -126,8 +127,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	assign sxt_E = enables[13];
 	assign bm_E = enables[12];
 	
-	assign nib4 = d_bus[3:0];
-	assign nib5 = sxt_out[3:0];
+	assign nib4 = cu_out2[3:0];
+	assign nib5 = cu_out3[3:0];
 	assign nib6 = s_bus[3:0];
 	assign nib7 = cu_out1;
 	
