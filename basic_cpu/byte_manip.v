@@ -11,7 +11,7 @@ module byte_manip(op, dst_in, dst_out, byte_val, E);
 	reg [15:0] high_set = 16'hff00;
 	reg [7:0] temp;
 	
-	always @(posedge E) begin
+	always @(op, dst_in, byte_val) begin
 		dst_val = dst_in[15:0];
 		case(op)
 			0: 	begin	// MOVL

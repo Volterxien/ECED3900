@@ -43,6 +43,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	
 	reg [15:0] psw;
 	reg [3:0] cpucycle;
+	reg [6:0] step;
 	reg [7:0] cex_state;					// [1b for CEX in progress (1 = in progress, 0 = not in progress), 
 											// 1b for code result, 3b for true count, 3b for false count]
 	reg [3:0] code;
@@ -55,6 +56,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	initial begin
 		psw = 16'h60e0;						// Initialize PSW to default values
 		cpucycle = 4'b0001;					// Initialize CPU cycle
+		step = 7'b0001;						// Initialize CPU cycle
 		cex_state = 8'b00000000;			// Initialize CEX state
 		brkpnt_set = 1'b0;					// Initialize Breakpoint set state
 		s_bus_ctrl = 1'b0;					// Initialize S-bus control to use Reg File
@@ -66,22 +68,36 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	assign cpucycle_new = cpucycle;
 	assign cu_out1 = cpucycle;
 	assign cu_out2 = brkpnt[3:0];
-	assign cu_out3 = data_bus_ctrl[3:0];
+	assign cu_out3 = cpucycle_new;
 	
 	always @(negedge clock) begin
 		if (cpucycle_rst == 1'b1)
-			cpucycle <= 1;						// Reset the cycle
+			step = 7'b1;
 		else begin
 			if (brkpnt_set == 1'b0)				// Do only if breakpoint not reached
-				cpucycle <= cpucycle_new + 1;	// Increment CPU cycle
+				step = step << 1;				// Increment CPU cycle	
 		end
+		if (step[0])
+			cpucycle <= 4'd1;
+		else if (step[1])
+			cpucycle <= 4'd2;
+		else if (step[2])
+			cpucycle <= 4'd3;
+		else if (step[3])
+			cpucycle <= 4'd4;
+		else if (step[4])
+			cpucycle <= 4'd5;
+		else if (step[5])
+			cpucycle <= 4'd6;
+		else if (step[6])
+			cpucycle <= 4'd7;
 	end
 
 	always @(posedge clock) begin
 		psw = psw_in[15:0];
 		enables <= 16'h0000;			// Clear all enables
 		ctrl_reg_bus <= 3'b000;			// Set to read only
-		data_bus_ctrl = 7'b1111111;	// Make an invalid option
+		data_bus_ctrl = 7'b1111111;		// Make an invalid option
 		addr_bus_ctrl <= 7'b1111111;	// Make an invalid option
 		psw_bus_ctrl <= 2'b11;			// Make an invalid option
 		psw_update <= 1'b0;				// Set to default of not updating
@@ -116,7 +132,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 				2: /* Finish Fetching from Memory (Add 2 to PC) */
 				begin
 					enables[15] <= 1'b1;			// Enable the ALU
-					data_bus_ctrl = 7'b0011001;	// Write ALU output to PC
+					data_bus_ctrl = 7'b0011001;		// Write ALU output to PC
 				end
 				3: /* Finish Fetching from Memory (Add 2 to PC) */
 				begin
@@ -187,6 +203,9 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							psw_update <= 1'b1;								// Set ALU to update the PSW
 							s_bus_ctrl <= 1'b0;								// Use the register file on the S-bus for the ALU
 							alu_op <= ((OP[6:0] - 6'd9)<<1) + WB;			// Set ALU operation
+							data_bus_ctrl = 7'b0011001 + (WB<<6);			// Write ALU output to register file
+							enables[15] <= 1'b1;							// Enable the ALU
+							cpucycle_rst <= 1;								// Reset the cycle
 						end
 						21:	// MOV
 						begin
@@ -361,12 +380,12 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 							enables[15] <= 1'b1;			// Enable the ALU
 							cpucycle_rst <= 1;				// Reset the cycle
 						end
-						9,10,11,12,13,14,15,16,17,18,19,20: // ADD to BIS
+						/*9,10,11,12,13,14,15,16,17,18,19,20: // ADD to BIS
 						begin
 							data_bus_ctrl = 7'b0011001 + (WB<<6);			// Write ALU output to register file
 							enables[15] <= 1'b1;							// Enable the ALU
 							cpucycle_rst <= 1;								// Reset the cycle
-						end
+						end*/
 						22: // SWAP (Second Step)
 						begin
 							dbus_rnum_dst <= 5'd0 + SRCCON[2:0];	// Select the src reg for the data bus
@@ -444,6 +463,8 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						cpucycle_rst <= 1;	// Reset the cycle
 					endcase
 				end
+				default
+					cpucycle_rst <= 1;	// Reset the cycle
 			endcase
 		end
 		else

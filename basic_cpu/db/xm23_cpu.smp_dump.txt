@@ -1,0 +1,10 @@
+
+State Machine - |xm23_cpu|control_unit:ctrl_unit|cpucycle
+Name cpucycle.0111 cpucycle.0110 cpucycle.0101 cpucycle.0100 cpucycle.0011 cpucycle.0010 cpucycle.0001 
+cpucycle.0001 0 0 0 0 0 0 0 
+cpucycle.0010 0 0 0 0 0 1 1 
+cpucycle.0011 0 0 0 0 1 0 1 
+cpucycle.0100 0 0 0 1 0 0 1 
+cpucycle.0101 0 0 1 0 0 0 1 
+cpucycle.0110 0 1 0 0 0 0 1 
+cpucycle.0111 1 0 0 0 0 0 1 

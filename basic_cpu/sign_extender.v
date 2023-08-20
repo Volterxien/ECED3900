@@ -7,7 +7,7 @@ module sign_extender(in, out, msb_num, shift_first, E);
 	reg [15:0] extension = 16'hffff;
 	reg [15:0] intermediate;
 	
-	always @(posedge E) begin
+	always @(in, msb_num, shift_first) begin
 		if (shift_first)
 			intermediate = in[15:0] << 1;
 		else

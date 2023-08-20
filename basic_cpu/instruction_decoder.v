@@ -1,7 +1,6 @@
-module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, FLTo, Clock);
+module instruction_decoder (Instr, E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, FLTo, Clock);
 	input [15:0] Instr;
 	input E;
-	input FLTi;	// Needed?
 	input Clock;
 	
 	output reg [6:0] OP;
