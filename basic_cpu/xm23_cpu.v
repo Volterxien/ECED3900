@@ -19,7 +19,9 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	// Guide for memory initialization: https://projectf.io/posts/initialize-memory-in-verilog/
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
 
-	reg [15:0] reg_file [0:16];
+	reg [15:0] reg_file [0:16];			// Declare the register file
+	reg [15:0] int_vect_psws [0:15];	// Declare the table for interrupt vector PSW addresses
+	reg [15:0] int_vect_pcs [0:15];		// Declare the table for interrupt vector entry addresses
 	reg [15:0] instr_reg, mar, mdr, psw_in;
 	reg [15:0] data_bus, addr_bus;
 	reg [2:0] ctrl_reg;
@@ -34,7 +36,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		reg_file[3] = 16'd0;
 		reg_file[4] = 16'd0;
 		reg_file[5] = 16'd0;
-		reg_file[6] = 16'd0;
+		reg_file[6] = 16'h0800;
 		reg_file[7] = 16'd0;
 		reg_file[8] = 16'd0;
 		reg_file[9] = 16'd1;
@@ -46,10 +48,42 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		reg_file[15] = 16'hffff;
 		reg_file[16] = 16'h0000;
 		ctrl_reg = 3'b000;
-		bkpnt = 16'h0004;
+		bkpnt = 16'h00f2;
 		psw_in = 16'h60e0;
 		mar = 16'h0000;
 		mdr = 16'h0000;
+		int_vect_psws[0] = 16'hffc0;
+		int_vect_pcs[0] = 16'hffc2;
+		int_vect_psws[1] = 16'hffc4;
+		int_vect_pcs[1] = 16'hffc6;
+		int_vect_psws[2] = 16'hffc8;
+		int_vect_pcs[2] = 16'hffca;
+		int_vect_psws[3] = 16'hffcc;
+		int_vect_pcs[3] = 16'hffce;
+		int_vect_psws[4] = 16'hffd0;
+		int_vect_pcs[4] = 16'hffd2;
+		int_vect_psws[5] = 16'hffd4;
+		int_vect_pcs[5] = 16'hffd6;
+		int_vect_psws[6] = 16'hffd8;
+		int_vect_pcs[6] = 16'hffda;
+		int_vect_psws[7] = 16'hffdc;
+		int_vect_pcs[7] = 16'hffde;
+		int_vect_psws[8] = 16'hffe0;
+		int_vect_pcs[8] = 16'hffe2;
+		int_vect_psws[9] = 16'hffe4;
+		int_vect_pcs[9] = 16'hffe6;
+		int_vect_psws[10] = 16'hffe8;
+		int_vect_pcs[10] = 16'hffea;
+		int_vect_psws[11] = 16'hffec;
+		int_vect_pcs[11] = 16'hffee;
+		int_vect_psws[12] = 16'hfff0;
+		int_vect_pcs[12] = 16'hfff2;
+		int_vect_psws[13] = 16'hfff4;
+		int_vect_pcs[13] = 16'hfff6;
+		int_vect_psws[14] = 16'hfff8;
+		int_vect_pcs[14] = 16'hfffa;
+		int_vect_psws[15] = 16'hfffc;
+		int_vect_pcs[15] = 16'hfffe;
 	end
 	
 	wire Clock;
@@ -92,7 +126,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	wire PRPO;
 	wire DEC;
 	wire INC;
-	wire FLTo;
+	wire ID_FLTo;
 	
 	wire psw_update;
 	
@@ -146,9 +180,9 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	
 	byte_manip byte_manipulator(bm_op, bm_in, bm_out, ImByte, bm_E);
 	
-	instruction_decoder ID(instr_reg, id_E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, FLTo, Clock);
+	instruction_decoder ID(instr_reg, id_E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, ID_FLTo, Clock);
 	
-	control_unit ctrl_unit(Clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
+	control_unit ctrl_unit(Clock, ID_FLTo, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
 							enables, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
 							breakpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3);
@@ -207,6 +241,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				mdr <= reg_file[dbus_rnum_src[4:0]][15:0];
 			else if (data_bus_ctrl[5:3] == 3'b011)			// Read from ALU Output into MDR
 				mdr = alu_out[15:0];
+			else if (data_bus_ctrl[5:3] == 3'b100)			// Read from PSW into MDR
+				mdr = psw_data[15:0];
 		end
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
 			if (data_bus_ctrl[5:3] == 3'b000)				// Read from MDR into Register File
@@ -246,6 +282,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				mar = reg_file[addr_rnum_src[4:0]][15:0];
 			else if (addr_bus_ctrl[5:3] == 3'b011) 			// Read from ALU Output into MAR
 				mar = alu_out[15:0];
+			else if (addr_bus_ctrl[5:3] == 3'b100)			// Read from Interrupt Vector addresses
+				mar = 16'hffc0 + (vect_num[3:0] << 2) + PSW_ENT[1:0];	// Determine address from vector number and option
 		end	
 	end
 endmodule

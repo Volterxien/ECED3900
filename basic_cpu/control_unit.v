@@ -23,8 +23,8 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 	input INC;
 	input [15:0] psw_in;
 	input clock;
-	
 	input FLTi;
+	
 	output reg [15:0] enables; 						// [ALU_E, ID_E, SXT_E, BM_E,
 	output reg [2:0] ctrl_reg_bus; 					// [ENA, R/W, W/B]
 	output reg [6:0] data_bus_ctrl, addr_bus_ctrl; 	// [1b for W/B, 2b for src, 2b for dst (Codes: 0=MDR/MAR, 1=Reg File, 2=IR, 3=ALU)]
@@ -106,8 +106,7 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 		if (PC[15:0] != brkpnt[15:0])
 			brkpnt_set = 1'b0;
 		
-		if (brkpnt_set == 1'b0) begin
-			psw[3] = 1'b0;				// Execution in progress (SLP bit clear)
+		if ((brkpnt_set == 1'b0) && (psw[3] == 1'b0)) begin
 			case(cpucycle)
 				1: /* Fetch */
 				begin
@@ -120,7 +119,6 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 						alu_op <= 5'b00000;				// Add 2 to PC
 						addr_rnum_src <= 5'd7;			// Select the PC to write to the MAR
 						addr_bus_ctrl <= 7'b0001000;	// Write PC to MAR
-						//data_bus_ctrl = 7'b0011001;	// Write ALU output to PC
 						ctrl_reg_bus <= 3'b000;			// Read memory from MAR address to MDR
 					end
 					else begin
@@ -467,8 +465,6 @@ module control_unit(clock, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB
 					cpucycle_rst <= 1;	// Reset the cycle
 			endcase
 		end
-		else
-			psw[3] = 1'b1;					// Execution not in progress (SLP bit set)
 	end
 		
 
