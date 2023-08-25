@@ -1,7 +1,7 @@
-module sign_extender(in, out, msb_num, shift_first, E);
+module sign_extender(in, out, msb_num, shift_first);
 	input [15:0] in;
 	input [3:0] msb_num;
-	input shift_first, E;
+	input shift_first;
 	output reg [15:0] out;
 	
 	reg [15:0] extension = 16'hffff;

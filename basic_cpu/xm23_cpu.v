@@ -20,8 +20,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
 
 	reg [15:0] reg_file [0:16];			// Declare the register file
-	reg [15:0] int_vect_psws [0:15];	// Declare the table for interrupt vector PSW addresses
-	reg [15:0] int_vect_pcs [0:15];		// Declare the table for interrupt vector entry addresses
 	reg [15:0] instr_reg, mar, mdr, psw_in;
 	reg [15:0] data_bus, addr_bus;
 	reg [2:0] ctrl_reg;
@@ -52,38 +50,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		psw_in = 16'h60e0;
 		mar = 16'h0000;
 		mdr = 16'h0000;
-		int_vect_psws[0] = 16'hffc0;
-		int_vect_pcs[0] = 16'hffc2;
-		int_vect_psws[1] = 16'hffc4;
-		int_vect_pcs[1] = 16'hffc6;
-		int_vect_psws[2] = 16'hffc8;
-		int_vect_pcs[2] = 16'hffca;
-		int_vect_psws[3] = 16'hffcc;
-		int_vect_pcs[3] = 16'hffce;
-		int_vect_psws[4] = 16'hffd0;
-		int_vect_pcs[4] = 16'hffd2;
-		int_vect_psws[5] = 16'hffd4;
-		int_vect_pcs[5] = 16'hffd6;
-		int_vect_psws[6] = 16'hffd8;
-		int_vect_pcs[6] = 16'hffda;
-		int_vect_psws[7] = 16'hffdc;
-		int_vect_pcs[7] = 16'hffde;
-		int_vect_psws[8] = 16'hffe0;
-		int_vect_pcs[8] = 16'hffe2;
-		int_vect_psws[9] = 16'hffe4;
-		int_vect_pcs[9] = 16'hffe6;
-		int_vect_psws[10] = 16'hffe8;
-		int_vect_pcs[10] = 16'hffea;
-		int_vect_psws[11] = 16'hffec;
-		int_vect_pcs[11] = 16'hffee;
-		int_vect_psws[12] = 16'hfff0;
-		int_vect_pcs[12] = 16'hfff2;
-		int_vect_psws[13] = 16'hfff4;
-		int_vect_pcs[13] = 16'hfff6;
-		int_vect_psws[14] = 16'hfff8;
-		int_vect_pcs[14] = 16'hfffa;
-		int_vect_psws[15] = 16'hfffc;
-		int_vect_pcs[15] = 16'hfffe;
 	end
 	
 	wire Clock;
@@ -96,14 +62,14 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	wire [1:0] mem_mode;
 	wire [15:0] mem_data, reg_data, psw_data;
 	wire [15:0] mar_mem_bus, mdr_mem_bus;
-	wire [15:0] sxt_in, sxt_out, alu_psw_out, psw_out, enables;
+	wire [15:0] sxt_in, sxt_out, alu_psw_out, psw_out;
 	wire [15:0] bm_in, bm_out;
 	wire [2:0] bm_op;
 	wire [5:0] alu_op;
 	wire [15:0] s_bus, d_bus, alu_out;
 	wire [2:0] CR_bus;
 	wire [3:0] cu_out1, cu_out2, cu_out3;
-	wire sxt_E, bm_E, alu_E, id_E;
+	wire id_E, ID_en;
 	wire sxt_shift;
 	
 	wire [15:0] mem_ub_addr, mem_lb_addr;
@@ -127,6 +93,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	wire DEC;
 	wire INC;
 	wire ID_FLTo;
+	wire [3:0] vect_num;
 	
 	wire psw_update;
 	
@@ -155,11 +122,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	assign sxt_in = (sxt_bus_ctrl == 1'b0) ? reg_file[sxt_rnum[3:0]][15:0] : OFF[12:0];
 	assign s_bus = (s_bus_ctrl == 1'b0) ? reg_file[alu_rnum_src[4:0]][15:0] : sxt_out[15:0];
 	
-	// Assign enables
-	assign alu_E = enables[15];
-	assign id_E = enables[14];
-	assign sxt_E = enables[13];
-	assign bm_E = enables[12];
+	// Assign enable
+	assign id_E = ID_en;
 	
 	assign nib4 = cu_out2[3:0];
 	assign nib5 = cu_out3[3:0];
@@ -176,16 +140,16 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 
 	view_data data_viewer(mem_data, reg_data, psw_data, addr, KEY[3], mem_mode, HEX0, HEX1, HEX2, HEX3, LEDG, LEDR);
 	
-	sign_extender sxt_ext(sxt_in, sxt_out, sxt_bit_num, sxt_shift, sxt_E);
+	sign_extender sxt_ext(sxt_in, sxt_out, sxt_bit_num, sxt_shift);
 	
-	byte_manip byte_manipulator(bm_op, bm_in, bm_out, ImByte, bm_E);
+	byte_manip byte_manipulator(bm_op, bm_in, bm_out, ImByte);
 	
 	instruction_decoder ID(instr_reg, id_E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, ID_FLTo, Clock);
 	
 	control_unit ctrl_unit(Clock, ID_FLTo, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
-							enables, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
+							ID_en, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
-							breakpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3);
+							breakpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT);
 	
 	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, alu_E, psw_update);
 	
@@ -226,6 +190,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			psw_in <= alu_psw_out[15:0];
 		else if (psw_bus_ctrl == 2'b01)
 			psw_in <= mdr[15:0];
+		else if (psw_bus_ctrl == 2'b10)
+			psw_in <= reg_file[dbus_rnum_src[4:0]][15:0];
 		else if (psw_bus_ctrl == 2'b11)
 			psw_in <= psw_data[15:0];
 	end

@@ -1,8 +1,7 @@
 // PSW V S N Z C
 // TODO change carry bit -> PSW_i[0] for full implementation
 // TODO add dadd.b bit bis bic after meeting
-module alu (op1, op2, result, instr, PSW_i, PSW_o, E, instr_opt);
-	input E;
+module alu (op1, op2, result, instr, PSW_i, PSW_o, instr_opt);
 	input instr_opt;	// Whether the instruction is meant to update the PSW or not
 	input [15:0] op1;
 	input [15:0] op2;
