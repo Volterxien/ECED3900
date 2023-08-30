@@ -1,7 +1,8 @@
 module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
 					ID_en, ctrl_reg_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 					psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
-					brkpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT);
+					brkpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT, cex_state_out,
+					cex_in);
 	
 	// Instruction Decoder Parameters
 	input [15:0] PC;
@@ -24,6 +25,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	input [15:0] psw_in;
 	input clock;
 	input ID_FLT;
+	input [7:0] cex_in;
 	
 	output reg ID_en; 
 	output reg [2:0] ctrl_reg_bus; 					// [ENA, R/W, W/B]
@@ -42,9 +44,11 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	output wire [3:0] cu_out1, cu_out2, cu_out3;
 	output reg [3:0] vect_num;
 	output wire [1:0] PSW_ENT;
+	output wire [7:0] cex_state_out;
 	
 	reg [15:0] psw;
 	reg [3:0] cpucycle;
+	reg [3:0] iv_cnt;
 	reg [6:0] step, cpu_OP;
 	reg cpu_WB, cpu_INC, cpu_DEC;
 	reg [7:0] cex_state;					// [1b for CEX in progress (1 = in progress, 0 = not in progress), 
@@ -52,10 +56,14 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	reg [3:0] code;
 	reg cpucycle_rst;						// Reset the CPU cycle (1 = reset, 0 = do not reset)
 	reg brkpnt_set;							// 1 if breakpoint reached, 0 if not reached
-	reg int_vect_cnt_rst, PC_FLT, DBL_FLT, PRI_FLT;
-	wire [15:0] iv_flags;
+	reg int_vect_cnt_rst, PC_FLT, DBL_FLT, PRI_FLT, iv_enter, iv_return;
 	
-	reg operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, clear_cex;
+	wire [15:0] iv_flags;
+	wire [2:0] prev_priority;
+	wire [1:0] psw_bus_ctrl_iv;
+	wire iv_cnt_rst, psw_entry_update, clear_cex, load_cex, clr_slp_bit, rec_pre_pri;
+	
+	reg operands, word_byte, inc_iv, dec_iv, iv_cpu_rst;
 	reg [6:0] data_bus_ctrl_iv, addr_bus_ctrl_iv, OP_iv;
 	reg [1:0] PSW_ENT;
 	reg [4:0] data_src_iv, addr_src_iv, data_dst_iv;
@@ -66,7 +74,8 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	initial begin
 		psw = 16'h60e0;						// Initialize PSW to default values
 		cpucycle = 4'b0001;					// Initialize CPU cycle
-		step = 7'b0001;						// Initialize CPU cycle
+		step = 7'b0001;						// Initialize CPU step register
+		iv_cnt = 4'b0;						// Initialize the Interrupt Vector Routine Counter
 		cex_state = 8'b00000000;			// Initialize CEX state
 		brkpnt_set = 1'b0;					// Initialize Breakpoint set state
 		s_bus_ctrl = 1'b0;					// Initialize S-bus control to use Reg File
@@ -88,19 +97,27 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	assign iv_flags[8] = ID_FLT;
 	assign iv_flags[9] = PC_FLT;
 	
-	int_vect_entry iv_ent(counter, clock, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, 
-						  clear_cex, PSW_ENT, data_src_iv, addr_src_iv, data_dst_iv, OP_iv, iv_flags);
+	int_vect_entry iv_ent(iv_cnt, clock, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, 
+						  clear_cex, PSW_ENT, data_src_iv, addr_src_iv, data_dst_iv, OP_iv, iv_flags, 
+						  iv_cnt_rst, iv_enter, iv_return, load_cex, clr_slp_bit, rec_pre_pri,
+						  psw_bus_ctrl_iv);
 	
 	
 	always @(negedge clock) begin
 		if (cpucycle_rst == 1'b1)
-			step = 7'b1;
+			step = 7'b1;						// Reset the CPU cycle
 		else if (iv_cpu_rst == 1'b1)
 			step = 7'b10000
 		else begin
 			if (brkpnt_set == 1'b0)				// Do only if breakpoint not reached
 				step = step << 1;				// Increment CPU cycle	
 		end
+		
+		if (iv_flags != 16'b0)
+			iv_cnt = iv_cnt + 1;				// Increment interrupt vector counter
+		else if (iv_cnt_rst == 1'b1)
+			iv_cnt = 4'b0;						// Reset the counter
+		
 		if (step[0])
 			cpucycle <= 4'd1;
 		else if (step[1])
@@ -132,14 +149,39 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 		
 		if (clear_cex == 1'b1)
 			cex_state = 8'd0;			// Clear the CEX if signaled to
+			
+		if (clr_slp_bit == 1'b1)		// Clear the PSW SLP bit
+			psw[3] = 1'b0;
+		
+		if (rec_pre_pri == 1'b1)		// Record the PSW previous priority
+			prev_priority = psw[7:5];
+		
+		if (psw_entry_update == 1'b1)	// Update the new PSW's previous priority
+			psw[15:13] = prev_priority[2:0];
+			
+		if (load_cex == 1'b1)
+			cex_state = cex_in[7:0];	// Load the CEX state from memory
+		
+		if (iv_cnt_rst == 1'b1) begin
+			iv_enter <= 1'b0;			// Clear the entry enable
+			iv_return <= 1'b0;			// Clear the return enable
+		end
 		
 		if ((brkpnt_set == 1'b0) && (psw[3] == 1'b0)) begin
 			case(cpucycle)
 				1: /* Fetch */
 				begin
-					if (PC[0] == 1'b1)
+					if (PC[15:0] == 16'hffff) begin
+						iv_return <= 1'b1;				// Enter the interrupt vector return routine
+						cpucycle <= 1'b1;				// Reset the CPU cycle
+					end
+					else if (PC[0] == 1'b1) begin
 						PC_FLT <= 1'b1;
 						vect_num <= 4'd9;
+						psw[8] = 1'b1;					// Set the FLT bit
+						iv_enter <= 1'b1;				// Enter the interrupt vector entry routine
+						cpucycle_rst <= 1'b1;			// Reset the CPU cycle
+					end
 					else if (PC[15:0] != brkpnt[15:0]) begin
 						psw_update <= 1'b0;				// Set ALU to not update the PSW for fetching
 						dbus_rnum_dst <= 5'd7;			// Select the PC to read from the data bus
@@ -185,11 +227,18 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 				end
 				5: /* Execute */
 				begin
-					if (ID_FLT == 1'b1)
+					if (ID_FLT == 1'b1) begin
 						vect_num <= 4'd8;
-					cpu_OP = (operands == 1'b0) ? OP[6:0] : OP_iv[6:0];
+						psw[8] = 1'b1;					// Set the FLT bit
+						cpu_OP = 7'd50;					// Set to invalid so nothing executes
+					end
+					else
+						cpu_OP = (operands == 1'b0) ? OP[6:0] : OP_iv[6:0];
+					
 					cpu_WB = (operands == 1'b0) ? WB : word_byte;
 					cpu_INC = (operands == 1'b0) ? INC : inc_iv;
+					dbus_rnum_src <= data_src_iv[4:0];
+					psw_bus_ctrl <= psw_bus_ctrl_iv[1:0];
 					case(cpu_OP)
 						0: // BL (Multi-step)
 						begin
@@ -241,7 +290,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							dbus_rnum_dst <= (operands == 1'b0) ? (5'd0 + DST[2:0]) : data_dst_iv[4:0];				// Select the destination register for the data bus
 							dbus_rnum_src <= (operands == 1'b0) ? (5'd0 + SRCCON[2:0]) : data_src_iv[4:0];			// Select the source register for the data bus
 							data_bus_ctrl = (operands == 1'b0) ? (7'b0001001 + (WB<<6)) : data_bus_ctrl_iv[6:0];	// Write the src register to the dst register
-							cpucycle_rst <= 1;	// Reset the cycle
+							cpucycle_rst <= (operands == 1'b0) ? 1'b1 : 1'b0;										// Reset the cycle
 						end
 						22:	// SWAP (Multi-step)
 						begin
@@ -283,16 +332,16 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 						begin
 							if (PR[2:0] < psw[7:5])					// If new priority less than current priority
 								psw[7:5] <= PR[2:0];				// Set current priority to new priority
-								cpucycle_rst <= 1'b1;				// Reset the cycle
 							else
 								// Fault
 								PRI_FLT <= 1'b1;
-								iv_cpu_rst <= 1'b1;					// Set the CPU cycle number to 5
-								
+								vect_num <= 4'd10;
+								psw[8] = 1'b1;					// Set the FLT bit
+							cpucycle_rst <= 1'b1;					// Reset the cycle
 						end
 						29:	// SVC
 						begin
-							// Leaving blank for now
+							
 						end
 						30:	// SETCC
 						begin
@@ -309,7 +358,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							code = C[3:0];
 							cex_code(psw, code);
 							cex_state[7] = 1'b1;					// Set the CEX state to active
-							cex_state[6] = code_result;			// Assign the result of the code
+							cex_state[6] = code_result;				// Assign the result of the code
 							cex_state[5:3] = T[2:0];
 							cex_state[2:0] = F[2:0];
 							cpucycle_rst <= 1;						// Reset the cycle
@@ -392,6 +441,8 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							dbus_rnum_src <= 5'd0 + SRCCON[2:0];	// Select the src reg for the data bus
 							addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
 						end
+						default:
+							cpucycle_rst <= 1'b1;
 					endcase
 				end
 				6:
@@ -414,7 +465,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 						begin
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							data_bus_ctrl = 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
-							ctrl_reg_bus <= 3'b000 + (WB<<2);		// Read memory from MAR address to MDR
+							ctrl_reg_bus <= (operands == 1'b0) ? (3'b000 + (WB<<2)) : 3'b000;		// Read memory from MAR address to MDR
 						end
 						34: // ST (Second Step)
 						begin
@@ -466,11 +517,11 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							data_bus_ctrl = 7'b0011001;				// Write the ALU output to the register file
 							dbus_rnum_dst <= 5'd0 + SRCCON[2:0];	// Select the dst reg for the data bus
 						end
-						cpucycle_rst <= 1;	// Reset the cycle
+						cpucycle_rst <= (operands == 1'b0) ? 1'b1 : 1'b0;	// Reset the cycle
 					end
 					34:	// ST (Third Step)
 						// Wait for memory write to complete
-						cpucycle_rst <= 1;	// Reset the cycle
+						cpucycle_rst <= (operands == 1'b0) ? 1'b1 : 1'b0;	// Reset the cycle
 					39:	// LDR (Third Step)
 						// Wait for memory write to complete
 						cpucycle_rst <= 1;	// Reset the cycle

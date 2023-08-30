@@ -94,6 +94,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	wire INC;
 	wire ID_FLTo;
 	wire [3:0] vect_num;
+	wire [7:0] cex_state_out, cex_state_in;
 	
 	wire psw_update;
 	
@@ -102,6 +103,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	assign addr = SW[15:0];
 	assign breakpnt = bkpnt[15:0];
 	assign PC = reg_file[7][15:0];
+	assign cex_state_in = mdr[7:0];
 	
 	assign mem_mode[1:0] = KEY[2:1];
 	
@@ -149,7 +151,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	control_unit ctrl_unit(Clock, ID_FLTo, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
 							ID_en, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
-							breakpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT);
+							breakpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT, cex_state_out,
+							cex_state_in);
 	
 	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, alu_E, psw_update);
 	
@@ -209,6 +212,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				mdr = alu_out[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b100)			// Read from PSW into MDR
 				mdr = psw_data[15:0];
+			else if (data_bus_ctrl[5:3] == 3'b101)			// Read from CEX into MDR
+				mdr = 16'h0 + cex_state[7:0];
 		end
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
 			if (data_bus_ctrl[5:3] == 3'b000)				// Read from MDR into Register File

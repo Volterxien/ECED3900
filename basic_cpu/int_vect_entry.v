@@ -1,12 +1,15 @@
 module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, 
 						clear_cex, PSW_ENT, data_src_iv, addr_src_iv, data_dst_iv, inst_type,
-						iv_flags);
+						iv_flags, rst_counter, iv_enter, iv_return, load_cex, clr_slp_bit, rec_pre_pri,
+						psw_bus_ctrl_iv);
 	input [3:0] counter;
 	input [15:0] iv_flags;
+	input iv_enter, iv_return;
 	
-	output reg operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, clear_cex;
+	output reg operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, clear_cex, rst_counter;
+	output reg load_cex, clr_slp_bit, rec_pre_pri;
 	output reg [6:0] data_bus_ctrl_iv, addr_bus_ctrl_iv, inst_type;
-	output reg [1:0] PSW_ENT;
+	output reg [1:0] PSW_ENT, psw_bus_ctrl_iv;
 	output reg [4:0] data_src_iv, addr_src_iv, data_dst_iv;
 	
 	wire E;
@@ -16,108 +19,180 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 	always @(counter, E) begin
 		operands = 1'b0;					// Default to using operands from instruction decoder
 		clear_cex = 1'b0;					// Default to not clearing the CEX state
+		load_cex = 1'b0;					// Default to not loading value of CEX from MDR
+		clr_slp_bit = 1'b0;					// Default to not clearing the PSW SLP bit
+		iv_cpu_rst <= 1'b0;					// Default to not resetting the CPU to step 5
+		rec_pre_pri = 1'b0;					// Default to not recording the previous priority
 		psw_entry_update = 1'b0;			// Default to not updating the new PSW with new values
+		rst_counter = 1'b0;					// Default to not reset the interrupt vector counter
 		if (E) begin
-			case (counter)
-				0: begin						// Load the PSW of the interrupt vector
-					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd33;					// Use LD.W
-					word_byte <= 1'b0;					// Word operation
-					prpo_iv <= 1'b0;					// No pre/post inc/dec
-					inc_iv <= 1'b0;
-					dec_iv <= 1'b0;
-					data_bus_ctrl_iv <= 7'b0000001;		// Read from MDR into Temp Register
-					addr_bus_ctrl_iv <= 7'b0100000;		// Set the MAR to the address of the vector PSW
-					PSW_ENT <= 2'b00;					// Use the PSW
-					data_dst_iv <= 5'd16;				// Destination for the data bus (temp) (equivalent to DST)
-					iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
-				end
-				1: begin						// Push PC to stack
-					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd34;					// Use ST.W
-					word_byte <= 1'b0;					// Word operation
-					prpo_iv <= 1'b0;					// Post decrement
-					inc_iv <= 1'b0;
-					dec_iv <= 1'b1;
-					data_bus_ctrl_iv <= 7'b0001000;		// Read from PC into MDR
-					addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
-					addr_src_iv <= 5'd6;				// Source for the address bus (SP) (equivalent to DST)
-					data_src_iv <= 5'd7;				// Source for the data bus (PC) (equivalent to SRCCON)
-					data_dst_iv <= 5'd5;				// Destination to update post-dec value
-					iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
-				end
-				2: begin						// Push LR to stack
-					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd34;					// Use ST.W
-					word_byte <= 1'b0;					// Word operation
-					data_bus_ctrl_iv <= 7'b0001000;		// Read from LR into MDR
-					addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
-					prpo_iv <= 1'b0;					// Post decrement
-					inc_iv <= 1'b0;
-					dec_iv <= 1'b1;
-					addr_src_iv<= 5'd6;					// Source for the address bus (SP) (equivalent to DST)
-					data_src_iv <= 5'd5;				// Source for the data bus (LR) (equivalent to SRCCON)
-					data_dst_iv <= 5'd5;				// Destination to update post-dec value
-					iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
-				end
-				3: begin						// Push PSW to stack and record the PSW's current priority
-					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd34;					// Use ST.W
-					word_byte <= 1'b0;					// Word operation
-					prpo_iv <= 1'b0;					// Post decrement
-					inc_iv <= 1'b0;
-					dec_iv <= 1'b1;
-					data_bus_ctrl_iv <= 7'b0100000;		// Read from PSW into MDR
-					addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
-					addr_src_iv<= 5'd6;					// Source for the address bus (SP) (equivalent to DST)
-					data_dst_iv <= 5'd5;				// Destination to update post-dec value
-					iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
-				end
-				4: begin						// Push CEX state to stack
-					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd34;					// Use ST.W
-					word_byte <= 1'b0;					// Word operation
-					prpo_iv <= 1'b0;					// Post decrement
-					inc_iv <= 1'b0;
-					dec_iv <= 1'b1;
-					data_bus_ctrl_iv <= 7'b0101000;		// Read from CEX state into MDR
-					addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
-					addr_src_iv<= 5'd6;					// Source for the address bus (SP) (equivalent to DST)
-					data_dst_iv <= 5'd5;				// Destination to update post-dec value
-					iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
-				end
-				5: begin						// Assign the PSW to the PSW of the vector, clear the SLP bit, 
-												// and assign the previous priority of the new PSW the value of the stored priority
-					psw_bus_ctrl_iv <= 2'b10;			// Use the PSW from the interrupt vector (stored in temp reg
-					data_src_iv <= 5'd16;				// Read the temp register into the PSW
-					psw_entry_update = 1'b1;			// Signal to clear the SLP bit and assign the previous priority of
-														// the new PSW to the value of the stored PSW
-				end
-				6: begin						// Assign the entry point of the handler to the PC
-					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd33;					// Use LD.W
-					word_byte <= 1'b0;					// Word operation
-					prpo_iv <= 1'b0;					// No pre/post inc/dec
-					inc_iv <= 1'b0;
-					dec_iv <= 1'b0;
-					data_bus_ctrl_iv <= 7'b0000001;		// Read from MDR into register file
-					addr_bus_ctrl_iv <= 7'b0100000;		// Set the MAR to the address of the vector PSW
-					PSW_ENT <= 2'b10;					// Use the entry point
-					data_dst_iv <= 5'd7;				// Destination for the data bus (PC) (equivalent to DST)
-					iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
-				end
-				7: begin						// Assign #FFFF to LR
-					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd21;					// Use MOV.W
-					data_dst_iv <= 5'd5;				// Select the destination register for the data bus (LR)
-					data_src_iv <= 5'd15;				// Select the source register for the data bus (-1)
-					data_bus_ctrl_iv <= 7'b0001001;		// Write the src register to the dst register
-					iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
-				end
-				8: begin						// Clear the CEX state
-					clear_cex = 1'b1;					// Signal to clear the CEX state
-				end
-			endcase
+			if (iv_enter == 1'b1) begin			// Entry Routine
+				case (counter)
+					0: begin						// Load the PSW of the interrupt vector
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd33;					// Use LD.W
+						word_byte <= 1'b0;					// Word operation
+						prpo_iv <= 1'b0;					// No pre/post inc/dec
+						inc_iv <= 1'b0;
+						dec_iv <= 1'b0;
+						data_bus_ctrl_iv <= 7'b0000001;		// Read from MDR into Temp Register
+						addr_bus_ctrl_iv <= 7'b0100000;		// Set the MAR to the address of the vector PSW
+						PSW_ENT <= 2'b00;					// Use the PSW
+						data_dst_iv <= 5'd16;				// Destination for the data bus (temp) (equivalent to DST)
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					1: begin						// Push PC to stack
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd34;					// Use ST.W
+						word_byte <= 1'b0;					// Word operation
+						prpo_iv <= 1'b0;					// Post decrement
+						inc_iv <= 1'b0;
+						dec_iv <= 1'b1;
+						data_bus_ctrl_iv <= 7'b0001000;		// Read from PC into MDR
+						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
+						addr_src_iv <= 5'd6;				// Source for the address bus (SP) (equivalent to DST)
+						data_src_iv <= 5'd7;				// Source for the data bus (PC) (equivalent to SRCCON)
+						data_dst_iv <= 5'd6;				// Destination to update post-dec value
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					2: begin						// Push LR to stack
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd34;					// Use ST.W
+						word_byte <= 1'b0;					// Word operation
+						data_bus_ctrl_iv <= 7'b0001000;		// Read from LR into MDR
+						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
+						prpo_iv <= 1'b0;					// Post decrement
+						inc_iv <= 1'b0;
+						dec_iv <= 1'b1;
+						addr_src_iv<= 5'd6;					// Source for the address bus (SP) (equivalent to DST)
+						data_src_iv <= 5'd5;				// Source for the data bus (LR) (equivalent to SRCCON)
+						data_dst_iv <= 5'd5;				// Destination to update post-dec value
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					3: begin						// Push PSW to stack and record the PSW's current priority
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd34;					// Use ST.W
+						word_byte <= 1'b0;					// Word operation
+						prpo_iv <= 1'b0;					// Post decrement
+						inc_iv <= 1'b0;
+						dec_iv <= 1'b1;
+						data_bus_ctrl_iv <= 7'b0100000;		// Read from PSW into MDR
+						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
+						addr_src_iv<= 5'd6;					// Source for the address bus (SP) (equivalent to DST)
+						data_dst_iv <= 5'd5;				// Destination to update post-dec value
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					4: begin						// Push CEX state to stack
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd34;					// Use ST.W
+						word_byte <= 1'b0;					// Word operation
+						prpo_iv <= 1'b0;					// Post decrement
+						inc_iv <= 1'b0;
+						dec_iv <= 1'b1;
+						data_bus_ctrl_iv <= 7'b0101000;		// Read from CEX state into MDR
+						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
+						addr_src_iv <= 5'd6;				// Source for the address bus (SP) (equivalent to DST)
+						data_dst_iv <= 5'd5;				// Destination to update post-dec value
+						rec_pre_pri = 1'b1;					// Record the previous CPU priority
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					5: begin						// Assign the PSW to the PSW of the vector, clear the SLP bit, 
+													// and assign the previous priority of the new PSW the value of the stored priority
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd50;					// Use invalid instruction					
+						psw_bus_ctrl_iv <= 2'b10;			// Use the PSW from the interrupt vector (stored in temp reg
+						data_src_iv <= 5'd16;				// Read the temp register into the PSW
+						psw_entry_update = 1'b1;			// Signal assign the previous priority of the new PSW to the value of the stored PSW
+						clr_slp_bit = 1'b1;					// Clear the SLP bit
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					6: begin						// Assign the entry point of the handler to the PC
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd33;					// Use LD.W
+						word_byte <= 1'b0;					// Word operation
+						prpo_iv <= 1'b0;					// No pre/post inc/dec
+						inc_iv <= 1'b0;
+						dec_iv <= 1'b0;
+						data_bus_ctrl_iv <= 7'b0000001;		// Read from MDR into register file
+						addr_bus_ctrl_iv <= 7'b0100000;		// Set the MAR to the address of the vector PSW
+						PSW_ENT <= 2'b10;					// Use the entry point
+						data_dst_iv <= 5'd7;				// Destination for the data bus (PC) (equivalent to DST)
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					7: begin						// Assign #FFFF to LR
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd21;					// Use MOV.W
+						data_dst_iv <= 5'd5;				// Select the destination register for the data bus (LR)
+						data_src_iv <= 5'd15;				// Select the source register for the data bus (-1)
+						data_bus_ctrl_iv <= 7'b0001001;		// Write the src register to the dst register
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					8: begin						// Clear the CEX state
+						clear_cex = 1'b1;					// Signal to clear the CEX state
+						rst_counter = 1'b1;					// Signal to reset the interrupt vector counter
+					end
+				endcase
+			end
+			else if (iv_return == 1'b1) begin
+				case (counter)
+					0: begin						// Pull the CEX state 
+						inst_type <= 7'd33;					// Use LD.W
+						load_cex = 1'b1;					// Signal to load value of CEX from MDR
+						word_byte <= 1'b0;					// Word operation
+						prpo_iv <= 1'b0;					// Post increment
+						inc_iv <= 1'b1;
+						dec_iv <= 1'b0;
+						data_bus_ctrl_iv <= 7'b0111111;		// Invalid option 
+						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					1: begin						// Pull PSW from stack
+						inst_type <= 7'd33;					// Use LD.W
+						word_byte <= 1'b0;					// Word operation
+						prpo_iv <= 1'b0;					// Post increment
+						inc_iv <= 1'b1;
+						dec_iv <= 1'b0;
+						data_bus_ctrl_iv <= 7'b0111111;		// Invalid option 
+						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
+						psw_bus_ctrl_iv <= 2'b01;			// Read from MDR into PSW
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					2: begin						// Set PSW SLP bit to 0
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd50;					// Use invalid instruction
+						clr_slp_bit = 1'b1;					// Clear the SLP bit
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					3: begin						// Pull LR from stack
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd33;					// Use LD.W
+						word_byte <= 1'b0;					// Word operation
+						data_bus_ctrl_iv <= 7'b0001000;		// Read from MDR into LR
+						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
+						prpo_iv <= 1'b0;					// Post increment
+						inc_iv <= 1'b1;
+						dec_iv <= 1'b0;
+						addr_src_iv<= 5'd6;					// Source for the address bus (SP) (equivalent to SRC)
+						data_dst_iv <= 5'd5;				// Destination for the data bus (LR) (equivalent to DST)
+						data_src_iv <= 5'd6;				// Destination to update post-dec value
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+					end
+					4: begin						// Pull PC from stack
+						operands = 1'b1;					// Utilize operands from interrupt vector entry block
+						inst_type <= 7'd33;					// Use LD.W
+						word_byte <= 1'b0;					// Word operation
+						data_bus_ctrl_iv <= 7'b0001000;		// Read from MDR into PC
+						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
+						prpo_iv <= 1'b0;					// Post increment
+						inc_iv <= 1'b1;
+						dec_iv <= 1'b0;
+						addr_src_iv<= 5'd6;					// Source for the address bus (SP) (equivalent to SRC)
+						data_dst_iv <= 5'd7;				// Destination for the data bus (PC) (equivalent to DST)
+						data_src_iv <= 5'd6;				// Destination to update post-dec value
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
+						rst_counter = 1'b1;					// Signal to reset the interrupt vector counter
+					end
+				endcase
+			end
 		end
 	end
 
