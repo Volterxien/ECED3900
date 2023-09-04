@@ -1,7 +1,8 @@
-Warning (10268): Verilog HDL information at xm23_cpu.v(179): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 179
-Warning (10268): Verilog HDL information at xm23_cpu.v(189): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 189
-Warning (10268): Verilog HDL information at xm23_cpu.v(200): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 200
+Warning (10268): Verilog HDL information at xm23_cpu.v(185): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 185
+Warning (10268): Verilog HDL information at xm23_cpu.v(195): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 195
+Warning (10268): Verilog HDL information at xm23_cpu.v(208): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 208
 Warning (10268): Verilog HDL information at view_data.v(32): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 32
 Warning (10268): Verilog HDL information at instruction_decoder.v(40): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/instruction_decoder.v Line: 40
-Warning (10268): Verilog HDL information at control_unit.v(73): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 73
-Warning (10268): Verilog HDL information at control_unit.v(96): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 96
+Warning (10268): Verilog HDL information at control_unit.v(108): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 108
+Warning (10268): Verilog HDL information at control_unit.v(139): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 139
+Warning (10268): Verilog HDL information at int_vect_entry.v(22): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/int_vect_entry.v Line: 22

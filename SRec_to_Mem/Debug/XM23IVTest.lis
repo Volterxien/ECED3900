@@ -1,0 +1,82 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: XM23IVTest.txt
+Time of assembly: Sun 3 Sep 2023 13:28:33 
+  1	    	     	org #2000	; Exception handler for ILLINST
+  2	2000	4089	add $1,R1
+  3	2002	4092	add $2,R2
+  4	2004	4C2F	mov R5,R7
+  5	    	     	
+  6	    	     	org #6000	; Exception handler for vector 13
+  7	6000	4088	add $1,R0
+  8	6002	40A3	add $8,R3
+  9	6004	4C2F	mov R5,R7
+ 10	    	     	
+ 11	    	     	org #3000	; Exception handler for vector 14
+ 12	3000	480A	or R1,R2
+ 13	3002	4C2F	mov R5,R7
+ 14	    	     	
+ 15	    	     	org #4000	; Exception handler for ILLADDR
+ 16	4000	40A4	add $8,R4	; R4 = 8
+ 17	4002	6042	movl #08,R2
+ 18	4004	7882	movh #1000,R2	; R2 = 1008h
+ 19	4006	C616	str R2,R6,#C	; Set the R7 to the next instruction
+ 20	4008	4C2F	mov R5,R7
+ 21	    	     	
+ 22	    	     	org #5000	; Exception handler for PRIFAULT
+ 23	5000	4787	and $0,R7
+ 24	5002	6125	word #6125	; Illegal instruction in fault
+ 25	5004	4C2F	mov R5,R7
+ 26	    	     	
+ 27	    	     	
+ 28	    	     	org #FFE0 	; Setting up ILLINST fault vector
+ 29	FFE0	0080	word #0080	; running at priority 4
+ 30	FFE2	2000	word #2000
+ 31	    	     	
+ 32	    	     	org #FFE4 	; Setting up ILLADDR fault vector
+ 33	FFE4	0080	word #0080	; running at priority 4
+ 34	FFE6	4000	word #4000
+ 35	    	     	
+ 36	    	     	org #FFE8 	; Setting up PRIFAULT fault vector
+ 37	FFE8	0080	word #0080	; running at priority 4
+ 38	FFEA	5000	word #5000
+ 39	    	     	
+ 40	    	     	org #FFEC 	; Setting up DBLFAULT fault vector
+ 41	FFEC	00A0	word #00A0	; running at priority 5
+ 42	FFEE	6000	word #6000
+ 43	    	     	
+ 44	    	     	org #FFF4
+ 45	FFF4	0080	word #0080	; running at priority 4
+ 46	FFF6	6000	word #6000
+ 47	    	     	
+ 48	    	     	org #FFF8 	; Vector 14 used for SVC
+ 49	FFF8	0020	word #0020	; running at priority 1
+ 50	FFFA	3000	word #3000
+ 51	    	     	
+ 52	    	     	org #1000
+ 53	    	     	Start
+ 54	1000	4088	add $1,R0	; R0 = 1
+ 55	1002	4D83	setpri $3
+ 56	1004	4D9D	svc $13		; R0 = 2, R3 = 8
+ 57	1006	5402	word #5402	; Illegal instruction, R1 = 1, R2 = 2
+ 58	1008	409B	add $4,R3	; R3 = 11
+ 59	100A	408F	add $1,R7	; Illegal address to branch to		
+ 60	100C	40AC	add $16,R4	; R4 = 24
+ 61	100E	4D9E	svc $14		; Cause a priority fault with DBL FLT
+ 62	1010	402D	add R5,R5	; Program execution stops
+ 63	    	     	End Start
+Successful completion of assembly - 1P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+Start                              	REL	1000	4096	PRI
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: C:\Users\mccoy\Documents\ECED3900\SRec_to_Mem\Debug\XM23IVTest.xme
+

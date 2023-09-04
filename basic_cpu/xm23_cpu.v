@@ -35,7 +35,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		reg_file[4] = 16'd0;
 		reg_file[5] = 16'd0;
 		reg_file[6] = 16'h0800;
-		reg_file[7] = 16'd0;
+		reg_file[7] = 16'h1000;
 		reg_file[8] = 16'd0;
 		reg_file[9] = 16'd1;
 		reg_file[10] = 16'd2;
@@ -95,11 +95,16 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	wire ID_FLTo;
 	wire [3:0] vect_num;
 	wire [7:0] cex_state_out, cex_state_in;
+	wire [1:0] PSW_ENT;
+	wire pic_read;
+	wire [7:0] pic_in;
 	
 	wire psw_update;
+	wire [2:0] new_curr_pri;	// Priority of the new interrupt
 	
 	wire [3:0] nib4, nib5, nib6, nib7;
 	
+	assign pic_in = 8'b00000000;
 	assign addr = SW[15:0];
 	assign breakpnt = bkpnt[15:0];
 	assign PC = reg_file[7][15:0];
@@ -117,7 +122,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	assign mem_ub_addr = (psw_data[3] == 1'b0) ? (mar[15:0] + 1) : (addr + 1);
 	assign mem_lb_addr = (psw_data[3] == 1'b0) ? mar[15:0] : addr;
 	
-	
+	assign new_curr_pri = reg_file[16][7:5];	// The new PSW is stored in the temp register (new pri accessed through this)
 	
 	assign d_bus = reg_file[alu_rnum_dst[4:0]][15:0];
 	assign bm_in = reg_file[bm_rnum[3:0]][15:0];
@@ -152,9 +157,9 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 							ID_en, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
 							breakpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT, cex_state_out,
-							cex_state_in);
+							cex_state_in, new_curr_pri, pic_in, pic_read);
 	
-	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, alu_E, psw_update);
+	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, psw_update);
 	
 	// Indicator of whether CPU is currently executing instructions based on PSW SLP bit
 	always @(psw_data[3]) begin
@@ -213,7 +218,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			else if (data_bus_ctrl[5:3] == 3'b100)			// Read from PSW into MDR
 				mdr = psw_data[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b101)			// Read from CEX into MDR
-				mdr = 16'h0 + cex_state[7:0];
+				mdr = 16'h0 + cex_state_out[7:0];
 		end
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
 			if (data_bus_ctrl[5:3] == 3'b000)				// Read from MDR into Register File

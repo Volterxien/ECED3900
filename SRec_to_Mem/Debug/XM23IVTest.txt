@@ -1,0 +1,63 @@
+org #2000	; Exception handler for ILLINST
+add $1,R1
+add $2,R2
+mov R5,R7
+
+org #6000	; Exception handler for vector 13
+add $1,R0
+add $8,R3
+mov R5,R7
+
+org #3000	; Exception handler for vector 14
+or R1,R2
+mov R5,R7
+
+org #4000	; Exception handler for ILLADDR
+add $8,R4	; R4 = 8
+movl #08,R2
+movh #1000,R2	; R2 = 1008h
+str R2,R6,#C	; Set the R7 to the next instruction
+mov R5,R7
+
+org #5000	; Exception handler for PRIFAULT
+and $0,R7
+word #6125	; Illegal instruction in fault
+mov R5,R7
+
+
+org #FFE0 	; Setting up ILLINST fault vector
+word #0080	; running at priority 4
+word #2000
+
+org #FFE4 	; Setting up ILLADDR fault vector
+word #0080	; running at priority 4
+word #4000
+
+org #FFE8 	; Setting up PRIFAULT fault vector
+word #0080	; running at priority 4
+word #5000
+
+org #FFEC 	; Setting up DBLFAULT fault vector
+word #00A0	; running at priority 5
+word #6000
+
+org #FFF4
+word #0080	; running at priority 4
+word #6000
+
+org #FFF8 	; Vector 14 used for SVC
+word #0020	; running at priority 1
+word #3000
+
+org #1000
+Start
+add $1,R0	; R0 = 1
+setpri $3
+svc $13		; R0 = 2, R3 = 8
+word #5402	; Illegal instruction, R1 = 1, R2 = 2
+add $4,R3	; R3 = 11
+add $1,R7	; Illegal address to branch to		
+add $16,R4	; R4 = 24
+svc $14		; Cause a priority fault with DBL FLT
+add R5,R5	; Program execution stops
+End Start
