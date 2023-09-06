@@ -38,6 +38,7 @@ module instruction_decoder (Instr, E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCO
 	assign bits3to5 = Instr[5:3];
 	
 	always @(posedge E) begin
+		FLTo = 1'd0;	// Default to no faults
 		case(bits13to15)
 			0: 	begin
 				OP = 6'd0; 		// BL

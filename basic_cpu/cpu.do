@@ -28,17 +28,17 @@ add wave -noupdate -expand -group {Control Signals} -label CEX_State /xm23_cpu/c
 add wave -noupdate -expand -group {Control Signals} -label Int_Sum -radix hexadecimal /xm23_cpu/arithmetic_logic_unit/sum1
 add wave -noupdate -expand -group {Control Signals} -label SDR_B /xm23_cpu/arithmetic_logic_unit/sdr_b
 add wave -noupdate -expand -group {Control Signals} -label SDR_W /xm23_cpu/arithmetic_logic_unit/sdr_w
-add wave -noupdate -group Indices -label dbus_rnum_dst -radix decimal /xm23_cpu/dbus_rnum_dst
-add wave -noupdate -group Indices -label dbus_rnum_src -radix decimal /xm23_cpu/dbus_rnum_src
-add wave -noupdate -group Indices -label addr_rnum_src -radix decimal /xm23_cpu/addr_rnum_src
-add wave -noupdate -group Indices -label alu_rnum_dst -radix decimal /xm23_cpu/alu_rnum_dst
-add wave -noupdate -group Indices -label alu_rnum_src -radix decimal /xm23_cpu/alu_rnum_src
-add wave -noupdate -group Indices -label bm_rnum /xm23_cpu/bm_rnum
-add wave -noupdate -group Indices -label sxt_rnum /xm23_cpu/sxt_rnum
-add wave -noupdate -group Indices -label sxt_bit_num /xm23_cpu/sxt_bit_num
-add wave -noupdate -group Buses -label S_Bus -radix hexadecimal /xm23_cpu/s_bus
-add wave -noupdate -group Buses -label D_Bus -radix hexadecimal /xm23_cpu/d_bus
-add wave -noupdate -group Buses -label CR_Bus /xm23_cpu/CR_bus
+add wave -noupdate -expand -group Indices -label dbus_rnum_dst -radix decimal /xm23_cpu/dbus_rnum_dst
+add wave -noupdate -expand -group Indices -label dbus_rnum_src -radix decimal /xm23_cpu/dbus_rnum_src
+add wave -noupdate -expand -group Indices -label addr_rnum_src -radix decimal /xm23_cpu/addr_rnum_src
+add wave -noupdate -expand -group Indices -label alu_rnum_dst -radix decimal /xm23_cpu/alu_rnum_dst
+add wave -noupdate -expand -group Indices -label alu_rnum_src -radix decimal /xm23_cpu/alu_rnum_src
+add wave -noupdate -expand -group Indices -label bm_rnum /xm23_cpu/bm_rnum
+add wave -noupdate -expand -group Indices -label sxt_rnum /xm23_cpu/sxt_rnum
+add wave -noupdate -expand -group Indices -label sxt_bit_num /xm23_cpu/sxt_bit_num
+add wave -noupdate -expand -group Buses -label S_Bus -radix hexadecimal /xm23_cpu/s_bus
+add wave -noupdate -expand -group Buses -label D_Bus -radix hexadecimal /xm23_cpu/d_bus
+add wave -noupdate -expand -group Buses -label CR_Bus /xm23_cpu/CR_bus
 add wave -noupdate -expand -group ID_Outputs -label OP -radix decimal /xm23_cpu/OP
 add wave -noupdate -expand -group ID_Outputs -label OFF /xm23_cpu/OFF
 add wave -noupdate -expand -group ID_Outputs -label CCCC /xm23_cpu/C
@@ -112,9 +112,9 @@ add wave -noupdate -expand -group {IV Signals/Data} -label IV_CPU_RST /xm23_cpu/
 add wave -noupdate -expand -group {IV Signals/Data} -label Data_Bus_Ctrl_IV /xm23_cpu/ctrl_unit/data_bus_ctrl_iv
 add wave -noupdate -expand -group {IV Signals/Data} -label Addr_Bus_Ctrl_IV /xm23_cpu/ctrl_unit/addr_bus_ctrl_iv
 add wave -noupdate -expand -group {IV Signals/Data} -label OP_IV -radix decimal /xm23_cpu/ctrl_unit/OP_iv
-add wave -noupdate -expand -group {IV Signals/Data} -label Data_SRC_IV /xm23_cpu/ctrl_unit/data_src_iv
-add wave -noupdate -expand -group {IV Signals/Data} -label Addr_SRC_IV /xm23_cpu/ctrl_unit/addr_src_iv
-add wave -noupdate -expand -group {IV Signals/Data} -label Data_DST_IV /xm23_cpu/ctrl_unit/data_dst_iv
+add wave -noupdate -expand -group {IV Signals/Data} -label Data_SRC_IV -radix unsigned /xm23_cpu/ctrl_unit/data_src_iv
+add wave -noupdate -expand -group {IV Signals/Data} -label Addr_SRC_IV -radix unsigned /xm23_cpu/ctrl_unit/addr_src_iv
+add wave -noupdate -expand -group {IV Signals/Data} -label Data_DST_IV -radix unsigned /xm23_cpu/ctrl_unit/data_dst_iv
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {5609696 ps} 0}
 quietly wave cursor active 1
@@ -132,4 +132,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {79886 ps} {179886 ps}
+WaveRestoreZoom {545 ns} {645 ns}
