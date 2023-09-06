@@ -58,7 +58,7 @@ Time of assembly: Sun 3 Sep 2023 13:28:33
  55	1002	4D83	setpri $3
  56	1004	4D9D	svc $13		; R0 = 2, R3 = 8
  57	1006	5402	word #5402	; Illegal instruction, R1 = 1, R2 = 2
- 58	1008	409B	add $4,R3	; R3 = 11
+ 58	1008	409B	add $4,R3	; R3 = C
  59	100A	408F	add $1,R7	; Illegal address to branch to		
  60	100C	40AC	add $16,R4	; R4 = 24
  61	100E	4D9E	svc $14		; Cause a priority fault with DBL FLT

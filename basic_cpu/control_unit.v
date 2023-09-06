@@ -168,9 +168,10 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 			cex_state = cex_in[7:0];	// Load the CEX state from memory
 		
 		if (iv_cnt_rst == 1'b1) begin
-			if ((iv_return == 1'b1) && (psw[8] == 1'b1)) // Returning from fault handler
+			if ((iv_return == 1'b1) && (psw[8] == 1'b1)) begin // Returning from fault handler
 				psw[8] = 1'b0;			// Clear the FLT bit
 				in_fault <= 1'b0;
+			end
 			iv_enter <= 1'b0;			// Clear the entry enable
 			iv_return <= 1'b0;			// Clear the return enable
 		end
@@ -435,7 +436,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							else				// Post-Inc/Dec
 							begin
 								dbus_rnum_dst <= (operands == 1'b0) ? (5'd0 + DST[2:0]) : data_dst_iv[4:0];		// Select the dst reg for the data bus
-								addr_rnum_src <= (operands == 1'b0) ? (5'd0 + SRCCON[2:0]) : addr_src_iv[6:0];	// Select the src reg for the addr bus
+								addr_rnum_src <= (operands == 1'b0) ? (5'd0 + SRCCON[2:0]) : addr_src_iv[4:0];	// Select the src reg for the addr bus
 								addr_bus_ctrl <= (operands == 1'b0) ? 7'b0001000 : addr_bus_ctrl_iv[6:0];			// Write the register file reg to the MAR
 								ctrl_reg_bus <= (operands == 1'b0) ? (3'b000 + (WB<<2)) : 3'b000;						// Read memory from MAR address to MDR
 							end
