@@ -69,6 +69,8 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 				end
 				2: begin						// Push PC to stack
 					if ((svc_in_prog == 1'b1) && (new_curr_pri < curr_pri)) begin
+						operands = 1'b1;
+						inst_type <= 7'd50;					// Use invalid instruction
 						call_pri_flt = 1'b1;				// Call the priority fault
 						rst_counter = 1'b1;					// Signal to reset the interrupt vector counter
 					end

@@ -1,6 +1,6 @@
 X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
 Input file name: XM23IVTest.txt
-Time of assembly: Sun 3 Sep 2023 13:28:33 
+Time of assembly: Wed 6 Sep 2023 20:46:13 
   1	    	     	org #2000	; Exception handler for ILLINST
   2	2000	4089	add $1,R1
   3	2002	4092	add $2,R2
@@ -17,9 +17,9 @@ Time of assembly: Sun 3 Sep 2023 13:28:33
  14	    	     	
  15	    	     	org #4000	; Exception handler for ILLADDR
  16	4000	40A4	add $8,R4	; R4 = 8
- 17	4002	6042	movl #08,R2
- 18	4004	7882	movh #1000,R2	; R2 = 1008h
- 19	4006	C616	str R2,R6,#C	; Set the R7 to the next instruction
+ 17	4002	6062	movl #0C,R2
+ 18	4004	7882	movh #1000,R2	; R2 = 100Ch
+ 19	4006	C416	str R2,R6,#8	; Set the PC to the next instruction
  20	4008	4C2F	mov R5,R7
  21	    	     	
  22	    	     	org #5000	; Exception handler for PRIFAULT
@@ -58,9 +58,9 @@ Time of assembly: Sun 3 Sep 2023 13:28:33
  55	1002	4D83	setpri $3
  56	1004	4D9D	svc $13		; R0 = 2, R3 = 8
  57	1006	5402	word #5402	; Illegal instruction, R1 = 1, R2 = 2
- 58	1008	409B	add $4,R3	; R3 = C
+ 58	1008	409B	add $4,R3	; R3 = 11
  59	100A	408F	add $1,R7	; Illegal address to branch to		
- 60	100C	40AC	add $16,R4	; R4 = 24
+ 60	100C	40AC	add $16,R4	; R4 = 18h
  61	100E	4D9E	svc $14		; Cause a priority fault with DBL FLT
  62	1010	402D	add R5,R5	; Program execution stops
  63	    	     	End Start

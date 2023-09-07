@@ -59,7 +59,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	reg [3:0] code;
 	reg cpucycle_rst;						// Reset the CPU cycle (1 = reset, 0 = do not reset)
 	reg brkpnt_set;							// 1 if breakpoint reached, 0 if not reached
-	reg PC_FLT, DBL_FLT, PRI_FLT, iv_enter, iv_return, svc_inst, in_fault;
+	reg PC_FLT, DBL_FLT, PRI_FLT, iv_enter, iv_return, svc_inst, in_fault, pri_flt_called;
 	
 	reg [2:0] prev_priority;
 	wire [1:0] psw_bus_ctrl_iv;
@@ -89,6 +89,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 		vect_num = 4'b0;
 		svc_inst = 1'b0;
 		in_fault = 1'b0;
+		pri_flt_called = 1'b0;
 	end
 	
 	assign psw_out = psw[15:0];					// Assign the output wires for the PSW
@@ -176,8 +177,11 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 			iv_return <= 1'b0;			// Clear the return enable
 		end
 		
-		if (call_pri_flt == 1'b1) begin
-			if ((in_fault == 1'b1) && (iv_enter == 1'b0) && (iv_return == 1'b0))
+		if (call_pri_flt == 1'b1)
+			pri_flt_called = 1'b1;
+		
+		if ((pri_flt_called == 1'b1) && (iv_enter == 1'b0) && (iv_return == 1'b0)) begin
+			if (in_fault == 1'b1)
 				DBL_FLT = 1'b1;					// Stop execution on double fault
 			else begin
 				PRI_FLT <= 1'b1;
