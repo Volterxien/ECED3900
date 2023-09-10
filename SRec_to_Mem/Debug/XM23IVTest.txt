@@ -20,8 +20,8 @@ str R2,R6,#8	; Set the PC to the next instruction
 mov R5,R7
 
 org #5000	; Exception handler for PRIFAULT
-and $0,R7
-word #6125	; Illegal instruction in fault
+and $0,R2
+word #5411	; Illegal instruction in fault
 mov R5,R7
 
 
@@ -41,7 +41,7 @@ org #FFEC 	; Setting up DBLFAULT fault vector
 word #00A0	; running at priority 5
 word #6000
 
-org #FFF4
+org #FFF4	; Vector 13 for SVC
 word #0080	; running at priority 4
 word #6000
 

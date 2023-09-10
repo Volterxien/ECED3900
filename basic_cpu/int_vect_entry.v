@@ -72,6 +72,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 						operands = 1'b1;
 						inst_type <= 7'd50;					// Use invalid instruction
 						call_pri_flt = 1'b1;				// Call the priority fault
+						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
 						rst_counter = 1'b1;					// Signal to reset the interrupt vector counter
 					end
 					else begin

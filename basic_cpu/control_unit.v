@@ -173,6 +173,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 				psw[8] = 1'b0;			// Clear the FLT bit
 				in_fault <= 1'b0;
 			end
+			pri_flt_called = 1'b0;	// Clear the priority fault called bit
 			iv_enter <= 1'b0;			// Clear the entry enable
 			iv_return <= 1'b0;			// Clear the return enable
 		end
@@ -227,15 +228,19 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 						end
 					end
 					else if (PC[15:0] != brkpnt[15:0]) begin
-						psw_update <= 1'b0;				// Set ALU to not update the PSW for fetching
-						dbus_rnum_dst <= 5'd7;			// Select the PC to read from the data bus
-						alu_rnum_dst <= 5'd7;			// Select the PC as the dst register for the ALU
-						alu_rnum_src <= 5'd10;			// Select the constant 2 to add to the PC after the fetch
-						s_bus_ctrl <= 1'd0;				// Use the register file
-						alu_op <= 5'b00000;				// Add 2 to PC
-						addr_rnum_src <= 5'd7;			// Select the PC to write to the MAR
-						addr_bus_ctrl <= 7'b0001000;	// Write PC to MAR
-						ctrl_reg_bus <= 3'b000;			// Read memory from MAR address to MDR
+						if (pri_flt_called == 1'b0) begin
+							psw_update <= 1'b0;				// Set ALU to not update the PSW for fetching
+							dbus_rnum_dst <= 5'd7;			// Select the PC to read from the data bus
+							alu_rnum_dst <= 5'd7;			// Select the PC as the dst register for the ALU
+							alu_rnum_src <= 5'd10;			// Select the constant 2 to add to the PC after the fetch
+							s_bus_ctrl <= 1'd0;				// Use the register file
+							alu_op <= 5'b00000;				// Add 2 to PC
+							addr_rnum_src <= 5'd7;			// Select the PC to write to the MAR
+							addr_bus_ctrl <= 7'b0001000;	// Write PC to MAR
+							ctrl_reg_bus <= 3'b000;			// Read memory from MAR address to MDR
+						end
+						else
+							cpucycle_rst <= 1'b1;			// Reset the CPU cycle
 					end
 					else begin
 						brkpnt_set = 1'b1;				// PC is at the breakpoint

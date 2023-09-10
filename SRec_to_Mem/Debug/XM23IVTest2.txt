@@ -1,0 +1,18 @@
+org #5000	; Exception handler for PRIFAULT
+and $0,R0
+add $8,R4
+mov R5,R7
+
+org #FFE8 	; Setting up PRIFAULT fault vector
+word #0080	; running at priority 4
+word #5000
+
+org #1000
+Start
+add $1,R0	; R0 = 1
+setpri $3
+setpri $6
+add $4,R3	; R3 = 4	
+add $16,R4	; R4 = 24
+add R4,R1	; R1 = 24
+End Start
