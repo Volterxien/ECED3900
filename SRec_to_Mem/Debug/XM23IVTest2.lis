@@ -1,0 +1,37 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: XM23IVTest2.txt
+Time of assembly: Sun 10 Sep 2023 16:00:48 
+  1	    	     	org #5000	; Exception handler for PRIFAULT
+  2	5000	4780	and $0,R0
+  3	5002	40A4	add $8,R4
+  4	5004	4C2F	mov R5,R7
+  5	    	     	
+  6	    	     	org #FFE8 	; Setting up PRIFAULT fault vector
+  7	FFE8	0080	word #0080	; running at priority 4
+  8	FFEA	5000	word #5000
+  9	    	     	
+ 10	    	     	org #1000
+ 11	    	     	Start
+ 12	1000	4088	add $1,R0	; R0 = 1
+ 13	1002	4D83	setpri $3
+ 14	1004	4D86	setpri $6
+ 15	1006	409B	add $4,R3	; R3 = 4	
+ 16	1008	40AC	add $16,R4	; R4 = 24
+ 17	100A	4021	add R4,R1	; R1 = 24
+ 18	    	     	End Start
+Successful completion of assembly - 1P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+Start                              	REL	1000	4096	PRI
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: C:\Users\mccoy\Documents\ECED3900\SRec_to_Mem\Debug\XM23IVTest2.xme
+
