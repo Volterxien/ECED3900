@@ -52,6 +52,7 @@ word #3000
 org #1000
 Start
 add $1,R0	; R0 = 1
+add R0,R0	; R0 = 2
 setpri $3
 svc $13		; R0 = 2, R3 = 8
 word #5402	; Illegal instruction, R1 = 1, R2 = 2
