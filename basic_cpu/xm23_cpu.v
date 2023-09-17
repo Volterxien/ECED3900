@@ -35,7 +35,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		reg_file[4] = 16'd0;
 		reg_file[5] = 16'd0;
 		reg_file[6] = 16'h0800;
-		reg_file[7] = 16'h1000;
+		reg_file[7] = 16'h0000;
 		reg_file[8] = 16'd0;
 		reg_file[9] = 16'd1;
 		reg_file[10] = 16'd2;
@@ -96,7 +96,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	wire [3:0] vect_num;
 	wire [7:0] cex_state_out, cex_state_in;
 	wire [1:0] PSW_ENT;
-	wire pic_read;
+	wire pic_read, breakpnt_set;
 	wire [7:0] pic_in;
 	
 	wire psw_update;
@@ -119,8 +119,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	//assign Clock = (execution_type == 1'b0) ? KEY[0] : CLOCK_50;
 	assign Clock = GPIO;
 	assign mar_mem_bus = mar[15:0];
-	assign mem_ub_addr = (psw_data[3] == 1'b0) ? (mar[15:0] + 1) : (addr + 1);
-	assign mem_lb_addr = (psw_data[3] == 1'b0) ? mar[15:0] : addr;
+	assign mem_ub_addr = (breakpnt_set == 1'b0) ? (mar[15:0] + 1) : (addr + 1);
+	assign mem_lb_addr = (breakpnt_set == 1'b0) ? mar[15:0] : addr;
 	
 	assign new_curr_pri = reg_file[16][7:5];	// The new PSW is stored in the temp register (new pri accessed through this)
 	
@@ -157,7 +157,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 							ID_en, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
 							breakpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT, cex_state_out,
-							cex_state_in, new_curr_pri, pic_in, pic_read);
+							cex_state_in, new_curr_pri, pic_in, pic_read, breakpnt_set);
 	
 	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, psw_update);
 	

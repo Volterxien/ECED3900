@@ -2,7 +2,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 						clear_cex, PSW_ENT, data_src_iv, addr_src_iv, data_dst_iv, inst_type,
 						rst_counter, iv_enter, iv_return, load_cex, clr_slp_bit, rec_pre_pri,
 						psw_bus_ctrl_iv, new_curr_pri, svc_inst, curr_pri, call_pri_flt, prev_pri, 
-						pic_in, use_pic_vect, data_bus_ctrl_iv, addr_bus_ctrl_iv, prpo_iv);
+						pic_in, use_pic_vect, data_bus_ctrl_iv, addr_bus_ctrl_iv, prpo_iv, result);
 	input [3:0] counter;
 	input iv_enter, iv_return;
 	input svc_inst;							// Whether the trap instruction is executed
@@ -14,6 +14,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 	output reg [6:0] data_bus_ctrl_iv, addr_bus_ctrl_iv, inst_type;
 	output reg [1:0] PSW_ENT, psw_bus_ctrl_iv;
 	output reg [4:0] data_src_iv, addr_src_iv, data_dst_iv;
+	output reg result;
 	
 	wire E;
 	reg svc_in_prog;					// Storage of the trap indicator
@@ -33,6 +34,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 		data_bus_ctrl_iv = 7'b1111111;
 		addr_bus_ctrl_iv = 7'b1111111;
 		psw_bus_ctrl_iv = 2'b11;
+		result = 1'b0;
 	end
 	
 	
@@ -50,12 +52,14 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 		psw_bus_ctrl_iv = 2'b11;
 		data_bus_ctrl_iv = 7'b1111111;
 		addr_bus_ctrl_iv = 7'b1111111;
+		result = svc_in_prog;
 		
 		if (iv_enter == 1'b1) begin			// Entry Routine
 			case (counter)
 				1: begin						// Load the PSW of the interrupt vector
 					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					svc_in_prog = svc_inst;				// Assign whether a trap is taking place
+					if (svc_inst == 1'b1)
+						svc_in_prog = 1'b1;				// Assign whether a trap is taking place
 					inst_type <= 7'd33;					// Use LD.W
 					word_byte <= 1'b0;					// Word operation
 					prpo_iv <= 1'b0;						// No pre/post inc/dec
@@ -68,6 +72,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 					iv_cpu_rst <= 1'b1;						// Signal to indicate reset cpucycle to 5 rather than 1 during this
 				end
 				2: begin						// Push PC to stack
+					result = svc_in_prog;
 					if ((svc_in_prog == 1'b1) && (new_curr_pri < curr_pri)) begin
 						operands = 1'b1;
 						inst_type <= 7'd50;					// Use invalid instruction
@@ -167,6 +172,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 				9: begin						// Clear the CEX state
 					operands = 1'b1;
 					clear_cex = 1'b1;					// Signal to clear the CEX state
+					svc_in_prog = 1'b0;					// Reset the signal
 					rst_counter = 1'b1;					// Signal to reset the interrupt vector counter
 				end
 				10: begin						// Ensure counter is reset

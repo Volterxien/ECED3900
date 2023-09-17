@@ -14,7 +14,7 @@ mov R5,R7
 
 org #4000	; Exception handler for ILLADDR
 add $8,R4	; R4 = 8
-movl #0C,R2
+movl #0E,R2
 movh #1000,R2	; R2 = 100Ch
 str R2,R6,#8	; Set the PC to the next instruction
 mov R5,R7

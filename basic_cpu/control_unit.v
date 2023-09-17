@@ -2,7 +2,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 					ID_en, ctrl_reg_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 					psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
 					brkpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT, cex_state_out,
-					cex_in, new_curr_pri, pic_in, pic_read);
+					cex_in, new_curr_pri, pic_in, pic_read, breakpnt_set);
 	
 	// Instruction Decoder Parameters
 	input [15:0] PC;
@@ -36,6 +36,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	output reg s_bus_ctrl;							// 0 = use Reg File, 1 = use calculated offset
 	output reg sxt_bus_ctrl;						// 0 = use Reg File, 1 = use offset from control unit
 	output reg sxt_shift;							// 0 = no shift, 1 = shift OFF by 1
+	output wire breakpnt_set;
 	output reg [4:0] sxt_bit_num;					// The bit to extend for sign extensions
 	output reg [4:0] sxt_rnum, bm_rnum;
 	output wire [15:0] psw_out;
@@ -72,6 +73,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	
 	reg code_result;
 	wire [3:0] cpucycle_new;
+	wire iv_result;
 	
 	initial begin
 		psw = 16'h60e0;						// Initialize PSW to default values
@@ -95,15 +97,16 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	assign psw_out = psw[15:0];					// Assign the output wires for the PSW
 	assign cpucycle_new = cpucycle;
 	assign cu_out1 = cpucycle;
-	assign cu_out2 = brkpnt[3:0];
-	assign cu_out3 = cpucycle_new;
+	assign cu_out2 = DBL_FLT;
+	assign cu_out3 = iv_cnt;
 	assign cex_state_out = cex_state[7:0];
+	assign breakpnt_set = brkpnt_set;
 	
 	int_vect_entry iv_ent(iv_cnt, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, 
 						  clear_cex, PSW_ENT, data_src_iv, addr_src_iv, data_dst_iv, OP_iv, 
 						  iv_cnt_rst, iv_enter, iv_return, load_cex, clr_slp_bit, rec_pre_pri,
 						  psw_bus_ctrl_iv, new_curr_pri, svc_inst, psw_out[7:5], call_pri_flt, psw_out[15:13],
-						  pic_in, use_pic_vect, data_bus_ctrl_iv, addr_bus_ctrl_iv, prpo_iv);
+						  pic_in, use_pic_vect, data_bus_ctrl_iv, addr_bus_ctrl_iv, prpo_iv, iv_result);
 	
 	
 	always @(negedge clock) begin
