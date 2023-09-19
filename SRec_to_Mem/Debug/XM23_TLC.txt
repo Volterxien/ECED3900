@@ -1,0 +1,27 @@
+; Device 0 is the timer
+; Device 3 is where the outputs to the TLC will be
+; Device 4 is where the input from the TLC will be
+
+TIMER_CSR 	equ #0
+TIMER_DR	equ #1
+TLCo_CSR	equ #6
+TLCo_DR		equ #7
+TLCi_CSR	equ #8
+TLCi_CSR	equ #9
+
+org #0000	; Timer Device
+word #8012	; Have timer trigger at 0.5s intervals
+
+org #0006	; TLC GPIO outputs
+word #0010	; DR[3:0] = [PEDEST, GRN, YEL, RED]
+
+org #0008	; TLC GPIO input
+word #0012	; DR[0] is the push button input
+
+org #1000
+Start
+add.b TIMER_DR,R0	; R0 = $1
+add.b TLCo_CSR,R1	; R1 = $6
+ldr.b R1,$1,R2		; R2 = memory[TLCo_CSR + 1]
+bis.b $0,R2		; R2 = 0001 (RED ON)
+
