@@ -26,6 +26,11 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	reg execution_type = 1'b0;
 	reg [15:0] bkpnt;
 	reg [15:0] extension = 16'hffff;
+
+
+	//devmem
+	reg [15:0] dev_mem [0:15];
+	reg access_dev_mem;
 	
 	initial begin
 		reg_file[0] = 16'd0;
@@ -49,7 +54,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		bkpnt = 16'h00f2;
 		psw_in = 16'h60e0;
 		mar = 16'h0000;
-		mdr = 16'h0000;
+		mdr = 16'h0000;	
+		access_dev_mem = 1'b0;
 	end
 	
 	wire Clock;
@@ -206,19 +212,57 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 
 	// Bus Assignment (MUX)
 	always @(negedge Clock) begin
+		access_dev_mem = 1'b0;
+		//clear flag
+		
+		// Address Bus Updating
+		if (addr_bus_ctrl[2:0] == 3'b000) begin 			// MAR
+			if (addr_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MAR
+				mar = reg_file[addr_rnum_src[4:0]][15:0];
+			else if (addr_bus_ctrl[5:3] == 3'b011) 			// Read from ALU Output into MAR
+				mar = alu_out[15:0];
+			else if (addr_bus_ctrl[5:3] == 3'b100)			// Read from Interrupt Vector addresses
+				mar = 16'hffc0 + (vect_num[3:0] << 2) + PSW_ENT[1:0];	// Determine address from vector number and option
+		end	
+
+		if (mar <=16 && mar >=0) begin
+			access_dev_mem = 1'b1;
+		end
+
+		
+		/*every clock cycle
+			devmem[kb_csr] = (!flag ? driver_output_kb : mdr);
+			devmem[scr_csr] = (!flag ? driver_output_scr : mdr);
+			devmem[scr_data] = (!flag ? driver_output_scr : mdr);
+			devmem[tmr_csr] = (!flag ? driver_output_tmr : mdr);
+			devmem[tmr_data] = (!flag ? driver_output_tmr : mdr);
+
+
+			(!flag_2 ? drv_output : mdr) = devmem
+			mdr = (!flag ? driver_output_kb : devmem[kb_csr]);
+			mdr = (!flag ? driver_output_kb : devmem[kb_data]);
+			mdr = (!flag ? driver_output_kb : devmem[scr_csr]);
+			mdr = (!flag ? driver_output_kb : devmem[tmr_csr]);
+		*/
+
 		mdr[7:0] = mem_lb[7:0];
 		mdr[15:8] = mem_ub[7:0];
 		
 		// Data Bus Updating
 		if (data_bus_ctrl[2:0] == 3'b000) begin 			// MDR
 			if (data_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MDR
-				mdr <= reg_file[dbus_rnum_src[4:0]][15:0];
+				mdr = reg_file[dbus_rnum_src[4:0]][15:0]; 
+				//set flag
 			else if (data_bus_ctrl[5:3] == 3'b011)			// Read from ALU Output into MDR
 				mdr = alu_out[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b100)			// Read from PSW into MDR
 				mdr = psw_data[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b101)			// Read from CEX into MDR
 				mdr = 16'h0 + cex_state_out[7:0];
+			if (access_dev_mem) begin
+				//dev_mem[mar[3:0]] = (!flag ? driver_output : mdr) ;
+				//byte/word functionality
+			end
 		end
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
 			if (data_bus_ctrl[5:3] == 3'b000)				// Read from MDR into Register File
@@ -252,14 +296,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				instr_reg = mdr[15:0];
 		end
 		
-		// Address Bus Updating
-		if (addr_bus_ctrl[2:0] == 3'b000) begin 			// MAR
-			if (addr_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MAR
-				mar = reg_file[addr_rnum_src[4:0]][15:0];
-			else if (addr_bus_ctrl[5:3] == 3'b011) 			// Read from ALU Output into MAR
-				mar = alu_out[15:0];
-			else if (addr_bus_ctrl[5:3] == 3'b100)			// Read from Interrupt Vector addresses
-				mar = 16'hffc0 + (vect_num[3:0] << 2) + PSW_ENT[1:0];	// Determine address from vector number and option
-		end	
+
 	end
 endmodule

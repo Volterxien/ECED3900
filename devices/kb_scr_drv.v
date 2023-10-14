@@ -84,7 +84,6 @@ module kb_scr_drv (
     end
 
 
-//shift
     CSR_kb_o = CSR_kb_o | kb_dba_o << 2 | kb_of_o << 3;
     CSR_scr_o = CSR_scr_o | scr_dba_o << 2 | scr_of_o << 3;
 
