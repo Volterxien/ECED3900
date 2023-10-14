@@ -46,30 +46,6 @@ setpri $3
 mov R7,R5		; LR = PC
 movlz TIMER_CSR,R0	; R0 = $0
 movlz TLCo_CSR,R1	; R1 = $6
-movlz $1,R2		; R2 = 0x0001 (RED ON)
-str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x0001
-movlz $12,R3		; R3 = $12
-
-RED_ON
-ld.b R0,R2		; R2 = memory[TIMER_CSR]
-bit $2,R2		; Check if DBA is set
-beq RED_ON		; Recheck until the DBA is set
-add $1,R4		; 0.5s has passed
-cmp R3,R4		; Check if 6s has passed (12 intervals)
-bne RED_ON		; Repeat check until 6s has passed
-
-and $0,R4		; Clear counter (R4)
-movlz $2,R2		; R2 = 0x0002 (YELLOW ON)
-str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x0002
-movlz $6,R3		; R3 = $6
-
-YELLOW_ON
-ld.b R0,R2		; R2 = memory[TIMER_CSR]
-bit $2,R2		; Check if DBA is set
-beq YELLOW_ON		; Recheck until the DBA is set
-add $1,R4		; 0.5s has passed
-cmp R3,R4		; Check if 3s has passed (6 intervals)
-bne YELLOW_ON		; Repeat check until 3s has passed
 
 and $0,R4		; Clear counter (R4)
 movh #3000,R1
@@ -85,10 +61,10 @@ add $8,R2		; R2 = 0x000C (GREEN and PEDESTRIAN ON)
 movlz TLCo_CSR,R1	; R1 = $6
 str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x000C
 movlz $4,R3		; R3 = $4
-movlz $0,R0		; Use R0 as a counter temporarily
 
 PRE_GP_LP
 and $0,R4		; Clear counter (R4)
+movlz TIMER_CSR,R0	; R0 = $0
 
 GRN_AND_PEDEST_LP
 ld.b R0,R2		; R2 = memory[TIMER_CSR]
@@ -101,12 +77,14 @@ bne GRN_AND_PEDEST_LP	; Repeat check until R3 half second intervals passed
 xor $8,R2		; GREEN ON, PEDESTRIAN TOGGLED
 str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2
 movlz $1,R3		; R3 = 1
-movlz $3,R4		; R4 used as holder temporarily
-add $1,R0
-cmp R4,R0
-bn PRE_GP_LP
-mov R5,R7		; Return to start of program
-
+movh #3000,R0		; Temporarily use R0 as an address
+movl #02,R0		; R0 = 0x3002
+ld.b R0,R4		; Temporarily use R4 as a counter
+add $1,R4		
+st R4,R0		; memory[0x3002] = R4
+cmp $4,R4		; Repeat four times (2s duration of flashing)
+bne PRE_GP_LP
+bra YELLOW_STAGE
 
 NOT_PRESSED
 and $0,R4		; Clear counter (R4)
@@ -121,4 +99,32 @@ beq GREEN_ON		; Recheck until the DBA is set
 add $1,R4		; 0.5s has passed
 cmp R3,R4		; Check if 4s has passed (8 intervals)
 bne GREEN_ON		; Repeat check until 4s has passed
+
+YELLOW_STAGE
+
+and $0,R4		; Clear counter (R4)
+movlz TIMER_CSR,R0	; R0 = $0
+movlz $2,R2		; R2 = 0x0002 (YELLOW ON)
+str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x0002
+movlz $6,R3		; R3 = $6
+
+YELLOW_ON
+ld.b R0,R2		; R2 = memory[TIMER_CSR]
+bit $2,R2		; Check if DBA is set
+beq YELLOW_ON		; Recheck until the DBA is set
+add $1,R4		; 0.5s has passed
+cmp R3,R4		; Check if 3s has passed (6 intervals)
+bne YELLOW_ON		; Repeat check until 3s has passed
+
+movlz $1,R2		; R2 = 0x0001 (RED ON)
+str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x0001
+movlz $12,R3		; R3 = $12
+
+RED_ON
+ld.b R0,R2		; R2 = memory[TIMER_CSR]
+bit $2,R2		; Check if DBA is set
+beq RED_ON		; Recheck until the DBA is set
+add $1,R4		; 0.5s has passed
+cmp R3,R4		; Check if 6s has passed (12 intervals)
+bne RED_ON		; Repeat check until 6s has passed
 mov R5,R7		; Return to start of program
