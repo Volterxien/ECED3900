@@ -19,6 +19,7 @@ unsigned char memory[0x10000];		// 64KiB of memory
 
 /* Function Declarations */
 int process_srec(unsigned char* srec);
+void gen_clk_tbl(void);
 unsigned char ascii2hexchar(unsigned char nib);
 unsigned char hex2char(unsigned char nib1, unsigned char nib2);
 
@@ -33,6 +34,7 @@ int main(int argc, char* argv[])
 
 	FILE* infile;
 	FILE* outfile;
+	FILE* dev_mem_file;
 
 	char record[MAX_LEN];
 	int errors = 0;
@@ -68,18 +70,60 @@ int main(int argc, char* argv[])
 	fclose(infile);
 
 	fopen_s(&outfile, "memory.txt", "w");
+	fopen_s(&dev_mem_file, "device_memory.txt", "w");
 	
 	for (int i = 0; i < 0x10000; i++)
 	{
+		if (i < 16)
+		{
+			fprintf(dev_mem_file, "%2.2X\n", memory[i]);
+		}
 		fprintf(outfile, "%2.2X\n", memory[i]);
 	}
 	fclose(outfile);
+	fclose(dev_mem_file);
 
+	gen_clk_tbl();
+
+	getchar();
 	getchar();
 	return 0;
 }
 
 
+/*
+Function Name: gen_clk_tbl
+Purpose: Generate the clock table file of clock prescaled values
+Inputs: None
+Output: A text file consisting of the prescaled values
+*/
+void gen_clk_tbl(void)
+{
+	FILE* clk_tbl_out;
+
+	long int clock_freq, num_cycles;
+
+	// Arithmetic uses TOTAL_COUNTS which is 10^9 ns
+
+	printf("Enter the Clock Frequency in Hz: ");
+	scanf_s("%ld", &clock_freq);
+
+	fopen_s(&clk_tbl_out, "clock_table.txt", "w");
+
+	num_cycles = clock_freq;
+	fprintf(clk_tbl_out, "%d\n", num_cycles);
+
+	for (int i = 1; i < 256; i++)
+	{
+		// n = (Total counts / prescaler) * (clock freq / ms to ns ratio)
+		num_cycles = clock_freq / i;
+		fprintf(clk_tbl_out, "%d\n", num_cycles);
+	}
+
+	fclose(clk_tbl_out);
+	printf("Generated clock table\n");
+	return;
+}
 
 /*
 Function Name: process_srec

@@ -1,3 +1,3 @@
 ﻿  main.c
-C:\Users\mccoy\Documents\ECED3900\SRec_to_Mem\SRec_to_Mem\main.c(166): warning C4715: 'ascii2hexchar': not all control paths return a value
-  SRec_to_Mem.vcxproj -> C:\Users\mccoy\Documents\ECED3900\SRec_to_Mem\Debug\SRec_to_Mem.exe
+C:\Users\Mark McCoy\Documents\ECED3900\SRec_to_Mem\SRec_to_Mem\main.c(210): warning C4715: 'ascii2hexchar': not all control paths return a value
+  SRec_to_Mem.vcxproj -> C:\Users\Mark McCoy\Documents\ECED3900\SRec_to_Mem\Debug\SRec_to_Mem.exe

@@ -14,7 +14,6 @@
 #include <avr/pgmspace.h> 
 #include <avr/sfr_defs.h>
 #include <util/delay.h>
-#include <avr/interrupt.h>
 
 static int uart_putchar(char c, FILE *stream); 
 static int uart_getchar(FILE *stream); 
@@ -40,16 +39,26 @@ void init_uart(void) {
 	stdin = &mystdin; 
 }
 
-ISR()
+int update_in_prog(void) {
+	if ((PINB & (1<<PINB0)) == (1<<PINB0)) { // Button not pressed
+		return 1;
+	}
+	else {	// Button pressed, stop execution
+		return 0;
+	}
+}
 
 int main(void) { 
 	
 	init_uart(); // Begin terminal dialog 
 	
-	DDRD = 1<<7; // Sets PORTD7 to output 
-	PORTD = 0; // Outputs 1 on D7
+	DDRD = 1<<7;	// Sets PORTD7 to output 
+	PORTD = 0;		// Outputs 1 on D7
 	
-	char run_option;
+	DDRB = 0;		// Set all PORTB pins to input
+	PORTB = 1<<PINB0;	// Enable pull-up resistor on B0
+	
+	char run_option[2];
 	int cont_exec = 0;
 	int in_prog = 0;
 	int number = 1; 
@@ -58,52 +67,39 @@ int main(void) {
 	while (1) {
 			printf("Select 'c' to enter continuous running mode\n");
 			printf("Select 's' to enter step running mode\n");
-			scanf("%c", &run_option);
+			printf("In step running mode: 0 = low, 1 = high, 5 = switch running mode\n");
+			printf("Selection: ");
+			scanf("%s", run_option);
+			printf("%s\n", run_option);
 			in_prog = 1;
-			if (run_option == 'c') {
+			if (run_option[0] == 'c') {
 				cont_exec = 1;
 			}
-			else if (run_option == 's') {
+			else if (run_option[0] == 's') {
 				cont_exec = 0;
 			}
 			
 			while (cont_exec && in_prog) {
+				in_prog = update_in_prog();
 				PORTD |= 1<<7;
 				_delay_us(1);
 				PORTD &= ~(1<<7);
 				_delay_us(1);
 			}
+			
 			while (!cont_exec && in_prog) {
 				scanf("%d", &number);
 				if(number == 1) {
 					PORTD |= 1<<7;
-					} else if (number == 0) {
+				} 
+				else if (number == 0) {
 					PORTD &= ~(1<<7);
+				}
+				else if (number == 5) {
+					in_prog = 0;	// Switch mode
 				}
 				printf("%d\n", number);
 			}
-	}
-	
-	int num_instr;
-	printf("Number of Cycles: ");
-	scanf("%d", &num_instr);
-	/*
-	for (int i = 0; i<num_instr; i++) {
-		PORTD |= 1<<7;
-		_delay_us(1);
-		PORTD &= ~(1<<7);
-		_delay_us(1);
-	}*/
-	printf("Ready");
-	while (1) {
-		scanf("%d", &number);
-		if(number == 1) {
-			PORTD |= 1<<7;
-		} else if (number == 0) {
-			PORTD &= ~(1<<7);
-		}
-		printf("%d\n", number);
-	}
-	
+	}	
 }
 
