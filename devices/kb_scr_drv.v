@@ -11,9 +11,11 @@ module kb_scr_drv (
     input [1:0] control_i,
     output reg [1:0] control_o,
 
-    output reg [7:0] CSR_scr_o,
-    output reg [7:0] CSR_kb_o,
+    // output reg [7:0] CSR_scr_o,
+    // output reg [7:0] CSR_kb_o,
 
+    output wire [7:0] CSR_scr_o,
+    output wire [7:0] CSR_kb_o,
 
     input clk
 );
@@ -21,10 +23,10 @@ module kb_scr_drv (
   wire read_en, read_ok, write_en, write_ok;
 
   wire scr_en_i, scr_of_i, scr_dba_i, scr_io_i, scr_ie_i;
-  reg scr_en_o, scr_of_o, scr_dba_o, scr_io_o, scr_ie_o;
+  reg scr_of_o, scr_dba_o;
 
   wire kb_en_i, kb_of_i, kb_dba_i, kb_io_i, kb_ie_i;
-  reg kb_en_o, kb_of_o, kb_dba_o, kb_io_o, kb_ie_o;
+  reg kb_of_o, kb_dba_o;
 
 
   assign scr_en_i = CSR_scr_i[4];
@@ -44,26 +46,42 @@ module kb_scr_drv (
 
   assign write_en = control_i[1];
   assign read_ok = control_i[0];
+  
+    assign CSR_kb_o = CSR_kb_i | kb_dba_o << 2 | kb_of_o << 3;
+    assign CSR_scr_o = CSR_scr_i | scr_dba_o << 2 | scr_of_o << 3;
 
+  initial begin
+    scr_of_o = 1'b0;
+    scr_dba_o = 1'b1;
+    kb_of_o = 1'b0;
+    kb_dba_o = 1'b0;
+    control_o = 2'b11;
+    data_reg_kb = 8'b0;
+  end
 
 
   initial begin
       kb_of_o = 0;
       kb_dba_o = 0;
-      scr_dba_o = 0;
+      scr_dba_o = 1;
       scr_of_o = 0;
   end
   always @(posedge clk ) begin
-    CSR_kb_o = CSR_kb_i;
-    CSR_scr_o = CSR_scr_i; 
+    scr_of_o = 1'b0;
+    scr_dba_o = 1'b1;
+    kb_of_o = 1'b0;
+    kb_dba_o = 1'b0;
+    control_o = 2'b11;
+    // CSR_kb_o = CSR_kb_i;
+    // CSR_scr_o = CSR_scr_i; 
     //write == kb
     if (kb_en_i) begin
       //pending byte
       if (write_en) begin
-        data_reg_kb = data_bus_i;
-        control_o[0] = 1'b1;
+        data_reg_kb <= data_bus_i;
+        control_o[0] <= 1'b0;
         if (kb_dba_i) begin
-          kb_of_o = 1'b1;
+          kb_of_o <= 1'b1;
         end
         else begin
           kb_dba_o = 1'b1;
@@ -73,20 +91,19 @@ module kb_scr_drv (
     //read == scr
     if (scr_en_i && ~scr_dba_i) begin
       if (read_ok) begin
-        control_o[1] = 1'b0;
-        scr_dba_o = 1'b1;
-        scr_of_o = 1'b0;
+        control_o[1] <= 1'b1;
+        scr_dba_o <= 1'b1;
+        scr_of_o <= 1'b0;
       end
       else begin
-        data_bus_o = data_reg_scr;
-        control_o[1] =  1'b1;
+        data_bus_o <= data_reg_scr;
+        control_o[1] <=  1'b0;
       end
     end
 
 
-//shift
-    CSR_kb_o = CSR_kb_o | kb_dba_o << 2 | kb_of_o << 3;
-    CSR_scr_o = CSR_scr_o | scr_dba_o << 2 | scr_of_o << 3;
+    // CSR_kb_o = CSR_kb_i | kb_dba_o << 2 | kb_of_o << 3;
+    // CSR_scr_o = CSR_scr_i | scr_dba_o << 2 | scr_of_o << 3;
 
   end
 endmodule
