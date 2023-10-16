@@ -43,6 +43,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	reg register_access_flag;
 	reg word_rf_mdr;
 	reg byte_rf_mdr;
+	reg mar_not_used;
 	wire [7:0] kb_data_output;
 	parameter kb_csr = 0;
 	parameter kb_data = 1;
@@ -76,7 +77,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		ctrl_reg = 3'b000;
 		bkpnt = 16'h00f2;
 		psw_in = 16'h60e0;
-		mar = 16'h00ff;
+		mar = 16'h0000;
 		mdr = 16'h0000;	
 		
 		register_access_flag = 1'b0;
@@ -243,17 +244,21 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		register_access_flag = 1'b0;
 		word_rf_mdr = 1'b0;
 		byte_rf_mdr = 1'b0;
+		mar_not_used = 1'b0;
 		//clear flag
 		
-		// Address Bus Updating
-		// if (addr_bus_ctrl[2:0] == 3'b000) begin 			// MAR
-		// 	if (addr_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MAR
-		// 		mar = reg_file[addr_rnum_src[4:0]][15:0];
-		// 	else if (addr_bus_ctrl[5:3] == 3'b011) 			// Read from ALU Output into MAR
-		// 		mar = alu_out[15:0];
-		// 	else if (addr_bus_ctrl[5:3] == 3'b100)			// Read from Interrupt Vector addresses
-		// 		mar = 16'hffc0 + (vect_num[3:0] << 2) + PSW_ENT[1:0];	// Determine address from vector number and option
-		// end	
+		//Address Bus Updating
+		if (addr_bus_ctrl[2:0] == 3'b000) begin 			// MAR
+			if (addr_bus_ctrl[5:3] == 3'b001)				// Read from Register File into MAR
+				mar = reg_file[addr_rnum_src[4:0]][15:0];
+			else if (addr_bus_ctrl[5:3] == 3'b011) 			// Read from ALU Output into MAR
+				mar = alu_out[15:0];
+			else if (addr_bus_ctrl[5:3] == 3'b100)			// Read from Interrupt Vector addresses
+				mar = 16'hffc0 + (vect_num[3:0] << 2) + PSW_ENT[1:0];	// Determine address from vector number and option
+		end	
+		else if (addr_bus_ctrl[2:0] == 3'b111) begin
+			mar_not_used = 1'b1;
+		end
 
 		if (mar <=16 && mar >=0) begin
 			access_dev_mem = 1'b1;
@@ -320,23 +325,39 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				instr_reg = mdr[15:0];
 		end
 		
-			dev_mem[kb_csr] = (!register_access_flag ? csr_kb_o : mdr);
-			dev_mem[scr_csr] = (!register_access_flag ? csr_scr_o : mdr); //of/dba set here?
-			if (register_access_flag) begin
-				dev_mem[scr_data] = mdr;
-			end
-			dev_mem[kb_data][7:0] = kb_data_output;
+		dev_mem[kb_csr] = (!register_access_flag ? csr_kb_o : mdr);
+		dev_mem[scr_csr] = (!register_access_flag ? csr_scr_o : mdr); //of/dba set here?
+		if (register_access_flag) begin
+			dev_mem[scr_data] = mdr;
+		end
+		dev_mem[kb_data][7:0] = kb_data_output;
 
+		//read
+		if(addr_bus_ctrl[2:0] != 3'b111) begin
 			if (byte_rf_mdr) begin
 				mdr = dev_mem[mar[3:0]][7:0];
 			end
 			else if (word_rf_mdr) begin
-				mdr = dev_mem[mar[3:0]];
+				mdr = dev_mem[mar[3:0]][7:0] << 8 | dev_mem[mar[3:0] + 1][7:0];
 			end
-			if(mar[3:0] == kb_csr) begin
+			if (byte_rf_mdr || word_rf_mdr) begin
+				if (mar == scr_data) begin
+					if (~dev_mem[scr_csr][2]) begin //check dba
+						dev_mem[scr_csr][3] = 1'b1;
+					end
+					dev_mem[scr_csr][2] = 1'b0;
+				end
+			end
+		end
+		//write
+		//if register_access_flag
+		if(data_bus_ctrl == 7'b0001000) begin
+			if(mar == kb_csr) begin
 				dev_mem[kb_csr] = dev_mem[kb_csr] & ~1'b1 << 2; //dba clear
 				dev_mem[kb_csr] = dev_mem[kb_csr] & ~1'b1 << 3; //of clear
 			end
+		end
+
 			// else if (mar[3:0] == scr_data) begin
 			// 	dev_mem[scr_csr] = dev_mem[scr_csr] | 1'b1 << 2; //dba set
 			// 	dev_mem[scr_csr] = dev_mem[scr_csr] & 1'b1 << 3; //of clear
