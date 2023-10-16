@@ -7,7 +7,6 @@ module memory (Clock, lb_in, ub_in, lb_addr, ub_addr, we_lb, we_ub, lb_out, ub_o
 	
 	output reg [7:0] lb_out, ub_out;
 
-	//(* ram_init_file = "memory.mif" *) reg [7:0] memory [0:16'hffff];
 	reg [7:0] memory [0:16'hffff];
 	
 	initial begin

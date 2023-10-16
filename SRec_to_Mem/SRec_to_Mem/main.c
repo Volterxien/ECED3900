@@ -111,13 +111,13 @@ void gen_clk_tbl(void)
 	fopen_s(&clk_tbl_out, "clock_table.txt", "w");
 
 	num_cycles = clock_freq;
-	fprintf(clk_tbl_out, "%d\n", num_cycles);
+	fprintf(clk_tbl_out, "%X\n", num_cycles);
 
 	for (int i = 1; i < 256; i++)
 	{
 		// n = (Total counts / prescaler) * (clock freq / ms to ns ratio)
 		num_cycles = clock_freq / i;
-		fprintf(clk_tbl_out, "%d\n", num_cycles);
+		fprintf(clk_tbl_out, "%X\n", num_cycles);
 	}
 
 	fclose(clk_tbl_out);
