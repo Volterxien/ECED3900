@@ -64,7 +64,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		reg_file[4] = 16'd0;
 		reg_file[5] = 16'd0;
 		reg_file[6] = 16'h0800;
-		reg_file[7] = 16'h0000;
+		reg_file[7] = 16'h1000;
 		reg_file[8] = 16'd0;
 		reg_file[9] = 16'd1;
 		reg_file[10] = 16'd2;
@@ -325,10 +325,14 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				instr_reg = mdr[15:0];
 		end
 		
-		dev_mem[kb_csr] = (!register_access_flag ? csr_kb_o : mdr);
-		dev_mem[scr_csr] = (!register_access_flag ? csr_scr_o : mdr); //of/dba set here?
-		if (register_access_flag) begin
+		dev_mem[kb_csr] = (!register_access_flag ? csr_kb_o : (mar[3:0] == kb_csr) ? mdr : dev_mem[kb_csr]);
+		dev_mem[scr_csr] = (!register_access_flag ? csr_scr_o : (mar[3:0] == scr_csr) ? mdr : dev_mem[scr_csr]); //of/dba set here?
+		if (register_access_flag && mar[3:0] == scr_data) begin
 			dev_mem[scr_data] = mdr;
+			if (~dev_mem[scr_csr][2]) begin //check dba
+				dev_mem[scr_csr][3] = 1'b1;
+			end
+			dev_mem[scr_csr][2] = 1'b0;
 		end
 		dev_mem[kb_data][7:0] = kb_data_output;
 
@@ -340,23 +344,20 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			else if (word_rf_mdr) begin
 				mdr = dev_mem[mar[3:0]][7:0] << 8 | dev_mem[mar[3:0] + 1][7:0];
 			end
-			if (byte_rf_mdr || word_rf_mdr) begin
-				if (mar == scr_data) begin
-					if (~dev_mem[scr_csr][2]) begin //check dba
-						dev_mem[scr_csr][3] = 1'b1;
-					end
-					dev_mem[scr_csr][2] = 1'b0;
+		end
+		if (byte_rf_mdr || word_rf_mdr) begin
+				if(mar[3:0] == kb_csr) begin
+					dev_mem[kb_csr][2] = 1'b0;//dev_mem[kb_csr] & ~(1'b1 << 2); //dba clear
+					dev_mem[kb_csr][3] = 1'b0;//dev_mem[kb_csr] & ~(1'b1 << 3); //of clear
 				end
 			end
-		end
 		//write
 		//if register_access_flag
-		if(data_bus_ctrl == 7'b0001000) begin
-			if(mar == kb_csr) begin
-				dev_mem[kb_csr] = dev_mem[kb_csr] & ~1'b1 << 2; //dba clear
-				dev_mem[kb_csr] = dev_mem[kb_csr] & ~1'b1 << 3; //of clear
-			end
-		end
+		// if(data_bus_ctrl == 7'b0001000) begin
+		// 	if (mar == scr_data) begin
+		// 	end
+
+		// end
 
 			// else if (mar[3:0] == scr_data) begin
 			// 	dev_mem[scr_csr] = dev_mem[scr_csr] | 1'b1 << 2; //dba set

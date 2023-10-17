@@ -1,0 +1,40 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: dev_test.asm
+Time of assembly: Tue 17 Oct 2023 13:56:41 
+  1	    	     		org #1000
+  2	1000	60A1	movl $20,R1
+  3	1002	6012	movl $2,R2
+  4	1004	6003	movl $0,R3
+  5	1006	6084	movl $16,R4
+  6	1008	6085	movl #10,R5
+  7	    	     	
+  8	100A	5C63	st.b R4,R3
+  9	100C	5C4A	st.b R1,R2
+ 10	100E	6019	movl $3,R1
+ 11	1010	5C69	st.b R5,R1 
+ 12	    	     	
+ 13	1012	60E4	movl #1c,R4
+ 14	    	     	
+ 15	1014	5C63	st.b R4,R3
+ 16	    	     	
+ 17	1016	5C61	st.b R4,R1
+ 18	1018	5C61	st.b R4,R1
+ 19	    	     	
+ 20	101A	5859	ld.b R3,R1
+ 21	101C	5851	ld.b R2,R1
+
+Successful completion of assembly - 1P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: F:\Sync\PCs\final_term\Capstone\ECED3900\SRec_to_Mem\Debug\dev_test.xme
+

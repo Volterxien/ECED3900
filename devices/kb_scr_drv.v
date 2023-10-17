@@ -11,11 +11,11 @@ module kb_scr_drv (
     input [1:0] control_i,
     output reg [1:0] control_o,
 
-    // output reg [7:0] CSR_scr_o,
-    // output reg [7:0] CSR_kb_o,
+    output reg [7:0] CSR_scr_o,
+    output reg [7:0] CSR_kb_o,
 
-    output wire [7:0] CSR_scr_o,
-    output wire [7:0] CSR_kb_o,
+    // output wire [7:0] CSR_scr_o,
+    // output wire [7:0] CSR_kb_o,
 
     input clk
 );
@@ -49,8 +49,8 @@ module kb_scr_drv (
   assign write_en = control_i[1];
   assign read_ok = control_i[0];
   
-    assign CSR_kb_o = CSR_kb_i | kb_dba_o << 2 | kb_of_o << 3;
-    assign CSR_scr_o = CSR_scr_i | scr_dba_o << 2 | scr_of_o << 3;
+    // assign CSR_kb_o = CSR_kb_i | kb_dba_o << 2 | kb_of_o << 3;
+    // assign CSR_scr_o = (scr_of_o ? (CSR_scr_i | scr_dba_o << 2 | scr_of_o << 3) : (CSR_scr_i | scr_dba_o << 2) & ~(scr_of_o << 3));
 
   initial begin
     scr_of_o = 1'b0;
@@ -79,8 +79,8 @@ module kb_scr_drv (
     kb_of_o = kb_of_i;
     kb_dba_o = kb_dba_i;
     control_o = control_o | 1'b1 << 1;
-    // CSR_kb_o = CSR_kb_i;
-    // CSR_scr_o = CSR_scr_i; 
+    CSR_kb_o = CSR_kb_i;
+    CSR_scr_o = CSR_scr_i; 
     //write == kb
 
     if (~write_en_signal) begin
@@ -90,10 +90,10 @@ module kb_scr_drv (
     if (kb_en_i) begin
       //pending byte
       if (write_en_signal) begin
-        data_reg_kb <= data_bus_i;
-        control_o[0] <= 1'b0;
+        data_reg_kb = data_bus_i;
+        control_o[0] = 1'b0;
         if (kb_dba_i) begin
-          kb_of_o <= 1'b1;
+          kb_of_o = 1'b1;
         end
         else begin
           kb_dba_o = 1'b1;
@@ -104,19 +104,22 @@ module kb_scr_drv (
     //read == scr
     if (scr_en_i && ~scr_dba_i) begin
       if (read_ok) begin
-        control_o[1] <= 1'b1;
-        scr_dba_o <= 1'b1;
-        scr_of_o <= 1'b0;
+        control_o[1] = 1'b1;
+        scr_dba_o = 1'b1;
+        scr_of_o = 1'b0;
       end
       else begin
-        data_bus_o <= data_reg_scr;
-        control_o[1] <=  1'b0;
+        data_bus_o = ~data_reg_scr;
+        control_o[1] =  1'b0;
       end
     end
 
 
-    // CSR_kb_o = CSR_kb_i | kb_dba_o << 2 | kb_of_o << 3;
-    // CSR_scr_o = CSR_scr_i | scr_dba_o << 2 | scr_of_o << 3;
+    CSR_kb_o = CSR_kb_i | kb_dba_o << 2 | kb_of_o << 3;
+    CSR_scr_o[3] = scr_of_o;
+    CSR_scr_o[2] = scr_dba_o;
+    // (scr_of_o ? (CSR_scr_i | scr_dba_o << 2 | scr_of_o << 3) : (CSR_scr_i | scr_dba_o << 2) & ~(scr_of_o << 3));
+    
 
   end
 endmodule
