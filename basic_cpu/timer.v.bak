@@ -1,0 +1,10 @@
+module timer(CSR_in, DR_in, CSR_out, DR_out, clock);
+	input [7:0] CSR_in, DR_in;
+	input clock;
+	output reg [7:0] CSR_out, DR_out;
+	
+	
+	
+	
+
+endmodule

@@ -1,5 +1,0 @@
-// Update the register output on the clock's rising edge
-always @ (posedge <clock_signal>)
-begin
-	<register_variable> <= <data>;
-end

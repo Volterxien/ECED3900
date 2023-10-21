@@ -1,5 +1,5 @@
 Analysis & Synthesis report for instruction_decoder_demo
-Mon Apr 10 09:09:43 2023
+Sun Jun 18 22:43:22 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -48,13 +48,13 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Apr 10 09:09:43 2023          ;
+; Analysis & Synthesis Status        ; Successful - Sun Jun 18 22:43:22 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; instruction_decoder_demo                       ;
 ; Top-level Entity Name              ; instr_decode_demo                              ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 747                                            ;
-;     Total combinational functions  ; 655                                            ;
+; Total logic elements               ; 692                                            ;
+;     Total combinational functions  ; 603                                            ;
 ;     Dedicated logic registers      ; 165                                            ;
 ; Total registers                    ; 165                                            ;
 ; Total pins                         ; 46                                             ;
@@ -156,28 +156,28 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 4           ;
-; Maximum allowed            ; 2           ;
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 6           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 2           ;
+; Maximum used               ; 6           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
+;     Processors 2-6         ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                        ;
-+----------------------------------+-----------------+------------------------+---------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                          ; Library ;
-+----------------------------------+-----------------+------------------------+---------------------------------------------------------------------------------------+---------+
-; instr_decode_demo.v              ; yes             ; User Verilog HDL File  ; C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v   ;         ;
-; instruction_decoder.v            ; yes             ; User Verilog HDL File  ; C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/instruction_decoder.v ;         ;
-; seven_seg_decoder.v              ; yes             ; User Verilog HDL File  ; C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/seven_seg_decoder.v   ;         ;
-; memory.txt                       ; yes             ; Auto-Found File        ; C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/memory.txt            ;         ;
-+----------------------------------+-----------------+------------------------+---------------------------------------------------------------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                   ;
++----------------------------------+-----------------+------------------------+----------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                     ; Library ;
++----------------------------------+-----------------+------------------------+----------------------------------------------------------------------------------+---------+
+; instr_decode_demo.v              ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v   ;         ;
+; instruction_decoder.v            ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/instruction_decoder.v ;         ;
+; seven_seg_decoder.v              ; yes             ; User Verilog HDL File  ; C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/seven_seg_decoder.v   ;         ;
+; memory.txt                       ; yes             ; Auto-Found File        ; C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/memory.txt            ;         ;
++----------------------------------+-----------------+------------------------+----------------------------------------------------------------------------------+---------+
 
 
 +------------------------------------------------------------+
@@ -185,16 +185,16 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+--------------+
 ; Resource                                    ; Usage        ;
 +---------------------------------------------+--------------+
-; Estimated Total logic elements              ; 747          ;
+; Estimated Total logic elements              ; 692          ;
 ;                                             ;              ;
-; Total combinational functions               ; 655          ;
+; Total combinational functions               ; 603          ;
 ; Logic element usage by number of LUT inputs ;              ;
-;     -- 4 input functions                    ; 491          ;
-;     -- 3 input functions                    ; 103          ;
-;     -- <=2 input functions                  ; 61           ;
+;     -- 4 input functions                    ; 461          ;
+;     -- 3 input functions                    ; 84           ;
+;     -- <=2 input functions                  ; 58           ;
 ;                                             ;              ;
 ; Logic elements by mode                      ;              ;
-;     -- normal mode                          ; 642          ;
+;     -- normal mode                          ; 590          ;
 ;     -- arithmetic mode                      ; 13           ;
 ;                                             ;              ;
 ; Total registers                             ; 165          ;
@@ -207,8 +207,8 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;              ;
 ; Maximum fan-out node                        ; SW[16]~input ;
 ; Maximum fan-out                             ; 150          ;
-; Total fan-out                               ; 2859         ;
-; Average fan-out                             ; 3.13         ;
+; Total fan-out                               ; 2666         ;
+; Average fan-out                             ; 3.10         ;
 +---------------------------------------------+--------------+
 
 
@@ -217,8 +217,8 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                          ; Entity Name         ; Library Name ;
 +--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------+---------------------+--------------+
-; |instr_decode_demo             ; 655 (526)           ; 165 (76)                  ; 0           ; 0            ; 0       ; 0         ; 46   ; 0            ; |instr_decode_demo                           ; instr_decode_demo   ; work         ;
-;    |instruction_decoder:ID|    ; 101 (101)           ; 61 (61)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|instruction_decoder:ID    ; instruction_decoder ; work         ;
+; |instr_decode_demo             ; 603 (475)           ; 165 (76)                  ; 0           ; 0            ; 0       ; 0         ; 46   ; 0            ; |instr_decode_demo                           ; instr_decode_demo   ; work         ;
+;    |instruction_decoder:ID|    ; 100 (100)           ; 61 (61)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|instruction_decoder:ID    ; instruction_decoder ; work         ;
 ;    |seven_seg_decoder:decode1| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|seven_seg_decoder:decode1 ; seven_seg_decoder   ; work         ;
 ;    |seven_seg_decoder:decode2| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|seven_seg_decoder:decode2 ; seven_seg_decoder   ; work         ;
 ;    |seven_seg_decoder:decode3| ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |instr_decode_demo|seven_seg_decoder:decode3 ; seven_seg_decoder   ; work         ;
@@ -337,10 +337,10 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Total registers                              ; 165   ;
 ; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 4     ;
+; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 54    ;
+; Number of registers using Clock Enable       ; 52    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -350,26 +350,23 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                          ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
-; 6:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[7]    ;
-; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[0]    ;
-; 6:1                ; 3 bits    ; 12 LEs        ; 0 LEs                ; 12 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|DST[1]    ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[10]   ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[3]    ;
-; 12:1               ; 3 bits    ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|SRCCON[0] ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |instr_decode_demo|Mux8                             ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; No         ; |instr_decode_demo|Mux9                             ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; No         ; |instr_decode_demo|Mux9                             ;
-; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |instr_decode_demo|Mux9                             ;
-; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; No         ; |instr_decode_demo|Mux9                             ;
-; 10:1               ; 2 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; No         ; |instr_decode_demo|Mux8                             ;
-; 10:1               ; 2 bits    ; 12 LEs        ; 2 LEs                ; 10 LEs                 ; No         ; |instr_decode_demo|Mux9                             ;
-; 12:1               ; 3 bits    ; 24 LEs        ; 9 LEs                ; 15 LEs                 ; No         ; |instr_decode_demo|Mux9                             ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 54 LEs               ; 43636 LEs              ; No         ; |instr_decode_demo|Mux26                            ;
-; 32768:1            ; 4 bits    ; 87380 LEs     ; 152 LEs              ; 87228 LEs              ; No         ; |instr_decode_demo|Mux17                            ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 82 LEs               ; 43608 LEs              ; No         ; |instr_decode_demo|Mux27                            ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 84 LEs               ; 43606 LEs              ; No         ; |instr_decode_demo|Mux21                            ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 60 LEs               ; 43630 LEs              ; No         ; |instr_decode_demo|Mux29                            ;
-; 32768:1            ; 2 bits    ; 43690 LEs     ; 86 LEs               ; 43604 LEs              ; No         ; |instr_decode_demo|Mux31                            ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[9]    ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[2]    ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[3]    ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |instr_decode_demo|instruction_decoder:ID|OFF[10]   ;
+; 13:1               ; 3 bits    ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|DST[2]    ;
+; 9:1                ; 3 bits    ; 18 LEs        ; 0 LEs                ; 18 LEs                 ; Yes        ; |instr_decode_demo|instruction_decoder:ID|SRCCON[0] ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |instr_decode_demo|Mux11                            ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |instr_decode_demo|Mux9                             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; No         ; |instr_decode_demo|Mux11                            ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; No         ; |instr_decode_demo|Mux11                            ;
+; 10:1               ; 2 bits    ; 12 LEs        ; 2 LEs                ; 10 LEs                 ; No         ; |instr_decode_demo|Mux8                             ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 50 LEs               ; 43640 LEs              ; No         ; |instr_decode_demo|Mux25                            ;
+; 32768:1            ; 4 bits    ; 87380 LEs     ; 92 LEs               ; 87288 LEs              ; No         ; |instr_decode_demo|Mux16                            ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 60 LEs               ; 43630 LEs              ; No         ; |instr_decode_demo|Mux27                            ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 64 LEs               ; 43626 LEs              ; No         ; |instr_decode_demo|Mux22                            ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 58 LEs               ; 43632 LEs              ; No         ; |instr_decode_demo|Mux29                            ;
+; 32768:1            ; 2 bits    ; 43690 LEs     ; 64 LEs               ; 43626 LEs              ; No         ; |instr_decode_demo|Mux31                            ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
 
 
@@ -390,21 +387,20 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+-----------------------------+
 ; boundary_port         ; 46                          ;
 ; cycloneiii_ff         ; 165                         ;
-;     ENA               ; 50                          ;
-;     ENA SLD           ; 4                           ;
-;     plain             ; 111                         ;
-; cycloneiii_lcell_comb ; 655                         ;
+;     ENA               ; 52                          ;
+;     plain             ; 113                         ;
+; cycloneiii_lcell_comb ; 603                         ;
 ;     arith             ; 13                          ;
 ;         2 data inputs ; 12                          ;
 ;         3 data inputs ; 1                           ;
-;     normal            ; 642                         ;
+;     normal            ; 590                         ;
 ;         1 data inputs ; 2                           ;
-;         2 data inputs ; 47                          ;
-;         3 data inputs ; 102                         ;
-;         4 data inputs ; 491                         ;
+;         2 data inputs ; 44                          ;
+;         3 data inputs ; 83                          ;
+;         4 data inputs ; 461                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 11.00                       ;
-; Average LUT depth     ; 7.32                        ;
+; Max LUT depth         ; 10.00                       ;
+; Average LUT depth     ; 7.28                        ;
 +-----------------------+-----------------------------+
 
 
@@ -413,7 +409,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:02:14     ;
+; Top            ; 00:00:45     ;
 +----------------+--------------+
 
 
@@ -423,21 +419,21 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Mon Apr 10 09:07:01 2023
+    Info: Processing started: Sun Jun 18 22:42:29 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off instruction_decoder_demo -c instruction_decoder_demo
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file instr_decode_demo.v
-    Info (12023): Found entity 1: instr_decode_demo File: C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 1
+    Info (12023): Found entity 1: instr_decode_demo File: C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file instruction_decoder.v
-    Info (12023): Found entity 1: instruction_decoder File: C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/instruction_decoder.v Line: 1
+    Info (12023): Found entity 1: instruction_decoder File: C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/instruction_decoder.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file seven_seg_decoder.v
-    Info (12023): Found entity 1: seven_seg_decoder File: C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/seven_seg_decoder.v Line: 1
-Warning (10236): Verilog HDL Implicit Net warning at instr_decode_demo.v(54): created implicit net for "E" File: C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 54
-Warning (10236): Verilog HDL Implicit Net warning at instr_decode_demo.v(55): created implicit net for "FLTi" File: C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 55
+    Info (12023): Found entity 1: seven_seg_decoder File: C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/seven_seg_decoder.v Line: 1
+Warning (10236): Verilog HDL Implicit Net warning at instr_decode_demo.v(54): created implicit net for "E" File: C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 54
+Warning (10236): Verilog HDL Implicit Net warning at instr_decode_demo.v(55): created implicit net for "FLTi" File: C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 55
 Info (12127): Elaborating entity "instr_decode_demo" for the top level hierarchy
-Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:decode1" File: C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 57
-Info (12128): Elaborating entity "instruction_decoder" for hierarchy "instruction_decoder:ID" File: C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 61
+Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:decode1" File: C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 57
+Info (12128): Elaborating entity "instruction_decoder" for hierarchy "instruction_decoder:ID" File: C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/instr_decode_demo.v Line: 61
 Info (286030): Timing-Driven Synthesis is running
 Warning (20013): Ignored 24 assignments for entity "loader" -- entity does not exist in design
     Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity loader -section_id Top was ignored
@@ -514,23 +510,23 @@ Warning (20013): Ignored 24 assignments for entity "register_test" -- entity doe
     Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity register_test -section_id Top was ignored
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity register_test -section_id Top was ignored
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity register_test -section_id Top was ignored
-Info (144001): Generated suppressed messages file C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/output_files/instruction_decoder_demo.map.smsg
+Info (144001): Generated suppressed messages file C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/output_files/instruction_decoder_demo.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 806 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 750 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 18 input pins
     Info (21059): Implemented 28 output pins
-    Info (21061): Implemented 760 logic cells
+    Info (21061): Implemented 704 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 78 warnings
-    Info: Peak virtual memory: 4992 megabytes
-    Info: Processing ended: Mon Apr 10 09:09:43 2023
-    Info: Elapsed time: 00:02:42
-    Info: Total CPU time (on all processors): 00:02:49
+    Info: Peak virtual memory: 4897 megabytes
+    Info: Processing ended: Sun Jun 18 22:43:22 2023
+    Info: Elapsed time: 00:00:53
+    Info: Total CPU time (on all processors): 00:00:53
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in C:/Users/Mark McCoy/Documents/ECED3900/instruction_decoder_demo/output_files/instruction_decoder_demo.map.smsg.
+The suppressed messages can be found in C:/Users/mccoy/Documents/ECED3900/instruction_decoder_demo/output_files/instruction_decoder_demo.map.smsg.
 
 

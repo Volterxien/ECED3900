@@ -1,0 +1,27 @@
+‘timescale 1ns / 1ps
+
+module testbench ();
+	// reg signals to provide inputs to the DUT
+	reg [3:0] KEY;
+	reg CLOCK_50;
+	reg [17:0] SW;
+	// wire signals to connect to outputs from the DUT
+	wire [9:0] LEDR;
+
+	// instantiate the design under test
+	xm23_cpu CPU(SW, HEX0, HEX1, HEX2, HEX3, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50);
+
+	// generate a 50 MHz periodic clock waveform
+	always
+		#10 CLOCK_50 <= ~CLOCK_50;
+
+	initial
+	begin
+		CLOCK_50 <= 1’b0;
+		KEY[0] <= 1’b0;
+		SW <= 0;
+		#20 SW[9:5] <= 10;
+		#20 KEY[0] <= 1’b1;
+		SW[4:0] <= 30;
+	end // initial
+endmodule

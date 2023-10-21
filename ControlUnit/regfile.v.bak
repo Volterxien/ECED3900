@@ -1,4 +1,0 @@
-module regFile(reg, data)
-input [15:0]reg[0:15], data
-
-endmodule

@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Wed Aug  2 19:17:38 2023
+Quartus Prime Version : 22.1std.0 Build 915 10/25/2022 SC Lite Edition
+Revision Name : debugging_tools
+Top-level Entity Name : debugging_tools
+Family : Cyclone IV E
+Total logic elements : 139
+    Total combinational functions : 123
+    Dedicated logic registers : 44
+Total registers : 44
+Total pins : 76
+Total virtual pins : 0
+Total memory bits : 16
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

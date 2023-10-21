@@ -1,0 +1,157 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: XM23_TLC.txt
+Time of assembly: Mon 9 Oct 2023 16:02:16 
+  1	    	     	; Device 0 is the timer
+  2	    	     	; Device 3 is where the outputs to the TLC will be
+  3	    	     	; Device 4 is where the input from the TLC will be
+  4	    	     	
+  5	    	     	; R4 will be the timer counter that counts 0.5s intervals
+  6	    	     	
+  7	    	     	; R2 will be the device R/W register
+  8	    	     	; R1 will be the address of the TLC device output vector
+  9	    	     	; R0 will be the address of the Timer vector
+ 10	    	     	
+ 18	    	     	
+ 19	    	     	org #0000	; Timer Device
+ 20	0000	8012	word #8012	; Have timer trigger at 0.5s intervals
+ 21	    	     	
+ 22	    	     	org #0006	; TLC GPIO outputs
+ 23	0006	0010	word #0010	; DR[3:0] = [PEDEST, GRN, YEL, RED]
+ 24	    	     	
+ 25	    	     	org #0008	; TLC GPIO input
+ 26	0008	0012	word #0012	; DR[0] is the push button input
+ 27	    	     	
+ 28	    	     	org #FFD0	; Interrupt vector table entry for TLC input (Vector 4)
+ 29	FFD0	0080	word #0080	; Set priority to 4
+ 30	FFD2	2000	word #2000	; Set entry address
+ 31	    	     	
+ 32	    	     	org #2000	; Interrupt vector for the TLC input
+ 33	2000	5D06	st R0,R6-		; Push R0 to stack
+ 34	2002	5D0E	st R1,R6-		; Push R1 to stack
+ 35	2004	7980	movh #3000,R0
+ 36	2006	6000	movl #00,R0		; R0 = 0x3000
+ 37	2008	6809	movlz $1,R1		; R1 = $1
+ 38	200A	5C48	st.b R1,R0		; memory[0x3000] = 1
+ 39	200C	5AB1	ld +R6,R1		; Pull R1 from stack
+ 40	200E	5AB0	ld +R6,R0		; Pull R0 from stack
+ 41	2010	4C2F	mov R5,R7		; Return
+ 42	    	     	
+ 43	    	     	org #1000
+ 44	    	     	Start
+ 45	1000	4D83	setpri $3
+ 46	1002	4C3D	mov R7,R5		; LR = PC
+ 47	1004	6800	movlz TIMER_CSR,R0	; R0 = $0
+ 48	1006	6831	movlz TLCo_CSR,R1	; R1 = $6
+ 49	    	     	
+ 50	1008	4784	and $0,R4		; Clear counter (R4)
+ 51	100A	7981	movh #3000,R1
+ 52	100C	6001	movl #00,R1		; R1 = 0x3000
+ 53	100E	584A	ld.b R1,R2		; R2 = memory[0x3000]
+ 54	1010	49C2	bit.b $0,R2		; Check the input bit 0 to see if the push button has been pressed
+ 55	1012	201A	beq NOT_PRESSED
+ 56	    	     				; Executes if button pressed
+ 57	1014	4782	and $0,R2		; Clear R2
+ 58	1016	5C51	st.b R2,R1		; memory[0x3000] = 0 (Clear the memory location)
+ 59	1018	6822	movlz $4,R2		; R2 = 0x0004 (GREEN ON)
+ 60	101A	40A2	add $8,R2		; R2 = 0x000C (GREEN and PEDESTRIAN ON)
+ 61	101C	6831	movlz TLCo_CSR,R1	; R1 = $6
+ 62	101E	C0D1	str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x000C
+ 63	1020	6823	movlz $4,R3		; R3 = $4
+ 64	    	     	
+ 65	    	     	PRE_GP_LP
+ 66	1022	4784	and $0,R4		; Clear counter (R4)
+ 67	1024	6800	movlz TIMER_CSR,R0	; R0 = $0
+ 68	    	     	
+ 69	    	     	GRN_AND_PEDEST_LP
+ 70	1026	5842	ld.b R0,R2		; R2 = memory[TIMER_CSR]
+ 71	1028	4992	bit $2,R2		; Check if DBA is set
+ 72	102A	23FD	beq GRN_AND_PEDEST_LP	; Recheck until the DBA is set
+ 73	102C	408C	add $1,R4		; 0.5s has passed
+ 74	102E	451C	cmp R3,R4		; Check if R3 intervals has passed
+ 75	1030	27FA	bne GRN_AND_PEDEST_LP	; Repeat check until R3 half second intervals passed
+ 76	    	     	
+ 77	1032	46A2	xor $8,R2		; GREEN ON, PEDESTRIAN TOGGLED
+ 78	1034	C0D1	str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2
+ 79	1036	680B	movlz $1,R3		; R3 = 1
+ 80	1038	7980	movh #3000,R0		; Temporarily use R0 as an address
+ 81	103A	6010	movl #02,R0		; R0 = 0x3002
+ 82	103C	5844	ld.b R0,R4		; Temporarily use R4 as a counter
+ 83	103E	408C	add $1,R4		
+ 84	1040	5C20	st R4,R0		; memory[0x3002] = R4
+ 85	1042	459C	cmp $4,R4		; Repeat four times (2s duration of flashing)
+ 86	1044	27EE	bne PRE_GP_LP
+ 87	1046	3C0A	bra YELLOW_STAGE
+ 88	    	     	
+ 89	    	     	NOT_PRESSED
+ 90	1048	4784	and $0,R4		; Clear counter (R4)
+ 91	104A	6822	movlz $4,R2		; R2 = 0x0004 (GREEN ON)
+ 92	104C	C0D1	str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x0004
+ 93	104E	6843	movlz $8,R3		; R3 = $8
+ 94	    	     	
+ 95	    	     	GREEN_ON
+ 96	1050	5842	ld.b R0,R2		; R2 = memory[TIMER_CSR]
+ 97	1052	4992	bit $2,R2		; Check if DBA is set
+ 98	1054	23FD	beq GREEN_ON		; Recheck until the DBA is set
+ 99	1056	408C	add $1,R4		; 0.5s has passed
+100	1058	451C	cmp R3,R4		; Check if 4s has passed (8 intervals)
+101	105A	27FA	bne GREEN_ON		; Repeat check until 4s has passed
+102	    	     	
+103	    	     	YELLOW_STAGE
+104	    	     	
+105	105C	4784	and $0,R4		; Clear counter (R4)
+106	105E	6800	movlz TIMER_CSR,R0	; R0 = $0
+107	1060	6812	movlz $2,R2		; R2 = 0x0002 (YELLOW ON)
+108	1062	C0D1	str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x0002
+109	1064	6833	movlz $6,R3		; R3 = $6
+110	    	     	
+111	    	     	YELLOW_ON
+112	1066	5842	ld.b R0,R2		; R2 = memory[TIMER_CSR]
+113	1068	4992	bit $2,R2		; Check if DBA is set
+114	106A	23FD	beq YELLOW_ON		; Recheck until the DBA is set
+115	106C	408C	add $1,R4		; 0.5s has passed
+116	106E	451C	cmp R3,R4		; Check if 3s has passed (6 intervals)
+117	1070	27FA	bne YELLOW_ON		; Repeat check until 3s has passed
+118	    	     	
+119	1072	680A	movlz $1,R2		; R2 = 0x0001 (RED ON)
+120	1074	C0D1	str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x0001
+121	1076	6863	movlz $12,R3		; R3 = $12
+122	    	     	
+123	    	     	RED_ON
+124	1078	5842	ld.b R0,R2		; R2 = memory[TIMER_CSR]
+125	107A	4992	bit $2,R2		; Check if DBA is set
+126	107C	23FD	beq RED_ON		; Recheck until the DBA is set
+127	107E	408C	add $1,R4		; 0.5s has passed
+128	1080	451C	cmp R3,R4		; Check if 6s has passed (12 intervals)
+129	1082	27FA	bne RED_ON		; Repeat check until 6s has passed
+130	1084	4C2F	mov R5,R7		; Return to start of program
+
+Successful completion of assembly - 2P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+RED_ON                             	REL	1078	4216	PRI
+YELLOW_ON                          	REL	1066	4198	PRI
+GREEN_ON                           	REL	1050	4176	PRI
+YELLOW_STAGE                       	REL	105C	4188	PRI
+GRN_AND_PEDEST_LP                  	REL	1026	4134	PRI
+PRE_GP_LP                          	REL	1022	4130	PRI
+NOT_PRESSED                        	REL	1048	4168	PRI
+Start                              	REL	1000	4096	PRI
+STORAGE                            	CON	3000	12288	PRI
+TLCi_DR                            	CON	0009	9	PRI
+TLCi_CSR                           	CON	0008	8	PRI
+TLCo_DR                            	CON	0007	7	PRI
+TLCo_CSR                           	CON	0006	6	PRI
+TIMER_DR                           	CON	0001	1	PRI
+TIMER_CSR                          	CON	0000	0	PRI
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: C:\Users\mccoy\Documents\ECED3900\SRec_to_Mem\Debug\XM23_TLC.xme
+

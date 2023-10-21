@@ -1,7 +1,0 @@
-module traffic_lights (CSR_in, DR_in, DR_out);
-	input [7:0] CSR_in, DR_in;
-	output reg [7:0] DR_out;
-	
-	
-
-endmodule

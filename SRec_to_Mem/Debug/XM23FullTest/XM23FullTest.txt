@@ -1,0 +1,145 @@
+	add.w 	$1,R1	; R1 = 1
+	add.b	#2,R2	; R2 = 2
+	bl 	Main
+	add.b 	#1,R0
+Main
+	add.b 	#1,R3	; R3 = 1
+	sub.w	R1,R3	; R3 = R3 - R1 = 0
+	beq 	Step1
+	add.b	#1,R0	; Skipped
+Step1
+	sub.b	R1,R2	; R2 = R2 - R1 = 1
+	beq 	Step2
+	add.b	#1,R0	; R0 = 1
+Step2
+	sub.w	R3,R1	; R1 = R1 - R3 = 1
+	bne 	Step3
+	add.b	#1,R0	; Skipped
+Step3
+	sub.b	R1,R0	; R0 = R0 - R1 = 0
+	bne 	Step4
+	add.b	#1,R0	; R0 = 1
+Step4
+	add.w	$-1,R3	; R3 = FFFF
+	add.w	$2,R3	; R3 = 1
+	bc 	Step5
+	add.b	#1,R0	; Skipped
+Step5
+	add.b	$2,R3	; R3 = R3 + 2 = 3
+	bc 	Step6
+	add.b	#1,R0	; R0 = R0 + 1 = 2
+Step6	
+	add.w	$1,R3	; R3 = R3 + 1 = 4
+	bnc 	Step7
+	add.b	#1,R0	; Skipped
+Step7
+	add.b	$-1,R4	; R4 = FF
+	add.b	$2,R4	; R4 = 1
+	bnc 	Step8
+	add.b	#1,R0	; R0 = R0 + 1 = 3
+Step8	
+	sub.b 	$2,R4	; R4 = R4 - 2 = -1
+	bn 	Step9
+	add.b	#1,R0	; Skipped
+Step9
+	add.w	$4,R4	; R4 = R4 + 4 = 0ff + 3 = 0103
+	bn	Step10
+	add.b	#1,R0	; R0 = R0 + 1 = 4
+Step10
+	movl	#41,R3	; R3 = 01000001
+	movl	#42,R2	; R2 = 01000010
+	add.b	R2,R3	; R3 = R3 + R2 = 10000011
+	bge 	Step11
+	add.b	#1,R0	; Skipped
+Step11
+	add.b	#1,R3	; R3 = R3 + 1 = 10000100
+	bge	Step12
+	add.b	#1,R0	; R0 = R0 + 1 = 5
+Step12
+	add.b	$1,R3	; R3 = R3 + 1 = 10000101
+	blt	Step13
+	add.b	#1,R0	; Skipped
+Step13
+	movl	#41,R3	; R3 = 01000001
+	movl	#42,R2	; R2 = 01000010
+	add.b	R2,R3	; R3 = R3 + R2 = 10000011
+	blt	Step14
+	add.b	#1,R0	; R0 = R0 + 1 = 6
+Step14	
+	bra 	Step15
+	add.b	#1,R0	; Skipped
+Step15
+	setcc C
+	addc.b 	$1,R0	; R0 = R0 + 1 + C = 8
+	addc.w	R1,R0	; R0 = R0 + R1 + C = 9
+	setcc 	C
+	subc.b 	R0,R2	; R2 = R2 + ~R0 + C = 0039
+	subc.w	R0,R2	; R2 = R2 + ~R0 + C = 002F
+	add.w	$4,R2	; R2 = R2 + 4 = 0033
+	dadd.b 	R2,R4	; R4 = R4 + R2 + C = 0106
+	dadd.w	R0,R4	; R4 = R4 + R0 + C = 0205
+	cmp.b	R2,R2	; R2 - R2 = 0
+	cmp.w	R4,R0	; R0 - R4 = -508
+	movl	#AA,R3	; R3 = AA
+	movl	#55,R0	; R0 = 55
+	movh	#AA00,R2
+	movl	#AA,R2	; R2 = AAAA
+	xor.b 	R0,R2	; R2 = R2 ^ R0 = AAFF
+	xor.w	$-1,R2	; R2 = R2 ^ FFFF = 5500
+	movl	#A9,R1	; R1 = A9
+	and.b	R3,R1	; R1 = R1 & R3 = A8
+	movh	#CC00,R0
+	and.w	R0,R2	; R2 = R2 & R0 = 4400
+	or.b	R0,R1	; R1 = R1 | R0 = FD
+	or.w	$1,R2	; R2 = R2 | 1 = 4401
+	bit.b	$0,R2
+	bit.w	#8,R2
+	movh	#0000,R0
+	movl	$10,R0	; R0 = 10
+	bic.b 	$0,R2	; R2 = 4400
+	bic.w	R0,R2	; R2 = 4000
+	bis.b	$1,R2	; R2 = 4002
+	bis.w	R0,R2	; R2 = 4402
+	mov.b	R1,R0	; R0 = R1 = FD
+	mov.w	R2,R3	; R3 = R2 = 4402
+	swap 	R2,R1	; R2 = 00FD R1 = 4402
+	movh	#FE00,R4
+	movl	#7E,R4	; R4 = FE7E
+	sra.b 	R4	; R4 = FE3F
+	sra.w	R4	; R4 = FF1F
+	movl	#1E,R4	; R4 = FF1E	
+	rrc.b 	R4	; R4 = FF8F
+	rrc.w	R4	; R4 = 7FC7
+	swpb 	R4	; R4 = C77F
+	movl	#86,R1	; R1 = 4486
+	sxt 	R1	; R1 = FF86
+	setcc	VNZC
+	clrcc 	VNZC
+	setcc	Z
+	movh	#0000,R0
+	movl	#0,R0	; R0 = 0
+	cex 	eq,$1,$2
+	add.b	$1,R0	; R0 = R0 + 1 = 1
+	add.b	$1,R1	; Skipped
+	add.b	$1,R2	; Skipped
+	cex 	eq,$1,$2
+	add.b	$1,R0	; Skipped
+	add.b	$1,R1	; R1 = R1 + 1 = FF87
+	add.b	$1,R2	; R2 = R2 + 1 = 4403
+	movls	#F1,R3	; R3 = FFF1
+	movlz	#AB,R3	; R3 = 00AB
+	movh	#1000,R3
+	movl	#0,R3	; R3 = 1000
+	movh	#1000,R2
+	movl	#2,R2	; R2 = 1002
+	st.b	R0,R3	; mem[1000] = 1
+	st.b	R0,+R3	; mem[1001] = 1 R3 = 1001
+	st.w	R1,R2-	; mem[1002:1003] = FF86 R2 = 1000
+	ld.b 	R2,R1	; R1 = FF01
+	ld.b	+R3,R4	; R4 = C786 R3 = 1002
+	ld.w	R3-,R1	; R1 = FF86 R3 = 1000
+	str.b 	R1,R3,$4	; mem[1004] = 86
+	str.w	R1,R3,$8	; mem[1008:1009] = FF86
+	ldr.b 	R2,$4,R0	; R0 = 86
+	ldr.w	R2,$8,R3	; R1 = FF86
+

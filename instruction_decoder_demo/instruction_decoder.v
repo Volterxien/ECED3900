@@ -28,7 +28,7 @@ module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST,
 	wire [2:0] bits10to12;
 	wire [3:0] bits8to11;
 	wire [2:0] bits7to9;
-	wire [3:0] bits4to6;
+	wire [2:0] bits4to6;
 	wire [3:0] bits3to5;
 	
 	assign bits13to15 = Instr[15:13];
@@ -74,44 +74,38 @@ module instruction_decoder (Instr, E, FLTi, OP, OFF, C, T, F, PR, SA, PSWb, DST,
 							
 						3:	begin
 							case(bits7to9)
-								0:	begin
-									OP = 6'd21;	// MOV
-									WB <= Instr[6];
+								0,1:	begin
+									OP = 6'd21 + Instr[7];	// MOV, SWAP
+									WB <= Instr[6];  // Can update, but will not be used for SWAP
 									SRCCON <= Instr[5:3];
 									DST <= Instr[2:0];
 									end
-									
-								1:	begin		// SRA, RRC, COMP
-									OP = 6'd22 + bits3to5;
-									DST <= Instr[2:0];
-									WB <= Instr[6];					
-									end
-									
-								2:	begin		// SWAP, SWPB, SXT, SETPRI
-									if(Instr[6] == 1'd0)
-										begin
-										OP <= 6'd25 + Instr[6];
-										SRCCON <= Instr[5:3];
-										end
-									else
-										OP <= 6'd25 + Instr[6] + bits3to5;
-									if((bits3to5 == 2'd2) && (Instr[6] == 1'd1))
-										PR <= Instr[2:0];
-									else
-										DST <= Instr[2:0];
-									end
-									
-								3:	begin
-									OP = 6'd29;	// SVC
-									SA <= Instr[3:0];
-									end
 								
-								4:	begin
-									if(Instr[5] == 1'd0)
-										OP = 6'd30;	// SETCC
-									else
-										OP = 6'd31; // CLRCC
-									PSWb <= Instr[4:0];
+								2:	begin		// SRA, RRC, COMP, SWPB, SXT
+									OP <= 6'd23 + bits3to5;
+									WB <= Instr[6]; // Can update, but will not be used for SWPB, COMP, or SXT
+									DST <= Instr[2:0];
+									end
+									
+								3:	begin		
+										case(bits4to6)
+										0:	begin	// SETPRI
+											OP = 6'd28;
+											PR <= Instr[2:0];
+											end
+										1:	begin	// SVC
+											OP = 6'd29;
+											SA <= Instr[3:0];
+											end
+										2,3: begin	// SETCC
+											OP = 6'd30;
+											PSWb <= Instr[4:0];
+											end
+										4,5: begin	// CLRCC
+											OP = 6'd31;
+											PSWb <= Instr[4:0];
+											end
+										endcase
 									end
 							endcase
 							end

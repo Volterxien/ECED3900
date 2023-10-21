@@ -1,0 +1,10 @@
+module cex_code(psw_in, code, result);
+	input [15:0] psw_in;
+	input [3:0] code;
+	
+	output result;
+	
+	always @(psw_in) begin
+	
+	end
+endmodule

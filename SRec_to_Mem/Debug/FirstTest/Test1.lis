@@ -1,0 +1,59 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: Test1.txt
+Time of assembly: Wed 7 Jun 2023 22:26:02 
+  1	0000	0054	bl #AB
+  2	0002	2064	beq #CD
+  3	0004	2452	bne #AB
+  4	0006	2862	bc #CD
+  5	0008	2C50	bnc #AB
+  6	000A	3060	bn #CD
+  7	000C	344E	bge #AB
+  8	000E	385E	blt #CD
+  9	0010	3C4C	bra #AB
+ 10	0012	40CC	add.b $1,R4
+ 11	0014	4133	addc R6,R3
+ 12	0016	42CC	sub.b $1,R4
+ 13	0018	4333	subc R6,R3
+ 14	001A	44CC	dadd.b $1,R4
+ 15	001C	4533	cmp R6,R3
+ 16	001E	46CC	xor.b $1,R4
+ 17	0020	4733	and R6,R3
+ 18	0022	48CC	or.b $1,R4
+ 19	0024	4933	bit R6,R3
+ 20	0026	4ACC	bic.b $1,R4
+ 21	0028	4B33	bis R6,R3
+ 22	002A	4C34	mov R6,R4
+ 23	002C	4C91	swap R2,R1
+ 24	002E	4D07	sra R7
+ 25	0030	4D4D	rrc.b R5
+ 26	0032	4D1A	swpb R2
+ 27	0034	4D26	sxt R6
+ 28	0036	4D83	setpri $3
+ 29	0038	4D9F	svc #F
+ 30	003A	4DA4	setcc N
+ 31	003C	4DD7	clrcc VNZC
+ 32	003E	50CA	cex cc,$1,$2
+ 33	0040	592F	ld R5-,R7
+ 34	0042	5EC8	st.b R1,+R0
+ 35	0044	67FE	movl #FF,R6
+ 36	0046	6823	movlz $4,R3
+ 37	0048	7788	movls #F1,R0
+ 38	004A	7C01	movh #8000,R1
+ 39	004C	80CF	ldr.b R1,$1,R7
+ 40	004E	C115	str R2,R5,$2
+
+Successful completion of assembly - 1P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: C:\Users\mccoy\Documents\ECED3900\SRec_to_Mem\Debug\Test1.xme
+
