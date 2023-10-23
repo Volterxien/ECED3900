@@ -31,13 +31,16 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	//devmem
 	reg [7:0] dev_mem [0:15];
 
+	// initial begin
+	// 	dev_mem[0] = 8'b00010000;
+	// 	dev_mem[1] = 8'b00000000;
+	// 	dev_mem[2] = 8'b00010000;
+	// 	dev_mem[3] = 8'b01101011;
+	// 	dev_mem[4] = 8'b00000000;
+	// 	dev_mem[5] = 8'b00000000;
+	// end
 	initial begin
-		dev_mem[0] = 8'b00010000;
-		dev_mem[1] = 8'b00000000;
-		dev_mem[2] = 8'b00010000;
-		dev_mem[3] = 8'b01101011;
-		dev_mem[4] = 8'b00000000;
-		dev_mem[5] = 8'b00000000;
+		$readmemh("device_memory.txt", dev_mem, 0);
 	end
 	reg access_dev_mem;
 	reg register_access_flag;

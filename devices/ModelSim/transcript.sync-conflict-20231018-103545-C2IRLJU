@@ -1,0 +1,926 @@
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+vsim -gui work.xm23_cpu
+# vsim -gui work.xm23_cpu 
+# Start time: 11:28:22 on Oct 17,2023
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+do F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/cpu_dev.do
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: walli  Hostname: DESKTOP-6RG5SH1  ProcessID: 2328
+#           Attempting to use alternate WLF file "./wlftm6m7y5".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftm6m7y5
+force -freeze sim:/xm23_cpu/arduino_data_i 11111111111 0
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 00 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 11 0
+run
+run
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+force -freeze sim:/xm23_cpu/arduino_data_i 111111111 0
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 00 0
+run
+run
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 01 0
+run
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 00 0
+force -freeze sim:/xm23_cpu/arduino_data_i 1010101010101 0
+run
+run
+run
+run
+run
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 01 0
+run
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 01 0
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 01 0
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 01 0
+run
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+force -freeze sim:/xm23_cpu/arduino_data_i 1010101010 0
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 10 0
+run
+run
+run
+run
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 00 0
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 10 0
+run
+run
+run
+run
+run
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 00 0
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v failed with 1 errors.
+# 12 compiles, 1 failed with 1 error.
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+force -freeze sim:/xm23_cpu/SW 0 0
+run
+run
+run
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+run
+run
+run
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+force -freeze sim:/xm23_cpu/SW 0 0
+run
+run
+run
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+force -freeze sim:/xm23_cpu/SW 0 0
+run
+run
+run
+force -freeze sim:/xm23_cpu/arduino_ctrl_i 01 0
+run
+add wave -position insertpoint  \
+sim:/xm23_cpu/word_rf_mdr \
+sim:/xm23_cpu/byte_rf_mdr
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
+run
+add wave -position end  sim:/xm23_cpu/addr_bus_ctrl
+# Compile of kb_scr_drv.v was successful.
+# Compile of alu.v was successful.
+# Compile of byte_manip.v was successful.
+# Compile of cex_code.v was successful.
+# Compile of control_unit.v was successful.
+# Compile of instruction_decoder.v was successful.
+# Compile of int_vect_entry.v was successful.
+# Compile of memory.v was successful.
+# Compile of seven_seg_decoder.v was successful.
+# Compile of sign_extender.v was successful.
+# Compile of view_data.v was successful.
+# Compile of xm23_cpu.v was successful.
+# 12 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.xm23_cpu
+# Loading work.seven_seg_decoder
+# Loading work.memory
+# Loading work.view_data
+# Loading work.sign_extender
+# Loading work.byte_manip
+# Loading work.instruction_decoder
+# Loading work.control_unit
+# Loading work.int_vect_entry
+# Loading work.alu
+# Loading work.kb_scr_drv
+# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (4) for port 'sxt_bit_num'. The port definition is at: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /xm23_cpu/ctrl_unit File: F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v Line: 187
+force -freeze sim:/xm23_cpu/SW 0 0
+force -freeze sim:/xm23_cpu/GPIO 1 0, 0 {50 ps} -r 100
+run
+run
