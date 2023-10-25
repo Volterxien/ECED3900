@@ -1,8 +1,10 @@
-module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO);
+module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO,
+				traffic_lights, push_button);
 	input [17:0] SW;
 	input [3:0] KEY;
 	input CLOCK_50;
 	input GPIO;
+	input push_button;
 	output wire [5:0] LEDG;
 	output wire [15:0] LEDR;
 	output reg [1:0] LEDR16_17;
@@ -15,11 +17,13 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	output wire [6:0] HEX5;
 	output wire [6:0] HEX6;
 	output wire [6:0] HEX7;
+	output wire [3:0] traffic_lights;
 	
 	// Guide for memory initialization: https://projectf.io/posts/initialize-memory-in-verilog/
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
 
 	reg [15:0] reg_file [0:16];			// Declare the register file
+	reg [7:0] dev_mem [0:15];
 	reg [15:0] instr_reg, mar, mdr, psw_in;
 	reg [15:0] data_bus, addr_bus;
 	reg [2:0] ctrl_reg;
@@ -27,18 +31,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	reg [15:0] bkpnt;
 	reg [15:0] extension = 16'hffff;
 
-
-	//devmem
-	reg [7:0] dev_mem [0:15];
-
-	// initial begin
-	// 	dev_mem[0] = 8'b00010000;
-	// 	dev_mem[1] = 8'b00000000;
-	// 	dev_mem[2] = 8'b00010000;
-	// 	dev_mem[3] = 8'b01101011;
-	// 	dev_mem[4] = 8'b00000000;
-	// 	dev_mem[5] = 8'b00000000;
-	// end
 	initial begin
 		$readmemh("device_memory.txt", dev_mem, 0);
 	end
@@ -47,15 +39,14 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	reg word_rf_mdr;
 	reg byte_rf_mdr;
 	reg mar_not_used;
-	wire [7:0] kb_data_output;
-	parameter kb_csr = 0;
-	parameter kb_data = 1;
-	parameter scr_csr = 2;
-	parameter scr_data = 3;
-	parameter tmr_csr = 4;
-	parameter tmr_data = 5;
+	wire [7:0] kb_data_output, tl_data_output, pb_data_output;
+	parameter kb_csr = 0, kb_data = 1;
+	parameter scr_csr = 2, scr_data = 3;
+	parameter tmr_csr = 4, tmr_data = 5;
+	parameter tl_csr = 6, tl_data = 7; 
+	parameter pb_csr = 8, pb_data = 9;
 
-	wire [7:0] arduino_data_i, arduino_data_o, csr_kb_o, csr_scr_o;
+	wire [7:0] arduino_data_i, arduino_data_o, csr_kb_o, csr_scr_o, csr_tmr_o, csr_tl_o, csr_pb_o;
 	wire [1:0] arduino_ctrl_i, arduino_ctrl_o;
 
 	
@@ -171,6 +162,10 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	assign nib6 = s_bus[3:0];
 	assign nib7 = cu_out1;
 	
+	
+	// Devices
+	assign traffic_lights = tl_data_output[3:0];
+	
 	seven_seg_decoder decode5( .Reg1 (nib4), .HEX0 (HEX4), .Clock (Clock));
 	seven_seg_decoder decode6( .Reg1 (nib5), .HEX0 (HEX5), .Clock (Clock));
 	seven_seg_decoder decode7( .Reg1 (nib6), .HEX0 (HEX6), .Clock (Clock));
@@ -195,8 +190,14 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	
 	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, psw_update);
 
-	kb_scr_drv kb_scr(	kb_data_output, dev_mem[scr_data][7:0], dev_mem[kb_csr][7:0], dev_mem[scr_csr][7:0], arduino_data_i, 
+	kb_scr_drv kb_scr(kb_data_output, dev_mem[scr_data][7:0], dev_mem[kb_csr][7:0], dev_mem[scr_csr][7:0], arduino_data_i, 
 						arduino_data_o, arduino_ctrl_i, arduino_ctrl_o, csr_scr_o, csr_kb_o, Clock);
+	
+	timer TMR (dev_mem[tmr_csr][7:0], dev_mem[tmr_data][7:0], csr_tmr_o, Clock);
+	
+	traffic_lights TL (dev_mem[tl_csr][7:0], dev_mem[tl_data][7:0], tl_data_output);
+	
+	pedest_button PB (dev_mem[pb_csr][7:0], csr_pb_o, push_button, pb_data_output);
 
 	// Indicator of whether CPU is currently executing instructions based on PSW SLP bit
 	always @(psw_data[3]) begin
@@ -330,6 +331,9 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		
 		dev_mem[kb_csr] = (!register_access_flag ? csr_kb_o : (mar[3:0] == kb_csr) ? mdr : dev_mem[kb_csr]);
 		dev_mem[scr_csr] = (!register_access_flag ? csr_scr_o : (mar[3:0] == scr_csr) ? mdr : dev_mem[scr_csr]); //of/dba set here?
+		dev_mem[tmr_csr] = (!register_access_flag ? csr_tmr_o : (mar[3:0] == tmr_csr) ? mdr : dev_mem[tmr_csr]);
+		dev_mem[pb_csr] = (!register_access_flag ? csr_pb_o : (mar[3:0] == pb_csr) ? mdr : dev_mem[pb_csr]);
+		
 		if (register_access_flag && mar[3:0] == scr_data) begin
 			dev_mem[scr_data] = mdr;
 			if (~dev_mem[scr_csr][2]) begin //check dba
@@ -338,6 +342,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			dev_mem[scr_csr][2] = 1'b0;
 		end
 		dev_mem[kb_data][7:0] = kb_data_output;
+		dev_mem[pb_data][7:0] = pb_data_output;
 
 		//read
 		if(addr_bus_ctrl[2:0] != 3'b111) begin
@@ -353,33 +358,10 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 					dev_mem[kb_csr][2] = 1'b0;//dev_mem[kb_csr] & ~(1'b1 << 2); //dba clear
 					dev_mem[kb_csr][3] = 1'b0;//dev_mem[kb_csr] & ~(1'b1 << 3); //of clear
 				end
+				if(mar[3:0] == tmr_csr) begin
+					dev_mem[tmr_csr][2] = 1'b0;//dev_mem[tmr_csr] & ~(1'b1 << 2); //dba clear
+					dev_mem[tmr_csr][3] = 1'b0;//dev_mem[tmr_csr] & ~(1'b1 << 3); //of clear
+				end
 			end
-		//write
-		//if register_access_flag
-		// if(data_bus_ctrl == 7'b0001000) begin
-		// 	if (mar == scr_data) begin
-		// 	end
-
-		// end
-
-			// else if (mar[3:0] == scr_data) begin
-			// 	dev_mem[scr_csr] = dev_mem[scr_csr] | 1'b1 << 2; //dba set
-			// 	dev_mem[scr_csr] = dev_mem[scr_csr] & 1'b1 << 3; //of clear
-			// end
-
-
-			// dev_mem[tmr_csr] = (!register_access_flag ? driver_output_tmr : mdr);
-			// dev_mem[tmr_data] = (!register_access_flag ? driver_output_tmr : mdr);
-
-/*
-			(!flag_2 ? drv_output : mdr) = devmem
-			mdr = (!flag ? driver_output_kb : devmem[kb_csr]);
-			mdr = (!flag ? driver_output_kb : devmem[kb_data]);
-			mdr = (!flag ? driver_output_kb : devmem[scr_csr]);
-			mdr = (!flag ? driver_output_kb : devmem[tmr_csr]);
-		*/
-
-
-
 	end
 endmodule
