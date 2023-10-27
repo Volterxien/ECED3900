@@ -30,6 +30,7 @@ module kb_scr_drv (
 
   reg data_read = 1'b0, write_en_signal = 1'b0;
 
+  reg stupid_reg;
 
   assign scr_en_i = CSR_scr_i[4];
   assign scr_of_i = CSR_scr_i[3];
@@ -69,8 +70,11 @@ module kb_scr_drv (
       scr_of_o = 0;
   end
 
+/*solution to issue found here: 
+https://stackoverflow.com/questions/52232515/cannot-match-operands-in-the-condition-to-the-corresponding-edges-in-the-enclo
+*/
   always @(posedge write_en, posedge data_read ) begin
-    write_en_signal = (data_read == 1'b0) ? 1'b1 : 1'b0;
+    write_en_signal = (data_read) ? 1'b0 : 1'b1;
   end
 
   always @(posedge clk ) begin
