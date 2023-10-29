@@ -13,7 +13,6 @@ module memory (Clock, lb_in, ub_in, lb_addr, ub_addr, we_lb, we_ub, lb_out, ub_o
 		$readmemh("memory.txt", memory, 0);
 	end
 	
-	
 	// Memory Upper Byte
 	always @(posedge Clock) begin
 		if (we_ub == 1'd1)

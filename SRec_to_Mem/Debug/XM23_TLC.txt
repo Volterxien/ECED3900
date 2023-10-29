@@ -17,7 +17,7 @@ TLCi_DR		equ #9
 STORAGE		equ #3000 ; Location to store push button state
 
 org #0000	; Timer Device
-word #8012	; Have timer trigger at 0.5s intervals
+word #0212	; Have timer trigger at 0.5s intervals
 
 org #0006	; TLC GPIO outputs
 word #0010	; DR[3:0] = [PEDEST, GRN, YEL, RED]

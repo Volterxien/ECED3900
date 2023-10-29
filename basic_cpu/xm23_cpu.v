@@ -40,9 +40,9 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	reg byte_rf_mdr;
 	reg mar_not_used;
 	wire [7:0] kb_data_output, tl_data_output, pb_data_output;
-	parameter kb_csr = 0, kb_data = 1;
-	parameter scr_csr = 2, scr_data = 3;
-	parameter tmr_csr = 4, tmr_data = 5;
+	parameter tmr_csr = 0, tmr_data = 1;
+	parameter kb_csr = 2, kb_data = 3;
+	parameter scr_csr = 4, scr_data = 5;
 	parameter tl_csr = 6, tl_data = 7; 
 	parameter pb_csr = 8, pb_data = 9;
 
@@ -69,7 +69,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		reg_file[15] = 16'hffff;
 		reg_file[16] = 16'h0000;
 		ctrl_reg = 3'b000;
-		bkpnt = 16'h00f2;
+		bkpnt = 16'h1014;
 		psw_in = 16'h60e0;
 		mar = 16'h0000;
 		mdr = 16'h0000;	
@@ -157,14 +157,16 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	// Assign enable
 	assign id_E = ID_en;
 	
-	assign nib4 = cu_out2[3:0];
-	assign nib5 = cu_out3[3:0];
-	assign nib6 = s_bus[3:0];
+	//assign nib4 = cu_out2[3:0];
+	//assign nib5 = cu_out3[3:0];
+	//assign nib6 = s_bus[3:0];
 	assign nib7 = cu_out1;
-	
+	assign nib6 = dev_mem[tl_csr][7:4];
+	assign nib5 = dev_mem[tl_csr][3:0];
+	assign nib4 = dev_mem[tmr_csr][3:0];
 	
 	// Devices
-	assign traffic_lights = tl_data_output[3:0];
+	assign traffic_lights = tl_data_output;
 	
 	seven_seg_decoder decode5( .Reg1 (nib4), .HEX0 (HEX4), .Clock (Clock));
 	seven_seg_decoder decode6( .Reg1 (nib5), .HEX0 (HEX5), .Clock (Clock));
@@ -195,7 +197,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	
 	timer TMR (dev_mem[tmr_csr][7:0], dev_mem[tmr_data][7:0], csr_tmr_o, Clock);
 	
-	traffic_lights TL (dev_mem[tl_csr][7:0], dev_mem[tl_data][7:0], tl_data_output);
+	traffic_lights TL (dev_mem[tl_csr][7:0], csr_tl_o, dev_mem[tl_data][7:0], tl_data_output);
 	
 	pedest_button PB (dev_mem[pb_csr][7:0], csr_pb_o, push_button, pb_data_output);
 
@@ -264,7 +266,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			mar_not_used = 1'b1;
 		end
 
-		if (mar <=16 && mar >=0) begin
+		if (mar <= 16 && mar >= 0) begin
 			access_dev_mem = 1'b1;
 		end
 
@@ -333,6 +335,13 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		dev_mem[scr_csr] = (!register_access_flag ? csr_scr_o : (mar[3:0] == scr_csr) ? mdr : dev_mem[scr_csr]); //of/dba set here?
 		dev_mem[tmr_csr] = (!register_access_flag ? csr_tmr_o : (mar[3:0] == tmr_csr) ? mdr : dev_mem[tmr_csr]);
 		dev_mem[pb_csr] = (!register_access_flag ? csr_pb_o : (mar[3:0] == pb_csr) ? mdr : dev_mem[pb_csr]);
+		dev_mem[tl_csr] = (!register_access_flag ? csr_tl_o : (mar[3:0] == tl_csr) ? mdr : dev_mem[tl_csr]);
+		
+		if (register_access_flag && mar[3:0] == tmr_data)
+			dev_mem[tmr_data] = mdr[7:0];
+			
+		if (register_access_flag && mar[3:0] == tl_data)
+			dev_mem[tl_data] = mdr[7:0];
 		
 		if (register_access_flag && mar[3:0] == scr_data) begin
 			dev_mem[scr_data] = mdr;
@@ -345,13 +354,11 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		dev_mem[pb_data][7:0] = pb_data_output;
 
 		//read
-		if(addr_bus_ctrl[2:0] != 3'b111) begin
-			if (byte_rf_mdr) begin
-				mdr = dev_mem[mar[3:0]][7:0];
-			end
-			else if (word_rf_mdr) begin
-				mdr = dev_mem[mar[3:0]][7:0] << 8 | dev_mem[mar[3:0] + 1][7:0];
-			end
+		if (byte_rf_mdr) begin
+			reg_file[dbus_rnum_dst[4:0]][7:0] = dev_mem[mar[3:0]][7:0];
+		end
+		else if (word_rf_mdr) begin
+			reg_file[dbus_rnum_dst[4:0]] = dev_mem[mar[3:0]][7:0] << 8 | dev_mem[mar[3:0] + 1][7:0];
 		end
 		if (byte_rf_mdr || word_rf_mdr) begin
 				if(mar[3:0] == kb_csr) begin

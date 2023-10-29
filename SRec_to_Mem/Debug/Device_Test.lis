@@ -1,0 +1,52 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: Device_Test.txt
+Time of assembly: Sun 29 Oct 2023 15:56:37 
+  1	    	     	org #0000
+  2	0000	0212	word #0212	; 1 second timer
+  3	    	     	
+  4	    	     	org #0006	; LED outputs
+  5	0006	0010	word #0010	; Enable TLC output
+  6	    	     	
+  7	    	     	org #0008	; TLC GPIO input
+  8	0008	0012	word #0012	; DR[0] is the push button input
+  9	    	     	
+ 10	    	     	org #1000
+ 11	1000	6054	movl $10,R4	; R4 = $10
+ 12	    	     	Loop
+ 13	1002	585A	ld.b R3,R2
+ 14	1004	4992	bit $2,R2	; Check if Timer DBA set
+ 15	1006	23FD	beq Loop
+ 16	1008	4088	add $1,R0	; Increment count
+ 17	100A	4504	cmp R0,R4	; Check if count is $10
+ 18	100C	27FA	bne Loop
+ 19	    	     	
+ 20	100E	607C	movl #0F,R4
+ 21	1010	603B	movl $7,R3	; Set all LEDs on
+ 22	1012	5C63	st.b R4,R3
+ 23	1014	6043	movl $8,R3
+ 24	    	     	
+ 25	    	     	Loop2
+ 26	1016	585A	ld.b R3,R2
+ 27	1018	4992	bit $2,R2	; Check if push button pressed
+ 28	101A	23FD	beq Loop2
+ 29	    	     	
+ 30	101C	4784	and $0,R4	; Clear R4
+ 31	101E	603B	movl $7,R3
+ 32	1020	5C63	st.b R4,R3	; Turn off LEDs
+Successful completion of assembly - 1P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+Loop2                              	REL	1016	4118	PRI
+Loop                               	REL	1002	4098	PRI
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: C:\Users\mccoy\Documents\ECED3900\SRec_to_Mem\Debug\Device_Test.xme
+
