@@ -35,6 +35,7 @@ int main(int argc, char* argv[])
 	FILE* infile;
 	FILE* outfile;
 	FILE* dev_mem_file;
+	FILE* iv_mem_file;
 
 	char record[MAX_LEN];
 	int errors = 0;
@@ -71,6 +72,7 @@ int main(int argc, char* argv[])
 
 	fopen_s(&outfile, "memory.txt", "w");
 	fopen_s(&dev_mem_file, "device_memory.txt", "w");
+	fopen_s(&iv_mem_file, "int_vect_memory.txt", "w");
 	
 	for (int i = 0; i < 0x10000; i++)
 	{
@@ -78,10 +80,15 @@ int main(int argc, char* argv[])
 		{
 			fprintf(dev_mem_file, "%2.2X\n", memory[i]);
 		}
+		if (i >= 0xffc0)
+		{
+			fprintf(iv_mem_file, "%2.2X\n", memory[i]);
+		}
 		fprintf(outfile, "%2.2X\n", memory[i]);
 	}
 	fclose(outfile);
 	fclose(dev_mem_file);
+	fclose(iv_mem_file);
 
 	gen_clk_tbl();
 
