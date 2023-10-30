@@ -38,7 +38,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	reg register_access_flag;
 	reg word_rf_mdr;
 	reg byte_rf_mdr;
-	reg mar_not_used;
 	wire [7:0] kb_data_output, tl_data_output, pb_data_output;
 	parameter tmr_csr = 0, tmr_data = 1;
 	parameter kb_csr = 2, kb_data = 3;
@@ -250,7 +249,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		register_access_flag = 1'b0;
 		word_rf_mdr = 1'b0;
 		byte_rf_mdr = 1'b0;
-		mar_not_used = 1'b0;
 		//clear flag
 		
 		//Address Bus Updating
@@ -262,9 +260,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			else if (addr_bus_ctrl[5:3] == 3'b100)			// Read from Interrupt Vector addresses
 				mar = 16'hffc0 + (vect_num[3:0] << 2) + PSW_ENT[1:0];	// Determine address from vector number and option
 		end	
-		else if (addr_bus_ctrl[2:0] == 3'b111) begin
-			mar_not_used = 1'b1;
-		end
 
 		if (mar <= 16 && mar >= 0) begin
 			access_dev_mem = 1'b1;
@@ -277,7 +272,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		// Data Bus Updating
 		if (data_bus_ctrl[2:0] == 3'b000) begin 			// MDR
 			if (data_bus_ctrl[5:3] == 3'b001) begin			// Read from Register File into MDR
-				mdr = reg_file[dbus_rnum_src[4:0]][15:0]; 
+				mdr <= reg_file[dbus_rnum_src[4:0]][15:0]; 
 				if(access_dev_mem) begin
 					register_access_flag = 1'b1;
 				end
@@ -294,17 +289,18 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			// end
 		end
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
-			if (data_bus_ctrl[5:3] == 3'b000)				// Read from MDR into Register File
-				if (data_bus_ctrl[6] == 1'b1)				// Byte
+			if (data_bus_ctrl[5:3] == 3'b000)	begin			// Read from MDR into Register File
+				if (data_bus_ctrl[6] == 1'b1)	begin		// Byte
 					reg_file[dbus_rnum_dst[4:0]][7:0] = mdr[7:0];
-					if(access_dev_mem) begin
+					if(access_dev_mem)
 						byte_rf_mdr = 1'b1;
-					end
-				else										// Word
+				end
+				else	begin								// Word
 					reg_file[dbus_rnum_dst[4:0]] = mdr[15:0];
-					if(access_dev_mem) begin
+					if(access_dev_mem)
 						word_rf_mdr = 1'b1;
-					end
+				end
+			end
 			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into Register File
 				if (data_bus_ctrl[6] == 1'b1)				// Byte
 					reg_file[dbus_rnum_dst[4:0]][7:0] = alu_out[7:0];
