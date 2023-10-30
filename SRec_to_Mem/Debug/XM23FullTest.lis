@@ -1,0 +1,181 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: XM23FullTest.txt
+Time of assembly: Sat 28 Oct 2023 14:12:03 
+  1	    	     	org #1000
+  2	1000	4089		add.w 	$1,R1	; R1 = 1
+  3	1002	40D2		add.b	#2,R2	; R2 = 2
+  4	1004	0001		bl 	Main
+  5	1006	40C8		add.b 	#1,R0
+  6	    	     	Main
+  7	1008	40CB		add.b 	#1,R3	; R3 = 1
+  8	100A	420B		sub.w	R1,R3	; R3 = R3 - R1 = 0
+  9	100C	2001		beq 	Step1
+ 10	100E	40C8		add.b	#1,R0	; Skipped
+ 11	    	     	Step1
+ 12	1010	424A		sub.b	R1,R2	; R2 = R2 - R1 = 1
+ 13	1012	2001		beq 	Step2
+ 14	1014	40C8		add.b	#1,R0	; R0 = 1
+ 15	    	     	Step2
+ 16	1016	4219		sub.w	R3,R1	; R1 = R1 - R3 = 1
+ 17	1018	2401		bne 	Step3
+ 18	101A	40C8		add.b	#1,R0	; Skipped
+ 19	    	     	Step3
+ 20	101C	4248		sub.b	R1,R0	; R0 = R0 - R1 = 0
+ 21	101E	2401		bne 	Step4
+ 22	1020	40C8		add.b	#1,R0	; R0 = 1
+ 23	    	     	Step4
+ 24	1022	40BB		add.w	$-1,R3	; R3 = FFFF
+ 25	1024	4093		add.w	$2,R3	; R3 = 1
+ 26	1026	2801		bc 	Step5
+ 27	1028	40C8		add.b	#1,R0	; Skipped
+ 28	    	     	Step5
+ 29	102A	40D3		add.b	$2,R3	; R3 = R3 + 2 = 3
+ 30	102C	2801		bc 	Step6
+ 31	102E	40C8		add.b	#1,R0	; R0 = R0 + 1 = 2
+ 32	    	     	Step6	
+ 33	1030	408B		add.w	$1,R3	; R3 = R3 + 1 = 4
+ 34	1032	2C01		bnc 	Step7
+ 35	1034	40C8		add.b	#1,R0	; Skipped
+ 36	    	     	Step7
+ 37	1036	40FC		add.b	$-1,R4	; R4 = FF
+ 38	1038	40D4		add.b	$2,R4	; R4 = 1
+ 39	103A	2C01		bnc 	Step8
+ 40	103C	40C8		add.b	#1,R0	; R0 = R0 + 1 = 3
+ 41	    	     	Step8	
+ 42	103E	42D4		sub.b 	$2,R4	; R4 = R4 - 2 = -1
+ 43	1040	3001		bn 	Step9
+ 44	1042	40C8		add.b	#1,R0	; Skipped
+ 45	    	     	Step9
+ 46	1044	409C		add.w	$4,R4	; R4 = R4 + 4 = 0ff + 3 = 0103
+ 47	1046	3001		bn	Step10
+ 48	1048	40C8		add.b	#1,R0	; R0 = R0 + 1 = 4
+ 49	    	     	Step10
+ 50	104A	620B		movl	#41,R3	; R3 = 01000001
+ 51	104C	6212		movl	#42,R2	; R2 = 01000010
+ 52	104E	4053		add.b	R2,R3	; R3 = R3 + R2 = 10000011
+ 53	1050	3401		bge 	Step11
+ 54	1052	40C8		add.b	#1,R0	; Skipped
+ 55	    	     	Step11
+ 56	1054	40CB		add.b	#1,R3	; R3 = R3 + 1 = 10000100
+ 57	1056	3401		bge	Step12
+ 58	1058	40C8		add.b	#1,R0	; R0 = R0 + 1 = 5
+ 59	    	     	Step12
+ 60	105A	40CB		add.b	$1,R3	; R3 = R3 + 1 = 10000101
+ 61	105C	3801		blt	Step13
+ 62	105E	40C8		add.b	#1,R0	; Skipped
+ 63	    	     	Step13
+ 64	1060	620B		movl	#41,R3	; R3 = 01000001
+ 65	1062	6212		movl	#42,R2	; R2 = 01000010
+ 66	1064	4053		add.b	R2,R3	; R3 = R3 + R2 = 10000011
+ 67	1066	3801		blt	Step14
+ 68	1068	40C8		add.b	#1,R0	; R0 = R0 + 1 = 6
+ 69	    	     	Step14	
+ 70	106A	3C01		bra 	Step15
+ 71	106C	40C8		add.b	#1,R0	; Skipped
+ 72	    	     	Step15
+ 73	106E	4DA1		setcc C
+ 74	1070	41C8		addc.b 	$1,R0	; R0 = R0 + 1 + C = 8
+ 75	1072	4108		addc.w	R1,R0	; R0 = R0 + R1 + C = 9
+ 76	1074	4DA1		setcc 	C
+ 77	1076	4342		subc.b 	R0,R2	; R2 = R2 + ~R0 + C = 0039
+ 78	1078	4302		subc.w	R0,R2	; R2 = R2 + ~R0 + C = 002F
+ 79	107A	409A		add.w	$4,R2	; R2 = R2 + 4 = 0033
+ 80	107C	4454		dadd.b 	R2,R4	; R4 = R4 + R2 + C = 0106
+ 81	107E	4404		dadd.w	R0,R4	; R4 = R4 + R0 + C = 0205
+ 82	1080	4552		cmp.b	R2,R2	; R2 - R2 = 0
+ 83	1082	4520		cmp.w	R4,R0	; R0 - R4 = -508
+ 84	1084	6553		movl	#AA,R3	; R3 = AA
+ 85	1086	62A8		movl	#55,R0	; R0 = 55
+ 86	1088	7D52		movh	#AA00,R2
+ 87	108A	6552		movl	#AA,R2	; R2 = AAAA
+ 88	108C	4642		xor.b 	R0,R2	; R2 = R2 ^ R0 = AAFF
+ 89	108E	46BA		xor.w	$-1,R2	; R2 = R2 ^ FFFF = 5500
+ 90	1090	6549		movl	#A9,R1	; R1 = A9
+ 91	1092	4759		and.b	R3,R1	; R1 = R1 & R3 = A8
+ 92	1094	7E60		movh	#CC00,R0
+ 93	1096	4702		and.w	R0,R2	; R2 = R2 & R0 = 4400
+ 94	1098	4841		or.b	R0,R1	; R1 = R1 | R0 = FD
+ 95	109A	488A		or.w	$1,R2	; R2 = R2 | 1 = 4401
+ 96	109C	49C2		bit.b	$0,R2
+ 97	109E	49A2		bit.w	#8,R2
+ 98	10A0	7800		movh	#0000,R0
+ 99	10A2	6050		movl	$10,R0	; R0 = 10
+100	10A4	4AC2		bic.b 	$0,R2	; R2 = 4400
+101	10A6	4A02		bic.w	R0,R2	; R2 = 4000
+102	10A8	4BCA		bis.b	$1,R2	; R2 = 4002
+103	10AA	4B02		bis.w	R0,R2	; R2 = 4402
+104	10AC	4C48		mov.b	R1,R0	; R0 = R1 = FD
+105	10AE	4C13		mov.w	R2,R3	; R3 = R2 = 4402
+106	10B0	4C91		swap 	R2,R1	; R2 = 00FD R1 = 4402
+107	10B2	7FF4		movh	#FE00,R4
+108	10B4	63F4		movl	#7E,R4	; R4 = FE7E
+109	10B6	4D44		sra.b 	R4	; R4 = FE3F
+110	10B8	4D04		sra.w	R4	; R4 = FF1F
+111	10BA	60F4		movl	#1E,R4	; R4 = FF1E	
+112	10BC	4D4C		rrc.b 	R4	; R4 = FF8F
+113	10BE	4D0C		rrc.w	R4	; R4 = 7FC7
+114	10C0	4D1C		swpb 	R4	; R4 = C77F
+115	10C2	6431		movl	#86,R1	; R1 = 4486
+116	10C4	4D21		sxt 	R1	; R1 = FF86
+117	10C6	4DB7		setcc	VNZC
+118	10C8	4DD7		clrcc 	VNZC
+119	10CA	4DA2		setcc	Z
+120	10CC	7800		movh	#0000,R0
+121	10CE	6000		movl	#0,R0	; R0 = 0
+122	10D0	500A		cex 	eq,$1,$2
+123	10D2	40C8		add.b	$1,R0	; R0 = R0 + 1 = 1
+124	10D4	40C9		add.b	$1,R1	; Skipped
+125	10D6	40CA		add.b	$1,R2	; Skipped
+126	10D8	500A		cex 	eq,$1,$2
+127	10DA	40C8		add.b	$1,R0	; Skipped
+128	10DC	40C9		add.b	$1,R1	; R1 = R1 + 1 = FF87
+129	10DE	40CA		add.b	$1,R2	; R2 = R2 + 1 = 4403
+130	10E0	778B		movls	#F1,R3	; R3 = FFF1
+131	10E2	6D5B		movlz	#AB,R3	; R3 = 00AB
+132	10E4	7883		movh	#1000,R3
+133	10E6	6003		movl	#0,R3	; R3 = 1000
+134	10E8	7882		movh	#1000,R2
+135	10EA	6012		movl	#2,R2	; R2 = 1002
+136	10EC	5C43		st.b	R0,R3	; mem[1000] = 1
+137	10EE	5EC3		st.b	R0,+R3	; mem[1001] = 1 R3 = 1001
+138	10F0	5D0A		st.w	R1,R2-	; mem[1002:1003] = FF86 R2 = 1000
+139	10F2	5851		ld.b 	R2,R1	; R1 = FF01
+140	10F4	5ADC		ld.b	+R3,R4	; R4 = C786 R3 = 1002
+141	10F6	5919		ld.w	R3-,R1	; R1 = FF86 R3 = 1000
+142	10F8	C24B		str.b 	R1,R3,$4	; mem[1004] = 86
+143	10FA	C40B		str.w	R1,R3,$8	; mem[1008:1009] = FF86
+144	10FC	8250		ldr.b 	R2,$4,R0	; R0 = 86
+145	10FE	8413		ldr.w	R2,$8,R3	; R1 = FF86
+146	    	     	
+
+Successful completion of assembly - 2P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+Step15                             	REL	106E	4206	PRI
+Step14                             	REL	106A	4202	PRI
+Step13                             	REL	1060	4192	PRI
+Step12                             	REL	105A	4186	PRI
+Step11                             	REL	1054	4180	PRI
+Step10                             	REL	104A	4170	PRI
+Step9                              	REL	1044	4164	PRI
+Step8                              	REL	103E	4158	PRI
+Step7                              	REL	1036	4150	PRI
+Step6                              	REL	1030	4144	PRI
+Step5                              	REL	102A	4138	PRI
+Step4                              	REL	1022	4130	PRI
+Step3                              	REL	101C	4124	PRI
+Step2                              	REL	1016	4118	PRI
+Step1                              	REL	1010	4112	PRI
+Main                               	REL	1008	4104	PRI
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: C:\Users\walli\Sync\PCs\final_term\Capstone\ECED3900\SRec_to_Mem\Debug\XM23FullTest.xme
+

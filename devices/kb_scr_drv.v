@@ -82,11 +82,11 @@ https://stackoverflow.com/questions/52232515/cannot-match-operands-in-the-condit
     scr_dba_o = scr_dba_i;
     kb_of_o = kb_of_i;
     kb_dba_o = kb_dba_i;
-    control_o = control_o | 1'b1 << 1;
+    control_o =  2'b11;
     CSR_kb_o = CSR_kb_i;
     CSR_scr_o = CSR_scr_i; 
-    //write == kb
 
+    //write == kb
     if (~write_en_signal) begin
       data_read = 1'b0;
     end
@@ -114,7 +114,7 @@ https://stackoverflow.com/questions/52232515/cannot-match-operands-in-the-condit
       end
       else begin
         data_bus_o = ~data_reg_scr;
-        control_o[1] =  1'b0;
+        // control_o[1] =  1'b0;
       end
     end
 

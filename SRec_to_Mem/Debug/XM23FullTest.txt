@@ -1,4 +1,4 @@
-org#1000
+org #1000
 	add.w 	$1,R1	; R1 = 1
 	add.b	#2,R2	; R2 = 2
 	bl 	Main

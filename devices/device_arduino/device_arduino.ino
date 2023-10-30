@@ -1,6 +1,6 @@
 #define KB_PINS 10
-#define WRITE_OK 8
-#define WRITE_EN 9
+#define WRITE_OK 10
+#define WRITE_EN 11
 #define PIN_CONST 2
 
 #define SCR_PINS 20
