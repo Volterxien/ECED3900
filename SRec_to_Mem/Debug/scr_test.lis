@@ -1,0 +1,25 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: scr_test.asm
+Time of assembly: Tue 31 Oct 2023 13:13:54 
+  1	    	     	org #1000
+  2	    	     	
+  3	1000	6050	movl #a,R0
+  4	1002	6019	movl #3,R1
+  5	1004	5C41	st.b R0,R1
+  6	    	     	
+
+Successful completion of assembly - 1P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: F:\Sync\PCs\final_term\Capstone\ECED3900\SRec_to_Mem\Debug\scr_test.xme
+

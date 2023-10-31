@@ -1,4 +1,4 @@
-module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO, KB_IN_GPIO, KB_OUT_GPIO, SCR_IN_GPIO, SCR_OUT_GPIO, test_gpio, test_gpio2);
+module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO, arduino_data_i, arduino_data_o, arduino_ctrl_i, arduino_ctrl_o, test_gpio, test_gpio2);
 	input [17:0] SW;
 	input [3:0] KEY;
 	input CLOCK_50;
@@ -16,10 +16,11 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	output wire [6:0] HEX6;
 	output wire [6:0] HEX7;
 
-	input [8:0] KB_IN_GPIO;
-	output wire KB_OUT_GPIO;
-	output wire [8:0] SCR_OUT_GPIO;
-	input SCR_IN_GPIO;
+	output wire [7:0] arduino_data_o;
+	input [7:0] arduino_data_i;
+	output wire [1:0] arduino_ctrl_o;
+	input [1:0] arduino_ctrl_i;
+
 	output reg test_gpio;
 	output reg test_gpio2;
 
@@ -63,13 +64,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	parameter tmr_csr = 4;
 	parameter tmr_data = 5;
 
-	wire [7:0] arduino_data_i, arduino_data_o, csr_kb_o, csr_scr_o;
-	wire [1:0] arduino_ctrl_i, arduino_ctrl_o;
-
-	assign arduino_data_i = KB_IN_GPIO[7:0];
-	assign arduino_data_o = SCR_OUT_GPIO[7:0];
-	assign arduino_ctrl_o = {SCR_OUT_GPIO[8], KB_OUT_GPIO}; 
-	assign arduino_ctrl_i = {KB_IN_GPIO[8], SCR_IN_GPIO};
+	wire [7:0] /*arduino_data_i, arduino_data_o, */csr_kb_o, csr_scr_o;
+	// wire [1:0] arduino_ctrl_i, arduino_ctrl_o;
 
 	
 	initial begin
@@ -159,7 +155,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	
 	assign mem_mode[1:0] = KEY[2:1];
 	
-	assign mem_data = mdr[15:0];
+	assign mem_data = ((addr <= 15 && addr >=0) ? {dev_mem[addr[3:0]], dev_mem[addr + 1]} : mdr[15:0]);
 	assign psw_data = psw_out[15:0];
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	
@@ -304,17 +300,19 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			// end
 		end
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
-			if (data_bus_ctrl[5:3] == 3'b000)				// Read from MDR into Register File
+			if (data_bus_ctrl[5:3] == 3'b000) begin				// Read from MDR into Register File
 				if (data_bus_ctrl[6] == 1'b1)				// Byte
 					reg_file[dbus_rnum_dst[4:0]][7:0] = mdr[7:0];
 					if(access_dev_mem) begin
 						byte_rf_mdr = 1'b1;
 					end
-				else										// Word
+				else begin									// Word
 					reg_file[dbus_rnum_dst[4:0]] = mdr[15:0];
 					if(access_dev_mem) begin
 						word_rf_mdr = 1'b1;
 					end
+				end
+			end
 			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into Register File
 				if (data_bus_ctrl[6] == 1'b1)				// Byte
 					reg_file[dbus_rnum_dst[4:0]][7:0] = alu_out[7:0];
