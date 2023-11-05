@@ -4,12 +4,12 @@ add wave -noupdate -expand -group Inputs -label SW -radix hexadecimal -childform
 add wave -noupdate -expand -group Inputs -label KEY /xm23_cpu/KEY
 add wave -noupdate -expand -group Inputs -label GPIO_EXT_CLK /xm23_cpu/GPIO
 add wave -noupdate -expand -group Inputs -label CLOCK_50MHz /xm23_cpu/CLOCK_50
-add wave -noupdate -group {Important Regs} -label Reg_File -radix hexadecimal -childformat {{{/xm23_cpu/reg_file[0]} -radix hexadecimal} {{/xm23_cpu/reg_file[1]} -radix hexadecimal} {{/xm23_cpu/reg_file[2]} -radix hexadecimal} {{/xm23_cpu/reg_file[3]} -radix hexadecimal} {{/xm23_cpu/reg_file[4]} -radix hexadecimal} {{/xm23_cpu/reg_file[5]} -radix hexadecimal} {{/xm23_cpu/reg_file[6]} -radix hexadecimal} {{/xm23_cpu/reg_file[7]} -radix hexadecimal -childformat {{{/xm23_cpu/reg_file[7][15]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][14]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][13]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][12]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][11]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][10]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][9]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][8]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][7]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][6]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][5]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][4]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][3]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][2]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][1]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][0]} -radix hexadecimal}}} {{/xm23_cpu/reg_file[8]} -radix hexadecimal} {{/xm23_cpu/reg_file[9]} -radix hexadecimal} {{/xm23_cpu/reg_file[10]} -radix hexadecimal} {{/xm23_cpu/reg_file[11]} -radix hexadecimal} {{/xm23_cpu/reg_file[12]} -radix hexadecimal} {{/xm23_cpu/reg_file[13]} -radix hexadecimal} {{/xm23_cpu/reg_file[14]} -radix hexadecimal} {{/xm23_cpu/reg_file[15]} -radix hexadecimal} {{/xm23_cpu/reg_file[16]} -radix hexadecimal}} -expand -subitemconfig {{/xm23_cpu/reg_file[0]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[1]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[2]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[3]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[4]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[5]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[6]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7]} {-height 15 -radix hexadecimal -childformat {{{/xm23_cpu/reg_file[7][15]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][14]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][13]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][12]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][11]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][10]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][9]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][8]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][7]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][6]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][5]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][4]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][3]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][2]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][1]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][0]} -radix hexadecimal}}} {/xm23_cpu/reg_file[7][15]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][14]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][13]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][12]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][11]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][10]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][9]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][8]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][7]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][6]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][5]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][4]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][3]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][2]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][1]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][0]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[8]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[9]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[10]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[11]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[12]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[13]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[14]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[15]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[16]} {-height 15 -radix hexadecimal}} /xm23_cpu/reg_file
-add wave -noupdate -group {Important Regs} -label Instr_Reg -radix hexadecimal /xm23_cpu/instr_reg
-add wave -noupdate -group {Important Regs} -label MAR -radix hexadecimal /xm23_cpu/mar
-add wave -noupdate -group {Important Regs} -label MDR -radix hexadecimal /xm23_cpu/mdr
-add wave -noupdate -group {Important Regs} -label BKPNT -radix hexadecimal /xm23_cpu/bkpnt
-add wave -noupdate -group {Important Regs} -label PSW -radix hexadecimal /xm23_cpu/psw_data
+add wave -noupdate -expand -group {Important Regs} -label Reg_File -radix hexadecimal -childformat {{{/xm23_cpu/reg_file[0]} -radix hexadecimal} {{/xm23_cpu/reg_file[1]} -radix hexadecimal} {{/xm23_cpu/reg_file[2]} -radix hexadecimal} {{/xm23_cpu/reg_file[3]} -radix hexadecimal} {{/xm23_cpu/reg_file[4]} -radix hexadecimal} {{/xm23_cpu/reg_file[5]} -radix hexadecimal} {{/xm23_cpu/reg_file[6]} -radix hexadecimal} {{/xm23_cpu/reg_file[7]} -radix hexadecimal -childformat {{{/xm23_cpu/reg_file[7][15]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][14]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][13]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][12]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][11]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][10]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][9]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][8]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][7]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][6]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][5]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][4]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][3]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][2]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][1]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][0]} -radix hexadecimal}}} {{/xm23_cpu/reg_file[8]} -radix hexadecimal} {{/xm23_cpu/reg_file[9]} -radix hexadecimal} {{/xm23_cpu/reg_file[10]} -radix hexadecimal} {{/xm23_cpu/reg_file[11]} -radix hexadecimal} {{/xm23_cpu/reg_file[12]} -radix hexadecimal} {{/xm23_cpu/reg_file[13]} -radix hexadecimal} {{/xm23_cpu/reg_file[14]} -radix hexadecimal} {{/xm23_cpu/reg_file[15]} -radix hexadecimal} {{/xm23_cpu/reg_file[16]} -radix hexadecimal}} -expand -subitemconfig {{/xm23_cpu/reg_file[0]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[1]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[2]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[3]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[4]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[5]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[6]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7]} {-height 15 -radix hexadecimal -childformat {{{/xm23_cpu/reg_file[7][15]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][14]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][13]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][12]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][11]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][10]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][9]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][8]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][7]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][6]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][5]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][4]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][3]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][2]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][1]} -radix hexadecimal} {{/xm23_cpu/reg_file[7][0]} -radix hexadecimal}}} {/xm23_cpu/reg_file[7][15]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][14]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][13]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][12]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][11]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][10]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][9]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][8]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][7]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][6]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][5]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][4]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][3]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][2]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][1]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[7][0]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[8]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[9]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[10]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[11]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[12]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[13]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[14]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[15]} {-height 15 -radix hexadecimal} {/xm23_cpu/reg_file[16]} {-height 15 -radix hexadecimal}} /xm23_cpu/reg_file
+add wave -noupdate -expand -group {Important Regs} -label Instr_Reg -radix hexadecimal /xm23_cpu/instr_reg
+add wave -noupdate -expand -group {Important Regs} -label MAR -radix hexadecimal /xm23_cpu/mar
+add wave -noupdate -expand -group {Important Regs} -label MDR -radix hexadecimal /xm23_cpu/mdr
+add wave -noupdate -expand -group {Important Regs} -label BKPNT -radix hexadecimal /xm23_cpu/bkpnt
+add wave -noupdate -expand -group {Important Regs} -label PSW -radix hexadecimal /xm23_cpu/psw_data
 add wave -noupdate -group {Control Signals} -label CPU_Cycle /xm23_cpu/ctrl_unit/cpucycle
 add wave -noupdate -group {Control Signals} -label Ctrl_Reg /xm23_cpu/ctrl_reg
 add wave -noupdate -group {Control Signals} -label Data_Bus_Ctrl /xm23_cpu/data_bus_ctrl
@@ -116,41 +116,47 @@ add wave -noupdate -group {IV Signals/Data} -label OP_IV -radix decimal /xm23_cp
 add wave -noupdate -group {IV Signals/Data} -label Data_SRC_IV -radix unsigned /xm23_cpu/ctrl_unit/data_src_iv
 add wave -noupdate -group {IV Signals/Data} -label Addr_SRC_IV -radix unsigned /xm23_cpu/ctrl_unit/addr_src_iv
 add wave -noupdate -group {IV Signals/Data} -label Data_DST_IV -radix unsigned /xm23_cpu/ctrl_unit/data_dst_iv
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/data_reg_kb
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/data_reg_scr
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/CSR_kb_i
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/CSR_scr_i
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/data_bus_i
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/data_bus_o
-add wave -noupdate -expand -group dev -group arduino_i /xm23_cpu/kb_scr/control_i
-add wave -noupdate -expand -group dev -group arduino_i /xm23_cpu/kb_scr/write_en
-add wave -noupdate -expand -group dev -group arduino_i /xm23_cpu/kb_scr/read_ok
-add wave -noupdate -expand -group dev -group arduino_o /xm23_cpu/kb_scr/control_o
-add wave -noupdate -expand -group dev -group arduino_o /xm23_cpu/kb_scr/read_en
-add wave -noupdate -expand -group dev -group arduino_o /xm23_cpu/kb_scr/write_ok
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/CSR_scr_o
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/CSR_kb_o
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/scr_of_o
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/scr_dba_o
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/kb_of_o
-add wave -noupdate -expand -group dev /xm23_cpu/kb_scr/kb_dba_o
-add wave -noupdate -expand -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_en_i
-add wave -noupdate -expand -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_of_i
-add wave -noupdate -expand -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_dba_i
-add wave -noupdate -expand -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_io_i
-add wave -noupdate -expand -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_ie_i
-add wave -noupdate -expand -group dev -group kb_i /xm23_cpu/kb_scr/kb_en_i
-add wave -noupdate -expand -group dev -group kb_i /xm23_cpu/kb_scr/kb_of_i
-add wave -noupdate -expand -group dev -group kb_i /xm23_cpu/kb_scr/kb_dba_i
-add wave -noupdate -expand -group dev -group kb_i /xm23_cpu/kb_scr/kb_io_i
-add wave -noupdate -expand -group dev -group kb_i /xm23_cpu/kb_scr/kb_ie_i
-add wave -noupdate -expand -group {cpu dev} -expand /xm23_cpu/dev_mem
-add wave -noupdate -expand -group {cpu dev} /xm23_cpu/arduino_data_i
-add wave -noupdate -expand -group {cpu dev} /xm23_cpu/arduino_data_o
-add wave -noupdate -expand -group {cpu dev} /xm23_cpu/arduino_ctrl_i
-add wave -noupdate -expand -group {cpu dev} /xm23_cpu/arduino_ctrl_o
+add wave -noupdate -group dev /xm23_cpu/kb_scr/data_reg_kb
+add wave -noupdate -group dev /xm23_cpu/kb_scr/data_reg_scr
+add wave -noupdate -group dev /xm23_cpu/kb_scr/CSR_kb_i
+add wave -noupdate -group dev /xm23_cpu/kb_scr/CSR_scr_i
+add wave -noupdate -group dev /xm23_cpu/kb_scr/data_bus_i
+add wave -noupdate -group dev /xm23_cpu/kb_scr/data_bus_o
+add wave -noupdate -group dev -group arduino_i /xm23_cpu/kb_scr/control_i
+add wave -noupdate -group dev -group arduino_i /xm23_cpu/kb_scr/write_en
+add wave -noupdate -group dev -group arduino_i /xm23_cpu/kb_scr/read_ok
+add wave -noupdate -group dev -group arduino_o /xm23_cpu/kb_scr/control_o
+add wave -noupdate -group dev -group arduino_o /xm23_cpu/kb_scr/read_en
+add wave -noupdate -group dev -group arduino_o /xm23_cpu/kb_scr/write_ok
+add wave -noupdate -group dev /xm23_cpu/kb_scr/CSR_scr_o
+add wave -noupdate -group dev /xm23_cpu/kb_scr/CSR_kb_o
+add wave -noupdate -group dev /xm23_cpu/kb_scr/scr_of_o
+add wave -noupdate -group dev /xm23_cpu/kb_scr/scr_dba_o
+add wave -noupdate -group dev /xm23_cpu/kb_scr/kb_of_o
+add wave -noupdate -group dev /xm23_cpu/kb_scr/kb_dba_o
+add wave -noupdate -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_en_i
+add wave -noupdate -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_of_i
+add wave -noupdate -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_dba_i
+add wave -noupdate -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_io_i
+add wave -noupdate -group dev -expand -group scr_i /xm23_cpu/kb_scr/scr_ie_i
+add wave -noupdate -group dev -group kb_i /xm23_cpu/kb_scr/kb_en_i
+add wave -noupdate -group dev -group kb_i /xm23_cpu/kb_scr/kb_of_i
+add wave -noupdate -group dev -group kb_i /xm23_cpu/kb_scr/kb_dba_i
+add wave -noupdate -group dev -group kb_i /xm23_cpu/kb_scr/kb_io_i
+add wave -noupdate -group dev -group kb_i /xm23_cpu/kb_scr/kb_ie_i
+add wave -noupdate -group {cpu dev} -expand /xm23_cpu/dev_mem
+add wave -noupdate -group {cpu dev} /xm23_cpu/arduino_data_i
+add wave -noupdate -group {cpu dev} /xm23_cpu/arduino_data_o
+add wave -noupdate -group {cpu dev} /xm23_cpu/arduino_ctrl_i
+add wave -noupdate -group {cpu dev} /xm23_cpu/arduino_ctrl_o
+add wave -noupdate -radix hexadecimal /xm23_cpu/iv_mar
+add wave -noupdate /xm23_cpu/byte_rf_mdr
+add wave -noupdate /xm23_cpu/register_access_flag
+add wave -noupdate /xm23_cpu/word_rf_mdr
+add wave -noupdate /xm23_cpu/access_iv_mem
+add wave -noupdate -expand /xm23_cpu/iv_mem
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {520 ps} 0}
+WaveRestoreCursors {{Cursor 1} {2750 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 237
 configure wave -valuecolwidth 100
@@ -166,4 +172,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {1554 ps}
+WaveRestoreZoom {0 ps} {5 ns}

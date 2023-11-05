@@ -57,6 +57,20 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	wire [7:0] /*arduino_data_i, arduino_data_o, */csr_kb_o, csr_scr_o, csr_tmr_o, csr_tl_o, csr_pb_o;
 	// wire [1:0] arduino_ctrl_i, arduino_ctrl_o;
 
+
+	reg [7:0] iv_mem [0:31];
+	reg access_iv_mem = 1'b0;
+
+	wire [5:0] iv_mar;
+	assign iv_mar = mar[5:0];
+
+	wire access_mem2;
+	assign access_mem2 = access_dev_mem || access_iv_mem;
+
+	initial begin
+		$readmemh("int_vect_memory.txt", iv_mem, 0);
+	end
+
 	
 	initial begin
 		reg_file[0] = 16'd0;
@@ -256,6 +270,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	always @(negedge Clock) begin
 		access_dev_mem = 1'b0;
 		register_access_flag = 1'b0;
+		access_iv_mem = 1'b0;
 		word_rf_mdr = 1'b0;
 		byte_rf_mdr = 1'b0;
 		//clear flag
@@ -274,6 +289,9 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			access_dev_mem = 1'b1;
 		end
 
+		if (mar <= 16'hffff && mar >= 16'hffc0) begin
+			access_iv_mem = 1'b1;
+		end
 		
 		mdr[7:0] = mem_lb[7:0];
 		mdr[15:8] = mem_ub[7:0];
@@ -282,7 +300,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		if (data_bus_ctrl[2:0] == 3'b000) begin 			// MDR
 			if (data_bus_ctrl[5:3] == 3'b001) begin			// Read from Register File into MDR
 				mdr <= reg_file[dbus_rnum_src[4:0]][15:0]; 
-				if(access_dev_mem) begin
+				if(access_mem2) begin
 					register_access_flag = 1'b1;
 				end
 			end
@@ -301,13 +319,15 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			if (data_bus_ctrl[5:3] == 3'b000)	begin			// Read from MDR into Register File
 				if (data_bus_ctrl[6] == 1'b1)	begin		// Byte
 					reg_file[dbus_rnum_dst[4:0]][7:0] = mdr[7:0];
-					if(access_dev_mem)
+					if (register_access_flag) begin
 						byte_rf_mdr = 1'b1;
+					end
 				end
 				else	begin								// Word
 					reg_file[dbus_rnum_dst[4:0]] = mdr[15:0];
-					if(access_dev_mem)
+					if (register_access_flag) begin
 						word_rf_mdr = 1'b1;
+					end
 				end
 			end
 			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into Register File
@@ -341,6 +361,11 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		dev_mem[tmr_csr] = (!register_access_flag ? csr_tmr_o : (mar[3:0] == tmr_csr) ? mdr : dev_mem[tmr_csr]);
 		dev_mem[pb_csr] = (!register_access_flag ? csr_pb_o : (mar[3:0] == pb_csr) ? mdr : dev_mem[pb_csr]);
 		dev_mem[tl_csr] = (!register_access_flag ? csr_tl_o : (mar[3:0] == tl_csr) ? mdr : dev_mem[tl_csr]);
+
+		if(access_iv_mem && register_access_flag) begin
+			iv_mem[iv_mar] = mdr;
+		end
+
 		
 		if (register_access_flag && mar[3:0] == tmr_data)
 			dev_mem[tmr_data] = mdr[7:0];
@@ -358,14 +383,21 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		dev_mem[kb_data][7:0] = kb_data_output;
 		dev_mem[pb_data][7:0] = pb_data_output;
 
+		if (access_iv_mem && byte_rf_mdr) begin
+			reg_file[dbus_rnum_dst[4:0]][7:0] = iv_mem[iv_mar][7:0];
+		end
+		else if (access_iv_mem && word_rf_mdr) begin
+			reg_file[dbus_rnum_dst[4:0]] = iv_mem[iv_mar][7:0] << 8 | iv_mem[iv_mar + 1][7:0];
+		end
+
 		//read
-		if (byte_rf_mdr) begin
+		if (access_dev_mem && byte_rf_mdr) begin
 			reg_file[dbus_rnum_dst[4:0]][7:0] = dev_mem[mar[3:0]][7:0];
 		end
-		else if (word_rf_mdr) begin
+		else if (access_dev_mem && word_rf_mdr) begin
 			reg_file[dbus_rnum_dst[4:0]] = dev_mem[mar[3:0]][7:0] << 8 | dev_mem[mar[3:0] + 1][7:0];
 		end
-		if (byte_rf_mdr || word_rf_mdr) begin
+		if (access_dev_mem && (byte_rf_mdr || word_rf_mdr)) begin
 				if(mar[3:0] == kb_csr) begin
 					dev_mem[kb_csr][2] = 1'b0;//dev_mem[kb_csr] & ~(1'b1 << 2); //dba clear
 					dev_mem[kb_csr][3] = 1'b0;//dev_mem[kb_csr] & ~(1'b1 << 3); //of clear
