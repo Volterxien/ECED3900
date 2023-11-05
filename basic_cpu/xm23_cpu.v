@@ -1,5 +1,5 @@
 module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO,
-				traffic_lights, push_button);
+				traffic_lights, push_button, arduino_data_i, arduino_data_o, arduino_ctrl_i, arduino_ctrl_o, test_gpio, test_gpio2);
 	input [17:0] SW;
 	input [3:0] KEY;
 	input CLOCK_50;
@@ -18,6 +18,15 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	output wire [6:0] HEX6;
 	output wire [6:0] HEX7;
 	output wire [3:0] traffic_lights;
+
+	output wire [7:0] arduino_data_o;
+	input [7:0] arduino_data_i;
+	output wire [1:0] arduino_ctrl_o;
+	input [1:0] arduino_ctrl_i;
+
+	output reg test_gpio;
+	output reg test_gpio2;
+
 	
 	// Guide for memory initialization: https://projectf.io/posts/initialize-memory-in-verilog/
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
@@ -45,8 +54,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	parameter tl_csr = 6, tl_data = 7; 
 	parameter pb_csr = 8, pb_data = 9;
 
-	wire [7:0] arduino_data_i, arduino_data_o, csr_kb_o, csr_scr_o, csr_tmr_o, csr_tl_o, csr_pb_o;
-	wire [1:0] arduino_ctrl_i, arduino_ctrl_o;
+	wire [7:0] /*arduino_data_i, arduino_data_o, */csr_kb_o, csr_scr_o, csr_tmr_o, csr_tl_o, csr_pb_o;
+	// wire [1:0] arduino_ctrl_i, arduino_ctrl_o;
 
 	
 	initial begin
@@ -136,7 +145,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	
 	assign mem_mode[1:0] = KEY[2:1];
 	
-	assign mem_data = mdr[15:0];
+	assign mem_data = ((addr <= 15 && addr >=0) ? {dev_mem[addr[3:0]], dev_mem[addr + 1]} : mdr[15:0]);
 	assign psw_data = psw_out[15:0];
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	
