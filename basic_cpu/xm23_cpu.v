@@ -61,12 +61,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	reg [7:0] iv_mem [0:31];
 	reg access_iv_mem = 1'b0;
 
-	wire [5:0] iv_mar;
-	assign iv_mar = mar[5:0];
-
-	wire access_mem2;
-	assign access_mem2 = access_dev_mem || access_iv_mem;
-
 	initial begin
 		$readmemh("int_vect_memory.txt", iv_mem, 0);
 	end
@@ -299,8 +293,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		// Data Bus Updating
 		if (data_bus_ctrl[2:0] == 3'b000) begin 			// MDR
 			if (data_bus_ctrl[5:3] == 3'b001) begin			// Read from Register File into MDR
-				mdr <= reg_file[dbus_rnum_src[4:0]][15:0]; 
-				if(access_mem2) begin
+				mdr = reg_file[dbus_rnum_src[4:0]][15:0]; 
+				if(access_dev_mem || access_iv_mem) begin
 					register_access_flag = 1'b1;
 				end
 			end
@@ -363,7 +357,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		dev_mem[tl_csr] = (!register_access_flag ? csr_tl_o : (mar[3:0] == tl_csr) ? mdr : dev_mem[tl_csr]);
 
 		if(access_iv_mem && register_access_flag) begin
-			iv_mem[iv_mar] = mdr;
+			iv_mem[mar[5:0]] = mdr;
 		end
 
 		
@@ -384,10 +378,10 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		dev_mem[pb_data][7:0] = pb_data_output;
 
 		if (access_iv_mem && byte_rf_mdr) begin
-			reg_file[dbus_rnum_dst[4:0]][7:0] = iv_mem[iv_mar][7:0];
+			reg_file[dbus_rnum_dst[4:0]][7:0] = iv_mem[mar[5:0]][7:0];
 		end
 		else if (access_iv_mem && word_rf_mdr) begin
-			reg_file[dbus_rnum_dst[4:0]] = iv_mem[iv_mar][7:0] << 8 | iv_mem[iv_mar + 1][7:0];
+			reg_file[dbus_rnum_dst[4:0]] = iv_mem[mar[5:0]][7:0] << 8 | iv_mem[mar[5:0] + 1][7:0];
 		end
 
 		//read
