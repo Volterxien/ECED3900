@@ -370,7 +370,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							data_bus_ctrl = 7'b0011001 + (WB<<6);			// Write ALU output to register file
 							cpucycle_rst <= 1;								// Reset the cycle
 						end
-						26:	// SWPB
+						25:	// SWPB
 						begin
 							bm_op = 3'd4;							// Set the Byte Manipulation block operation to SWPB
 							bm_rnum = 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
@@ -378,7 +378,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							data_bus_ctrl = 7'b0101001;				// Write the Byte Manipulation block output to the dst register
 							cpucycle_rst <= 1;						// Reset the cycle
 						end
-						27:	// SXT
+						26:	// SXT
 						begin
 							sxt_bit_num = 4'd7;						// Provide sign bit to sign extender
 							sxt_rnum = 4'd0 + DST[2:0];				// Assign the register input
@@ -388,7 +388,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							data_bus_ctrl = 7'b0100001;				// Write the sign extender output to the dst register
 							cpucycle_rst <= 1;						// Reset the cycle
 						end
-						28:	// SETPRI
+						27:	// SETPRI
 						begin
 							if (PR[2:0] < psw[7:5])					// If new priority less than current priority
 								psw[7:5] <= PR[2:0];				// Set current priority to new priority
@@ -405,24 +405,24 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							end
 							cpucycle_rst <= 1'b1;				// Reset the cycle
 						end
-						29:	// SVC
+						28:	// SVC
 						begin
 							vect_num <= SA[3:0];				// Assign the interrupt vector
 							svc_inst <= 1'b1;					// A trap is taking place
 							iv_enter <= 1'b1;					// Enter the interrupt vector entry routine
 							cpucycle_rst <= 1'b1;				// Reset the cycle
 						end
-						30:	// SETCC
+						29:	// SETCC
 						begin
 							psw[4:0] <= psw[4:0] | PSWb[4:0];
 							cpucycle_rst <= 1;	// Reset the cycle
 						end
-						31:	// CLRCC
+						30:	// CLRCC
 						begin
 							psw[4:0] <= psw[4:0] & ~(PSWb[4:0]);
 							cpucycle_rst <= 1;	// Reset the cycle
 						end
-						32:	// CEX
+						31:	// CEX
 						begin
 							code = C[3:0];
 							cex_code(psw, code);
@@ -432,7 +432,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							cex_state[2:0] = F[2:0];
 							cpucycle_rst <= 1;						// Reset the cycle
 						end
-						33:	// LD (Multi-step)
+						32:	// LD (Multi-step)
 						begin
 							if (cpu_PRPO == 1'b1) 	// Pre-Inc/Dec
 							begin
@@ -453,7 +453,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 								ctrl_reg_bus <= (operands == 1'b0) ? (3'b000 + (WB<<2)) : 3'b000;						// Read memory from MAR address to MDR
 							end
 						end
-						34:	// ST (Multi-step)
+						33:	// ST (Multi-step)
 						begin
 							if (cpu_PRPO == 1'b1) 	// Pre-Inc/Dec
 							begin
@@ -475,15 +475,15 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 								ctrl_reg_bus <= (operands == 1'b0) ? (3'b011 & ~(WB<<1)) : 3'b011;						// Write memory to MAR address from MDR
 							end
 						end
-						35,36,37,38:	// MOVL to MOVH
+						34,35,36,37:	// MOVL to MOVH
 						begin
-							bm_op = OP[6:0] - 6'd35;				// Set the Byte Manipulation block operation
+							bm_op = OP[6:0] - 6'd34;				// Set the Byte Manipulation block operation
 							bm_rnum = 5'd0 + DST[2:0];				// Select the input register to the Byte Manipulation block
 							dbus_rnum_dst <= 5'd0 + DST[2:0];		// Select the dst reg for the data bus
 							data_bus_ctrl = 7'b0101001;				// Write the Byte Manipulation block output to the dst register
 							cpucycle_rst <= 1;	// Reset the cycle
 						end
-						39:	// LDR (Multi-step)
+						38:	// LDR (Multi-step)
 						begin
 							sxt_bit_num = 4'd6;						// Provide sign bit to sign extender
 							sxt_bus_ctrl = 1'b1;					// Use the offset from the instruction decode
@@ -496,7 +496,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							addr_bus_ctrl <= 7'b0011000;			// Write the ALU output to the MAR
 							ctrl_reg_bus <= 3'b000 + (WB<<2);		// Read memory from MAR address to MDR
 						end
-						40:	// STR (Multi-step)
+						39:	// STR (Multi-step)
 						begin
 							sxt_bit_num = 4'd6;						// Provide sign bit to sign extender
 							sxt_bus_ctrl = 1'b1;					// Use the offset from the instruction decode
@@ -527,13 +527,13 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							dbus_rnum_src <= 5'b0 + DST[2:0];		// Select the dst reg as the src for the data bus
 							data_bus_ctrl = 7'b0001001;				// Write the dst register to the src register
 						end
-						33:	// LD (Second Step)
+						32:	// LD (Second Step)
 						begin
 							dbus_rnum_dst <= (operands == 1'b0) ? (5'd0 + DST[2:0]) : data_dst_iv[4:0];		// Select the dst reg for the data bus
 							data_bus_ctrl = (operands == 1'b0) ? (7'b0000001 + (cpu_WB<<6)) : data_bus_ctrl_iv[6:0];										// Write the data from the MDR to the dst register
 							ctrl_reg_bus <= (operands == 1'b0) ? (3'b000 + (WB<<2)) : 3'b000;				// Read memory from MAR address to MDR
 						end
-						34: // ST (Second Step)
+						33: // ST (Second Step)
 						begin
 							if (cpu_PRPO == 1'b1) 	// Pre-Inc/Dec
 							begin
@@ -552,10 +552,10 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 								dbus_rnum_dst <= (operands == 1'b0) ? (5'd0 + DST[2:0]) : data_dst_iv[4:0];			// Select the dst reg for the data bus
 							end
 						end
-						39:	// LDR (Second Step)
+						38:	// LDR (Second Step)
 							// Wait for memory read to complete
 							data_bus_ctrl = 7'b0000001 + (WB<<6);	// Write the data from the MDR to the dst register
-						40:	// STR (Second Step)
+						39:	// STR (Second Step)
 						begin
 							data_bus_ctrl = 7'b0001000 + (WB<<6);	// Write the data from the src register to the MDR
 							ctrl_reg_bus <= 3'b011 & ~(WB<<1);		// Write data from MDR to memory at MAR address
@@ -572,7 +572,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 						data_bus_ctrl = 7'b0001001;				// Write the temp register to the dst register
 						cpucycle_rst <= 1;	// Reset the cycle
 					end
-					33: // LD (Third Step)
+					32: // LD (Third Step)
 					begin
 						if ((cpu_PRPO == 1'b0) && ((cpu_INC == 1'b1) || (cpu_DEC == 1'b1))) begin
 							alu_rnum_dst <= (operands == 1'b0) ? (5'd0 + SRCCON[2:0]) : data_src_iv[4:0];	// Select the destination register for the ALU
@@ -585,13 +585,13 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 						end
 						cpucycle_rst <= 1'b1;	// Reset the cycle
 					end
-					34:	// ST (Third Step)
+					33:	// ST (Third Step)
 						// Wait for memory write to complete
 						cpucycle_rst <= 1'b1;	// Reset the cycle
-					39:	// LDR (Third Step)
+					38:	// LDR (Third Step)
 						// Wait for memory write to complete
 						cpucycle_rst <= 1;	// Reset the cycle
-					40:	// STR (Third Step)
+					39:	// STR (Third Step)
 						// Wait for memory write to complete
 						cpucycle_rst <= 1;	// Reset the cycle
 					endcase

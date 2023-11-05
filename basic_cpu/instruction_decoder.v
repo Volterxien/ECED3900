@@ -82,12 +82,14 @@ module instruction_decoder (Instr, E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCO
 								
 							2:	begin		// SRA, RRC, SWPB, SXT
 								OP <= 6'd23 + bits3to5;
+								if ((bits3to5 == 3'b011) || (bits3to5 == 3'b100))
+									OP <= 6'd23 + bits3to5 - 6'd1;
 								WB <= Instr[6]; // Can update, but will not be used for SWPB or SXT
 								DST <= Instr[2:0];
 								end
 									
 							3:	begin		// SETPRI, SVC, SETCC, CLRCC
-								OP = 6'd28 + bits5to6;
+								OP = 6'd27 + bits5to6;
 								if (bits5to6 == 2'd0) begin
 									if (Instr[4] == 1'b0)
 										PR <= Instr[2:0];
@@ -103,7 +105,7 @@ module instruction_decoder (Instr, E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCO
 						end
 							
 					4:	begin
-						OP = 6'd32;	// CEX
+						OP = 6'd31;	// CEX
 						C <= Instr[9:6];
 						T <= Instr[5:3];
 						F <= Instr[2:0];
@@ -118,9 +120,9 @@ module instruction_decoder (Instr, E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCO
 						
 					6,7: begin
 						if (bits10to12 == 3'd6)
-							OP = 6'd33;	// LD
+							OP = 6'd32;	// LD
 						else
-							OP = 6'd34;	// ST
+							OP = 6'd33;	// ST
 						PRPO <= Instr[9];
 						DEC <= Instr[8];
 						INC <= Instr[7];
@@ -133,19 +135,19 @@ module instruction_decoder (Instr, E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCO
 					
 			3:	begin
 				case(bits10to12)
-					0,1:	OP = 6'd35;	// MOVL
-					2,3:	OP = 6'd36;	// MOVLZ
-					4,5:	OP = 6'd37;	// MOVLS
-					6,7:	OP = 6'd38;	// MOVH			
+					0,1:	OP = 6'd34;	// MOVL
+					2,3:	OP = 6'd35;	// MOVLZ
+					4,5:	OP = 6'd36;	// MOVLS
+					6,7:	OP = 6'd37;	// MOVH			
 				endcase
 				ImByte <= Instr[10:3];
 				DST <= Instr[2:0];
 				end
 			4,5,6,7: begin
 					if (bits13to15 >= 3'd6)
-						OP = 6'd40;	// STR
+						OP = 6'd39;	// STR
 					else
-						OP = 6'd39;	// LDR
+						OP = 6'd38;	// LDR
 					OFF <= Instr[13:7];
 					WB <= Instr[6];
 					SRCCON <= Instr[5:3];
