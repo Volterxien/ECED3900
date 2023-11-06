@@ -20,7 +20,7 @@ module kb_scr_drv (
     input clk
 );
 
-  wire read_en, read_ok, write_en, write_ok;
+  wire read_ok, write_en;
 
   wire scr_en_i, scr_of_i, scr_dba_i, scr_io_i, scr_ie_i;
   reg scr_of_o, scr_dba_o;
@@ -29,7 +29,6 @@ module kb_scr_drv (
   reg kb_of_o, kb_dba_o;
 
   reg data_read = 1'b0, write_en_signal = 1'b0;
-
 
   assign scr_en_i = CSR_scr_i[4];
   assign scr_of_i = CSR_scr_i[3];
@@ -43,11 +42,10 @@ module kb_scr_drv (
   assign kb_io_i = CSR_kb_i[1];
   assign kb_ie_i = CSR_kb_i[0];
 
-  assign read_en = control_o[1];
-  assign write_ok = control_o[0];
-
   assign write_en = control_i[1];
   assign read_ok = control_i[0];
+
+  reg read_en, write_ok; //control_o[1], control[0]
   
     // assign CSR_kb_o = CSR_kb_i | kb_dba_o << 2 | kb_of_o << 3;
     // assign CSR_scr_o = (scr_of_o ? (CSR_scr_i | scr_dba_o << 2 | scr_of_o << 3) : (CSR_scr_i | scr_dba_o << 2) & ~(scr_of_o << 3));
@@ -59,6 +57,9 @@ module kb_scr_drv (
     kb_dba_o = 1'b0;
     control_o = 2'b11;
     data_reg_kb = 8'b0;
+    read_en = 1;
+    write_ok = 1;
+
   end
 
 
@@ -69,8 +70,11 @@ module kb_scr_drv (
       scr_of_o = 0;
   end
 
+/*solution to issue found here: 
+https://stackoverflow.com/questions/52232515/cannot-match-operands-in-the-condition-to-the-corresponding-edges-in-the-enclo
+*/
   always @(posedge write_en, posedge data_read ) begin
-    write_en_signal = ~data_read;
+    write_en_signal = (data_read) ? 1'b0 : 1'b1;
   end
 
   always @(posedge clk ) begin
@@ -78,39 +82,56 @@ module kb_scr_drv (
     scr_dba_o = scr_dba_i;
     kb_of_o = kb_of_i;
     kb_dba_o = kb_dba_i;
-    control_o = control_o | 1'b1 << 1;
+    if(write_ok) begin
+      control_o[0] = 1;
+    end
+    else begin
+      control_o[0] = 0;
+    end
+    if(read_en) begin
+      control_o[1] = 1;
+    end
+    else begin
+      control_o[1] = 0;
+    end
+    // control_o =  2'b11;
     CSR_kb_o = CSR_kb_i;
     CSR_scr_o = CSR_scr_i; 
-    //write == kb
 
+    //write == kb
     if (~write_en_signal) begin
       data_read = 1'b0;
     end
 
     if (kb_en_i) begin
       //pending byte
-      if (write_en_signal) begin
+      if (write_en) begin
         data_reg_kb = data_bus_i;
-        control_o[0] = 1'b0;
-        if (kb_dba_i) begin
-          kb_of_o = 1'b1;
+        write_ok = 1'b0;
+        if(write_en_signal) begin
+          if (kb_dba_i) begin
+            kb_of_o = 1'b1;
+          end
+          else begin
+            kb_dba_o = 1'b1;
+          end
+          data_read = 1'b1;
         end
-        else begin
-          kb_dba_o = 1'b1;
-        end
-        data_read = 1'b1;
+      end
+      else begin
+        write_ok = 1'b1;
       end
     end
     //read == scr
     if (scr_en_i && ~scr_dba_i) begin
       if (read_ok) begin
-        control_o[1] = 1'b1;
+        read_en = 1'b1;
         scr_dba_o = 1'b1;
         scr_of_o = 1'b0;
       end
       else begin
         data_bus_o = ~data_reg_scr;
-        control_o[1] =  1'b0;
+        read_en =  1'b0;
       end
     end
 

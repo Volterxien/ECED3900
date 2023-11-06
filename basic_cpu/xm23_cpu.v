@@ -281,7 +281,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		// Data Bus Updating
 		if (data_bus_ctrl[2:0] == 3'b000) begin 			// MDR
 			if (data_bus_ctrl[5:3] == 3'b001) begin			// Read from Register File into MDR
-				mdr <= reg_file[dbus_rnum_src[4:0]][15:0]; 
+				mdr = reg_file[dbus_rnum_src[4:0]][15:0]; 
 				if(access_dev_mem) begin
 					register_access_flag = 1'b1;
 				end
