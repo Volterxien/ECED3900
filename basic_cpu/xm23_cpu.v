@@ -145,7 +145,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	
 	assign mem_mode[1:0] = KEY[2:1];
 	
-	assign mem_data = ((addr <= 15 && addr >=0) ? {dev_mem[addr[3:0]], dev_mem[addr + 1]} : mdr[15:0]);
+	assign mem_data = ((addr <= 15 && addr >=0) ? {dev_mem[addr[3:0]+1], dev_mem[addr]} : mdr[15:0]);
 	assign psw_data = psw_out[15:0];
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	

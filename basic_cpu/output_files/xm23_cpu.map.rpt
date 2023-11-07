@@ -1,5 +1,5 @@
 Analysis & Synthesis report for xm23_cpu
-Sun Nov  5 20:49:10 2023
+Mon Nov  6 21:27:43 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -58,13 +58,13 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Nov  5 20:49:10 2023          ;
+; Analysis & Synthesis Status        ; Successful - Mon Nov  6 21:27:43 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; xm23_cpu                                       ;
 ; Top-level Entity Name              ; xm23_cpu                                       ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 4,155                                          ;
-;     Total combinational functions  ; 4,069                                          ;
+; Total logic elements               ; 4,148                                          ;
+;     Total combinational functions  ; 4,062                                          ;
 ;     Dedicated logic registers      ; 745                                            ;
 ; Total registers                    ; 745                                            ;
 ; Total pins                         ; 132                                            ;
@@ -169,13 +169,13 @@ https://fpgasoftware.intel.com/eula.
 ; Number detected on machine ; 12          ;
 ; Maximum allowed            ; 6           ;
 ;                            ;             ;
-; Average used               ; 1.00        ;
+; Average used               ; 1.01        ;
 ; Maximum used               ; 6           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.1%      ;
-;     Processor 3            ;   0.1%      ;
+;     Processor 2            ;   0.2%      ;
+;     Processor 3            ;   0.2%      ;
 ;     Processor 4            ;   0.1%      ;
 ;     Processor 5            ;   0.1%      ;
 ;     Processor 6            ;   0.1%      ;
@@ -225,16 +225,16 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+------------+
 ; Resource                                    ; Usage      ;
 +---------------------------------------------+------------+
-; Estimated Total logic elements              ; 4,155      ;
+; Estimated Total logic elements              ; 4,148      ;
 ;                                             ;            ;
-; Total combinational functions               ; 4069       ;
+; Total combinational functions               ; 4062       ;
 ; Logic element usage by number of LUT inputs ;            ;
-;     -- 4 input functions                    ; 2780       ;
-;     -- 3 input functions                    ; 1062       ;
-;     -- <=2 input functions                  ; 227        ;
+;     -- 4 input functions                    ; 2784       ;
+;     -- 3 input functions                    ; 1047       ;
+;     -- <=2 input functions                  ; 231        ;
 ;                                             ;            ;
 ; Logic elements by mode                      ;            ;
-;     -- normal mode                          ; 3914       ;
+;     -- normal mode                          ; 3907       ;
 ;     -- arithmetic mode                      ; 155        ;
 ;                                             ;            ;
 ; Total registers                             ; 745        ;
@@ -248,7 +248,7 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;            ;
 ; Maximum fan-out node                        ; GPIO~input ;
 ; Maximum fan-out                             ; 719        ;
-; Total fan-out                               ; 19012      ;
+; Total fan-out                               ; 18991      ;
 ; Average fan-out                             ; 3.70       ;
 +---------------------------------------------+------------+
 
@@ -258,13 +258,13 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                            ; Entity Name         ; Library Name ;
 +-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |xm23_cpu                                 ; 4069 (1661)         ; 745 (411)                 ; 524288      ; 0            ; 0       ; 0         ; 132  ; 0            ; |xm23_cpu                                                                                      ; xm23_cpu            ; work         ;
-;    |alu:arithmetic_logic_unit|            ; 577 (577)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|alu:arithmetic_logic_unit                                                            ; alu                 ; work         ;
+; |xm23_cpu                                 ; 4062 (1651)         ; 745 (411)                 ; 524288      ; 0            ; 0       ; 0         ; 132  ; 0            ; |xm23_cpu                                                                                      ; xm23_cpu            ; work         ;
+;    |alu:arithmetic_logic_unit|            ; 574 (574)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|alu:arithmetic_logic_unit                                                            ; alu                 ; work         ;
 ;    |byte_manip:byte_manipulator|          ; 57 (57)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|byte_manip:byte_manipulator                                                          ; byte_manip          ; work         ;
-;    |control_unit:ctrl_unit|               ; 753 (677)           ; 133 (133)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|control_unit:ctrl_unit                                                               ; control_unit        ; work         ;
+;    |control_unit:ctrl_unit|               ; 752 (676)           ; 133 (133)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|control_unit:ctrl_unit                                                               ; control_unit        ; work         ;
 ;       |int_vect_entry:iv_ent|             ; 76 (76)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|control_unit:ctrl_unit|int_vect_entry:iv_ent                                         ; int_vect_entry      ; work         ;
-;    |instruction_decoder:ID|               ; 88 (88)             ; 61 (61)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|instruction_decoder:ID                                                               ; instruction_decoder ; work         ;
-;    |kb_scr_drv:kb_scr|                    ; 18 (18)             ; 38 (38)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|kb_scr_drv:kb_scr                                                                    ; kb_scr_drv          ; work         ;
+;    |instruction_decoder:ID|               ; 89 (89)             ; 61 (61)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|instruction_decoder:ID                                                               ; instruction_decoder ; work         ;
+;    |kb_scr_drv:kb_scr|                    ; 17 (17)             ; 38 (38)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|kb_scr_drv:kb_scr                                                                    ; kb_scr_drv          ; work         ;
 ;    |memory:ram|                           ; 112 (0)             ; 6 (0)                     ; 524288      ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram                                                                           ; memory              ; work         ;
 ;       |altsyncram:memory_rtl_0|           ; 112 (0)             ; 6 (0)                     ; 524288      ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0                                                   ; altsyncram          ; work         ;
 ;          |altsyncram_2s72:auto_generated| ; 112 (0)             ; 6 (6)                     ; 524288      ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|memory:ram|altsyncram:memory_rtl_0|altsyncram_2s72:auto_generated                    ; altsyncram_2s72     ; work         ;
@@ -277,10 +277,10 @@ https://fpgasoftware.intel.com/eula.
 ;    |seven_seg_decoder:decode6|            ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|seven_seg_decoder:decode6                                                            ; seven_seg_decoder   ; work         ;
 ;    |seven_seg_decoder:decode7|            ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|seven_seg_decoder:decode7                                                            ; seven_seg_decoder   ; work         ;
 ;    |seven_seg_decoder:decode8|            ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|seven_seg_decoder:decode8                                                            ; seven_seg_decoder   ; work         ;
-;    |sign_extender:sxt_ext|                ; 53 (53)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|sign_extender:sxt_ext                                                                ; sign_extender       ; work         ;
+;    |sign_extender:sxt_ext|                ; 55 (55)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|sign_extender:sxt_ext                                                                ; sign_extender       ; work         ;
 ;    |timer:TMR|                            ; 352 (352)           ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|timer:TMR                                                                            ; timer               ; work         ;
 ;    |traffic_lights:TL|                    ; 4 (4)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|traffic_lights:TL                                                                    ; traffic_lights      ; work         ;
-;    |view_data:data_viewer|                ; 365 (337)           ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer                                                                ; view_data           ; work         ;
+;    |view_data:data_viewer|                ; 370 (342)           ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer                                                                ; view_data           ; work         ;
 ;       |seven_seg_decoder:decode1|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer|seven_seg_decoder:decode1                                      ; seven_seg_decoder   ; work         ;
 ;       |seven_seg_decoder:decode2|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer|seven_seg_decoder:decode2                                      ; seven_seg_decoder   ; work         ;
 ;       |seven_seg_decoder:decode3|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer|seven_seg_decoder:decode3                                      ; seven_seg_decoder   ; work         ;
@@ -388,16 +388,16 @@ Encoding Type:  One-Hot
 ; control_unit:ctrl_unit|int_vect_entry:iv_ent|PSW_ENT[1]     ; control_unit:ctrl_unit|int_vect_entry:iv_ent|PSW_ENT[1]     ; yes                    ;
 ; alu:arithmetic_logic_unit|result[2]                         ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; alu:arithmetic_logic_unit|result[3]                         ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
-; alu:arithmetic_logic_unit|result[14]                        ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
+; alu:arithmetic_logic_unit|result[11]                        ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; alu:arithmetic_logic_unit|result[6]                         ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; alu:arithmetic_logic_unit|result[13]                        ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
+; alu:arithmetic_logic_unit|result[9]                         ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; alu:arithmetic_logic_unit|result[12]                        ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; alu:arithmetic_logic_unit|result[7]                         ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; alu:arithmetic_logic_unit|result[10]                        ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; alu:arithmetic_logic_unit|result[15]                        ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; alu:arithmetic_logic_unit|result[8]                         ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
-; alu:arithmetic_logic_unit|result[11]                        ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
-; alu:arithmetic_logic_unit|result[9]                         ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
+; alu:arithmetic_logic_unit|result[14]                        ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; alu:arithmetic_logic_unit|result[5]                         ; alu:arithmetic_logic_unit|Mux0                              ; yes                    ;
 ; byte_manip:byte_manipulator|dst_out[0]                      ; byte_manip:byte_manipulator|Mux16                           ; yes                    ;
 ; byte_manip:byte_manipulator|dst_out[1]                      ; byte_manip:byte_manipulator|Mux16                           ; yes                    ;
@@ -474,14 +474,16 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 +-----------------------------------------+---------+
 ; Inverted Register                       ; Fan out ;
 +-----------------------------------------+---------+
+; dev_mem[6][4]                           ; 14      ;
 ; kb_scr_drv:kb_scr|control_o[0]          ; 1       ;
 ; kb_scr_drv:kb_scr|control_o[1]          ; 1       ;
+; dev_mem[0][1]                           ; 11      ;
 ; reg_file[7][12]                         ; 10      ;
-; reg_file[13][4]                         ; 5       ;
-; reg_file[15][4]                         ; 4       ;
-; reg_file[6][11]                         ; 8       ;
 ; reg_file[9][0]                          ; 5       ;
 ; reg_file[15][0]                         ; 4       ;
+; reg_file[6][11]                         ; 8       ;
+; reg_file[13][4]                         ; 5       ;
+; reg_file[15][4]                         ; 4       ;
 ; reg_file[10][1]                         ; 5       ;
 ; reg_file[15][1]                         ; 4       ;
 ; reg_file[11][2]                         ; 5       ;
@@ -490,9 +492,10 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 ; reg_file[15][3]                         ; 4       ;
 ; kb_scr_drv:kb_scr|write_ok              ; 2       ;
 ; kb_scr_drv:kb_scr|read_en               ; 2       ;
-; dev_mem[2][2]                           ; 5       ;
+; dev_mem[1][1]                           ; 126     ;
+; dev_mem[8][1]                           ; 3       ;
 ; dev_mem[0][4]                           ; 38      ;
-; dev_mem[2][4]                           ; 8       ;
+; dev_mem[8][4]                           ; 4       ;
 ; reg_file[14][5]                         ; 5       ;
 ; reg_file[15][5]                         ; 4       ;
 ; control_unit:ctrl_unit|psw[5]           ; 4       ;
@@ -521,7 +524,7 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 ; control_unit:ctrl_unit|alu_rnum_src[1]  ; 62      ;
 ; psw_in[13]                              ; 1       ;
 ; psw_in[14]                              ; 1       ;
-; Total number of inverted registers = 47 ;         ;
+; Total number of inverted registers = 50 ;         ;
 +-----------------------------------------+---------+
 
 
@@ -540,66 +543,66 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                          ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------+
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|addr_bus_ctrl[3]                   ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xm23_cpu|instr_reg[15]                                             ;
-; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |xm23_cpu|instruction_decoder:ID|OFF[7]                             ;
-; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |xm23_cpu|instruction_decoder:ID|OFF[5]                             ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[7][14]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[7][2]                                            ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[16][0]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[0][6]                                            ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|svc_inst                           ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xm23_cpu|instr_reg[13]                                             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |xm23_cpu|instruction_decoder:ID|OFF[9]                             ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |xm23_cpu|instruction_decoder:ID|OFF[0]                             ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[7][11]                                           ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[7][4]                                            ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[16][7]                                           ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[0][7]                                            ;
 ; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[1][7]                                            ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[2][7]                                            ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[3][1]                                            ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[2][6]                                            ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[3][7]                                            ;
 ; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[4][5]                                            ;
 ; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[5][5]                                            ;
 ; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[6][5]                                            ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[8][1]                                            ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[8][4]                                            ;
 ; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[9][5]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[10][4]                                           ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[11][7]                                           ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[12][5]                                           ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[13][0]                                           ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[14][0]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[0][12]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[1][14]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[2][10]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[3][14]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[4][8]                                            ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[5][9]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[6][13]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[8][15]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[9][14]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[10][14]                                          ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[11][12]                                          ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[12][10]                                          ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[13][14]                                          ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[14][8]                                           ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[10][0]                                           ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[11][1]                                           ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[12][7]                                           ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[13][3]                                           ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[14][4]                                           ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[0][11]                                           ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[1][15]                                           ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[2][11]                                           ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[3][12]                                           ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[4][14]                                           ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[5][8]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |xm23_cpu|reg_file[6][8]                                            ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[8][9]                                            ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[9][12]                                           ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[10][11]                                          ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[11][13]                                          ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[12][12]                                          ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[13][12]                                          ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[14][11]                                          ;
 ; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[16][15]                                          ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |xm23_cpu|psw_in[9]                                                 ;
-; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |xm23_cpu|instruction_decoder:ID|OFF[3]                             ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |xm23_cpu|psw_in[15]                                                ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |xm23_cpu|instruction_decoder:ID|OFF[6]                             ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 2 LEs                ; 4 LEs                  ; Yes        ; |xm23_cpu|instruction_decoder:ID|OFF[12]                            ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|iv_cnt[0]                          ;
-; 7:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xm23_cpu|mdr[10]                                                   ;
-; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|cex_state[0]                       ;
-; 128:1              ; 3 bits    ; 255 LEs       ; 3 LEs                ; 252 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|bm_op[2]                           ;
-; 128:1              ; 5 bits    ; 425 LEs       ; 5 LEs                ; 420 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|code_result                        ;
-; 13:1               ; 3 bits    ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |xm23_cpu|instruction_decoder:ID|DST[1]                             ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|iv_cnt[2]                          ;
+; 7:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xm23_cpu|mdr[11]                                                   ;
+; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|cex_state[3]                       ;
+; 128:1              ; 3 bits    ; 255 LEs       ; 3 LEs                ; 252 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|bm_op[0]                           ;
+; 128:1              ; 5 bits    ; 425 LEs       ; 5 LEs                ; 420 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|code[0]                            ;
+; 13:1               ; 3 bits    ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |xm23_cpu|instruction_decoder:ID|DST[2]                             ;
 ; 13:1               ; 2 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |xm23_cpu|instruction_decoder:ID|SRCCON[1]                          ;
 ; 129:1              ; 5 bits    ; 430 LEs       ; 10 LEs               ; 420 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|psw[2]                             ;
-; 122:1              ; 5 bits    ; 405 LEs       ; 10 LEs               ; 395 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|sxt_bit_num[1]                     ;
-; 135:1              ; 3 bits    ; 270 LEs       ; 9 LEs                ; 261 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|addr_rnum_src[0]                   ;
-; 7:1                ; 4 bits    ; 16 LEs        ; 12 LEs               ; 4 LEs                  ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|vect_num[3]                        ;
-; 129:1              ; 4 bits    ; 344 LEs       ; 8 LEs                ; 336 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_op[5]                          ;
+; 122:1              ; 5 bits    ; 405 LEs       ; 10 LEs               ; 395 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|sxt_bit_num[3]                     ;
+; 135:1              ; 3 bits    ; 270 LEs       ; 9 LEs                ; 261 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|addr_rnum_src[2]                   ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 12 LEs               ; 4 LEs                  ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|vect_num[2]                        ;
+; 129:1              ; 4 bits    ; 344 LEs       ; 8 LEs                ; 336 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_op[3]                          ;
 ; 131:1              ; 2 bits    ; 174 LEs       ; 4 LEs                ; 170 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_rnum_dst[3]                    ;
 ; 139:1              ; 2 bits    ; 184 LEs       ; 6 LEs                ; 178 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|dbus_rnum_src[3]                   ;
 ; 59:1               ; 3 bits    ; 117 LEs       ; 9 LEs                ; 108 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|alu_rnum_dst[2]                    ;
-; 46:1               ; 3 bits    ; 90 LEs        ; 9 LEs                ; 81 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|dbus_rnum_src[0]                   ;
-; 86:1               ; 2 bits    ; 114 LEs       ; 30 LEs               ; 84 LEs                 ; Yes        ; |xm23_cpu|psw_in[2]                                                 ;
+; 46:1               ; 3 bits    ; 90 LEs        ; 9 LEs                ; 81 LEs                 ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|dbus_rnum_src[2]                   ;
+; 86:1               ; 2 bits    ; 114 LEs       ; 30 LEs               ; 84 LEs                 ; Yes        ; |xm23_cpu|psw_in[1]                                                 ;
 ; 149:1              ; 2 bits    ; 198 LEs       ; 12 LEs               ; 186 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|dbus_rnum_dst[4]                   ;
 ; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[15][5]                                           ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[15][12]                                          ;
-; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |xm23_cpu|psw_in[5]                                                 ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xm23_cpu|reg_file[15][8]                                           ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 10 LEs               ; 5 LEs                  ; Yes        ; |xm23_cpu|psw_in[13]                                                ;
 ; 82:1               ; 2 bits    ; 108 LEs       ; 8 LEs                ; 100 LEs                ; Yes        ; |xm23_cpu|control_unit:ctrl_unit|dbus_rnum_dst[0]                   ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |xm23_cpu|control_unit:ctrl_unit|int_vect_entry:iv_ent|clr_slp_bit  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |xm23_cpu|control_unit:ctrl_unit|data_bus_ctrl                      ;
@@ -628,16 +631,16 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 ; 18:1               ; 16 bits   ; 192 LEs       ; 192 LEs              ; 0 LEs                  ; No         ; |xm23_cpu|s_bus[12]                                                 ;
 ; 8:1                ; 8 bits    ; 40 LEs        ; 40 LEs               ; 0 LEs                  ; No         ; |xm23_cpu|control_unit:ctrl_unit|cpucycle                           ;
 ; 128:1              ; 2 bits    ; 170 LEs       ; 4 LEs                ; 166 LEs                ; No         ; |xm23_cpu|control_unit:ctrl_unit|Selector1                          ;
-; 13:1               ; 7 bits    ; 56 LEs        ; 42 LEs               ; 14 LEs                 ; No         ; |xm23_cpu|Mux130                                                    ;
+; 13:1               ; 7 bits    ; 56 LEs        ; 42 LEs               ; 14 LEs                 ; No         ; |xm23_cpu|Mux129                                                    ;
 ; 12:1               ; 11 bits   ; 88 LEs        ; 66 LEs               ; 22 LEs                 ; No         ; |xm23_cpu|mar                                                       ;
 ; 12:1               ; 5 bits    ; 40 LEs        ; 35 LEs               ; 5 LEs                  ; No         ; |xm23_cpu|mar                                                       ;
 ; 14:1               ; 7 bits    ; 63 LEs        ; 42 LEs               ; 21 LEs                 ; No         ; |xm23_cpu|reg_file                                                  ;
-; 31:1               ; 7 bits    ; 140 LEs       ; 126 LEs              ; 14 LEs                 ; No         ; |xm23_cpu|view_data:data_viewer|data[14]                            ;
-; 31:1               ; 7 bits    ; 140 LEs       ; 126 LEs              ; 14 LEs                 ; No         ; |xm23_cpu|view_data:data_viewer|data[6]                             ;
+; 31:1               ; 7 bits    ; 140 LEs       ; 126 LEs              ; 14 LEs                 ; No         ; |xm23_cpu|view_data:data_viewer|data[7]                             ;
+; 31:1               ; 7 bits    ; 140 LEs       ; 126 LEs              ; 14 LEs                 ; No         ; |xm23_cpu|view_data:data_viewer|data[12]                            ;
 ; 20:1               ; 3 bits    ; 39 LEs        ; 33 LEs               ; 6 LEs                  ; No         ; |xm23_cpu|alu:arithmetic_logic_unit|Mux14                           ;
 ; 21:1               ; 3 bits    ; 42 LEs        ; 36 LEs               ; 6 LEs                  ; No         ; |xm23_cpu|alu:arithmetic_logic_unit|Mux17                           ;
 ; 19:1               ; 3 bits    ; 36 LEs        ; 24 LEs               ; 12 LEs                 ; No         ; |xm23_cpu|alu:arithmetic_logic_unit|Mux4                            ;
-; 22:1               ; 3 bits    ; 42 LEs        ; 33 LEs               ; 9 LEs                  ; No         ; |xm23_cpu|alu:arithmetic_logic_unit|Mux9                            ;
+; 22:1               ; 3 bits    ; 42 LEs        ; 33 LEs               ; 9 LEs                  ; No         ; |xm23_cpu|alu:arithmetic_logic_unit|Mux10                           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------+
 
 
@@ -799,20 +802,20 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA SLD           ; 36                          ;
 ;     SLD               ; 13                          ;
 ;     plain             ; 286                         ;
-; cycloneiii_lcell_comb ; 4073                        ;
+; cycloneiii_lcell_comb ; 4066                        ;
 ;     arith             ; 155                         ;
 ;         2 data inputs ; 86                          ;
 ;         3 data inputs ; 69                          ;
-;     normal            ; 3918                        ;
+;     normal            ; 3911                        ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 22                          ;
-;         2 data inputs ; 122                         ;
-;         3 data inputs ; 993                         ;
-;         4 data inputs ; 2780                        ;
+;         2 data inputs ; 126                         ;
+;         3 data inputs ; 978                         ;
+;         4 data inputs ; 2784                        ;
 ; cycloneiii_ram_block  ; 64                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 25.00                       ;
-; Average LUT depth     ; 12.27                       ;
+; Average LUT depth     ; 12.16                       ;
 +-----------------------+-----------------------------+
 
 
@@ -821,7 +824,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:12     ;
+; Top            ; 00:00:11     ;
 +----------------+--------------+
 
 
@@ -831,7 +834,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Sun Nov  5 20:48:33 2023
+    Info: Processing started: Mon Nov  6 21:27:26 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off xm23_cpu -c xm23_cpu
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -902,7 +905,6 @@ Info (10041): Inferred latch for "bkpnt[14]" at xm23_cpu.v(233) File: C:/Users/m
 Info (10041): Inferred latch for "bkpnt[15]" at xm23_cpu.v(233) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 233
 Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:decode5" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 179
 Info (12128): Elaborating entity "memory" for hierarchy "memory:ram" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 185
-Warning (10850): Verilog HDL warning at memory.v(13): number of words (61440) in memory file does not match the number of elements in the address range [0:65535] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/memory.v Line: 13
 Info (12128): Elaborating entity "view_data" for hierarchy "view_data:data_viewer" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 187
 Warning (10235): Verilog HDL Always Construct warning at view_data.v(46): variable "view_mode" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 46
 Warning (10235): Verilog HDL Always Construct warning at view_data.v(48): variable "addr" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 48
@@ -1207,6 +1209,8 @@ Warning (10235): Verilog HDL Always Construct warning at pedest_button.v(17): va
 Warning (10235): Verilog HDL Always Construct warning at pedest_button.v(18): variable "CSR_in" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/pedest_button.v Line: 18
 Warning (10240): Verilog HDL Always Construct warning at pedest_button.v(16): inferring latch(es) for variable "DR_out", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/pedest_button.v Line: 16
 Info (10041): Inferred latch for "DR_out[0]" at pedest_button.v(16) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/pedest_button.v Line: 16
+Info (276014): Found 1 instances of uninferred RAM logic
+    Info (276007): RAM logic "timer:TMR|clock_table" is uninferred due to asynchronous read logic File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/timer.v Line: 6
 Info (19000): Inferred 1 megafunctions from design logic
     Info (276029): Inferred altsyncram megafunction from the following design logic: "memory:ram|memory_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to BIDIR_DUAL_PORT
@@ -1255,8 +1259,6 @@ Info (12133): Instantiated megafunction "memory:ram|altsyncram:memory_rtl_0" wit
     Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_2s72.tdf
     Info (12023): Found entity 1: altsyncram_2s72 File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/altsyncram_2s72.tdf Line: 32
-Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/xm23_cpu.ram0_memory_e411fb78.hdl.mif" contains "don't care" values -- overwriting them with 0s File: c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altsyncram.tdf Line: 792
-Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/xm23_cpu.ram0_memory_e411fb78.hdl.mif" contains "don't care" values -- overwriting them with 0s File: c:/intelfpga_lite/22.1std/quartus/libraries/megafunctions/altsyncram.tdf Line: 792
 Info (12021): Found 1 design units, including 1 entities, in source file db/decode_rsa.tdf
     Info (12023): Found entity 1: decode_rsa File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/db/decode_rsa.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/mux_bnb.tdf
@@ -1360,12 +1362,14 @@ Warning (13012): Latch alu:arithmetic_logic_unit|result[2] has unsafe behavior F
     Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[3] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
 Warning (13012): Latch alu:arithmetic_logic_unit|result[3] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
     Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[2] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
-Warning (13012): Latch alu:arithmetic_logic_unit|result[14] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[2] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
+Warning (13012): Latch alu:arithmetic_logic_unit|result[11] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[4] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
 Warning (13012): Latch alu:arithmetic_logic_unit|result[6] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
     Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[3] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
 Warning (13012): Latch alu:arithmetic_logic_unit|result[13] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
     Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[2] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
+Warning (13012): Latch alu:arithmetic_logic_unit|result[9] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[4] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
 Warning (13012): Latch alu:arithmetic_logic_unit|result[12] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
     Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[2] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
 Warning (13012): Latch alu:arithmetic_logic_unit|result[7] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
@@ -1376,10 +1380,8 @@ Warning (13012): Latch alu:arithmetic_logic_unit|result[15] has unsafe behavior 
     Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[5] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
 Warning (13012): Latch alu:arithmetic_logic_unit|result[8] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
     Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[5] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
-Warning (13012): Latch alu:arithmetic_logic_unit|result[11] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[4] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
-Warning (13012): Latch alu:arithmetic_logic_unit|result[9] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[4] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
+Warning (13012): Latch alu:arithmetic_logic_unit|result[14] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[2] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
 Warning (13012): Latch alu:arithmetic_logic_unit|result[5] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/alu.v Line: 28
     Warning (13013): Ports D and ENA on the latch are fed by the same signal control_unit:ctrl_unit|alu_op[3] File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
 Warning (13012): Latch byte_manip:byte_manipulator|dst_out[0] has unsafe behavior File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/byte_manip.v Line: 13
@@ -1572,16 +1574,16 @@ Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
 Warning (21074): Design contains 2 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[0]" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 4
     Warning (15610): No output dependent on input pin "CLOCK_50" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 5
-Info (21057): Implemented 4485 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 4478 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 35 input pins
     Info (21059): Implemented 97 output pins
-    Info (21061): Implemented 4289 logic cells
+    Info (21061): Implemented 4282 logic cells
     Info (21064): Implemented 64 RAM segments
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 516 warnings
-    Info: Peak virtual memory: 4906 megabytes
-    Info: Processing ended: Sun Nov  5 20:49:10 2023
-    Info: Elapsed time: 00:00:37
-    Info: Total CPU time (on all processors): 00:00:38
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 513 warnings
+    Info: Peak virtual memory: 4833 megabytes
+    Info: Processing ended: Mon Nov  6 21:27:43 2023
+    Info: Elapsed time: 00:00:17
+    Info: Total CPU time (on all processors): 00:00:20
 
 
 +------------------------------------------+
