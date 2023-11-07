@@ -1,10 +1,10 @@
 X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
 Input file name: scr_test.asm
-Time of assembly: Tue 31 Oct 2023 13:13:54 
+Time of assembly: Tue 7 Nov 2023 12:09:54 
   1	    	     	org #1000
   2	    	     	
-  3	1000	6050	movl #a,R0
-  4	1002	6019	movl #3,R1
+  3	1000	6308	movl #61,R0
+  4	1002	6029	movl #5,R1
   5	1004	5C41	st.b R0,R1
   6	    	     	
 
