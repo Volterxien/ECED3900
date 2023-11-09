@@ -26,7 +26,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 
 	output reg test_gpio;
 	output reg test_gpio2;
-
+	parameter initial_PC = 16'h1000;
 	
 	// Guide for memory initialization: https://projectf.io/posts/initialize-memory-in-verilog/
 	// Example for how to initialize memory: https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
@@ -74,7 +74,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		reg_file[4] = 16'd0;
 		reg_file[5] = 16'd0;
 		reg_file[6] = 16'h0800;
-		reg_file[7] = 16'h1000;
+		reg_file[7] = initial_PC;
 		reg_file[8] = 16'd0;
 		reg_file[9] = 16'd1;
 		reg_file[10] = 16'd2;
