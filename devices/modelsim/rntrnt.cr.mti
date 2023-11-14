@@ -1,0 +1,106 @@
+F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/view_data.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/view_data.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module view_data
+
+Top level modules:
+	view_data
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/seven_seg_decoder.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/seven_seg_decoder.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module seven_seg_decoder
+
+Top level modules:
+	seven_seg_decoder
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/int_vect_entry.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/int_vect_entry.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module int_vect_entry
+
+Top level modules:
+	int_vect_entry
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/instruction_decoder.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/instruction_decoder.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module instruction_decoder
+
+Top level modules:
+	instruction_decoder
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/sign_extender.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/sign_extender.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module sign_extender
+
+Top level modules:
+	sign_extender
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module control_unit
+
+Top level modules:
+	control_unit
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/pedest_button.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/pedest_button.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module pedest_button
+
+Top level modules:
+	pedest_button
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module xm23_cpu
+
+Top level modules:
+	xm23_cpu
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/memory.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/memory.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module memory
+
+Top level modules:
+	memory
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/cex_code.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/cex_code.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module cex_code
+
+Top level modules:
+	cex_code
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/kb_scr_drv.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/kb_scr_drv.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module kb_scr_drv
+
+Top level modules:
+	kb_scr_drv
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/byte_manip.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/byte_manip.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module byte_manip
+
+Top level modules:
+	byte_manip
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/traffic_lights.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/traffic_lights.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module traffic_lights
+
+Top level modules:
+	traffic_lights
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/timer.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/timer.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module timer
+
+Top level modules:
+	timer
+
+} {} {}} F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/alu.v {1 {vlog -work work -stats=none F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/alu.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu
+
+Top level modules:
+	alu
+
+} {} {}}

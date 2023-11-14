@@ -1,6 +1,6 @@
 org #1000
 
-movl #a,R0
-movl #3,R1
+movl #61,R0
+movl #5,R1
 st.b R0,R1
 

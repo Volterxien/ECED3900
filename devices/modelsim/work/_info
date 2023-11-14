@@ -10,7 +10,7 @@ z2
 cModel Technology
 dF:/intelFPGA/20.1
 valu
-Z0 !s110 1698768303
+Z0 !s110 1699548056
 !i10b 1
 !s100 X>_BMa<^dBNzmn153ODBL2
 Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -20,20 +20,20 @@ Z3 dF:/Sync/PCs/final_term/Capstone/ECED3900/devices/modelsim
 Z4 w1698093708
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/alu.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/alu.v
-!i122 91
+!i122 150
 L0 4 376
 Z5 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z6 !s108 1698768303.000000
+!s108 1699548055.000000
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/alu.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/alu.v|
 !i113 1
-Z7 o-work work
-Z8 tCvgOpt 0
+Z6 o-work work
+Z7 tCvgOpt 0
 vbyte_manip
-Z9 !s110 1698768304
+R0
 !i10b 1
 !s100 IM<TK`2f>^bMM:VRSHOG=2
 R1
@@ -43,20 +43,20 @@ R3
 R4
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/byte_manip.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/byte_manip.v
-!i122 92
+!i122 151
 L0 1 40
 R5
 r1
 !s85 0
 31
-R6
+Z8 !s108 1699548056.000000
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/byte_manip.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/byte_manip.v|
 !i113 1
+R6
 R7
-R8
 vcex_code
-R9
+R0
 !i10b 1
 !s100 nlNzA8J;@5=@2LjZZIi=41
 R1
@@ -66,66 +66,66 @@ R3
 R4
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/cex_code.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/cex_code.v
-!i122 93
+!i122 152
 L0 1 111
 R5
 r1
 !s85 0
 31
-Z10 !s108 1698768304.000000
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/cex_code.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/cex_code.v|
 !i113 1
+R6
 R7
-R8
 vcontrol_unit
-R9
+R0
 !i10b 1
-!s100 :1LP=AN@I`lNNV@Bk`ljH3
+!s100 o[X]1`DX[Sm;^^fnaDJ];3
 R1
-IKVQYk?G^]:Y[eAo?ijhcS3
+IYHWmeIE`dF=:3M8nAGiKe0
 R2
 R3
-R4
+Z9 w1699212902
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v
-!i122 94
+!i122 153
 L0 1 716
 R5
 r1
 !s85 0
 31
-R10
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/control_unit.v|
 !i113 1
+R6
 R7
-R8
 vinstruction_decoder
-R9
+R0
 !i10b 1
-!s100 0oM<anPB8@k82aU;TA]f20
+!s100 N`5ec_f99J8Tf:4]i5?L@2
 R1
-I5AP2W3[@W_gSiXm=f;]c=0
+IZUmheMbG09<@?Lc1YkL[d1
 R2
 R3
-R4
+R9
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/instruction_decoder.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/instruction_decoder.v
-!i122 95
-L0 1 156
+!i122 154
+L0 1 158
 R5
 r1
 !s85 0
 31
-R10
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/instruction_decoder.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/instruction_decoder.v|
 !i113 1
+R6
 R7
-R8
 vint_vect_entry
-R9
+R0
 !i10b 1
 !s100 z4RZ<@=K2hC<la<oZJme20
 R1
@@ -135,89 +135,89 @@ R3
 R4
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/int_vect_entry.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/int_vect_entry.v
-!i122 96
+!i122 155
 L0 1 303
 R5
 r1
 !s85 0
 31
-R10
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/int_vect_entry.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/int_vect_entry.v|
 !i113 1
+R6
 R7
-R8
 vkb_scr_drv
 R0
 !i10b 1
 !s100 EMheIW;OOEAI^G[DMF[^e3
 R1
-Im0k6C<obcg1mSd698n[_Q3
+ImzI>KZXkY@kgfe1Xd<XXB2
 R2
 R3
-w1698715535
-8F:/Sync/PCs/final_term/Capstone/ECED3900/devices/kb_scr_drv.v
-FF:/Sync/PCs/final_term/Capstone/ECED3900/devices/kb_scr_drv.v
-!i122 90
+w1699371618
+8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/kb_scr_drv.v
+FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/kb_scr_drv.v
+!i122 156
 L0 2 145
 R5
 r1
 !s85 0
 31
-R6
-!s107 F:/Sync/PCs/final_term/Capstone/ECED3900/devices/kb_scr_drv.v|
-!s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/devices/kb_scr_drv.v|
-!i113 1
-R7
 R8
+!s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/kb_scr_drv.v|
+!s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/kb_scr_drv.v|
+!i113 1
+R6
+R7
 vmemory
-R9
+R0
 !i10b 1
-!s100 M`ceA5k]bZ4PU>[E[fOdH3
+!s100 ]TU]o=ZR=7T0QUeB2jG6o3
 R1
-IcHTU?=PLa^0]ga]X]`]Kz0
+I?FmVI[U]m]hF:h^KCmgzn2
 R2
 R3
-Z11 w1698095543
+R9
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/memory.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/memory.v
-!i122 97
-L0 1 31
+!i122 157
+Z10 L0 1 30
 R5
 r1
 !s85 0
 31
-R10
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/memory.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/memory.v|
 !i113 1
+R6
 R7
-R8
 vpedest_button
-R9
+R0
 !i10b 1
-!s100 3SXk30:b_[5[Vm;KzU5XA3
+!s100 VLlDhR3:QWLUOZGZQeH:A2
 R1
-I:W2Pb=klK5oeTZ]NReN;S2
+ICe2n11K66J8REKRID7V;`1
 R2
 R3
-R11
+R9
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/pedest_button.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/pedest_button.v
-!i122 98
-L0 1 17
+!i122 158
+L0 1 23
 R5
 r1
 !s85 0
 31
-R10
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/pedest_button.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/pedest_button.v|
 !i113 1
+R6
 R7
-R8
 vseven_seg_decoder
-R9
+R0
 !i10b 1
 !s100 TCQGcm7O`a3a`nohRbz103
 R1
@@ -227,20 +227,20 @@ R3
 R4
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/seven_seg_decoder.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/seven_seg_decoder.v
-!i122 99
+!i122 159
 L0 1 28
 R5
 r1
 !s85 0
 31
-R10
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/seven_seg_decoder.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/seven_seg_decoder.v|
 !i113 1
+R6
 R7
-R8
 vsign_extender
-R9
+R0
 !i10b 1
 !s100 VQW@of3iLRYo9PViNWClC3
 R1
@@ -250,66 +250,66 @@ R3
 R4
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/sign_extender.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/sign_extender.v
-!i122 100
+!i122 160
 L0 1 21
 R5
 r1
 !s85 0
 31
-R10
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/sign_extender.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/sign_extender.v|
 !i113 1
+R6
 R7
-R8
 vtimer
-R9
+R0
 !i10b 1
-!s100 ITfD5bGI66;D5]1fM3lO_2
+!s100 <dfXNX>5KBOj1XT`cz55e2
 R1
-IJ?QLBeE3I[`IQYCG];R3J1
+IMJZ9FL`CdS9OWz[>?KS`f0
 R2
 R3
-R11
+R9
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/timer.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/timer.v
-!i122 101
-L0 1 26
+!i122 161
+R10
 R5
 r1
 !s85 0
 31
-R10
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/timer.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/timer.v|
 !i113 1
+R6
 R7
-R8
 vtraffic_lights
-R9
+Z11 !s110 1699548057
 !i10b 1
-!s100 A_74mlMg3PmTh=J<]k5V=1
+!s100 FIT[aNEQ]T3oh7F;SGQ3R2
 R1
-IRea:FO1gMi;cHX`2TS3RA0
+IAm2UG@U;Ol?DEJfzLi[XO2
 R2
 R3
-R11
+R9
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/traffic_lights.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/traffic_lights.v
-!i122 102
-L0 1 7
+!i122 162
+L0 1 8
 R5
 r1
 !s85 0
 31
-R10
+R8
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/traffic_lights.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/traffic_lights.v|
 !i113 1
+R6
 R7
-R8
 vview_data
-R9
+R11
 !i10b 1
 !s100 ngHdRH2_ET;mPdXb[20D82
 R1
@@ -319,38 +319,38 @@ R3
 w1698093709
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/view_data.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/view_data.v
-!i122 103
+!i122 163
 L0 1 62
 R5
 r1
 !s85 0
 31
-R10
+Z12 !s108 1699548057.000000
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/view_data.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/view_data.v|
 !i113 1
+R6
 R7
-R8
 vxm23_cpu
-R9
+R11
 !i10b 1
-!s100 673jb4a8ii7fl`8X:cIb[0
+!s100 d`J]m8=f`JnPJUVVb0kUo3
 R1
-I<F>>SkbElCPIFIWG_==XT0
+IMl:`DNLUO:Z^HEJb_cGXn1
 R2
 R3
-w1698717483
+w1699547965
 8F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v
 FF:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v
-!i122 104
-L0 1 396
+!i122 164
+L0 1 405
 R5
 r1
 !s85 0
 31
-R10
+R12
 !s107 F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v|
 !s90 -reportprogress|300|-work|work|-stats=none|F:/Sync/PCs/final_term/Capstone/ECED3900/basic_cpu/xm23_cpu.v|
 !i113 1
+R6
 R7
-R8

@@ -1,0 +1,6 @@
+org #1000
+movl #c0,R0
+movh #ff00,R0
+movl #10,R1
+st.b R1,R0
+ld.b R0,R2

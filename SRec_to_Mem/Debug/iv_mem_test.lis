@@ -1,0 +1,25 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: iv_mem_test.txt
+Time of assembly: Sun 5 Nov 2023 18:11:12 
+  1	    	     	org #1000
+  2	1000	6600	movl #c0,R0
+  3	1002	7FF8	movh #ff00,R0
+  4	1004	6081	movl #10,R1
+  5	1006	5C48	st.b R1,R0
+  6	1008	5842	ld.b R0,R2
+
+Successful completion of assembly - 1P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: F:\Sync\PCs\final_term\Capstone\ECED3900\SRec_to_Mem\Debug\iv_mem_test.xme
+

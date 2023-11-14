@@ -190,7 +190,6 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity alu -section_i
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity alu -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -entity alu -section_id Top
 set_location_assignment PIN_AB22 -to GPIO
-set_global_assignment -name VERILOG_FILE ../devices/kb_scr_drv.v
 set_global_assignment -name VERILOG_FILE xm23_cpu.v
 set_global_assignment -name VERILOG_FILE view_data.v
 set_global_assignment -name VERILOG_FILE seven_seg_decoder.v
@@ -203,10 +202,8 @@ set_global_assignment -name VERILOG_FILE control_unit.v
 set_global_assignment -name VERILOG_FILE memory.v
 set_global_assignment -name TEXT_FILE memory.txt
 set_global_assignment -name VERILOG_FILE int_vect_entry.v
-set_global_assignment -name VERILOG_FILE timer.v
 set_global_assignment -name VERILOG_FILE traffic_lights.v
 set_global_assignment -name VERILOG_FILE pedest_button.v
-set_global_assignment -name VERILOG_FILE kb_scr_drv.v
 set_global_assignment -name TEXT_FILE device_memory.txt
 set_global_assignment -name TEXT_FILE clock_table.txt
 set_location_assignment PIN_AF20 -to traffic_lights[0]
@@ -235,4 +232,5 @@ set_location_assignment PIN_AD25 -to arduino_data_o[6]
 set_location_assignment PIN_AE25 -to arduino_data_o[7]
 set_location_assignment PIN_AG22 -to arduino_ctrl_i[1]
 set_location_assignment PIN_AF26 -to arduino_ctrl_i[0]
+set_global_assignment -name VERILOG_FILE kb_scr_drv.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
