@@ -1,0 +1,60 @@
+X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
+Input file name: Device_Test.txt
+Time of assembly: Wed 15 Nov 2023 20:09:00 
+  1	    	     	org #0000
+  2	0000	0112	word #0112	; 1 second timer
+  3	    	     	
+  4	    	     	org #0006	; LED outputs
+  5	0006	0010	word #0010	; Enable TLC output
+  6	    	     	
+  7	    	     	org #0008	; TLC GPIO input
+  8	0008	0012	word #0012	; DR[0] is the push button input
+  9	    	     	
+ 10	    	     	org #1000
+ 11	1000	4C3D	mov R7,R5	; LR = PC
+ 12	1002	4780	and $0,R0	; Clear R0
+ 13	1004	4783	and $0,R3	; Clear R3
+ 14	1006	6054	movl $10,R4	; R4 = $10
+ 15	    	     	Loop
+ 16	1008	585A	ld.b R3,R2
+ 17	100A	4992	bit $2,R2	; Check if Timer DBA set
+ 18	100C	23FD	beq Loop
+ 19	100E	4088	add $1,R0	; Increment count
+ 20	1010	4504	cmp R0,R4	; Check if count is $10
+ 21	1012	27FA	bne Loop
+ 22	    	     	
+ 23	1014	607C	movl #0F,R4
+ 24	1016	603B	movl $7,R3	; Set all LEDs on
+ 25	1018	5C63	st.b R4,R3
+ 26	101A	6043	movl $8,R3
+ 27	    	     	
+ 28	    	     	
+ 29	    	     	Loop2
+ 30	101C	585A	ld.b R3,R2
+ 31	101E	4992	bit $2,R2	; Check if push button pressed
+ 32	1020	23FD	beq Loop2
+ 33	1022	585A	ld.b R3,R2
+ 34	1024	4992	bit $2,R2	; Check if push button pressed
+ 35	1026	23FA	beq Loop2
+ 36	    	     	
+ 37	1028	4784	and $0,R4	; Clear R4
+ 38	102A	603B	movl $7,R3
+ 39	102C	5C63	st.b R4,R3	; Turn off LEDs
+ 40	102E	4C2F	mov R5,R7	; PC = LR (Restart)
+Successful completion of assembly - 1P
+
+** Symbol table **
+Name                               	Type	Value	Decimal
+Loop2                              	REL	101C	4124	PRI
+Loop                               	REL	1008	4104	PRI
+R7                                 	REG	0007	7	PRI
+R6                                 	REG	0006	6	PRI
+R5                                 	REG	0005	5	PRI
+R4                                 	REG	0004	4	PRI
+R3                                 	REG	0003	3	PRI
+R2                                 	REG	0002	2	PRI
+R1                                 	REG	0001	1	PRI
+R0                                 	REG	0000	0	PRI
+
+.XME file: C:\Users\mccoy\Documents\ECED3900\SRec_to_Mem\Debug\Device_Test.xme
+

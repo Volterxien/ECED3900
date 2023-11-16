@@ -2,65 +2,65 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|alu_op[2]'
-Slack : -16.617
-TNS   : -252.470
-
 Type  : Slow 1200mV 85C Model Setup 'GPIO'
-Slack : -16.345
-TNS   : -7962.796
+Slack : -15.638
+TNS   : -11102.308
+
+Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|alu_op[2]'
+Slack : -15.455
+TNS   : -240.277
 
 Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|iv_cnt[0]'
-Slack : -6.798
-TNS   : -59.516
-
-Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|bm_op[0]'
-Slack : -6.218
-TNS   : -80.685
+Slack : -7.998
+TNS   : -66.128
 
 Type  : Slow 1200mV 85C Model Setup 'KEY[3]'
-Slack : -5.071
-TNS   : -100.101
+Slack : -4.537
+TNS   : -106.629
+
+Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|bm_op[0]'
+Slack : -4.497
+TNS   : -61.770
 
 Type  : Slow 1200mV 85C Model Setup 'control_unit:ctrl_unit|ID_en'
-Slack : -3.424
-TNS   : -118.975
+Slack : -3.848
+TNS   : -147.492
 
 Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|iv_cnt[0]'
-Slack : -0.567
-TNS   : -0.775
-
-Type  : Slow 1200mV 85C Model Hold 'KEY[3]'
-Slack : -0.250
-TNS   : -0.796
+Slack : -0.365
+TNS   : -2.153
 
 Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|bm_op[0]'
-Slack : -0.161
-TNS   : -0.161
+Slack : -0.049
+TNS   : -0.049
 
-Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|ID_en'
-Slack : 0.012
+Type  : Slow 1200mV 85C Model Hold 'KEY[3]'
+Slack : 0.052
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'GPIO'
-Slack : 0.187
+Slack : 0.235
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|alu_op[2]'
-Slack : 0.415
+Slack : 0.336
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'control_unit:ctrl_unit|ID_en'
+Slack : 0.404
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Recovery 'arduino_ctrl_i[1]'
-Slack : -0.605
-TNS   : -0.605
+Slack : -0.258
+TNS   : -0.258
 
 Type  : Slow 1200mV 85C Model Removal 'arduino_ctrl_i[1]'
-Slack : 1.017
+Slack : 0.674
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'GPIO'
 Slack : -3.000
-TNS   : -1878.787
+TNS   : -2207.747
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'KEY[3]'
 Slack : -3.000
@@ -79,76 +79,76 @@ Slack : -1.285
 TNS   : -78.385
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|iv_cnt[0]'
-Slack : -0.857
-TNS   : -20.561
-
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|bm_op[0]'
-Slack : 0.376
-TNS   : 0.000
+Slack : -0.987
+TNS   : -46.121
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|alu_op[2]'
-Slack : 0.401
+Slack : 0.355
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|alu_op[2]'
-Slack : -15.359
-TNS   : -232.489
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control_unit:ctrl_unit|bm_op[0]'
+Slack : 0.469
+TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'GPIO'
-Slack : -14.943
-TNS   : -7280.641
+Slack : -14.427
+TNS   : -10216.298
+
+Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|alu_op[2]'
+Slack : -14.259
+TNS   : -220.967
 
 Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|iv_cnt[0]'
-Slack : -6.408
-TNS   : -57.304
-
-Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|bm_op[0]'
-Slack : -5.850
-TNS   : -75.634
+Slack : -7.690
+TNS   : -63.448
 
 Type  : Slow 1200mV 0C Model Setup 'KEY[3]'
-Slack : -4.736
-TNS   : -86.484
+Slack : -4.193
+TNS   : -91.674
+
+Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|bm_op[0]'
+Slack : -4.154
+TNS   : -58.442
 
 Type  : Slow 1200mV 0C Model Setup 'control_unit:ctrl_unit|ID_en'
-Slack : -3.117
-TNS   : -107.361
+Slack : -3.510
+TNS   : -133.253
 
 Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|iv_cnt[0]'
-Slack : -0.485
-TNS   : -0.485
+Slack : -0.328
+TNS   : -1.511
 
 Type  : Slow 1200mV 0C Model Hold 'KEY[3]'
-Slack : -0.183
-TNS   : -0.350
-
-Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|bm_op[0]'
-Slack : 0.028
+Slack : 0.089
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|ID_en'
-Slack : 0.066
+Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|bm_op[0]'
+Slack : 0.095
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'GPIO'
-Slack : 0.183
+Slack : 0.205
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|alu_op[2]'
-Slack : 0.335
+Slack : 0.249
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'control_unit:ctrl_unit|ID_en'
+Slack : 0.355
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Recovery 'arduino_ctrl_i[1]'
-Slack : -0.453
-TNS   : -0.453
+Slack : -0.093
+TNS   : -0.093
 
 Type  : Slow 1200mV 0C Model Removal 'arduino_ctrl_i[1]'
-Slack : 0.917
+Slack : 0.595
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'GPIO'
 Slack : -3.000
-TNS   : -1861.891
+TNS   : -2190.851
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'KEY[3]'
 Slack : -3.000
@@ -167,59 +167,59 @@ Slack : -1.285
 TNS   : -78.385
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|iv_cnt[0]'
-Slack : -0.684
-TNS   : -17.223
+Slack : -0.904
+TNS   : -39.789
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|bm_op[0]'
-Slack : 0.298
+Slack : 0.410
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|alu_op[2]'
-Slack : 0.444
+Slack : 0.457
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|alu_op[2]'
-Slack : -8.368
-TNS   : -128.585
+Slack : -8.009
+TNS   : -121.879
 
 Type  : Fast 1200mV 0C Model Setup 'GPIO'
-Slack : -7.418
-TNS   : -3892.513
+Slack : -7.251
+TNS   : -5389.682
 
 Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|iv_cnt[0]'
-Slack : -3.500
-TNS   : -25.229
-
-Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|bm_op[0]'
-Slack : -3.175
-TNS   : -40.121
+Slack : -4.010
+TNS   : -27.833
 
 Type  : Fast 1200mV 0C Model Setup 'KEY[3]'
-Slack : -2.716
-TNS   : -47.633
+Slack : -2.457
+TNS   : -48.852
+
+Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|bm_op[0]'
+Slack : -2.318
+TNS   : -31.431
 
 Type  : Fast 1200mV 0C Model Setup 'control_unit:ctrl_unit|ID_en'
-Slack : -1.935
-TNS   : -61.777
-
-Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|iv_cnt[0]'
-Slack : -0.491
-TNS   : -0.752
+Slack : -2.009
+TNS   : -80.429
 
 Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|bm_op[0]'
-Slack : -0.321
-TNS   : -0.436
+Slack : -0.259
+TNS   : -0.707
 
-Type  : Fast 1200mV 0C Model Hold 'KEY[3]'
-Slack : -0.134
-TNS   : -0.785
+Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|iv_cnt[0]'
+Slack : -0.165
+TNS   : -0.568
 
 Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|alu_op[2]'
-Slack : -0.064
-TNS   : -0.067
+Slack : -0.118
+TNS   : -0.126
+
+Type  : Fast 1200mV 0C Model Hold 'KEY[3]'
+Slack : -0.023
+TNS   : -0.023
 
 Type  : Fast 1200mV 0C Model Hold 'GPIO'
-Slack : 0.158
+Slack : 0.108
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'control_unit:ctrl_unit|ID_en'
@@ -227,43 +227,43 @@ Slack : 0.182
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Recovery 'arduino_ctrl_i[1]'
-Slack : 0.248
+Slack : 0.383
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'arduino_ctrl_i[1]'
-Slack : 0.434
+Slack : 0.266
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'GPIO'
 Slack : -3.000
-TNS   : -1283.450
+TNS   : -1590.093
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'KEY[3]'
 Slack : -3.000
-TNS   : -42.578
+TNS   : -42.162
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'arduino_ctrl_i[1]'
 Slack : -3.000
-TNS   : -4.127
+TNS   : -4.180
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'SW[17]'
 Slack : -3.000
-TNS   : -3.000
+TNS   : -3.003
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|ID_en'
 Slack : -1.000
 TNS   : -61.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|iv_cnt[0]'
-Slack : -0.346
-TNS   : -4.495
+Slack : -0.396
+TNS   : -9.361
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|alu_op[2]'
-Slack : 0.238
+Slack : 0.217
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control_unit:ctrl_unit|bm_op[0]'
-Slack : 0.375
+Slack : 0.363
 TNS   : 0.000
 
 ------------------------------------------------------------
