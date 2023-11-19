@@ -24,6 +24,7 @@ wire [2:0] pri[0:7];
 integer temp_count;
 integer i;
 
+//last byte of device address
 parameter d1 = 8'hC2, d2 = 8'hC6, d3 = 8'hCA, d4 = 8'hCE, d5 = 8'hD2, d6 = 8'hD6, d7 = 8'hEE, d8 =  8'hF2; 
 
 assign pri[0] = psw1[7:5];
@@ -35,6 +36,7 @@ assign pri[5] = psw6[7:5];
 assign pri[6] = psw7[7:5];
 assign pri[7] = psw8[7:5];
 
+//attach ack bits for device request acknowledgement
 assign ack1 = write_ack[0];
 assign ack2 = write_ack[1];
 assign ack3 = write_ack[2];
@@ -46,46 +48,8 @@ assign ack8 = write_ack[7];
 
 
 assign deviceoutput = out;
-//Clears read bit so only one item is read
-/*
-always @* begin
-	//if(!read) begin
-	@(deviceout[7]) begin 
-		  out = deviceout[7];
-    end 
-    @(deviceout[6]) begin
-        //pi[6] = 0; 
-		  out = deviceout[6];
-    end
-    @(deviceout[5]) begin
-        //pi[5] = 0; 
-		  out = deviceout[5];
-    end
-    @(deviceout[4]) begin
-        //pi[4] = 0; 
-		  out = deviceout[4];
-    end
-    @(deviceout[3]) begin
-        //pi[3] = 0; 
-		  out = deviceout[3];
-    end
-    @(deviceout[2]) begin 
-        //pi[2] = 0; 
-		  out = deviceout[2];
-    end
-    @(deviceout[1]) begin
-        //pi[1] = 0; 
-		  out = deviceout[1];
-    end
-    @(deviceout[0]) begin
-        //pi[0] = 0; 
-		  out = deviceout[0];
-    end
-end
-*/
 
-
-//newfifo buffer(.clock(clk), .data(out_queue), .q(deviceoutput), rdreq(rdbuff), .wrreq(wrbuff), .usedw(bsize), .empty(be), .full(bf));
+// implement individual fifo modules for priority queues
 newfifo u1(.clock(clk), .data(devicein[0]), .q(deviceout[0]), .rdreq(pi[0]), .wrreq(wr[0]), .usedw(count[0]), .empty(empty[0]), .full(full[0]));
 newfifo u2(.clock(clk), .data(devicein[1]), .q(deviceout[1]), .rdreq(pi[1]), .wrreq(wr[1]), .usedw(count[1]), .empty(empty[1]), .full(full[1]));
 newfifo u3(.clock(clk), .data(devicein[2]), .q(deviceout[2]), .rdreq(pi[2]), .wrreq(wr[2]), .usedw(count[2]), .empty(empty[2]), .full(full[2]));
@@ -95,18 +59,22 @@ newfifo u6(.clock(clk), .data(devicein[5]), .q(deviceout[5]), .rdreq(pi[5]), .wr
 newfifo u7(.clock(clk), .data(devicein[6]), .q(deviceout[6]), .rdreq(pi[6]), .wrreq(wr[6]), .usedw(count[6]), .empty(empty[6]), .full(full[6]));
 newfifo u8(.clock(clk), .data(devicein[7]), .q(deviceout[7]), .rdreq(pi[7]), .wrreq(wr[7]), .usedw(count[7]), .empty(empty[7]), .full(full[7]));
 always @(posedge clk) begin
-	prev_count[0] = count[0];
+	/*prev_count[0] = count[0];
 	prev_count[1] = count[1];
 	prev_count[2] = count[2];
 	prev_count[3] = count[3];
 	prev_count[4] = count[4];
 	prev_count[5] = count[5];
 	prev_count[6] = count[6];
-	prev_count[7] = count[7];
+	prev_count[7] = count[7];*/
 	
     if(read) begin
+        //start read from priority queues
         wr[0] = 0; wr[1] = 0; wr[2] = 0; wr[3] = 0; wr[4] = 0; wr[5] = 0; wr[6] = 0; wr[7] = 0;
+
+        //read from first buffer that is not empty from highest priority to lowest priority
         if(!empty[7]) begin
+            //signal read bit of  queue to read from
             pi[7] = 1; 
 				pi[6] = 0;
 				pi[5] = 0;
@@ -182,10 +150,12 @@ always @(posedge clk) begin
         end
 		  
     end else begin
+        //start write operation
+
 	 pi[0] = 0; pi[1] = 0; pi[2] = 0; pi[3] = 0; pi[4] = 0; pi[5] = 0; pi[6] = 0; pi[7] = 0;
         if(in1) begin
-            toqueue = d1;
-            write_ack[0] = 1;
+            toqueue = d1; //assign data of queue to be written to as device address
+            write_ack[0] = 1; //send ack to device that request has been receied
 				write_ack[1] = 0;
 				write_ack[2] = 0;
 				write_ack[3] = 0;
@@ -193,7 +163,7 @@ always @(posedge clk) begin
 				write_ack[5] = 0;
 				write_ack[6] = 0;
 				write_ack[7] = 0;
-            queue_id = pri[0];
+            queue_id = pri[0]; //signal which priority queue to write to based on devce priority
         end
         if(in2) begin 
             toqueue = d2;
@@ -283,7 +253,8 @@ always @(posedge clk) begin
         devicein[queue_id] = toqueue;
     end
 	
-		if(ack1 == 1) begin
+        //clear ack bits of every device except one most recently acknowledged
+		if(ack1 == 1) begin 
 			wr[pri[0]] = 0;
 			write_ack[1] = 0;
 			write_ack[2] = 0;
@@ -304,7 +275,7 @@ always @(posedge clk) begin
 			write_ack[7] = 0;
 		end
 		if(ack3 == 1) begin
-			wr[pri[1]] = 0;
+			wr[pri[2]] = 0;
 			write_ack[0] = 0;
 			write_ack[1] = 0;
 			write_ack[3] = 0;
@@ -314,7 +285,7 @@ always @(posedge clk) begin
 			write_ack[7] = 0;
 		end
 		if(ack4 == 1) begin
-			wr[pri[1]] = 0;
+			wr[pri[3]] = 0;
 			write_ack[0] = 0;
 			write_ack[2] = 0;
 			write_ack[1] = 0;
@@ -324,7 +295,7 @@ always @(posedge clk) begin
 			write_ack[7] = 0;
 		end
 		if(ack5 == 1) begin
-			wr[pri[1]] = 0;
+			wr[pri[4]] = 0;
 			write_ack[0] = 0;
 			write_ack[2] = 0;
 			write_ack[3] = 0;
@@ -344,7 +315,7 @@ always @(posedge clk) begin
 			write_ack[7] = 0;
 		end
 		if(ack7 == 1) begin
-			wr[pri[1]] = 0;
+			wr[pri[5]] = 0;
 			write_ack[0] = 0;
 			write_ack[2] = 0;
 			write_ack[3] = 0;
@@ -354,7 +325,7 @@ always @(posedge clk) begin
 			write_ack[7] = 0;
 		end
 		if(ack8 == 1) begin
-			wr[pri[1]] = 0;
+			wr[pri[6]] = 0;
 			write_ack[0] = 0;
 			write_ack[2] = 0;
 			write_ack[3] = 0;
@@ -364,7 +335,7 @@ always @(posedge clk) begin
 			write_ack[1] = 0;
 		end
 		
-		
+		//output devices read from priority buffer in order of highst priority to lowest
 		if(deviceout[7]) begin
 			temp_count = count[7];
 			for(i = 0; i <= temp_count; i = i+1)
