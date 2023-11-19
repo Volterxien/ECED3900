@@ -115,6 +115,9 @@ Step15
 	swpb 	R4	; R4 = C77F
 	movl	#86,R1	; R1 = 4486
 	sxt 	R1	; R1 = FF86
+	mov	R1,R3	; R3 = R1 = FF86
+	movl 	$0,R3	; R3 = FF00
+	sxt	R3	; R3 = 0000
 	setcc	VNZC
 	clrcc 	VNZC
 	setcc	Z

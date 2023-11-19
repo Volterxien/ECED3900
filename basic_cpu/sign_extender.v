@@ -16,6 +16,6 @@ module sign_extender(in, out, msb_num, shift_first);
 		if (intermediate[msb_num[3:0]] == 1'b1)
 			out = intermediate[15:0] | (extension[15:0] << msb_num[3:0]);
 		else
-			out = intermediate[15:0];
+			out = intermediate[15:0] & ~(extension[15:0] << msb_num[3:0]);
 	end
 endmodule

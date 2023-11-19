@@ -257,7 +257,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 						rec_pre_pri = 1'b1;					// Record the previous CPU priority
 						iv_cpu_rst <= 1'b1;					// Signal to indicate reset cpucycle to 5 rather than 1 during this
 					end
-					2: begin
+					2: begin								// Load the PSW of the interrupt vector
 						operands = 1'b1;					// Utilize operands from interrupt vector entry block
 						inst_type <= 7'd33;					// Use LD.W
 						use_pic_vect = 1'b1;				// Use the vector number stored in the PIC input
