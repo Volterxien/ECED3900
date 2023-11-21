@@ -279,7 +279,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				mar = 16'hffc0 + (vect_num[3:0] << 2) + PSW_ENT[1:0];	// Determine address from vector number and option
 		end	
 
-		if (mar <= 16 && mar >= 0) begin
+		if (mar <= 15 && mar >= 0) begin
 			access_dev_mem = 1'b1;
 		end
 

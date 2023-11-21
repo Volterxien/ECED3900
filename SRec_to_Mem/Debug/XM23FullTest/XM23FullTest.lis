@@ -1,6 +1,6 @@
 X-Makina Assembler - Version XM-23 Single Pass+ Assembler - Release 14.05.23a
 Input file name: XM23FullTest.txt
-Time of assembly: Mon 30 Oct 2023 14:38:15 
+Time of assembly: Sat 18 Nov 2023 14:14:44 
   1	    	     		org #1000
   2	    	     	Start
   3	1000	4089		add.w 	$1,R1	; R1 = 1
@@ -118,36 +118,39 @@ Time of assembly: Mon 30 Oct 2023 14:38:15
 115	10C0	4D1C		swpb 	R4	; R4 = C77F
 116	10C2	6431		movl	#86,R1	; R1 = 4486
 117	10C4	4D21		sxt 	R1	; R1 = FF86
-118	10C6	4DB7		setcc	VNZC
-119	10C8	4DD7		clrcc 	VNZC
-120	10CA	4DA2		setcc	Z
-121	10CC	7800		movh	#0000,R0
-122	10CE	6000		movl	#0,R0	; R0 = 0
-123	10D0	500A		cex 	eq,$1,$2
-124	10D2	40C8		add.b	$1,R0	; R0 = R0 + 1 = 1
-125	10D4	40C9		add.b	$1,R1	; Skipped
-126	10D6	40CA		add.b	$1,R2	; Skipped
-127	10D8	500A		cex 	eq,$1,$2
-128	10DA	40C8		add.b	$1,R0	; Skipped
-129	10DC	40C9		add.b	$1,R1	; R1 = R1 + 1 = FF87
-130	10DE	40CA		add.b	$1,R2	; R2 = R2 + 1 = 4403
-131	10E0	778B		movls	#F1,R3	; R3 = FFF1
-132	10E2	6D5B		movlz	#AB,R3	; R3 = 00AB
-133	10E4	7883		movh	#1000,R3
-134	10E6	6003		movl	#0,R3	; R3 = 1000
-135	10E8	7882		movh	#1000,R2
-136	10EA	6012		movl	#2,R2	; R2 = 1002
-137	10EC	5C43		st.b	R0,R3	; mem[1000] = 1
-138	10EE	5EC3		st.b	R0,+R3	; mem[1001] = 1 R3 = 1001
-139	10F0	5D0A		st.w	R1,R2-	; mem[1002:1003] = FF86 R2 = 1000
-140	10F2	5851		ld.b 	R2,R1	; R1 = FF01
-141	10F4	5ADC		ld.b	+R3,R4	; R4 = C786 R3 = 1002
-142	10F6	5919		ld.w	R3-,R1	; R1 = FF86 R3 = 1000
-143	10F8	C24B		str.b 	R1,R3,$4	; mem[1004] = 86
-144	10FA	C40B		str.w	R1,R3,$8	; mem[1008:1009] = FF86
-145	10FC	8250		ldr.b 	R2,$4,R0	; R0 = 86
-146	10FE	8413		ldr.w	R2,$8,R3	; R1 = FF86
-147	    	     	
+118	10C6	4C0B		mov	R1,R3	; R3 = R1 = FF86
+119	10C8	6003		movl 	$0,R3	; R3 = FF00
+120	10CA	4D23		sxt	R3	; R3 = 0000
+121	10CC	4DB7		setcc	VNZC
+122	10CE	4DD7		clrcc 	VNZC
+123	10D0	4DA2		setcc	Z
+124	10D2	7800		movh	#0000,R0
+125	10D4	6000		movl	#0,R0	; R0 = 0
+126	10D6	500A		cex 	eq,$1,$2
+127	10D8	40C8		add.b	$1,R0	; R0 = R0 + 1 = 1
+128	10DA	40C9		add.b	$1,R1	; Skipped
+129	10DC	40CA		add.b	$1,R2	; Skipped
+130	10DE	500A		cex 	eq,$1,$2
+131	10E0	40C8		add.b	$1,R0	; Skipped
+132	10E2	40C9		add.b	$1,R1	; R1 = R1 + 1 = FF87
+133	10E4	40CA		add.b	$1,R2	; R2 = R2 + 1 = FE
+134	10E6	778B		movls	#F1,R3	; R3 = FFF1
+135	10E8	6D5B		movlz	#AB,R3	; R3 = 00AB
+136	10EA	7883		movh	#1000,R3
+137	10EC	6003		movl	#0,R3	; R3 = 1000
+138	10EE	7882		movh	#1000,R2
+139	10F0	6012		movl	#2,R2	; R2 = 1002
+140	10F2	5C43		st.b	R0,R3	; mem[1000] = 1
+141	10F4	5EC3		st.b	R0,+R3	; mem[1001] = 1 R3 = 1001
+142	10F6	5D0A		st.w	R1,R2-	; mem[1002:1003] = FF86 R2 = 1000
+143	10F8	5851		ld.b 	R2,R1	; R1 = FF01
+144	10FA	5ADC		ld.b	+R3,R4	; R4 = C786 R3 = 1002
+145	10FC	5919		ld.w	R3-,R1	; R1 = FF86 R3 = 1000
+146	10FE	C24B		str.b 	R1,R3,$4	; mem[1004] = 86
+147	1100	C40B		str.w	R1,R3,$8	; mem[1008:1009] = FF86
+148	1102	8250		ldr.b 	R2,$4,R0	; R0 = 86
+149	1104	8413		ldr.w	R2,$8,R3	; R1 = FF86
+150	    	     	
 
 Successful completion of assembly - 2P
 
