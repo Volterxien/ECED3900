@@ -1,0 +1,13 @@
+org #0008	; TLC GPIO input
+word #0012	; DR[0] is the push button input
+
+org #1000
+mov R7,R5	; LR = PC
+movl $8,R3
+
+Loop2
+ld.b R3,R2
+bit $2,R2	; Check if push button pressed
+beq Loop2
+
+mov R5,R7	; PC = LR (Restart)

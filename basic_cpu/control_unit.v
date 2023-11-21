@@ -31,8 +31,8 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	
 	output reg ID_en; 
 	output reg [2:0] ctrl_reg_bus; 					// [ENA, R/W, W/B]
-	output reg [6:0] data_bus_ctrl, addr_bus_ctrl; 	// [1b for W/B, 2b for src, 2b for dst (Codes: 0=MDR/MAR, 1=Reg File, 2=IR, 3=ALU)]
-	output reg [1:0] psw_bus_ctrl;					// [2b for src (Codes: 0=ALU, 1=MDR, 2=No Update location)]
+	output reg [6:0] data_bus_ctrl, addr_bus_ctrl; 	// [1b for W/B, 3b for src, 3b for dst (Codes: 0=MDR/MAR, 1=Reg File, 2=IR, 3=ALU, 4=SXT_out, 5=BMB_out, 6=PSW)]
+	output reg [1:0] psw_bus_ctrl;					// [2b for src (Codes: 0=ALU, 1=MDR, 2=Reg File, 3=No Update location)]
 	output reg s_bus_ctrl;							// 0 = use Reg File, 1 = use calculated offset
 	output reg sxt_bus_ctrl;						// 0 = use Reg File, 1 = use offset from control unit
 	output reg sxt_shift;							// 0 = no shift, 1 = shift OFF by 1
@@ -308,7 +308,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 							sxt_bit_num = 4'd13;			// Provide sign bit to sign extender
 							sxt_bus_ctrl = 1'b1;			// Use the offset from the instruction decoder
 							sxt_shift = 1'b1;				// Shift the offset by 1
-							psw_update <= 1'b1;				// Set ALU to not update the PSW
+							psw_update <= 1'b0;				// Set ALU to not update the PSW
 							s_bus_ctrl <= 1'b1;				// Use the sign extender output in the ALU
 							alu_op <= 5'd0;					// Use the add instruction on the ALU
 							alu_rnum_dst <= 5'd7;			// Select the PC as the dst register for the ALU

@@ -279,7 +279,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				mar = 16'hffc0 + (vect_num[3:0] << 2) + PSW_ENT[1:0];	// Determine address from vector number and option
 		end	
 
-		if (mar <= 16 && mar >= 0) begin
+		if (mar <= 15 && mar >= 0) begin
 			access_dev_mem = 1'b1;
 		end
 
@@ -313,15 +313,11 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			if (data_bus_ctrl[5:3] == 3'b000)	begin			// Read from MDR into Register File
 				if (data_bus_ctrl[6] == 1'b1)	begin		// Byte
 					reg_file[dbus_rnum_dst[4:0]][7:0] = mdr[7:0];
-					if (register_access_flag) begin
 						byte_rf_mdr = 1'b1;
-					end
 				end
 				else	begin								// Word
 					reg_file[dbus_rnum_dst[4:0]] = mdr[15:0];
-					if (register_access_flag) begin
 						word_rf_mdr = 1'b1;
-					end
 				end
 			end
 			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into Register File
@@ -399,6 +395,10 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				if(mar[3:0] == tmr_csr) begin
 					dev_mem[tmr_csr][2] = 1'b0;//dev_mem[tmr_csr] & ~(1'b1 << 2); //dba clear
 					dev_mem[tmr_csr][3] = 1'b0;//dev_mem[tmr_csr] & ~(1'b1 << 3); //of clear
+				end
+				if(mar[3:0] == pb_csr) begin
+					dev_mem[pb_csr][2] = 1'b0;//dev_mem[pb_csr] & ~(1'b1 << 2); //dba clear
+					dev_mem[pb_csr][3] = 1'b0;//dev_mem[pb_csr] & ~(1'b1 << 3); //of clear
 				end
 			end
 	end

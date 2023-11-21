@@ -13,7 +13,7 @@ module pedest_button (CSR_in, CSR_out, button, DR_out);
 	
 	assign CSR_out = CSR[7:0];
 	
-	always @(button) begin
+	always @(button, CSR_in) begin
 		CSR = CSR_in[7:0];
 		if (CSR_in[4] && button) begin
 			DR_out[0] <= button;

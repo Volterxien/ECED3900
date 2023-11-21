@@ -1,5 +1,5 @@
 org #0000
-word #0212	; 1 second timer
+word #0112	; 1 second timer
 
 org #0006	; LED outputs
 word #0010	; Enable TLC output
@@ -8,6 +8,9 @@ org #0008	; TLC GPIO input
 word #0012	; DR[0] is the push button input
 
 org #1000
+mov R7,R5	; LR = PC
+and $0,R0	; Clear R0
+and $0,R3	; Clear R3
 movl $10,R4	; R4 = $10
 Loop
 ld.b R3,R2
@@ -22,7 +25,11 @@ movl $7,R3	; Set all LEDs on
 st.b R4,R3
 movl $8,R3
 
+
 Loop2
+ld.b R3,R2
+bit $2,R2	; Check if push button pressed
+beq Loop2
 ld.b R3,R2
 bit $2,R2	; Check if push button pressed
 beq Loop2
@@ -30,3 +37,4 @@ beq Loop2
 and $0,R4	; Clear R4
 movl $7,R3
 st.b R4,R3	; Turn off LEDs
+mov R5,R7	; PC = LR (Restart)
