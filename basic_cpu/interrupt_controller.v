@@ -1,90 +1,163 @@
-module interrupt_controller(clk, deviceinput, deviceoutput, pri, read);
-input clk, read;
-input [2:0]pri;
-input [7:0]deviceinput;
+module interrupt_controller(in, deviceoutput, read, psw1, psw2, psw3, 
+									psw4, psw5, psw6, psw7, psw8, out_ack, pi, dev_pri);
+input read;
+input [7:0]in;
+input [15:0] psw1, psw2, psw3, psw4, psw5, psw6, psw7, psw8;
 output [7:0]deviceoutput;
-reg [7:0] out;
+output [7:0]out_ack;
+output pi;
+output [2:0]dev_pri;
 
-reg [7:0]devicein [0:7];
-wire [7:0]deviceout[0:7];
-reg wr[0:7], pi[0:7];
+reg [7:0] out;
+reg [2:0] queue_id;
+reg [7:0] devicein[0:7];
+reg service_list[0:7];
+reg [7:0] toqueue;
+wire [7:0] deviceout[0:7];
+reg wr[0:7];
 wire empty[0:7], full[0:7];
 wire [2:0]count [0:7];
+reg write_ack[0:7];
+reg [2:0] prev_count[0:7];
+reg r_req;
+wire [2:0] pri[0:7];
+integer temp_count;
+integer i;
+reg [7:0]interrupt_pending[0:7];
+reg [7:0]ack;
+reg [2:0] pri_out;
+reg pending;
+
+//last byte of device address
+parameter d1 = 8'h02, d2 = 8'h06, d3 = 8'h0A, d4 = 8'hE, d5 = 8'h12, d6 = 8'h16, d7 = 8'h1A, d8 =  8'h1E; 
+
+assign pri[0] = psw1[7:5];
+assign pri[1] = psw2[7:5];
+assign pri[2] = psw3[7:5];
+assign pri[3] = psw4[7:5];
+assign pri[4] = psw5[7:5];
+assign pri[5] = psw6[7:5];
+assign pri[6] = psw7[7:5];
+assign pri[7] = psw8[7:5];
+
+//attach ack bits for device request acknowledgement
+
+
 
 assign deviceoutput = out;
-//Clears read bit so only one item is read
-always @(deviceout[0]) begin
-    pi[0] = 0; out = deviceout[0];
-end
-always @(deviceout[1]) begin
-    pi[1] = 0; out = deviceout[1];
-end
-always @(deviceout[2]) begin
-    pi[2] = 0; out = deviceout[2];
-end
-always @(deviceout[3]) begin
-    pi[3] = 0; out = deviceout[3];
-end
-always @(deviceout[4]) begin
-    pi[4] = 0; out = deviceout[4];
-end
-always @(deviceout[5]) begin 
-    pi[5] = 0; out = deviceout[5];
-end
-always @(deviceout[6]) begin
-    pi[6] = 0; out = deviceout[6];
-end
-always @(deviceout[7]) begin
-    pi[7] = 0; out = deviceout[7];
+assign dev_pri = pri_out;
+assign pi = pending;
+
+
+
+assign out_ack = ack;
+
+initial begin
+	interrupt_pending[0] = 8'h00;
+	interrupt_pending[1] = 8'h00;
+	interrupt_pending[2] = 8'h00;
+	interrupt_pending[3] = 8'h00;
+	interrupt_pending[4] = 8'h00;
+	interrupt_pending[5] = 8'h00;
+	interrupt_pending[6] = 8'h00;
+	interrupt_pending[7] = 8'h00;
+	ack = 8'h00;
 end
 
-always @(count[0]) wr[0] = 0;
-always @(count[1]) wr[1] = 0;
-always @(count[2]) wr[2] = 0;
-always @(count[3]) wr[3] = 0;
-always @(count[4]) wr[4] = 0;
-always @(count[5]) wr[5] = 0;
-always @(count[6]) wr[6] = 0;
-always @(count[7]) wr[7] = 0;
-
-newfifo u1(.clock(clk), .data(devicein[0]), .q(deviceout[0]), .rdreq(pi[0]), .wrreq(wr[0]), .usedw(count[0]), .empty(empty[0]), .full(full[0]));
-newfifo u2(.clock(clk), .data(devicein[1]), .q(deviceout[1]), .rdreq(pi[1]), .wrreq(wr[1]), .usedw(count[1]), .empty(empty[1]), .full(full[1]));
-newfifo u3(.clock(clk), .data(devicein[2]), .q(deviceout[2]), .rdreq(pi[2]), .wrreq(wr[2]), .usedw(count[2]), .empty(empty[2]), .full(full[2]));
-newfifo u4(.clock(clk), .data(devicein[3]), .q(deviceout[3]), .rdreq(pi[3]), .wrreq(wr[3]), .usedw(count[3]), .empty(empty[3]), .full(full[3]));
-newfifo u5(.clock(clk), .data(devicein[4]), .q(deviceout[4]), .rdreq(pi[4]), .wrreq(wr[4]), .usedw(count[4]), .empty(empty[4]), .full(full[4]));
-newfifo u6(.clock(clk), .data(devicein[5]), .q(deviceout[5]), .rdreq(pi[5]), .wrreq(wr[5]), .usedw(count[5]), .empty(empty[5]), .full(full[5]));
-newfifo u7(.clock(clk), .data(devicein[6]), .q(deviceout[6]), .rdreq(pi[6]), .wrreq(wr[6]), .usedw(count[6]), .empty(empty[6]), .full(full[6]));
-newfifo u8(.clock(clk), .data(devicein[7]), .q(deviceout[7]), .rdreq(pi[7]), .wrreq(wr[7]), .usedw(count[7]), .empty(empty[7]), .full(full[7]));
-always @(posedge clk) begin
-    if(read) begin
-        wr[0] = 0; wr[1] = 0; wr[2] = 0; wr[3] = 0; wr[4] = 0; wr[5] = 0; wr[6] = 0; wr[7] = 0;
-        if(!empty[7]) begin
-            pi[7] = 1;
-        end else if (!empty[6])begin
-            pi[6] = 1;
-        end else if (!empty[5])begin
-            pi[5] = 1;
-        end else if (!empty[4])begin
-            pi[4] = 1;
-            
-        end else if (!empty[3])begin
-            pi[3] = 1;
-            out <= deviceout[3];
-        end else if (!empty[2])begin
-            pi[2] = 1;
-            out <= deviceout[2];
-        end else if (!empty[1])begin
-            pi[1] = 1;
-            
-        end else if (!empty[5])begin
-            pi[0] = 1;
-            
-        end
-    end else begin
-        //set write enable for queue and clear read enable for all queues
-        wr[pri] = 1;               
-        devicein[pri] = deviceinput;
-    end
+always @* begin
+	if(interrupt_pending[0] | interrupt_pending[1] | interrupt_pending[2] | interrupt_pending[3] | interrupt_pending[4] | interrupt_pending[5] | interrupt_pending[6] | interrupt_pending[7]) 
+	begin pending = 1'b1;
+	end  else pending = 1'b0;
+	if(in[0] & !ack[0] & !interrupt_pending[pri[0]]) begin
+		interrupt_pending[pri[0]] = d1;
+		ack = 8'b00000001;
+		pending = 1'b1;
+	end
+	
+	if(in[1] & !ack[1] & !interrupt_pending[pri[1]]) begin
+		interrupt_pending[pri[1]] = d2;
+		ack = 8'b00000010;
+		pending = 1'b1;
+	end
+	
+	if(in[2] & !ack[2] & !interrupt_pending[pri[2]]) begin
+		interrupt_pending[pri[2]] = d3;
+		ack = 8'b00000100;
+		pending = 1'b1;
+	end
+	
+	if(in[3] & !ack[3] & !interrupt_pending[pri[3]]) begin
+		interrupt_pending[pri[3]] = d4;
+		ack = ack || 8'b00001000;
+		pending = 1'b1;
+	end
+	
+	if(in[4] & !ack[4] & !interrupt_pending[pri[4]]) begin
+		interrupt_pending[pri[4]] = d5;
+		ack = ack || 8'b00010000;
+		pending = 1'b1;
+	end
+	
+	if(in[5] & !ack[5] & !interrupt_pending[pri[5]]) begin
+		interrupt_pending[pri[5]] = d6;
+		ack = ack || 8'b00100000;
+		pending = 1'b1;
+	end
+	
+	if(in[6] & !ack[6] & !interrupt_pending[pri[6]]) begin
+		interrupt_pending[pri[6]] = d7;
+		ack = ack || 8'b01000000;
+		pending = 1'b1;
+	end
+	
+	if(in[7] & !ack[7] & !interrupt_pending[pri[7]]) begin
+		interrupt_pending[pri[7]] = d8;
+		ack = ack || 8'b10000000;
+		pending = 1'b1;
+	end
+	
+	if(read) begin
+		if(interrupt_pending[7]) begin
+			out = interrupt_pending[7];
+			pri_out = 3'h7;
+			interrupt_pending[7] = 8'h00;
+			end
+		else if(interrupt_pending[6]) begin
+			out = interrupt_pending[6];
+			pri_out = 3'h6;
+			interrupt_pending[6] = 8'h00;
+			end
+		else if(interrupt_pending[5]) begin
+			out = interrupt_pending[5];
+			pri_out = 3'h5;
+			interrupt_pending[5] = 8'h00;
+			end
+		else if(interrupt_pending[4]) begin
+			out = interrupt_pending[4];
+			pri_out = 3'h4;
+			end
+		else if(interrupt_pending[3]) begin
+			out = interrupt_pending[3];
+			pri_out = 3'h3;
+			interrupt_pending[3] = 8'h00;
+			end
+		else if(interrupt_pending[2]) begin
+			out = interrupt_pending[2];
+			pri_out = 3'h2;
+			interrupt_pending[2] = 8'h00;
+			end
+		else if(interrupt_pending[1]) begin
+			out = interrupt_pending[1];
+			pri_out = 3'h1;
+			interrupt_pending[1] = 8'h00;
+			end
+		else if(interrupt_pending[0]) begin
+			out = interrupt_pending[0];
+			pri_out = 3'h0;
+			interrupt_pending[0] = 8'h00;
+			end
+	end
+	
 end
 
 
