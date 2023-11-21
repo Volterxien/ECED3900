@@ -1,12 +1,10 @@
 #define KB_PINS 10
-#define WRITE_OK 10
-#define WRITE_EN 11
-#define PIN_CONST 2
+#define WRITE_OK PIN_CONST + (KB_PINS - 2)*2 //38
+#define WRITE_EN PIN_CONST + (KB_PINS - 1)*2 //40
+#define PIN_CONST 22
 
-// #define READ_OK 18
-// #define READ_EN 19
-#define READ_OK WRITE_OK
-#define READ_EN WRITE_EN
+#define READ_OK PIN_CONST + (KB_PINS - 2)*2 + 1 //39
+#define READ_EN PIN_CONST + (KB_PINS - 1)*2 + 1 //41
 
 
 int val_in;
@@ -19,21 +17,30 @@ int scr_pins_arr[KB_PINS];
 void setup() {
   // put your setup code here, to run once:
     Serial.begin(9600);
+    int j = 0;
+
     for(int i = 0; i < KB_PINS; i++)
     {
-      kb_pins_arr[i] = i + PIN_CONST;
+      kb_pins_arr[i] = PIN_CONST + j;
       pinMode(kb_pins_arr[i], OUTPUT);
       digitalWrite(kb_pins_arr[i], LOW);
+      j = j + 2;
     }
     pinMode(WRITE_OK, INPUT_PULLUP);
-    // for (int i = 0; i < KB_PINS; i++)
-    // {
-    //   // scr_pins_arr[i] = i + KB_PINS + PIN_CONST;
-    //   scr_pins_arr[i] = i + PIN_CONST;
-    //   pinMode(scr_pins_arr[i], INPUT_PULLUP);
-    // }
-    // pinMode(READ_OK, OUTPUT);
-    // digitalWrite(READ_OK, LOW);
+    j = 1;
+     for (int i = 0; i < KB_PINS; i++)
+     {
+      scr_pins_arr[i] = PIN_CONST + j;
+      pinMode(scr_pins_arr[i], INPUT_PULLUP);
+      j = j + 2;
+     }
+     pinMode(READ_OK, OUTPUT);
+     digitalWrite(READ_OK, LOW);
+     for (int i = 0; i < KB_PINS; i++)
+     {
+      Serial.print(kb_pins_arr[i]);
+      Serial.println(scr_pins_arr[i]);
+     }
 }
 
 char prnt_str[50];
@@ -65,19 +72,19 @@ void loop() {
      Serial.println(prnt_str);
    }
 
-  //scr
-//  if (!digitalRead(READ_EN)) {
-//    for (int i = 0; i < 8; i++) {
-//      val_out = (val_out) | (!digitalRead(scr_pins_arr[i]) << i);
-//    }
-//    digitalWrite(READ_OK, HIGH);
-//    Serial.println(val_out, BIN);
-//      sprintf(prnt_str, " %c", val_out);
-//      Serial.println(prnt_str);
-//  }
-//  else
-//  {
-//    digitalWrite(READ_OK, LOW);
-//    val_out = 0;
-//  }
+//  scr
+  if (!digitalRead(READ_EN)) {
+    for (int i = 0; i < 8; i++) {
+      val_out = (val_out) | (!digitalRead(scr_pins_arr[i]) << i);
+    }
+    digitalWrite(READ_OK, HIGH);
+    Serial.println(val_out, BIN);
+      sprintf(prnt_str, " %c", val_out);
+      Serial.println(prnt_str);
+  }
+  else
+  {
+    digitalWrite(READ_OK, LOW);
+    val_out = 0;
+  }
 }
