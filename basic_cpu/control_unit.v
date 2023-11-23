@@ -2,7 +2,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 					ID_en, ctrl_reg_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 					psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
 					brkpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT, cex_state_out,
-					cex_in, new_curr_pri, pic_in, pic_read, breakpnt_set);
+					cex_in, new_curr_pri, pic_in, pic_read, breakpnt_set, dbl_flt);
 	
 	// Instruction Decoder Parameters
 	input [15:0] PC;
@@ -49,6 +49,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	output reg pic_read;							// Indicator to the PIC whether it has been read
 	output wire [1:0] PSW_ENT;
 	output wire [7:0] cex_state_out;
+	output wire dbl_flt;
 	
 	reg [15:0] psw;
 	reg [3:0] cpucycle;
@@ -101,6 +102,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	assign cu_out3 = iv_cnt;
 	assign cex_state_out = cex_state[7:0];
 	assign breakpnt_set = brkpnt_set;
+	assign dbl_flt = DBL_FLT;
 	
 	int_vect_entry iv_ent(iv_cnt, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, 
 						  clear_cex, PSW_ENT, data_src_iv, addr_src_iv, data_dst_iv, OP_iv, 

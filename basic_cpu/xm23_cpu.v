@@ -133,7 +133,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	wire PRPO;
 	wire DEC;
 	wire INC;
-	wire ID_FLTo;
+	wire ID_FLTo, dbl_flt;
 	wire [3:0] vect_num;
 	wire [7:0] cex_state_out, cex_state_in;
 	wire [1:0] PSW_ENT;
@@ -217,23 +217,21 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	
 	pedest_button PB (dev_mem[pb_csr][7:0], csr_pb_o, push_button, pb_data_output);
 
-	// Indicator of whether CPU is currently executing instructions based on PSW SLP bit
-	always @(psw_data[3]) begin
-		if (psw_data[3] == 1'b1)
+	// Indicator of whether CPU is currently executing instructions based on breakpoint
+	always @(PC) begin
+		if (PC == breakpnt)
 			LEDR16_17[0] = 1'b0;	// Not executing
 		else
 			LEDR16_17[0] = 1'b1;	// Executing
 	end
 	
-	// Selection of execution modes. SW16 = 1 for continuous. SW16 = 0 for step.
-	always @(SW[16]) begin
-		if (SW[16] == 1'b1) begin
+	// Indicator to if a Double Fault Occurred
+	always @(dbl_flt) begin
+		if (dbl_flt == 1'b1) begin
 			LEDR16_17[1] = 1'b1;
-			execution_type = 1'b1;
 		end
 		else begin
 			LEDR16_17[1] = 1'b0;
-			execution_type = 1'b0;
 		end
 	end
 	
