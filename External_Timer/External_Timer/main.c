@@ -2,11 +2,14 @@
  * External_Timer.c
  *
  * Created: 2023-08-15 8:43:36 PM
- * Author : Mark McCoy
+ * Author : Mark McCoy, Jacques Bosse, & Tori Ebanks
+ * Purpose: This code is to allow a user to control the XM-23 clock through a PuTTY terminal.
  */ 
 
-// Timing code taken from ECED 3204 Lab 5
-
+/* Delay code based on Aljendi (n.d.-a). UART code taken from Aljendi (n.d.-b).
+*	Aljendi, S. (n.d.-a). ECED3204 – Lab #4 – Timers and Pulse width modulation [Class handout]. Dalhousie University, ECED 3204.
+*	Aljendi, S. (n.d.-b). ECED3204 – Lab #5 serial communication (USART) [Class handout]. Dalhousie University, ECED 3204.
+*/
 #define F_CPU 16000000UL
 
 #include <stdio.h>
@@ -72,22 +75,22 @@ int main(void) {
 			scanf("%s", run_option);
 			printf("%s\n", run_option);
 			in_prog = 1;
-			if (run_option[0] == 'c') {
+			if (run_option[0] == 'c') {			// Enter continuous mode
 				cont_exec = 1;
 			}
-			else if (run_option[0] == 's') {
+			else if (run_option[0] == 's') {	// Enter step mode
 				cont_exec = 0;
 			}
 			
-			while (cont_exec && in_prog) {
-				in_prog = update_in_prog();
+			while (cont_exec && in_prog) {	// Continuous mode
+				in_prog = update_in_prog();	// Stop the continuous execution if the push button is pressed
 				PORTD |= 1<<7;
 				_delay_us(1);
 				PORTD &= ~(1<<7);
 				_delay_us(1);
 			}
 			
-			while (!cont_exec && in_prog) {
+			while (!cont_exec && in_prog) {	// Step mode
 				scanf("%d", &number);
 				if(number == 1) {
 					PORTD |= 1<<7;

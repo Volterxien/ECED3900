@@ -1,13 +1,16 @@
 /*
 File Name: main.c
-Purpose: Program to convert an S-Record to the memory text file
-Date: February 12, 2023
+Purpose: Program to convert an S-Record to the memory text files and to produce a clock table
+Date: November 23, 2023
 Author: Mark McCoy
 B00: 816309
-Course: ECED 4900
+Course: ECED 4900/4901
 */
 
-/* NOTE: Utilized most of code from my assignment from ECED 3403 */
+/* NOTE: Utilized loading code from my assignment from ECED 3403
+*	McCoy, M. (2022). loader.c [Unpublished code]. Electrical and Computer Engineering Department, Dalhousie University.
+*	McCoy, M. (2022). utility.c [Unpublished code]. Electrical and Computer Engineering Department, Dalhousie University.
+*/
 
 #define MAX_LEN 128
 
@@ -74,6 +77,7 @@ int main(int argc, char* argv[])
 	fopen_s(&dev_mem_file, "device_memory.txt", "w");
 	fopen_s(&iv_mem_file, "int_vect_memory.txt", "w");
 	
+	// Generate the device memory and interrupt vector memory files
 	for (int i = 0; i < 0x10000; i++)
 	{
 		if (i < 16)
@@ -90,6 +94,7 @@ int main(int argc, char* argv[])
 	fclose(dev_mem_file);
 	fclose(iv_mem_file);
 
+	// Generate the clock table
 	gen_clk_tbl();
 
 	getchar();
