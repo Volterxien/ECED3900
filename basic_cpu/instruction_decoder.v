@@ -1,3 +1,12 @@
+/* 
+ * The Instruction decoder for the XM-23 CPU
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	instruction_decoder.v
+ * Module: 		instruction_decoder
+ * Description: Deconstructs the machine code into opcode and operands.
+ * Acknowledgements:https://stackoverflow.com/questions/47702202/case-statement-with-multiple-cases-doing-same-operation
+ */
 module instruction_decoder (Instr, E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, FLTo, Clock);
 	input [15:0] Instr;
 	input E;

@@ -1,3 +1,12 @@
+/* 
+ * A sign extender module
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	sign_extender.v
+ * Module: 		sign_extender
+ * Description: Does sign extension to 16-bit values.
+ * Acknowledgements:
+ */
 module sign_extender(in, out, msb_num, shift_first);
 	input [15:0] in;
 	input [3:0] msb_num;

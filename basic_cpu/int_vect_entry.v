@@ -1,3 +1,12 @@
+/* 
+ * The interrupt vector entry routine module for the XM-23 CPU
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	int_vect_entry.v
+ * Module: 		int_vect_entry
+ * Description: Pushes required data to the stack and pulls data from entry in IVT corresponding to the interrupt, trap, or fault called.
+ * Acknowledgements:
+ */
 module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, 
 						clear_cex, PSW_ENT, data_src_iv, addr_src_iv, data_dst_iv, inst_type,
 						rst_counter, iv_enter, iv_return, load_cex, clr_slp_bit, rec_pre_pri,

@@ -1,6 +1,28 @@
-// PSW V S N Z C
-// TODO change carry bit -> PSW_i[0] for full implementation
-// TODO add dadd.b bit bis bic after meeting
+/* 
+ * The ALU for the XM-23 CPU
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	alu.v
+ * Module: 		alu
+ * Description: Processes most arithmetic and logic operations for the XM-23
+				and updates the PSW as needed.
+				Instructions handled:
+				add
+				addc
+				sub
+				subc
+				dadd
+				cmp
+				xor
+				and 
+				or
+				bit
+				bis
+				bic
+				sra
+				rrc
+ * Acknowledgements:
+ */
 module alu (op1, op2, result, instr, PSW_i, PSW_o, instr_opt);
 	input instr_opt;	// Whether the instruction is meant to update the PSW or not
 	input [15:0] op1;

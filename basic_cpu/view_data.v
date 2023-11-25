@@ -1,3 +1,12 @@
+/* 
+ * Data viewing module for XM-23 CPU.
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	view_data.v
+ * Module: 		view_data
+ * Description: Module that processes data viewing for debugging.
+ * Acknowledgements:https://verilogguide.readthedocs.io/en/latest/verilog/procedure.html#always-block
+ */
 module view_data (mem_data, reg_data, psw_data, addr, update, mem_mode, HEX0, HEX1, HEX2, HEX3, LEDG, LEDR);
 	input [15:0] addr;
 	input [15:0] mem_data;

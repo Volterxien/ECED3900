@@ -1,3 +1,12 @@
+/* 
+ * The pedestrian button driver for the XM-23 CPU
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	pedest_button.v
+ * Module: 		pedest_button
+ * Description: Driver to control CSR for pedestrian button.
+ * Acknowledgements:
+ */
 module pedest_button (CSR_in, CSR_out, button, DR_out);
 	input [7:0] CSR_in;
 	input button;

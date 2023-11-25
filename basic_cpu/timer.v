@@ -1,3 +1,12 @@
+/* 
+ * Timer device driver for XM-23 CPU.
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	timer.v
+ * Module: 		timer
+ * Description: Manages the CSR for the timer device.
+ * Acknowledgements:
+ */
 module timer(CSR_in, DR_in, CSR_out, clock);
 	input [7:0] CSR_in, DR_in;
 	input clock;

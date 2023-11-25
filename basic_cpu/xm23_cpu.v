@@ -1,3 +1,12 @@
+/* 
+ * Top level module for XM-23 CPU.
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	view_data.v
+ * Module: 		view_data
+ * Description: Module that instantiates all other modules and handles memory bus allocation.
+ * Acknowledgements:https://verilogguide.readthedocs.io/en/latest/verilog/procedure.html#always-block
+ */
 module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO,
 				traffic_lights, push_button, arduino_data_i, arduino_data_o, arduino_ctrl_i, arduino_ctrl_o, test_gpio, test_gpio2);
 	input [17:0] SW;

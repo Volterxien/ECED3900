@@ -1,3 +1,12 @@
+/* 
+ * Module for manipulating bytes
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	byte_manip.v
+ * Module: 		byte_manip
+ * Description: Handles the MOV* and SWPB instructions for XM-23
+ * Acknowledgements:
+ */
 module byte_manip(op, dst_in, dst_out, byte_val);
 	input [2:0] op;
 	input [15:0] dst_in;

@@ -1,3 +1,13 @@
+/* 
+ * The Control Unit for the XM-23 CPU
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	control_unit.v
+ * Module: 		control_unit
+ * Description: Manages control signals to all CPU elements based on current step in CPU cycle and the current
+				instruction being completed.
+ * Acknowledgements:
+ */
 module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
 					ID_en, ctrl_reg_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 					psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,

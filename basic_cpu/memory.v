@@ -1,3 +1,12 @@
+/* 
+ * The inferred RAM main memory for the XM-23 CPU
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	memory.v
+ * Module: 		memory
+ * Description: Module for instantiating and accessing main memory
+ * Acknowledgements:https://www.intel.com/content/www/us/en/docs/programmable/683082/22-3/true-dual-port-synchronous-ram.html
+ */
 module memory (Clock, lb_in, ub_in, lb_addr, ub_addr, we_lb, we_ub, lb_out, ub_out);
 
 	// Inferred RAM structure from https://www.intel.com/content/www/us/en/docs/programmable/683082/22-3/true-dual-port-synchronous-ram.html

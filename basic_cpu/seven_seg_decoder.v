@@ -1,3 +1,12 @@
+/* 
+ * A 7 segment decoder module used for debugging
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	seven_seg_decoder.v
+ * Module: 		seven_seg_decoder
+ * Description: Translates a hex value into corresponding 7 segment encoding
+ * Acknowledgements:
+ */
 module seven_seg_decoder(Reg1, HEX0, Clock);
 	input Clock;
 	input [3:0] Reg1;

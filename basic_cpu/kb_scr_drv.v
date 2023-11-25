@@ -1,3 +1,12 @@
+/* 
+ * The keyboard and screen driver for the XM-23 CPU
+ * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
+ * Date:		November 25, 2023	
+ * File Name: 	kb_scr_drv.v
+ * Module: 		kb_scr_drv
+ * Description: Manages the keyboard and screen CSRs and sends and receives signals with Arduino for data and control.
+ * Acknowledgements:
+ */
 //CSR bits: 4 - ena, 3 - of, 2 - dba, 1 - io, 0 - ie
 module kb_scr_drv (
     output reg [7:0] data_reg_kb,
