@@ -5,7 +5,9 @@
  * File Name: 	view_data.v
  * Module: 		view_data
  * Description: Module that instantiates all other modules and handles memory bus allocation.
- * Acknowledgements:https://verilogguide.readthedocs.io/en/latest/verilog/procedure.html#always-block
+ * Acknowledgements:https://projectf.io/posts/initialize-memory-in-verilog/
+					https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
+					
  */
 module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO,
 				traffic_lights, push_button, arduino_data_i, arduino_data_o, arduino_ctrl_i, arduino_ctrl_o, test_gpio, test_gpio2);
