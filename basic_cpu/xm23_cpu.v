@@ -164,7 +164,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	
 	assign mem_mode[1:0] = KEY[2:1];
 	
-	assign mem_data = ((addr <= 15 && addr >=0) ? {dev_mem[addr[3:0]+1], dev_mem[addr]} : mdr[15:0]);
+	assign mem_data = ((addr <= 15 && addr >=0) ? {dev_mem[addr[3:0]+1], dev_mem[addr]} : 
+						((addr <= 16'hffff && addr >= 16'hffc0) ? {iv_mem[addr[7:0]-8'hc0+1], iv_mem[addr[7:0]-8'hc0} : mdr[15:0]));
 	assign psw_data = psw_out[15:0];
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	
@@ -313,10 +314,6 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 				mdr = psw_data[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b101)			// Read from CEX into MDR
 				mdr = 16'h0 + cex_state_out[7:0];
-			// if (access_dev_mem) begin
-				//dev_mem[mar[3:0]] = (!flag ? driver_output : mdr) ;
-				//byte/word functionality
-			// end
 		end
 		else if (data_bus_ctrl[2:0] == 3'b001) begin 		// Register File
 			if (data_bus_ctrl[5:3] == 3'b000)	begin			// Read from MDR into Register File
