@@ -69,7 +69,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	// wire [1:0] arduino_ctrl_i, arduino_ctrl_o;
 
 
-	reg [7:0] iv_mem [0:31];
+	reg [7:0] iv_mem [0:63];
 	reg access_iv_mem = 1'b0;
 
 	initial begin
@@ -165,7 +165,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 	assign mem_mode[1:0] = KEY[2:1];
 	
 	assign mem_data = ((addr <= 15 && addr >=0) ? {dev_mem[addr[3:0]+1], dev_mem[addr]} : 
-						((addr <= 16'hffff && addr >= 16'hffc0) ? {iv_mem[addr[7:0]-8'hc0+1], iv_mem[addr[7:0]-8'hc0} : mdr[15:0]));
+						((addr <= 16'hffff && addr >= 16'hffc0) ? {iv_mem[addr[7:0]-8'hc0+1], iv_mem[addr[7:0]-8'hc0]} : mdr[15:0]));
 	assign psw_data = psw_out[15:0];
 	assign reg_data = reg_file[addr[3:0]][15:0];
 	
@@ -216,7 +216,7 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 							ID_en, CR_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
 							psw_update, dbus_rnum_dst, dbus_rnum_src, alu_rnum_dst, alu_rnum_src, sxt_bus_ctrl, bm_rnum, bm_op,
 							breakpnt, PC, addr_rnum_src, psw_bus_ctrl, cu_out1, cu_out2, cu_out3, vect_num, PSW_ENT, cex_state_out,
-							cex_state_in, new_curr_pri, pic_in, pic_read, breakpnt_set);
+							cex_state_in, new_curr_pri, pic_in, pic_read, breakpnt_set, dbl_flt);
 	
 	alu arithmetic_logic_unit(d_bus, s_bus, alu_out, alu_op, psw_out, alu_psw_out, psw_update);
 
@@ -308,8 +308,12 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 					register_access_flag = 1'b1;
 				end
 			end
-			else if (data_bus_ctrl[5:3] == 3'b011)			// Read from ALU Output into MDR
+			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into MDR
 				mdr = alu_out[15:0];
+				if(access_dev_mem || access_iv_mem) begin
+					register_access_flag = 1'b1;
+				end
+			end
 			else if (data_bus_ctrl[5:3] == 3'b100)			// Read from PSW into MDR
 				mdr = psw_data[15:0];
 			else if (data_bus_ctrl[5:3] == 3'b101)			// Read from CEX into MDR
@@ -319,11 +323,11 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 			if (data_bus_ctrl[5:3] == 3'b000)	begin			// Read from MDR into Register File
 				if (data_bus_ctrl[6] == 1'b1)	begin		// Byte
 					reg_file[dbus_rnum_dst[4:0]][7:0] = mdr[7:0];
-						byte_rf_mdr = 1'b1;
+					byte_rf_mdr = 1'b1;
 				end
-				else	begin								// Word
+				else begin								// Word
 					reg_file[dbus_rnum_dst[4:0]] = mdr[15:0];
-						word_rf_mdr = 1'b1;
+					word_rf_mdr = 1'b1;
 				end
 			end
 			else if (data_bus_ctrl[5:3] == 3'b011) begin	// Read from ALU Output into Register File
@@ -359,7 +363,8 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		dev_mem[tl_csr] = (!register_access_flag ? csr_tl_o : (mar[3:0] == tl_csr) ? mdr : dev_mem[tl_csr]);
 
 		if(access_iv_mem && register_access_flag) begin
-			iv_mem[mar[5:0]] = mdr;
+			iv_mem[mar[7:0] - 8'hc0 + 1] = mdr[15:8];
+			iv_mem[mar[7:0] - 8'hc0] = mdr[7:0];
 		end
 
 		
@@ -380,10 +385,10 @@ module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7
 		dev_mem[pb_data][7:0] = pb_data_output;
 
 		if (access_iv_mem && byte_rf_mdr) begin
-			reg_file[dbus_rnum_dst[4:0]][7:0] = iv_mem[mar[5:0]][7:0];
+			reg_file[dbus_rnum_dst[4:0]][7:0] = iv_mem[mar[5:0] - 8'hc0][7:0];
 		end
 		else if (access_iv_mem && word_rf_mdr) begin
-			reg_file[dbus_rnum_dst[4:0]] = iv_mem[mar[5:0]][7:0] << 8 | iv_mem[mar[5:0] + 1][7:0];
+			reg_file[dbus_rnum_dst[4:0]] = iv_mem[mar[7:0] - 8'hc0 + 1][7:0] << 8 | iv_mem[mar[7:0] - 8'hc0][7:0];
 		end
 
 		//read

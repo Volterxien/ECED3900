@@ -329,7 +329,8 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 						begin
 							case(OP)
 								1,2,3,4,5: 	code = OP[6:0] - 7'd1;
-								6,7,8: 		code = OP[6:0] + 7'd4;
+								6,7: 		code = OP[6:0] + 7'd4;
+								8:			code = 7'd14;
 							endcase
 							cex_code(psw, code);
 							if (code_result == 1'b1) begin

@@ -18,7 +18,7 @@ Time of assembly: Sat 16 Sep 2023 15:44:57
  15	    	     	org #4000	; Exception handler for ILLADDR
  16	4000	40A4	add $8,R4	; R4 = 8
  17	4002	6072	movl #0E,R2
- 18	4004	7882	movh #1000,R2	; R2 = 100Ch
+ 18	4004	7882	movh #1000,R2	; R2 = 100Eh
  19	4006	C416	str R2,R6,#8	; Set the PC to the next instruction
  20	4008	4C2F	mov R5,R7
  21	    	     	
@@ -57,7 +57,7 @@ Time of assembly: Sat 16 Sep 2023 15:44:57
  54	1000	4088	add $1,R0	; R0 = 1
  55	1002	4000	add R0,R0	; R0 = 2
  56	1004	4D83	setpri $3
- 57	1006	4D9D	svc $13		; R0 = 2, R3 = 8
+ 57	1006	4D9D	svc $13		; R0 = 3, R3 = 8
  58	1008	5402	word #5402	; Illegal instruction, R1 = 1, R2 = 2
  59	100A	409B	add $4,R3	; R3 = 11
  60	100C	408F	add $1,R7	; Illegal address to branch to		

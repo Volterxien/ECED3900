@@ -14,7 +14,6 @@ TLCo_CSR	equ #6
 TLCo_DR		equ #7
 TLCi_CSR	equ #8
 TLCi_DR		equ #9
-STORAGE		equ #3000 ; Location to store push button state
 
 org #0000	; Timer Device
 word #0212	; Have timer trigger at 0.5s intervals
@@ -25,37 +24,23 @@ word #0010	; DR[3:0] = [PEDEST, GRN, YEL, RED]
 org #0008	; TLC GPIO input
 word #0012	; DR[0] is the push button input
 
-org #FFD0	; Interrupt vector table entry for TLC input (Vector 4)
-word #0080	; Set priority to 4
-word #2000	; Set entry address
-
-org #2000	; Interrupt vector for the TLC input
-st R0,R6-		; Push R0 to stack
-st R1,R6-		; Push R1 to stack
-movh #3000,R0
-movl #00,R0		; R0 = 0x3000
-movlz $1,R1		; R1 = $1
-st.b R1,R0		; memory[0x3000] = 1
-ld +R6,R1		; Pull R1 from stack
-ld +R6,R0		; Pull R0 from stack
-mov R5,R7		; Return
-
 org #1000
 Start
-setpri $3
 mov R7,R5		; LR = PC
 movlz TIMER_CSR,R0	; R0 = $0
 movlz TLCo_CSR,R1	; R1 = $6
 
 and $0,R4		; Clear counter (R4)
-movh #3000,R1
-movl #00,R1		; R1 = 0x3000
-ld.b R1,R2		; R2 = memory[0x3000]
-bit.b $0,R2		; Check the input bit 0 to see if the push button has been pressed
+movh #0000,R1
+movl TLCi_CSR,R1	; R1 = 0x0008
+ld.b R1,R2		; R2 = memory[0x0008]
+bit.b $2,R2		; Check the input bit 2 to see if the push button has been pressed
 beq NOT_PRESSED
 			; Executes if button pressed
 and $0,R2		; Clear R2
-st.b R2,R1		; memory[0x3000] = 0 (Clear the memory location)
+movh #3000,R1
+movl #02,R1		; R1 = 0x3002
+st.b R2,R1		; memory[0x3002] = 0 (Clear the memory location)
 movlz $4,R2		; R2 = 0x0004 (GREEN ON)
 add $8,R2		; R2 = 0x000C (GREEN and PEDESTRIAN ON)
 movlz TLCo_CSR,R1	; R1 = $6
@@ -74,6 +59,7 @@ add $1,R4		; 0.5s has passed
 cmp R3,R4		; Check if R3 intervals has passed
 bne GRN_AND_PEDEST_LP	; Repeat check until R3 half second intervals passed
 
+ldr.b R1,$1,R2		; R2 = memory[TLCo_CSR + 1]
 xor $8,R2		; GREEN ON, PEDESTRIAN TOGGLED
 str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2
 movlz $1,R3		; R3 = 1
@@ -82,13 +68,16 @@ movl #02,R0		; R0 = 0x3002
 ld.b R0,R4		; Temporarily use R4 as a counter
 add $1,R4		
 st R4,R0		; memory[0x3002] = R4
-cmp $4,R4		; Repeat four times (2s duration of flashing)
+movlz $5,R0		; R0 = 5
+cmp R0,R4		; Repeat 5 times (2s duration of flashing)
 bne PRE_GP_LP
 bra YELLOW_STAGE
 
 NOT_PRESSED
 and $0,R4		; Clear counter (R4)
 movlz $4,R2		; R2 = 0x0004 (GREEN ON)
+movlz TLCo_CSR,R1	; R1 = $6
+movlz TIMER_CSR,R0	; R0 = $0
 str.b R2,R1,$1		; memory[TLCo_CSR + 1] = R2 = 0x0004
 movlz $8,R3		; R3 = $8
 
