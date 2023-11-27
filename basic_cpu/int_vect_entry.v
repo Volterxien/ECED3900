@@ -6,6 +6,7 @@
  * Module: 		int_vect_entry
  * Description: Pushes required data to the stack and pulls data from entry in IVT corresponding to the interrupt, trap, or fault called.
  * Acknowledgements:
+ *		See xm23_cpu.v
  */
 module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, 
 						clear_cex, PSW_ENT, data_src_iv, addr_src_iv, data_dst_iv, inst_type,
@@ -69,7 +70,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 					operands = 1'b1;					// Utilize operands from interrupt vector entry block
 					if (svc_inst == 1'b1)
 						svc_in_prog = 1'b1;				// Assign whether a trap is taking place
-					inst_type <= 7'd33;					// Use LD.W
+					inst_type <= 7'd32;					// Use LD.W
 					word_byte <= 1'b0;					// Word operation
 					prpo_iv <= 1'b0;						// No pre/post inc/dec
 					inc_iv <= 1'b0;
@@ -91,7 +92,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 					end
 					else begin
 						operands = 1'b1;					// Utilize operands from interrupt vector entry block
-						inst_type <= 7'd34;					// Use ST.W
+						inst_type <= 7'd33;					// Use ST.W
 						word_byte <= 1'b0;					// Word operation
 						prpo_iv <= 1'b0;					// Post decrement
 						inc_iv <= 1'b0;
@@ -106,7 +107,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 				end
 				3: begin						// Push LR to stack
 					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd34;					// Use ST.W
+					inst_type <= 7'd33;					// Use ST.W
 					word_byte <= 1'b0;					// Word operation
 					data_bus_ctrl_iv <= 7'b0001000;		// Read from LR into MDR
 					addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
@@ -120,7 +121,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 				end
 				4: begin						// Push PSW to stack and record the PSW's current priority
 					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd34;					// Use ST.W
+					inst_type <= 7'd33;					// Use ST.W
 					word_byte <= 1'b0;					// Word operation
 					prpo_iv <= 1'b0;					// Post decrement
 					inc_iv <= 1'b0;
@@ -134,7 +135,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 				end
 				5: begin						// Push CEX state to stack
 					operands = 1'b1;					// Utilize operands from interrupt vector entry block
-					inst_type <= 7'd34;					// Use ST.W
+					inst_type <= 7'd33;					// Use ST.W
 					word_byte <= 1'b0;					// Word operation
 					prpo_iv <= 1'b0;					// Post decrement
 					inc_iv <= 1'b0;
@@ -159,7 +160,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 					operands = 1'b1;					// Utilize operands from interrupt vector entry block
 					psw_entry_update = 1'b1;			// Signal assign the previous priority of the new PSW to the value of the stored PSW
 					clr_slp_bit = 1'b1;					// Clear the SLP bit
-					inst_type <= 7'd33;					// Use LD.W
+					inst_type <= 7'd32;					// Use LD.W
 					word_byte <= 1'b0;					// Word operation
 					prpo_iv <= 1'b0;					// No pre/post inc/dec
 					inc_iv <= 1'b0;
@@ -196,7 +197,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 				case (counter)
 					1: begin						// Pull the CEX state 
 						operands = 1'b1;							// Utilize operands from interrupt vector entry block
-						inst_type <= 7'd33;						// Use LD.W
+						inst_type <= 7'd32;						// Use LD.W
 						load_cex = 1'b1;							// Signal to load value of CEX from MDR
 						word_byte <= 1'b0;						// Word operation
 						prpo_iv <= 1'b1;							// Pre increment
@@ -211,7 +212,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 					end
 					2: begin						// Pull PSW from stack
 						operands = 1'b1;							// Utilize operands from interrupt vector entry block
-						inst_type <= 7'd33;						// Use LD.W
+						inst_type <= 7'd32;						// Use LD.W
 						word_byte <= 1'b0;						// Word operation
 						prpo_iv <= 1'b1;							// Pre increment
 						inc_iv <= 1'b1;
@@ -231,7 +232,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 					end
 					4: begin						// Pull LR from stack
 						operands = 1'b1;							// Utilize operands from interrupt vector entry block
-						inst_type <= 7'd33;						// Use LD.W
+						inst_type <= 7'd32;						// Use LD.W
 						word_byte <= 1'b0;						// Word operation
 						data_bus_ctrl_iv <= 7'b0000001;		// Read from MDR into LR
 						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
@@ -245,7 +246,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 					end
 					5: begin						// Pull PC from stack
 						operands = 1'b1;							// Utilize operands from interrupt vector entry block
-						inst_type <= 7'd33;						// Use LD.W
+						inst_type <= 7'd32;						// Use LD.W
 						word_byte <= 1'b0;						// Word operation
 						data_bus_ctrl_iv <= 7'b0000001;		// Read from MDR into PC
 						addr_bus_ctrl_iv <= 7'b0001000;		// Write the SP to MAR
@@ -268,7 +269,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 					end
 					2: begin								// Load the PSW of the interrupt vector
 						operands = 1'b1;					// Utilize operands from interrupt vector entry block
-						inst_type <= 7'd33;					// Use LD.W
+						inst_type <= 7'd32;					// Use LD.W
 						use_pic_vect = 1'b1;				// Use the vector number stored in the PIC input
 						word_byte <= 1'b0;					// Word operation
 						prpo_iv <= 1'b0;					// No pre/post inc/dec
@@ -292,7 +293,7 @@ module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst,
 					end
 					4: begin						// Assign the entry point of the handler to the PC
 						operands = 1'b1;					// Utilize operands from interrupt vector entry block
-						inst_type <= 7'd33;					// Use LD.W
+						inst_type <= 7'd32;					// Use LD.W
 						word_byte <= 1'b0;					// Word operation
 						prpo_iv <= 1'b0;					// No pre/post inc/dec
 						inc_iv <= 1'b0;

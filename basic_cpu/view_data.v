@@ -5,7 +5,8 @@
  * File Name: 	view_data.v
  * Module: 		view_data
  * Description: Module that processes data viewing for debugging.
- * Acknowledgements:https://verilogguide.readthedocs.io/en/latest/verilog/procedure.html#always-block
+ * Acknowledgements:
+ *		See xm23_cpu.v
  */
 module view_data (mem_data, reg_data, psw_data, addr, update, mem_mode, HEX0, HEX1, HEX2, HEX3, LEDG, LEDR);
 	input [15:0] addr;
@@ -35,8 +36,6 @@ module view_data (mem_data, reg_data, psw_data, addr, update, mem_mode, HEX0, HE
 	seven_seg_decoder decode2( .Reg1 (nib1), .HEX0 (HEX1), .Clock (update));
 	seven_seg_decoder decode3( .Reg1 (nib2), .HEX0 (HEX2), .Clock (update));
 	seven_seg_decoder decode4( .Reg1 (nib3), .HEX0 (HEX3), .Clock (update));
-	
-	// Knowledge for how to use two inputs for always block from https://verilogguide.readthedocs.io/en/latest/verilog/procedure.html#always-block
 	
 	always @(mem_mode, update) begin
 		if (mem_mode == 2'b10) 

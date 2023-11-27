@@ -388,10 +388,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "SW[16]",
-					"strict" : false
-				},
-				{
 					"name" : "KEY[3]",
 					"strict" : false
 				},
@@ -472,15 +468,23 @@
 					"strict" : false
 				},
 				{
-					"name" : "arduino_ctrl_i[0]",
-					"strict" : false
-				},
-				{
 					"name" : "push_button",
 					"strict" : false
 				},
 				{
+					"name" : "arduino_ctrl_i[0]",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_data_i[1]",
+					"strict" : false
+				},
+				{
 					"name" : "arduino_ctrl_i[1]",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_data_i[0]",
 					"strict" : false
 				},
 				{
@@ -492,7 +496,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "arduino_data_i[1]",
+					"name" : "arduino_data_i[5]",
+					"strict" : false
+				},
+				{
+					"name" : "arduino_data_i[4]",
 					"strict" : false
 				},
 				{
@@ -501,18 +509,6 @@
 				},
 				{
 					"name" : "arduino_data_i[6]",
-					"strict" : false
-				},
-				{
-					"name" : "arduino_data_i[0]",
-					"strict" : false
-				},
-				{
-					"name" : "arduino_data_i[5]",
-					"strict" : false
-				},
-				{
-					"name" : "arduino_data_i[4]",
 					"strict" : false
 				}
 			]

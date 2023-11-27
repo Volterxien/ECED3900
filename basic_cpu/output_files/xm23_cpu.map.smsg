@@ -1,9 +1,10 @@
-Warning (10268): Verilog HDL information at xm23_cpu.v(241): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 241
 Warning (10268): Verilog HDL information at xm23_cpu.v(251): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 251
-Warning (10268): Verilog HDL information at view_data.v(32): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 32
-Warning (10268): Verilog HDL information at instruction_decoder.v(40): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/instruction_decoder.v Line: 40
-Warning (10268): Verilog HDL information at control_unit.v(112): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 112
-Warning (10268): Verilog HDL information at control_unit.v(144): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 144
-Warning (10268): Verilog HDL information at int_vect_entry.v(41): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/int_vect_entry.v Line: 41
-Warning (10268): Verilog HDL information at pedest_button.v(16): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/pedest_button.v Line: 16
-Warning (10268): Verilog HDL information at timer.v(17): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/timer.v Line: 17
+Warning (10268): Verilog HDL information at xm23_cpu.v(261): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 261
+Warning (10268): Verilog HDL information at view_data.v(41): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/view_data.v Line: 41
+Warning (10268): Verilog HDL information at instruction_decoder.v(49): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/instruction_decoder.v Line: 49
+Warning (10268): Verilog HDL information at control_unit.v(124): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 124
+Warning (10268): Verilog HDL information at control_unit.v(156): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 156
+Info (10281): Verilog HDL Declaration information at control_unit.v(62): object "dbl_flt" differs only in case from object "DBL_FLT" in the same scope File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/control_unit.v Line: 62
+Warning (10268): Verilog HDL information at int_vect_entry.v(50): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/int_vect_entry.v Line: 50
+Warning (10268): Verilog HDL information at pedest_button.v(25): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/pedest_button.v Line: 25
+Warning (10268): Verilog HDL information at timer.v(26): always construct contains both blocking and non-blocking assignments File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/timer.v Line: 26

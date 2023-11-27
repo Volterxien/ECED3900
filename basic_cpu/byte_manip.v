@@ -6,6 +6,7 @@
  * Module: 		byte_manip
  * Description: Handles the MOV* and SWPB instructions for XM-23
  * Acknowledgements:
+ *		See xm23_cpu.v
  */
 module byte_manip(op, dst_in, dst_out, byte_val);
 	input [2:0] op;

@@ -133,18 +133,18 @@ Step15
 	add.b	$1,R2	; R2 = R2 + 1 = FE
 	movls	#F1,R3	; R3 = FFF1
 	movlz	#AB,R3	; R3 = 00AB
-	movh	#1000,R3
-	movl	#0,R3	; R3 = 1000
-	movh	#1000,R2
-	movl	#2,R2	; R2 = 1002
-	st.b	R0,R3	; mem[1000] = 1
-	st.b	R0,+R3	; mem[1001] = 1 R3 = 1001
-	st.w	R1,R2-	; mem[1002:1003] = FF86 R2 = 1000
+	movh	#3000,R3
+	movl	#0,R3	; R3 = 3000
+	movh	#3000,R2
+	movl	#2,R2	; R2 = 3002
+	st.b	R0,R3	; mem[3000] = 1
+	st.b	R0,+R3	; mem[3001] = 1 R3 = 3001
+	st.w	R1,R2-	; mem[3002:3003] = FF87 R2 = 3000
 	ld.b 	R2,R1	; R1 = FF01
-	ld.b	+R3,R4	; R4 = C786 R3 = 1002
-	ld.w	R3-,R1	; R1 = FF86 R3 = 1000
-	str.b 	R1,R3,$4	; mem[1004] = 86
-	str.w	R1,R3,$8	; mem[1008:1009] = FF86
-	ldr.b 	R2,$4,R0	; R0 = 86
-	ldr.w	R2,$8,R3	; R1 = FF86
+	ld.b	+R3,R4	; R4 = C787 R3 = 3002
+	ld.w	R3-,R1	; R1 = FF87 R3 = 3000
+	str.b 	R1,R3,$4	; mem[3004] = 87
+	str.w	R1,R3,$8	; mem[3008:3009] = FF87
+	ldr.b 	R2,$4,R0	; R0 = 87
+	ldr.w	R2,$8,R3	; R1 = FF87
 

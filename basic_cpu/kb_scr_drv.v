@@ -6,6 +6,7 @@
  * Module: 		kb_scr_drv
  * Description: Manages the keyboard and screen CSRs and sends and receives signals with Arduino for data and control.
  * Acknowledgements:
+ *		See xm23_cpu.v
  */
 //CSR bits: 4 - ena, 3 - of, 2 - dba, 1 - io, 0 - ie
 module kb_scr_drv (

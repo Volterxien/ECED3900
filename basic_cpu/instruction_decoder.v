@@ -5,7 +5,8 @@
  * File Name: 	instruction_decoder.v
  * Module: 		instruction_decoder
  * Description: Deconstructs the machine code into opcode and operands.
- * Acknowledgements:https://stackoverflow.com/questions/47702202/case-statement-with-multiple-cases-doing-same-operation
+ * Acknowledgements:
+ * 		See xm23_cpu.v
  */
 module instruction_decoder (Instr, E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, ImByte, PRPO, DEC, INC, FLTo, Clock);
 	input [15:0] Instr;
@@ -29,8 +30,6 @@ module instruction_decoder (Instr, E, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCO
 	output reg DEC;
 	output reg INC;
 	output reg FLTo = 1'd0;
-	
-	// How to do multiple cases in one line came from: https://stackoverflow.com/questions/47702202/case-statement-with-multiple-cases-doing-same-operation
 	
 	wire [2:0] bits13to15;
 	wire [2:0] bits10to12;

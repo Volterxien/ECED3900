@@ -7,6 +7,7 @@
  * Description: Manages control signals to all CPU elements based on current step in CPU cycle and the current
 				instruction being completed.
  * Acknowledgements:
+ * 		See xm23_cpu.v
  */
 module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, WB, RC, PRPO, DEC, INC, psw_in, psw_out, 
 					ID_en, ctrl_reg_bus, data_bus_ctrl, addr_bus_ctrl, s_bus_ctrl, sxt_bit_num, sxt_rnum, sxt_shift, alu_op, 
@@ -329,7 +330,8 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 						begin
 							case(OP)
 								1,2,3,4,5: 	code = OP[6:0] - 7'd1;
-								6,7,8: 		code = OP[6:0] + 7'd4;
+								6,7: 		code = OP[6:0] + 7'd4;
+								8:			code = 7'd14;
 							endcase
 							cex_code(psw, code);
 							if (code_result == 1'b1) begin
@@ -542,7 +544,7 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 						32:	// LD (Second Step)
 						begin
 							dbus_rnum_dst <= (operands == 1'b0) ? (5'd0 + DST[2:0]) : data_dst_iv[4:0];		// Select the dst reg for the data bus
-							data_bus_ctrl = (operands == 1'b0) ? (7'b0000001 + (cpu_WB<<6)) : data_bus_ctrl_iv[6:0];										// Write the data from the MDR to the dst register
+							data_bus_ctrl = (operands == 1'b0) ? (7'b0000001 + (cpu_WB<<6)) : data_bus_ctrl_iv[6:0];	// Write the data from the MDR to the dst register
 							ctrl_reg_bus <= (operands == 1'b0) ? (3'b000 + (WB<<2)) : 3'b000;				// Read memory from MAR address to MDR
 						end
 						33: // ST (Second Step)
@@ -618,8 +620,6 @@ module control_unit(clock, ID_FLT, OP, OFF, C, T, F, PR, SA, PSWb, DST, SRCCON, 
 	task cex_code;
 		input [15:0] psw_in;
 		input [3:0] code;
-		
-		// Formatting of tasks from https://nandland.com/task/
 		begin
 			case (code)
 				0: 	// EQ/EZ

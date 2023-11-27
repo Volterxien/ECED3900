@@ -6,6 +6,7 @@
  * Module: 		pedest_button
  * Description: Driver to control CSR for pedestrian button.
  * Acknowledgements:
+ *		See xm23_cpu.v
  */
 module pedest_button (CSR_in, CSR_out, button, DR_out);
 	input [7:0] CSR_in;
