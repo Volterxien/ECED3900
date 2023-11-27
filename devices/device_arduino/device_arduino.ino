@@ -36,11 +36,6 @@ void setup() {
      }
      pinMode(READ_OK, OUTPUT);
      digitalWrite(READ_OK, LOW);
-     for (int i = 0; i < KB_PINS; i++)
-     {
-      Serial.print(kb_pins_arr[i]);
-      Serial.println(scr_pins_arr[i]);
-     }
 }
 
 char prnt_str[50];
@@ -67,8 +62,9 @@ void loop() {
        }
      }
      digitalWrite(WRITE_EN, HIGH);
-     Serial.print(val_in, BIN);
-     sprintf(prnt_str, " %c", val_in);
+    //uncomment below for binary debug print
+    //  Serial.print(val_in, BIN);
+     sprintf(prnt_str, "Data in: %c", val_in);
      Serial.println(prnt_str);
    }
 
@@ -78,8 +74,9 @@ void loop() {
       val_out = (val_out) | (!digitalRead(scr_pins_arr[i]) << i);
     }
     digitalWrite(READ_OK, HIGH);
-    Serial.println(val_out, BIN);
-      sprintf(prnt_str, " %c", val_out);
+    //uncomment below for binary debug print
+    // Serial.println(val_out, BIN);
+      sprintf(prnt_str, "Data out: %c", val_out);
       Serial.println(prnt_str);
   }
   else
