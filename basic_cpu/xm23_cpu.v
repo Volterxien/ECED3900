@@ -13,7 +13,7 @@
  * 		How to do multiple cases (throughout project) in one line came from Greg (2017).
  *		How to implement inferred ram in memory.v came from Intel (n.d.).
  *		How to implement tasks (throughout project) came from NANDLAND (n.d.-a).
- *		How to initialize memory (throughout project) came from examples in Project F (2021) and Bissa (2021).
+ *		How to initialize memory (throughout project) came from examples in Green (2021) and Bissa (2021).
  *		How to utilize blocking and non-blocking assignment (throughout project) came from NANDLAND (n.d.-b).
  *		How to make an always block have multiple sensitivities (throughout project) came from (FPGAcademy, 2022).
  *
@@ -23,6 +23,9 @@
  *
  * 	FPGAcademy. (2022, March). Using the ModelSim-Intel FPGA Simulator with Verilog testbenches.
  *		https://github.com/fpgacademy/Tutorials/releases/download/v21.1/ModelSim_Testbenches_Verilog.pdf
+ *
+ *	Green, W. (2021, July 20). Initialize memory in Verilog. Project F. Retrieved November 26, 2023, from 
+ *		https://projectf.io/posts/initialize-memory-in-verilog/
  *
  *	Greg. (2017, December 7). Re: case statement with multiple cases doing same operation [Comment]. 
  *		https://stackoverflow.com/questions/47702202/case-statement-with-multiple-cases-doing-same-operation
@@ -42,8 +45,6 @@
  *	NANDLAND. (n.d.-b). Blocking vs. Nonblocking in Verilog. Retrieved November 29, 2023, from 
  *		https://nandland.com/blocking-vs-nonblocking-in-verilog/
  *	
- *	Project F. (2021, July 20). Initialize memory in Verilog. Retrieved November 26, 2023, from 
- *		https://projectf.io/posts/initialize-memory-in-verilog/
  */
 module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO,
 				traffic_lights, push_button, arduino_data_i, arduino_data_o, arduino_ctrl_i, arduino_ctrl_o, test_gpio, test_gpio2);
