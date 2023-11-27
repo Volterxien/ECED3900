@@ -6,6 +6,7 @@
  * Module: 		timer
  * Description: Manages the CSR for the timer device.
  * Acknowledgements:
+ *		See xm23_cpu.v
  */
 module timer(CSR_in, DR_in, CSR_out, clock);
 	input [7:0] CSR_in, DR_in;

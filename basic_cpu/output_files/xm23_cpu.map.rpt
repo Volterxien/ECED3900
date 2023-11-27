@@ -1,5 +1,5 @@
 Analysis & Synthesis report for xm23_cpu
-Sun Nov 26 20:50:48 2023
+Sun Nov 26 21:06:01 2023
 Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
 
 
@@ -58,13 +58,13 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Nov 26 20:50:48 2023          ;
+; Analysis & Synthesis Status        ; Successful - Sun Nov 26 21:06:01 2023          ;
 ; Quartus Prime Version              ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
 ; Revision Name                      ; xm23_cpu                                       ;
 ; Top-level Entity Name              ; xm23_cpu                                       ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 6,124                                          ;
-;     Total combinational functions  ; 6,036                                          ;
+; Total logic elements               ; 6,123                                          ;
+;     Total combinational functions  ; 6,037                                          ;
 ;     Dedicated logic registers      ; 1,257                                          ;
 ; Total registers                    ; 1257                                           ;
 ; Total pins                         ; 132                                            ;
@@ -169,16 +169,16 @@ https://fpgasoftware.intel.com/eula.
 ; Number detected on machine ; 12          ;
 ; Maximum allowed            ; 6           ;
 ;                            ;             ;
-; Average used               ; 1.02        ;
+; Average used               ; 1.01        ;
 ; Maximum used               ; 6           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.4%      ;
-;     Processor 3            ;   0.4%      ;
-;     Processor 4            ;   0.3%      ;
-;     Processor 5            ;   0.3%      ;
-;     Processor 6            ;   0.3%      ;
+;     Processor 2            ;   0.1%      ;
+;     Processor 3            ;   0.1%      ;
+;     Processor 4            ;   0.1%      ;
+;     Processor 5            ;   0.1%      ;
+;     Processor 6            ;   0.1%      ;
 +----------------------------+-------------+
 
 
@@ -226,16 +226,16 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+------------+
 ; Resource                                    ; Usage      ;
 +---------------------------------------------+------------+
-; Estimated Total logic elements              ; 6,124      ;
+; Estimated Total logic elements              ; 6,123      ;
 ;                                             ;            ;
-; Total combinational functions               ; 6036       ;
+; Total combinational functions               ; 6037       ;
 ; Logic element usage by number of LUT inputs ;            ;
-;     -- 4 input functions                    ; 3644       ;
+;     -- 4 input functions                    ; 3643       ;
 ;     -- 3 input functions                    ; 2152       ;
-;     -- <=2 input functions                  ; 240        ;
+;     -- <=2 input functions                  ; 242        ;
 ;                                             ;            ;
 ; Logic elements by mode                      ;            ;
-;     -- normal mode                          ; 5872       ;
+;     -- normal mode                          ; 5873       ;
 ;     -- arithmetic mode                      ; 164        ;
 ;                                             ;            ;
 ; Total registers                             ; 1257       ;
@@ -249,7 +249,7 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;            ;
 ; Maximum fan-out node                        ; GPIO~input ;
 ; Maximum fan-out                             ; 1231       ;
-; Total fan-out                               ; 27268      ;
+; Total fan-out                               ; 27266      ;
 ; Average fan-out                             ; 3.58       ;
 +---------------------------------------------+------------+
 
@@ -259,7 +259,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                            ; Entity Name         ; Library Name ;
 +-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |xm23_cpu                                 ; 6036 (3633)         ; 1257 (923)                ; 524288      ; 0            ; 0       ; 0         ; 132  ; 0            ; |xm23_cpu                                                                                      ; xm23_cpu            ; work         ;
+; |xm23_cpu                                 ; 6037 (3633)         ; 1257 (923)                ; 524288      ; 0            ; 0       ; 0         ; 132  ; 0            ; |xm23_cpu                                                                                      ; xm23_cpu            ; work         ;
 ;    |alu:arithmetic_logic_unit|            ; 563 (563)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|alu:arithmetic_logic_unit                                                            ; alu                 ; work         ;
 ;    |byte_manip:byte_manipulator|          ; 57 (57)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|byte_manip:byte_manipulator                                                          ; byte_manip          ; work         ;
 ;    |control_unit:ctrl_unit|               ; 721 (647)           ; 133 (133)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|control_unit:ctrl_unit                                                               ; control_unit        ; work         ;
@@ -279,7 +279,7 @@ https://fpgasoftware.intel.com/eula.
 ;    |seven_seg_decoder:decode7|            ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|seven_seg_decoder:decode7                                                            ; seven_seg_decoder   ; work         ;
 ;    |seven_seg_decoder:decode8|            ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|seven_seg_decoder:decode8                                                            ; seven_seg_decoder   ; work         ;
 ;    |sign_extender:sxt_ext|                ; 46 (46)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|sign_extender:sxt_ext                                                                ; sign_extender       ; work         ;
-;    |timer:TMR|                            ; 326 (326)           ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|timer:TMR                                                                            ; timer               ; work         ;
+;    |timer:TMR|                            ; 327 (327)           ; 40 (40)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|timer:TMR                                                                            ; timer               ; work         ;
 ;    |traffic_lights:TL|                    ; 4 (4)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|traffic_lights:TL                                                                    ; traffic_lights      ; work         ;
 ;    |view_data:data_viewer|                ; 438 (410)           ; 28 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer                                                                ; view_data           ; work         ;
 ;       |seven_seg_decoder:decode1|         ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xm23_cpu|view_data:data_viewer|seven_seg_decoder:decode1                                      ; seven_seg_decoder   ; work         ;
@@ -476,8 +476,10 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 ; Inverted Register                       ; Fan out ;
 +-----------------------------------------+---------+
 ; reg_file[7][12]                         ; 10      ;
+; dev_mem[6][4]                           ; 14      ;
 ; kb_scr_drv:kb_scr|control_o[0]          ; 1       ;
 ; kb_scr_drv:kb_scr|control_o[1]          ; 1       ;
+; dev_mem[0][1]                           ; 11      ;
 ; reg_file[10][1]                         ; 5       ;
 ; reg_file[15][1]                         ; 4       ;
 ; reg_file[15][9]                         ; 4       ;
@@ -485,6 +487,8 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 ; control_unit:ctrl_unit|dbus_rnum_dst[0] ; 9       ;
 ; control_unit:ctrl_unit|dbus_rnum_dst[1] ; 15      ;
 ; control_unit:ctrl_unit|dbus_rnum_dst[2] ; 9       ;
+; dev_mem[1][1]                           ; 109     ;
+; dev_mem[8][1]                           ; 3       ;
 ; reg_file[9][0]                          ; 5       ;
 ; reg_file[15][0]                         ; 4       ;
 ; reg_file[15][8]                         ; 4       ;
@@ -494,6 +498,7 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 ; reg_file[11][2]                         ; 5       ;
 ; reg_file[15][2]                         ; 4       ;
 ; reg_file[15][10]                        ; 4       ;
+; dev_mem[8][4]                           ; 4       ;
 ; control_unit:ctrl_unit|psw[5]           ; 4       ;
 ; reg_file[14][5]                         ; 5       ;
 ; reg_file[15][5]                         ; 4       ;
@@ -502,6 +507,7 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 ; reg_file[13][4]                         ; 5       ;
 ; reg_file[15][4]                         ; 4       ;
 ; reg_file[15][12]                        ; 4       ;
+; dev_mem[0][4]                           ; 38      ;
 ; control_unit:ctrl_unit|psw[7]           ; 4       ;
 ; reg_file[15][7]                         ; 4       ;
 ; reg_file[15][15]                        ; 4       ;
@@ -519,7 +525,7 @@ Table restricted to first 100 entries. Note: All latches listed above may not be
 ; control_unit:ctrl_unit|alu_rnum_src[3]  ; 63      ;
 ; psw_in[13]                              ; 1       ;
 ; psw_in[14]                              ; 1       ;
-; Total number of inverted registers = 44 ;         ;
+; Total number of inverted registers = 50 ;         ;
 +-----------------------------------------+---------+
 
 
@@ -872,20 +878,20 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA SLD           ; 275                         ;
 ;     SLD               ; 13                          ;
 ;     plain             ; 798                         ;
-; cycloneiii_lcell_comb ; 6040                        ;
+; cycloneiii_lcell_comb ; 6041                        ;
 ;     arith             ; 164                         ;
 ;         2 data inputs ; 93                          ;
 ;         3 data inputs ; 71                          ;
-;     normal            ; 5876                        ;
+;     normal            ; 5877                        ;
 ;         0 data inputs ; 1                           ;
-;         1 data inputs ; 20                          ;
+;         1 data inputs ; 22                          ;
 ;         2 data inputs ; 130                         ;
 ;         3 data inputs ; 2081                        ;
-;         4 data inputs ; 3644                        ;
+;         4 data inputs ; 3643                        ;
 ; cycloneiii_ram_block  ; 64                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 25.00                       ;
-; Average LUT depth     ; 13.13                       ;
+; Average LUT depth     ; 13.12                       ;
 +-----------------------+-----------------------------+
 
 
@@ -894,7 +900,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:19     ;
+; Top            ; 00:00:16     ;
 +----------------+--------------+
 
 
@@ -904,7 +910,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
-    Info: Processing started: Sun Nov 26 20:50:08 2023
+    Info: Processing started: Sun Nov 26 21:05:22 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off xm23_cpu -c xm23_cpu
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
@@ -1280,6 +1286,8 @@ Info (12128): Elaborating entity "pedest_button" for hierarchy "pedest_button:PB
 Warning (10855): Verilog HDL warning at pedest_button.v(18): initial value for variable CSR should be constant File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/pedest_button.v Line: 18
 Warning (10240): Verilog HDL Always Construct warning at pedest_button.v(25): inferring latch(es) for variable "DR_out", which holds its previous value in one or more paths through the always construct File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/pedest_button.v Line: 25
 Info (10041): Inferred latch for "DR_out[0]" at pedest_button.v(25) File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/pedest_button.v Line: 25
+Info (276014): Found 1 instances of uninferred RAM logic
+    Info (276007): RAM logic "timer:TMR|clock_table" is uninferred due to asynchronous read logic File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/timer.v Line: 15
 Info (19000): Inferred 1 megafunctions from design logic
     Info (276029): Inferred altsyncram megafunction from the following design logic: "memory:ram|memory_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to BIDIR_DUAL_PORT
@@ -1644,16 +1652,16 @@ Warning (21074): Design contains 3 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[16]" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 14
     Warning (15610): No output dependent on input pin "KEY[0]" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 15
     Warning (15610): No output dependent on input pin "CLOCK_50" File: C:/Users/mccoy/Documents/ECED3900/basic_cpu/xm23_cpu.v Line: 16
-Info (21057): Implemented 6966 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 6965 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 35 input pins
     Info (21059): Implemented 97 output pins
-    Info (21061): Implemented 6770 logic cells
+    Info (21061): Implemented 6769 logic cells
     Info (21064): Implemented 64 RAM segments
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 515 warnings
-    Info: Peak virtual memory: 4904 megabytes
-    Info: Processing ended: Sun Nov 26 20:50:48 2023
+    Info: Peak virtual memory: 4879 megabytes
+    Info: Processing ended: Sun Nov 26 21:06:02 2023
     Info: Elapsed time: 00:00:40
-    Info: Total CPU time (on all processors): 00:00:40
+    Info: Total CPU time (on all processors): 00:00:39
 
 
 +------------------------------------------+

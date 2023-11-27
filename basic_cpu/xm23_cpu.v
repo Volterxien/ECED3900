@@ -2,12 +2,48 @@
  * Top level module for XM-23 CPU.
  * Author:		Mark McCoy, Jacques Bosse, Tori Ebanks
  * Date:		November 25, 2023	
- * File Name: 	view_data.v
- * Module: 		view_data
+ * File Name: 	xm23_cpu.v
+ * Module: 		xm23_cpu
  * Description: Module that instantiates all other modules and handles memory bus allocation.
- * Acknowledgements:https://projectf.io/posts/initialize-memory-in-verilog/
-					https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
-					
+ * Acknowledgements:
+ *		This project was built using the XM3 document provided by Dr. Larry Hughes (2020).
+ *		The basics for programming in Verilog were learned through tutorials provided by Dr. Ma (n.d.).
+ *		We greatly appreciate their help in this project.
+ *
+ * 		How to do multiple cases (throughout project) in one line came from Greg (2017).
+ *		How to implement inferred ram in memory.v came from Intel (n.d.).
+ *		How to implement tasks (throughout project) came from NANDLAND (n.d.-a).
+ *		How to initialize memory (throughout project) came from examples in Project F (2021) and Bissa (2021).
+ *		How to utilize blocking and non-blocking assignment (throughout project) came from NANDLAND (n.d.-b).
+ *		How to make an always block have multiple sensitivities (throughout project) came from (FPGAcademy, 2022).
+ *
+ * References:
+ *	Bissa, P. (2021, November 29). Re: read from file to memory in verilog [Comment]. 
+ *		https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
+ *
+ * 	FPGAcademy. (2022, March). Using the ModelSim-Intel FPGA Simulator with Verilog testbenches.
+ *		https://github.com/fpgacademy/Tutorials/releases/download/v21.1/ModelSim_Testbenches_Verilog.pdf
+ *
+ *	Greg. (2017, December 7). Re: case statement with multiple cases doing same operation [Comment]. 
+ *		https://stackoverflow.com/questions/47702202/case-statement-with-multiple-cases-doing-same-operation
+ *	
+ *	Hughes, L. (2020). Introduction to the XM3 Instruction Set Architecture. Retrieved January 
+ *		20, 2023, via email from Dr. Larry Hughes.
+ *
+ *	Intel. (n.d.). Intel® Quartus® Prime Pro Edition User Guide: Design recommendations: 1.4.1.8. True Dual-Port 
+ *		Synchronous RAM. Retrieved November 18, 2023, from 
+ *		https://www.intel.com/content/www/us/en/docs/programmable/683082/22-3/true-dual-port-synchronous-ram.html
+ *	
+ *	Ma, Y. (n.d.). ECED 4260 – IC Design and Fabrication. Advanced MicroElectroMechanical Systems (A-MEMS) 
+ *			and Application Laboratory. Retrieved April 4, 2023, from http://mems.ece.dal.ca/eced4260/labs.php
+ *
+ *	NANDLAND. (n.d.-a). Task – Verilog example. Retrieved November 18, 2023, from https://nandland.com/task/
+ *
+ *	NANDLAND. (n.d.-b). Blocking vs. Nonblocking in Verilog. Retrieved November 29, 2023, from 
+ *		https://nandland.com/blocking-vs-nonblocking-in-verilog/
+ *	
+ *	Project F. (2021, July 20). Initialize memory in Verilog. Retrieved November 26, 2023, from 
+ *		https://projectf.io/posts/initialize-memory-in-verilog/
  */
 module xm23_cpu (SW, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7, LEDG, LEDG7, LEDR, LEDR16_17, KEY, CLOCK_50, GPIO,
 				traffic_lights, push_button, arduino_data_i, arduino_data_o, arduino_ctrl_i, arduino_ctrl_o, test_gpio, test_gpio2);

@@ -6,6 +6,7 @@
  * Module: 		int_vect_entry
  * Description: Pushes required data to the stack and pulls data from entry in IVT corresponding to the interrupt, trap, or fault called.
  * Acknowledgements:
+ *		See xm23_cpu.v
  */
 module int_vect_entry (counter, operands, word_byte, inc_iv, dec_iv, iv_cpu_rst, psw_entry_update, 
 						clear_cex, PSW_ENT, data_src_iv, addr_src_iv, data_dst_iv, inst_type,

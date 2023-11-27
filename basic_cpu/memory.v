@@ -5,11 +5,11 @@
  * File Name: 	memory.v
  * Module: 		memory
  * Description: Module for instantiating and accessing main memory
- * Acknowledgements:https://www.intel.com/content/www/us/en/docs/programmable/683082/22-3/true-dual-port-synchronous-ram.html
+ * Acknowledgements:
+ * 		See xm23_cpu.v
  */
 module memory (Clock, lb_in, ub_in, lb_addr, ub_addr, we_lb, we_ub, lb_out, ub_out);
 
-	// Inferred RAM structure from https://www.intel.com/content/www/us/en/docs/programmable/683082/22-3/true-dual-port-synchronous-ram.html
 	input Clock, we_lb, we_ub;
 	input [7:0] lb_in, ub_in;
 	input [15:0] lb_addr, ub_addr;

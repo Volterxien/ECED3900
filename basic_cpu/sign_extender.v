@@ -6,6 +6,7 @@
  * Module: 		sign_extender
  * Description: Does sign extension to 16-bit values.
  * Acknowledgements:
+ *		See xm23_cpu.v
  */
 module sign_extender(in, out, msb_num, shift_first);
 	input [15:0] in;
