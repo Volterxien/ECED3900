@@ -16,6 +16,7 @@
  *		How to initialize memory (throughout project) came from examples in Green (2021) and Bissa (2021).
  *		How to utilize blocking and non-blocking assignment (throughout project) came from NANDLAND (n.d.-b).
  *		How to make an always block have multiple sensitivities (throughout project) came from (FPGAcademy, 2022).
+ *		Logic for the CEX execution came from McCoy (2022).
  *
  * References:
  *	Bissa, P. (2021, November 29). Re: read from file to memory in verilog [Comment]. 
@@ -39,6 +40,8 @@
  *	
  *	Ma, Y. (n.d.). ECED 4260 – IC Design and Fabrication. Advanced MicroElectroMechanical Systems (A-MEMS) 
  *			and Application Laboratory. Retrieved April 4, 2023, from http://mems.ece.dal.ca/eced4260/labs.php
+ *
+ * 	McCoy, M. (2022). debug.c [Unpublished code]. Electrical and Computer Engineering Department, Dalhousie University.
  *
  *	NANDLAND. (n.d.-a). Task – Verilog example. Retrieved November 18, 2023, from https://nandland.com/task/
  *
