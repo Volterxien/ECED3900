@@ -19,7 +19,7 @@
  *		Logic for the CEX execution came from McCoy (2022).
  *
  * References:
- *	Bissa, P. (2021, November 29). Re: read from file to memory in verilog [Comment]. 
+ *	Bissa, P. (2021, November 29). Re: read from file to memory in verilog [Comment]. Stack Overflow. 
  *		https://stackoverflow.com/questions/70151532/read-from-file-to-memory-in-verilog
  *
  * 	FPGAcademy. (2022, March). Using the ModelSim-Intel FPGA Simulator with Verilog testbenches.
