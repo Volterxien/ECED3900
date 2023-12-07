@@ -5,7 +5,13 @@
 
 #define READ_OK PIN_CONST + (KB_PINS - 2)*2 + 1 //39
 #define READ_EN PIN_CONST + (KB_PINS - 1)*2 + 1 //41
+/*
+Idea to use Serial.available() for the keyboard came from reading the documentation (Arduino, n.d.).
 
+Reference:
+Arduino. (n.d.). Serial.available(). Retrieved November 30, 2023, from 
+  https://www.arduino.cc/reference/en/language/functions/communication/serial/available/
+*/
 
 int val_in;
 int val_out;
